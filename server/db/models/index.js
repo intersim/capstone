@@ -5,4 +5,4 @@ require('./user');
 // require('./comment');
 // require('./composition');
 require('./track');
-// require('./loop');
+require('./loop');
