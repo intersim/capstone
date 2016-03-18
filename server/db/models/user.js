@@ -15,7 +15,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     image: {
-        contentType: String
+        type: String
     },
     following:[{
         type: mongoose.Schema.Types.ObjectId,
