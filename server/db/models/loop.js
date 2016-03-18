@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
     name: {
         type: String,
         unique: true
-    }
+    },
     numUses: Number,
     source: String,
     category: {
@@ -23,14 +23,14 @@ var schema = new mongoose.Schema({
 
 schema.statics.findByCreator = function(userId) {
     return this.find({creator: creator});
-}
+};
 
 schema.statics.findByTag = function(tag) {
     return this.find({tags: tag});
-}
+};
 
 schema.statics.findByTags = function(tags) {
-    return this.find({tags: $in: tags});
-}
+    return this.find({tags: { $in: tags } });
+};
 
 module.exports = mongoose.model('Loop', schema);
