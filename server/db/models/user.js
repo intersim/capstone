@@ -4,6 +4,35 @@ var mongoose = require('mongoose');
 var _ = require('lodash');
 
 var schema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true
+    },
+    bio: {
+        type: String
+    },
+    websites: {
+        type: String
+    },
+    image: {
+        contentType: String
+    },
+    following:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    bucket: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Loop'
+    }],
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    favorites: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Composition'
+    }],
     email: {
         type: String
     },
@@ -23,6 +52,9 @@ var schema = new mongoose.Schema({
         id: String
     },
     google: {
+        id: String
+    },
+    soundcloud: {
         id: String
     }
 });
