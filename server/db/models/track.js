@@ -10,6 +10,7 @@ var schema = new mongoose.Schema({
     },
     startTime: Number
     }],
+    volume: Number,
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
