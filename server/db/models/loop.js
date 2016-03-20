@@ -3,18 +3,19 @@
 var mongoose = require('mongoose');
 
 var NoteSchema = new mongoose.Schema({
-    time: {
+    length: {
         type: String,
-        required: true
+        required: true,
+        enum: ['1n', '2n', '4n', '8n', '16n']
     },
     value: {
         type: String,
         required: true,
         validate: {
             validator: function(value) {
-                return /^[a-g]#*b*[1-9][0]*/gi.test(value);
+                return /^[a-g]#*b*[1-9][0]*/gi.test(value) || /\d/g.test(value);
             },
-            message: '{VALUE} is not a valid note - correct format is <noteLetter>[#|b]<octaveNumber>'
+            message: '{VALUE} is not a valid note - correct format is <noteLetter>[#|b]<octaveNumber> OR frequency as a number'
         }
     }
 })
