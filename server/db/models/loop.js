@@ -42,11 +42,11 @@ var LoopSchema = new mongoose.Schema({
         unique: true
     },
     numUses: Number,
-    source: String,
     category: {
         type: String,
         enum: ['rhythm', 'chord', 'melody']
-    }
+    },
+    notes: [NoteSchema]
 });
 
 LoopSchema.statics.findByCreator = function(userId) {
