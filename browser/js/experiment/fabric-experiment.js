@@ -1,3 +1,7 @@
+// initialize instrument
+var synth = new Tone.SimpleSynth().toMaster();
+
+// initialize canvas for a 8 * 8 grid
 var canvas = new fabric.Canvas('c', { 
     selection: false
   });
@@ -6,14 +10,14 @@ canvas.setWidth(320);
 canvas.renderAll();
 var grid = 40;
 
-// create grid, 8 * 8
 
+// draw lines on grid
 for (var i = 0; i < (320 / grid); i++) {
   canvas.add(new fabric.Line([ i * grid, 0, i * grid, 320], { stroke: '#ccc', selectable: false }));
   canvas.add(new fabric.Line([ 0, i * grid, 320, i * grid], { stroke: '#ccc', selectable: false }))
 }
 
-// snap to grid, but only when moving (not when resizing yet):
+// snap to grid, but only when moving (not when resizing objs yet):
 canvas.on('object:moving', function(options) {
   options.target.set({
     left: Math.round(options.target.left / grid) * grid,
@@ -27,7 +31,7 @@ function nextObjId () {
   return lastObjId++;
 };
 
-//change this to a double-click event (have to add a listener)
+// change this to a double-click event (have to add a listener)?
 canvas.on('mouse:down', function(options){
   if (options.target) return;
   var newId = nextObjId();
@@ -48,9 +52,12 @@ canvas.on('mouse:down', function(options){
     })
   );
 
+  console.log("offset X&Y: ", options.e.offsetX, options.e.offsetY);
   var newItem = canvas.item(newId);
   canvas.setActiveObject(newItem);
-  console.log("offset X&Y: ", options.e.offsetX, options.e.offsetY);
+
+  // sound a tone!
+  synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
 });
 
 $('#delete').click(function () {
@@ -58,20 +65,18 @@ $('#delete').click(function () {
   //also delete tone event
 });
 
-function getPitchStr () {
-  var yVal = options.e.offsetY;
-  if (yVal >= 0 && yVal < 40) return "C4";
-  if (yVal >= 40 && yVal < 80) return "D4";
-  if (yVal >= 80 && yVal < 120) return "E4";
-  if (yVal >= 120 && yVal < 160) return "F4";
-  if (yVal >= 160 && yVal < 200) return "G4";
-  if (yVal >= 200 && yVal < 240) return "A4";
-  if (yVal >= 240 && yVal < 280) return "B4";
-  if (yVal >= 280 && yVal < 320) return "C5";
+function getPitchStr (yVal) {
+  if (yVal >= 0 && yVal < 40) return "c5";
+  if (yVal >= 40 && yVal < 80) return "b4";
+  if (yVal >= 80 && yVal < 120) return "a4";
+  if (yVal >= 120 && yVal < 160) return "g4";
+  if (yVal >= 160 && yVal < 200) return "f4";
+  if (yVal >= 200 && yVal < 240) return "e4";
+  if (yVal >= 240 && yVal < 280) return "d4";
+  if (yVal >= 280 && yVal < 320) return "c4";
 }
 
-function getBeatStr () {
-  var xVal = options.e.offsetX;
+function getBeatStr (xVal) {
   if (xVal >= 0 && xVal < 40) return "0:0:0";
   if (xVal >= 40 && xVal < 80) return "0:0:2";
   if (xVal >= 80 && xVal < 120) return "0:1:0";
@@ -80,6 +85,17 @@ function getBeatStr () {
   if (xVal >= 200 && xVal < 240) return "0:2:2";
   if (xVal >= 240 && xVal < 280) return "0:3:0";
   if (xVal >= 280 && yVal < 320) return "0:3:2";
+}
+
+function getDurationStr (xVal) {
+  // on object resize, get new X value / 4, and then convert that into
+  // then schedule new tone
+}
+
+function scheduleTone (objX, objY) {
+  Tone.Transport.schedule(function(){
+    synth.triggerAttackRelease(getPitchStr(objY), "8n");
+  }, getBeatStr(objX));
 }
 
 // make new objects with double-click: add double-click listener
