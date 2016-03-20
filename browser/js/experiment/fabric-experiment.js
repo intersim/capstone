@@ -58,6 +58,8 @@ canvas.on('mouse:down', function(options){
 
   // sound a tone!
   synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
+  // what beat should it be on?
+  console.log("this col's beat: ", getBeatStr(options.e.offsetX));
 });
 
 $('#delete').click(function () {
@@ -84,13 +86,13 @@ function getBeatStr (xVal) {
   if (xVal >= 160 && xVal < 200) return "0:2:0";
   if (xVal >= 200 && xVal < 240) return "0:2:2";
   if (xVal >= 240 && xVal < 280) return "0:3:0";
-  if (xVal >= 280 && yVal < 320) return "0:3:2";
+  if (xVal >= 280 && xVal < 320) return "0:3:2";
 }
 
-function getDurationStr (xVal) {
-  // on object resize, get new X value / 4, and then convert that into
-  // then schedule new tone
-}
+// function getDurationStr (xVal) {
+//   // on object resize, get new X value / 4, and then convert that into
+//   // then schedule new tone
+// }
 
 function scheduleTone (objX, objY) {
   Tone.Transport.schedule(function(){
