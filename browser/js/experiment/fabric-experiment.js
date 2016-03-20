@@ -27,14 +27,10 @@ canvas.on('object:moving', function(options) {
 
 var lastObjId = 16; //first 16 items are the canvas itself and the lines on it
 
-function nextObjId () {
-  return lastObjId++;
-};
-
 // change this to a double-click event (have to add a listener)?
 canvas.on('mouse:down', function(options){
   if (options.target) return;
-  var newId = nextObjId();
+  var newId = lastObjId++;
 
   canvas.add(new fabric.Rect({
       id: newId,
@@ -64,6 +60,7 @@ canvas.on('mouse:down', function(options){
 
 $('#delete').click(function () {
   canvas.getActiveObject().remove();
+  lastObjId--;
   //also delete tone event
 });
 
