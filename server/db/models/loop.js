@@ -13,9 +13,19 @@ var NoteSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(value) {
-                return /^[a-g]#*b*[1-9][0]*/gi.test(value) || /\d/g.test(value);
+                return /^[a-g]{1}(b|#|x|bb)?-?[0-9]+$/i.test(value) || /^\d*\.?\d+hz$/i.test(value);
             },
             message: '{VALUE} is not a valid note - correct format is <noteLetter>[#|b]<octaveNumber> OR frequency as a number'
+        }
+    },
+    transportTime: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(value) {
+                return /^(\d+(\.\d+)?\:){1,2}(\d+(\.\d+)?)?$/i.test(value);
+            },
+            message: '{VALUE} is not a valid transport time - specify in format BARS:QUARTERS:SIXTEENTHS'
         }
     }
 })
