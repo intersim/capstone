@@ -8,7 +8,7 @@ var NoteSchema = new mongoose.Schema({
         required: true,
         enum: ['1n', '2n', '4n', '8n', '16n']
     },
-    value: {
+    pitch: {
         type: String,
         required: true,
         validate: {
