@@ -1,6 +1,37 @@
 // initialize instrument
 var synth = new Tone.SimpleSynth().toMaster();
 
+// initialize looping
+Tone.Transport.loop = true;
+Tone.Transport.loopStart = "0:0:0";
+Tone.Transport.loopEnd = "0:4:0";
+
+// intialize Transport event timeline tracking
+var lastEvent = null;
+
+// buttons
+$('#stop').hide();
+
+$('#play').click(function () {
+  Tone.Transport.start();
+  $('#play').hide();
+  $('#stop').show();
+});
+
+$('#stop').click(function () {
+  Tone.Transport.stop();
+  $('#play').show();
+  $('#stop').hide();
+});
+
+$('#delete').click(function () {
+  canvas.getActiveObject().remove();
+  lastObjId--;
+  //also delete tone event:
+  Tone.Transport.clear(lastEvent);
+  lastEvent <= 0 ? lastEvent = null : lastEvent--;
+});
+
 // initialize canvas for a 8 * 8 grid
 var canvas = new fabric.Canvas('c', { 
     selection: false
@@ -10,14 +41,13 @@ canvas.setWidth(320);
 canvas.renderAll();
 var grid = 40;
 
-
 // draw lines on grid
 for (var i = 0; i < (320 / grid); i++) {
   canvas.add(new fabric.Line([ i * grid, 0, i * grid, 320], { stroke: '#ccc', selectable: false }));
   canvas.add(new fabric.Line([ 0, i * grid, 320, i * grid], { stroke: '#ccc', selectable: false }))
 }
 
-// snap to grid, but only when moving (not when resizing objs yet):
+// snap to grid when moving obj (doesn't work when resizing):
 canvas.on('object:moving', function(options) {
   options.target.set({
     left: Math.round(options.target.left / grid) * grid,
@@ -25,17 +55,22 @@ canvas.on('object:moving', function(options) {
   });
 });
 
-var lastObjId = 16; //first 16 items are the canvas itself and the lines on it
+var lastObjId = 16; //first 15 items are the canvas itself and the lines on it
 
+// create a new rectangle obj on mousedown in canvas area
 // change this to a double-click event (have to add a listener)?
 canvas.on('mouse:down', function(options){
-  if (options.target) return;
+  if (options.target) {
+    synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
+    return;
+  }
+
   var newId = lastObjId++;
 
   canvas.add(new fabric.Rect({
       id: newId,
-      left: options.e.offsetX,
-      top: options.e.offsetY,
+      left: Math.floor(options.e.offsetX / 40) * 40,
+      top: Math.floor(options.e.offsetY / 40) * 40,
       width: 40, 
       height: 40, 
       fill: '#faa', 
@@ -48,20 +83,17 @@ canvas.on('mouse:down', function(options){
     })
   );
 
-  console.log("offset X&Y: ", options.e.offsetX, options.e.offsetY);
   var newItem = canvas.item(newId);
   canvas.setActiveObject(newItem);
+  console.log('id of new obj: ', canvas.getActiveObject().get('id'));
 
-  // sound a tone!
+  // sound tone when clicking, and schedule
   synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
-  // what beat should it be on?
-  console.log("this col's beat: ", getBeatStr(options.e.offsetX));
-});
+  var eventId = scheduleTone(options.e.offsetX, options.e.offsetY);
+  console.log('id of new transport evt: ', eventId);
 
-$('#delete').click(function () {
-  canvas.getActiveObject().remove();
-  lastObjId--;
-  //also delete tone event
+  //increment last event for clear button
+  lastEvent === null ? lastEvent = 0 : lastEvent++;
 });
 
 function getPitchStr (yVal) {
@@ -86,18 +118,20 @@ function getBeatStr (xVal) {
   if (xVal >= 280 && xVal < 320) return "0:3:2";
 }
 
+function scheduleTone (objX, objY) {
+  var eventId = Tone.Transport.schedule(function(){
+    synth.triggerAttackRelease(getPitchStr(objY), "8n");
+  }, getBeatStr(objX));
+  return eventId;
+}
+
 // function getDurationStr (xVal) {
-//   // on object resize, get new X value / 4, and then convert that into
+//   // on object resize, get new X value / 40
+//   // convert that into duration string (8n, 4n, etc.)
 //   // then schedule new tone
 // }
 
-function scheduleTone (objX, objY) {
-  Tone.Transport.schedule(function(){
-    synth.triggerAttackRelease(getPitchStr(objY), "8n");
-  }, getBeatStr(objX));
-}
 
-// make new objects with double-click: add double-click listener
 // can set id of selected object and link it to Transport id
 // want selected object to only show middle-left controls and middle right-controls
 // scale only in grid increments?
