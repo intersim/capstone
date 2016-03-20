@@ -3,13 +3,15 @@
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    loops: [{
-    loop: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Loop'
-    },
-    startTime: Number
-    }],
+    loops: [
+        {
+            loop: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Loop'
+            },
+            startTime: Number
+        }
+    ],
     volume: Number,
     owner: {
         type: mongoose.Schema.Types.ObjectId,

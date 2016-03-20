@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose');
 
-var schema = new mongoose.Schema({
+
+var CompositionSchema = new mongoose.Schema({
   artist: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -15,4 +16,4 @@ var schema = new mongoose.Schema({
   numFavorites: Number
 });
 
-module.exports = mongoose.model('Composition', schema);
+module.exports = mongoose.model('Composition', CompositionSchema);
