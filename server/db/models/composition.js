@@ -16,11 +16,20 @@ var CompositionSchema = new mongoose.Schema({
     ref: 'User'
   },
   tempo: Number,
-  publish: Boolean,
+  publish: {
+    type: Boolean,
+    default: false
+  },
   tags: [String],
-  title: String,
+  title: {
+    type: String,
+    required: true
+  },
   description: String,
-  numFavorites: Number
+  numFavorites: {
+    type: Number,
+    default: 0
+  }
 });
 
 CompositionSchema.methods.getTracks = function() {
