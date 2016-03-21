@@ -4,7 +4,7 @@ module.exports = router;
 
 router.use('/members', require('./members'));
 
-router.use('/composition', require('./composition'));
+router.use('/compositions', require('./compositions'));
 
 
 
