@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var Composition = require('../../db/models/composition');
 
-router.param('composition', function(req, res, next) {
+router.param('compositionId', function(req, res, next) {
   Composition.findById(req.params.composition)
   .then(function(composition) {
     if (composition) req.composition = composition;
@@ -26,11 +26,11 @@ router.post('/', function(req, res, next) {
   })
 });
 
-router.get('/composition', function(req, res, next) {
+router.get('/compositionId', function(req, res, next) {
   res.json(req.composition);
 });
 
-router.put('/composition', functino(req, res, next) {
+router.put('/compositionId', functino(req, res, next) {
   req.composition.set(req.body);
   req.composition.save()
   .then(function(composition){
@@ -38,7 +38,7 @@ router.put('/composition', functino(req, res, next) {
   })
 });
 
-router.delete('/composition', function(req, res, next) {
+router.delete('/compositionId', function(req, res, next) {
   req.composition.remove()
   .then(function(){
     res.status(204).send();
