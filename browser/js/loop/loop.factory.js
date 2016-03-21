@@ -3,6 +3,7 @@
 app.factory('LoopFactory', function($http){
   var LoopFactory = {};
 
+  var canvas;
   var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
             "oscillator" : {
                 "partials" : [0, 2, 3, 4],
@@ -19,6 +20,7 @@ app.factory('LoopFactory', function($http){
   var lastEvent = null;
   var lastObjId = 16;
 
+  var loopMusicData = {};
 
   function getPitchStr (yVal) {
     if (yVal >= 0 && yVal < 40) return "c5";
@@ -42,17 +44,21 @@ app.factory('LoopFactory', function($http){
     if (xVal >= 280 && xVal < 320) return "0:3:2";
   }
 
-  function scheduleTone (objX, objY) {
+  function scheduleTone (objX, objY, newObjectId) {
+    var pitch = getPitchStr(objY);
+    var duration = "8n";
+    var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
-      synth.triggerAttackRelease(getPitchStr(objY), "8n");
-    }, getBeatStr(objX));
+      synth.triggerAttackRelease(pitch, duration);
+    }, startTime);
+    loopMusicData[newObjectId] = {pitch: pitch, duration: duration, startTime: startTime};
     return eventId;
   }
 
   LoopFactory.initialize = function() {
 
     // initialize canvas for a 8 * 8 grid
-    var canvas = new fabric.Canvas('c', { 
+    canvas = new fabric.Canvas('c', { 
         selection: false
       });
     canvas.setHeight(320);
@@ -83,6 +89,8 @@ app.factory('LoopFactory', function($http){
         top: Math.round(options.target.top / grid) * grid
       });
       var idC = canvas.getActiveObject().id
+      var noteToDelete = loopMusicData[idC];
+      delete loopMusicData[idC];
       
       //delete old event
       Tone.Transport.clear(idC - 16);
@@ -93,10 +101,11 @@ app.factory('LoopFactory', function($http){
       var yVal = Math.ceil(options.target.oCoords.tl.y)
       if(yVal < 0) yVal = 0;
       // console.log("x: ", xVal, "y: ", yVal)
-      var newEventId = scheduleTone(xVal, yVal);
-      console.log("newEventId: ", newEventId);
-      newIdC = canvas.getActiveObject().set('id', newEventId + 16);
-      console.log("new objId: ", newIdC);
+      var newObjectId = newEventId + 16;
+      var newEventId = scheduleTone(xVal, yVal, newObjectId);
+      // console.log("newEventId: ", newEventId);
+      newIdC = canvas.getActiveObject().set('id', newObjectId);
+      // console.log("new objId: ", newIdC);
   }
 
   LoopFactory.addNote = function(options){
@@ -105,11 +114,10 @@ app.factory('LoopFactory', function($http){
       return;
     }
 
-    var newId = lastObjId++;
-
+    var newObjectId = lastObjId++;
 
     canvas.add(new fabric.Rect({
-        id: newId,
+        id: newObjectId,
         left: Math.floor(options.e.offsetX / 40) * 40,
         right: Math.floor(options.e.offsetX / 40) * 40,
         top: Math.floor(options.e.offsetY / 40) * 40,
@@ -126,27 +134,37 @@ app.factory('LoopFactory', function($http){
       })
     );
 
-    var newItem = canvas.item(newId);
+    var newItem = canvas.item(newObjectId);
     canvas.setActiveObject(newItem);
-    console.log('id of new obj: ', canvas.getActiveObject().get('id'));
+    // console.log('id of new obj: ', canvas.getActiveObject().get('id'));
 
     // sound tone when clicking, and schedule
     synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
-    console.log('options e from 124', options.e)
-    var eventId = scheduleTone(options.e.offsetX, options.e.offsetY);
-    console.log('id of new transport evt: ', eventId);
+    // console.log('options e from 124', options.e)
+    var eventId = scheduleTone(options.e.offsetX, options.e.offsetY, newObjectId);
+    // console.log('id of new transport evt: ', eventId);
 
     //increment last event for clear button
     lastEvent === null ? lastEvent = 0 : lastEvent++;
   }
 
   LoopFactory.deleteNote = function(){
-    var selectedObjectId = canvas.getActiveObject().id
+    var selectedObjectId = canvas.getActiveObject().id;
     canvas.getActiveObject().remove();
     lastObjId--;
-    //also delete tone event:
+    // also delete tone event:
     Tone.Transport.clear(selectedObjectId-16);
+    // delete from JSON data store
+    delete loopMusicData[selectedObjectId];
     lastEvent <= 0 ? lastEvent = null : lastEvent--;
+  }
+
+  LoopFactory.save = function() {
+    var dataToSave = [];
+    for (var i in loopMusicData) {
+      dataToSave.push(loopMusicData[i]);
+    }
+    $http.post('/api/loops', dataToSave);
   }
 
   return LoopFactory;

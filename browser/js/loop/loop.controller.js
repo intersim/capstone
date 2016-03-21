@@ -1,5 +1,7 @@
 app.controller('LoopController', function ($scope, LoopFactory) {
 
+  LoopFactory.initialize();
+
   $scope.playing = false;
 
   $scope.toggle = function() {
@@ -14,4 +16,5 @@ app.controller('LoopController', function ($scope, LoopFactory) {
 
   $scope.deleteSelected = LoopFactory.deleteNote;
 
+  $scope.saveLoop = LoopFactory.save;
 });
