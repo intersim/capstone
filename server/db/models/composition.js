@@ -30,8 +30,20 @@ CompositionSchema.methods.changeTempo = function(newTempo) {
   return this.save();
 }
 
+CompositionSchema.methods.addTag = function(tag) {
+  this.tags.push(tag);
+  return this.save();
+}
+
 CompositionSchema.methods.addTags = function(arr) {
   this.tags = this.tags.concat(arr);
+  return this.save();
+}
+
+CompositionSchema.methods.removeTag = function(tagToRemove) {
+  this.tags.filter(function(tag) {
+    return tag !== tagToRemove;
+  })
   return this.save();
 }
 

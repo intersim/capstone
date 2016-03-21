@@ -78,4 +78,28 @@ LoopSchema.methods.publish = function() {
     return this.save();
 }
 
+LoopSchema.methods.addTag = function(tag) {
+    this.tags.push(tag);
+    return this.save();
+}
+
+LoopSchema.methods.addTags = function(arr) {
+    this.tags = this.tags.concat(arr);
+    return this.save();
+}
+
+LoopSchema.statics.removeTag = function(tagToRemove) {
+    this.tags.filter(function(tag) {
+        return tag !== tagToRemove;
+    })
+    return this.save();
+}
+
+LoopSchema.statics.removeTags = function(tagsToRemove) {
+    this.tags.filter(function(tag) {
+        return tagsToRemove.indexOf(tag) === -1;
+    })
+    return this.save();
+}
+
 module.exports = mongoose.model('Loop', LoopSchema);
