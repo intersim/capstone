@@ -4,8 +4,12 @@ var Composition = require('../../db/models/composition');
 router.param('compositionId', function(req, res, next) {
   Composition.findById(req.params.composition)
   .then(function(composition) {
-    if (composition) req.composition = composition;
-    else next(new Error('failed to find composition'));
+    if (composition) {
+      req.composition = composition;
+      next();
+    } else {
+      next(new Error('failed to find composition'));
+    }
   })
   .catch(null, next)
 })
