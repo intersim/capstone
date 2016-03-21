@@ -1,5 +1,7 @@
 var router = require('express').Router();
-var Composition = require('../../db/models/composition');
+var models = require('../../db/models/');
+var Compositions = models.Compositions;
+var Comments = models.Comments;
 
 router.get('/', function(req, res, next) {
   var query = Composition.find();
@@ -55,5 +57,13 @@ router.delete('/compositionId', function(req, res, next) {
 });
 
 router.use('/compositionId/tracks', require('./tracks') );
+
+router.get('/compositionId/comments', function(req, res, next) {
+  Comment.find({target: req.params.compositionId})
+  .then(function(comments) {
+    res.json(comments);
+  })
+  .then(null, next);
+});
 
 module.exports = router;
