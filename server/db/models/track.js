@@ -51,4 +51,9 @@ schema.methods.changeVolume = function(change) {
     return this.save();
 }
 
+schema.methods.changeInstrument = function(newInstrument) {
+    this.instrument = newInstrument;
+    return this.save();
+}
+
 module.exports = mongoose.model('Track', schema);

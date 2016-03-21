@@ -25,8 +25,8 @@ CompositionSchema.methods.publish = function() {
   return this.save();
 }
 
-CompositionSchema.methods.changeTempo = function(newTempo) {
-  this.tempo = newTempo;
+CompositionSchema.methods.changeTempo = function(change) {
+  this.tempo = this.tempo + change;
   return this.save();
 }
 
