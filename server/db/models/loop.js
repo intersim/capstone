@@ -61,6 +61,10 @@ LoopSchema.statics.findByTags = function(tags) {
     return this.find({tags: { $in: tags } });
 };
 
+LoopSchema.statics.findByCategory = function(category) {
+    return this.find({category: category});
+}
+
 LoopSchema.methods.findSimilar = function() {
     return mongoose.model('Loop').findByTags(this.tags);
 }
