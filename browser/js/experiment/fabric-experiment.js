@@ -1,5 +1,10 @@
 // initialize instrument
-var synth = new Tone.SimpleSynth().toMaster();
+var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
+            "oscillator" : {
+                "partials" : [0, 2, 3, 4],
+            },
+            "volume" : -12
+        }).toMaster();
 
 // initialize looping
 Tone.Transport.loop = true;
@@ -58,17 +63,17 @@ canvas.on('object:moving', function(options) {
 
 //resizing objects
 //doesn't do anything other than ruin my life
-canvas.on('object:modified', function(options) {
-  console.log(options)
-  console.log(options.target)
+// canvas.on('object:modified', function(options) {
+//   console.log(options)
+//   console.log(options.target)
 
-  options.target.set({
-    left: Math.round(options.target.left / grid) * grid,
-    right: options.target.oCoords.br.x,
-    top: Math.round(options.target.top / grid) * grid
-    // width: Math.ceil((options.target.oCoords.br.x - options.target.oCoords.bl.x) / grid) * 40
-  });
-});
+//   options.target.set({
+//     left: Math.round(options.target.left / grid) * grid,
+//     right: options.target.oCoords.br.x,
+//     top: Math.round(options.target.top / grid) * grid,
+//     width: Math.floor((options.target.oCoords.br.x - options.target.oCoords.bl.x) / grid) * 40
+//   });
+// });
 
 
 var lastObjId = 16; //first 15 items are the canvas itself and the lines on it
