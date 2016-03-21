@@ -17,6 +17,7 @@ app.controller('LoopController', function ($scope, LoopFactory, loop) {
   }
 
   $scope.deleteSelected = LoopFactory.deleteNote;
-
+  
   $scope.saveLoop = LoopFactory.save;
+
 });

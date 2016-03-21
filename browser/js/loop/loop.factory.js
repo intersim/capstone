@@ -99,7 +99,6 @@ app.factory('LoopFactory', function($http){
     })
   }
 
-
   LoopFactory.initialize = function() {
 
     // initialize canvas for a 8 * 8 grid
