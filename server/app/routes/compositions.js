@@ -5,9 +5,7 @@ router.use('/tracks', require('./tracks');
 })
 
 router.get('/', function(req, res, next) {
-  var query = Composition.find();
-  if (req.query.includeTracks) query = query.populate('tracks');
-  query.exec()
+  Composition.find();
   .then(function(compositions) {
     res.json(compositions);
   })
@@ -24,9 +22,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.param('compositionId', function(req, res, next) {
-  var query = Composition.findById(req.params.compositionId);
-  if (req.query.includeTracks) query = query.populate('tracks');
-  query.exec()
+  Composition.findById(req.params.compositionId)
   .then(function(composition) {
     if (composition) {
       req.composition = composition;
