@@ -2,26 +2,30 @@
 
 var mongoose = require('mongoose');
 
-var schema = new mongoose.Schema({
+var TrackSchema = new mongoose.Schema({
     loops: [
-        {
-            loop: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'Loop'
+      {
+        loop: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Loop'
+        },
+        startTime: {
+          type: String,
+          required: true,
+          validate: {
+            validator: function(value) {
+                return /^(\d+(\.\d+)?\:){1,2}(\d+(\.\d+)?)?$/i.test(value);
             },
-            startTime: Number,
-            duration: Number
+            message: '{VALUE} is not a valid transport time - specify in format BARS:QUARTERS:SIXTEENTHS'
+          }
+        },
+        repeat: {
+          type: Number,
+          default: 1
         }
+      }
     ],
     volume: Number,
-    owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    },
-    composition: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Composition'
-    },
     numVoices: Number,
     instrument: {
         type: String,
@@ -29,31 +33,38 @@ var schema = new mongoose.Schema({
     }
 });
 
-schema.methods.addLoop = function(loopId, startTime, duration) {
-    this.loops.push({loop: loopId, startTime: startTime, duration: duration});
+TrackSchema.methods.addLoop = function(loopId, startTime, repeat) {
+    if (!repeat) repeat = 1;
+    this.loops.push({loop: loopId, startTime: startTime, repeat: repeat});
     return this.save();
 }
 
-schema.methods.removeLoop = function(loopId) {
+TrackSchema.methods.removeLoop = function(loopId) {
     this.loops = this.loops.filter(function(loop) {
         return loop !== loopId;
     })
     return this.save();
 }
 
-schema.methods.removeAllLoops = function() {
-    this.loops = [];
+TrackSchema.methods.clear = function() {
+  this.loops = [];
+  return this.save();
+}
+
+TrackSchema.methods.changeVolume = function(change) {
+    this.volume += change;
     return this.save();
 }
 
-schema.methods.changeVolume = function(change) {
-    this.volume = this.volume + change;
-    return this.save();
-}
-
-schema.methods.changeInstrument = function(newInstrument) {
+TrackSchema.methods.changeInstrument = function(newInstrument) {
     this.instrument = newInstrument;
     return this.save();
 }
 
-module.exports = mongoose.model('Track', schema);
+TrackSchema.methods.changeNumVoices = function(num) {
+    this.numVoices = num;
+    return this.save();
+}
+
+
+module.exports = mongoose.model('Track', TrackSchema);
