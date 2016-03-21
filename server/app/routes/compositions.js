@@ -54,6 +54,6 @@ router.delete('/compositionId', function(req, res, next) {
   })
 });
 
-router.use('/compositionId/tracks', require('./tracks') )
+router.use('/compositionId/tracks', require('./tracks') );
 
 module.exports = router;

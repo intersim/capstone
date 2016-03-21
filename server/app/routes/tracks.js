@@ -36,11 +36,6 @@ router.put('/trackId', function(req, res, next) {
   req.track.set(req.body);
   req.track.save()
   .then(function(track) {
-    modifiedTrack = track;
-    req.composition.tracks.push(track._id);
-    return req.composition.save();
-  })
-  .then(function() {
     res.status(201).json(modifiedTrack);
   })
   .then(null, next);
