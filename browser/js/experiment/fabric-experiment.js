@@ -25,10 +25,11 @@ $('#stop').click(function () {
 });
 
 $('#delete').click(function () {
+  var idC = canvas.getActiveObject().id
   canvas.getActiveObject().remove();
   lastObjId--;
   //also delete tone event:
-  Tone.Transport.clear(lastEvent);
+  Tone.Transport.clear(idC-16);
   lastEvent <= 0 ? lastEvent = null : lastEvent--;
 });
 
@@ -55,6 +56,21 @@ canvas.on('object:moving', function(options) {
   });
 });
 
+//resizing objects
+//doesn't do anything other than ruin my life
+canvas.on('object:modified', function(options) {
+  console.log(options)
+  console.log(options.target)
+
+  options.target.set({
+    left: Math.round(options.target.left / grid) * grid,
+    right: options.target.oCoords.br.x,
+    top: Math.round(options.target.top / grid) * grid
+    // width: Math.ceil((options.target.oCoords.br.x - options.target.oCoords.bl.x) / grid) * 40
+  });
+});
+
+
 var lastObjId = 16; //first 15 items are the canvas itself and the lines on it
 
 // create a new rectangle obj on mousedown in canvas area
@@ -67,9 +83,11 @@ canvas.on('mouse:down', function(options){
 
   var newId = lastObjId++;
 
+
   canvas.add(new fabric.Rect({
       id: newId,
       left: Math.floor(options.e.offsetX / 40) * 40,
+      right: Math.floor(options.e.offsetX / 40) * 40,
       top: Math.floor(options.e.offsetY / 40) * 40,
       width: 40, 
       height: 40, 
@@ -77,9 +95,10 @@ canvas.on('mouse:down', function(options){
       originX: 'left', 
       originY: 'top',
       centeredRotation: true,
+      minScaleLimit: 0,
       lockScalingY: true,
-      lockRotation: true,
       lockScalingFlip: true,
+      hasRotatingPoint: false
     })
   );
 
