@@ -59,45 +59,25 @@ for (var i = 0; i < (320 / grid); i++) {
 
 // snap to grid when moving obj (doesn't work when resizing):
 canvas.on('object:modified', function(options) {
-  console.log('OBJECT MODIFIED')
-  console.log(options.target.canvas)
-  // console.log("options", options)
-  // console.log('options target', options.target)
-
   options.target.set({
     left: Math.round(options.target.left / grid) * grid,
     top: Math.round(options.target.top / grid) * grid
   });
 
   var idC = canvas.getActiveObject().Myid
-  console.log('CANVAS ID', idC)
-  console.log('MODIFIED TONE TRANSPORT ID', JSON.stringify(Tone.Transport._eventID))
+
   //delete old event
   Tone.Transport.clear(idC);
-  // lastObjId++;
 
-  console.log("options.target", options.target);
-  console.log('DELETED', idC)
-
-  // lastEvent <= 0 ? lastEvent = null : lastEvent--;
   //make new one
   var center = canvas.getActiveObject().getCenterPoint();
   var xVal = Math.ceil(center.x)
   if(xVal < 0) xVal = 0;
   var yVal = Math.ceil(center.y)
   if(yVal < 0) yVal = 0;
-  console.log("x: ", xVal, "y: ", yVal)
 
-  // var xVal = Math.floor(options.target.oCoords.mt.x)
-  // if(xVal < 0) xVal = 0;
-  // var yVal = Math.ceil(options.target.oCoords.tl.y)
-  // if(yVal < 0) yVal = 0;
-  // console.log("x: ", xVal, "y: ", yVal)
-  var newEventId = scheduleTone(xVal, yVal, idC);
-  console.log("NxEW EVENT ID: ", newEventId);
+  scheduleTone(xVal, yVal, idC);
 
-  // newIdC = canvas.getActiveObject().set('Myid', idC);
-  // console.log("NEW CANVAS ID: ", newIdC);
 });
 
 //resizing objects
@@ -120,7 +100,6 @@ var lastObjId = 15; //first 15 items are the canvas itself and the lines on it
 // create a new rectangle obj on mousedown in canvas area
 // change this to a double-click event (have to add a listener)?
 canvas.on('mouse:down', function(options){
-  console.log('MOUSE DOWN')
 
   if (options.target) {
     synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
@@ -128,8 +107,6 @@ canvas.on('mouse:down', function(options){
   }
 
   var newId = ++lastObjId;
-  console.log("0. NEW OBJ ID", newId)
-  // console.log("last obj id", lastObjId)
 
 
   canvas.add(new fabric.Rect({
@@ -149,26 +126,12 @@ canvas.on('mouse:down', function(options){
       hasRotatingPoint: false
     })
   );
-  console.log('143')
-  // var newItem = canvas.item(newId);
-  // console.log("new item", newItem, "new id", newId)
-  // console.log('145', canvas)
-  // canvas.setActiveObject(newItem);
-
-  // console.log('id of new obj: ', JSON.stringify(canvas.getActiveObject().get('id'))); //same as newId
 
   // sound tone when clicking, and schedule
-  console.log('151')
+
   synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
-  console.log('153')
-  var eventId = scheduleTone(options.e.offsetX, options.e.offsetY, newId);
+   scheduleTone(options.e.offsetX, options.e.offsetY, newId);
 
-  console.log('2. ID OF THE OBJ TRANSPORT EVENT', eventId);
-  // console.log('3. NEW CLICK TRANSPORT', JSON.stringify(Tone.Transport))
-
-
-  //increment last event for clear button
-  // lastEvent === null ? lastEvent = 0 : lastEvent++;
 });
 
 function getPitchStr (yVal) {
@@ -194,26 +157,14 @@ function getBeatStr (xVal) {
 }
 
 function scheduleTone (objX, objY, objId) {
-  console.log('SCHEDULE TONE')
-  //event id is starting with ZERO
+
   var pitch = getPitchStr(objY);
   var duration = "8n";
   var startTime = getBeatStr(objX);
 
-  console.log("pitch", pitch);
-  console.log("startTime", startTime);
-
-
-
   var eventId = Tone.Transport.schedule(function(){
     synth.triggerAttackRelease(pitch, duration);
   }, startTime, objId);
-
-
-
-  // console.log('TRANSPORT AFTER SCHEDULE', JSON.stringify(Tone.Transport._eventID))
-
-  console.log('1. SHOULD BE SAME AS NEXT', eventId)
 
   return eventId;
 }
