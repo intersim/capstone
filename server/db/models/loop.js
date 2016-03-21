@@ -56,14 +56,6 @@ LoopSchema.statics.findByCreator = function(userId) {
     return this.find({creator: creator});
 };
 
-LoopSchema.statics.findByTag = function(tag) {
-    return this.find({tags: tag});
-};
-
-LoopSchema.statics.findByTags = function(tags) {
-    return this.find({tags: { $in: tags } });
-};
-
 LoopSchema.statics.findByCategory = function(category) {
     return this.find({category: category});
 }
