@@ -3,6 +3,13 @@
 var mongoose = require('mongoose');
 var Track = require('./track');
 
+// TONEJS - scores can have following values:
+// {
+//  "tempo": <bpm number>,
+//  "timeSignature": <time signature object>,
+//  <instrumentName>: [ <note object that will be passed into the Tone.Note constructor> ] (This value that is returned when the channel callback is invoked.)
+//}
+
 var CompositionSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,

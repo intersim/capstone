@@ -6,12 +6,12 @@ var Composition = require('./composition');
 var Track = require('./track');
 
 var NoteSchema = new mongoose.Schema({
-    length: {
+    duration: {
         type: String,
         required: true,
         enum: ['1n', '2n', '4n', '8n', '16n']
     },
-    pitch: {
+    note: {
         type: String,
         required: true,
         validate: {
@@ -21,7 +21,7 @@ var NoteSchema = new mongoose.Schema({
             message: '{VALUE} is not a valid note - correct format is <noteLetter>[#|b]<octaveNumber> OR frequency as a number'
         }
     },
-    transportTime: {
+    time: {
         type: String,
         required: true,
         validate: {
