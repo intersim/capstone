@@ -20,4 +20,9 @@ CompositionSchema.methods.getTracks = function() {
   return Track.find({composition: this._id}).populate('loops').exec();
 }
 
+CompositionSchema.methods.publish = function() {
+  this.publish = true;
+  return this.save();
+}
+
 module.exports = mongoose.model('Composition', CompositionSchema);

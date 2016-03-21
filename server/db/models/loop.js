@@ -61,4 +61,9 @@ LoopSchema.statics.findByTags = function(tags) {
     return this.find({tags: { $in: tags } });
 };
 
+LoopSchema.methods.publish = function() {
+    this.publish = true;
+    return this.save();
+}
+
 module.exports = mongoose.model('Loop', LoopSchema);
