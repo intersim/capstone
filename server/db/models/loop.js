@@ -89,14 +89,14 @@ LoopSchema.methods.addTags = function(arr) {
 }
 
 LoopSchema.methods.removeTag = function(tagToRemove) {
-    this.tags.filter(function(tag) {
+    this.tags = this.tags.filter(function(tag) {
         return tag !== tagToRemove;
     })
     return this.save();
 }
 
 LoopSchema.methods.removeTags = function(tagsToRemove) {
-    this.tags.filter(function(tag) {
+    this.tags = this.filter(function(tag) {
         return tagsToRemove.indexOf(tag) === -1;
     })
     return this.save();

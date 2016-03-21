@@ -41,14 +41,14 @@ CompositionSchema.methods.addTags = function(arr) {
 }
 
 CompositionSchema.methods.removeTag = function(tagToRemove) {
-  this.tags.filter(function(tag) {
+  this.tags = this.tags.filter(function(tag) {
     return tag !== tagToRemove;
   })
   return this.save();
 }
 
 CompositionSchema.methods.removeTags = function(tagsToRemove) {
-  this.tags.filter(function(tag) {
+  this.tags = this.tags.filter(function(tag) {
     return tagsToRemove.indexOf(tag) === -1;
   })
   return this.save();

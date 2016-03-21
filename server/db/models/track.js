@@ -9,7 +9,8 @@ var schema = new mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Loop'
             },
-            startTime: Number
+            startTime: Number,
+            duration: Number
         }
     ],
     volume: Number,
@@ -27,5 +28,27 @@ var schema = new mongoose.Schema({
         enum: ['flute']
     }
 });
+
+schema.methods.addLoop = function(loopId, startTime, duration) {
+    this.loops.push({loop: loopId, startTime: startTime, duration: duration});
+    return this.save();
+}
+
+schema.methods.removeLoop = function(loopId) {
+    this.loops = this.loops.filter(function(loop) {
+        return loop !== loopId;
+    })
+    return this.save();
+}
+
+schema.methods.removeAllLoops = function() {
+    this.loops = [];
+    return this.save();
+}
+
+schema.methods.changeVolume = function(change) {
+    this.volume = this.volume + change;
+    return this.save();
+}
 
 module.exports = mongoose.model('Track', schema);
