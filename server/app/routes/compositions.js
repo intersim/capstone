@@ -1,9 +1,6 @@
 var router = require('express').Router();
 var Composition = require('../../db/models/composition');
 
-router.use('/tracks', require('./tracks')
-})
-
 router.get('/', function(req, res, next) {
   var query = Composition.find();
   if (req.query.includeTracks) query = query.populate('tracks');
@@ -56,5 +53,7 @@ router.delete('/compositionId', function(req, res, next) {
     res.status(204).send();
   })
 });
+
+router.use('/compositionId/tracks', require('./tracks') )
 
 module.exports = router;
