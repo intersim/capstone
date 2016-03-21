@@ -1,7 +1,7 @@
 var router = require('express').Router({mergeParams: true});
-var models = require('../../db/models/');
-var Composition = models.Composition;
-var Track = models.Track;
+var mongoose = require('mongoose');
+var Composition = mongoose.model('Composition');
+var Track = mongoose.model('Track');
 
 router.post('/', function(req, res, next) {
   var track = new Track(req.body);

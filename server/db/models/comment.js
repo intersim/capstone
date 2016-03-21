@@ -1,9 +1,8 @@
-
 'use strict';
+
 var mongoose = require('mongoose');
 
-
-var schema = new mongoose.Schema({
+var CommentSchema = new mongoose.Schema({
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -22,7 +21,6 @@ var schema = new mongoose.Schema({
   }
 })
 
-
-mongoose.model('Comment', schema);
+mongoose.model('Comment', CommentSchema);
 
 

@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var Composition = require('./composition');
-var Track = require('./track');
 
 var NoteSchema = new mongoose.Schema({
     duration: {
@@ -39,7 +37,7 @@ var LoopSchema = new mongoose.Schema({
         ref: 'User'
     },
     tags: [String],
-    publish: Boolean,
+    isPublic: Boolean,
     name: {
         type: String,
         unique: true
@@ -60,21 +58,12 @@ LoopSchema.statics.findByCategory = function(category) {
     return this.find({category: category});
 }
 
-LoopSchema.methods.findCompositions = function() {
-    Track.find({'loops.loop': this._id })
-    .then(function(tracks) {
-        return Promise.map(tracks, function(track) {
-            return Composition.findById(track.composition);
-        })
-    })
-}
-
 LoopSchema.methods.findSimilar = function() {
     return mongoose.model('Loop').findByTags(this.tags);
 }
 
 LoopSchema.methods.publish = function() {
-    this.publish = true;
+    this.isPublic = true;
     return this.save();
 }
 
@@ -102,4 +91,5 @@ LoopSchema.methods.removeTags = function(tagsToRemove) {
     return this.save();
 }
 
-module.exports = mongoose.model('Loop', LoopSchema);
+mongoose.model('Loop', LoopSchema);
+

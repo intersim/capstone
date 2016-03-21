@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var Comment = require('../../db/models/comment');
+var mongoose = require('mongoose');
+var Comment = mongoose.model('Comment');
 
 router.post('/', function(req, res, next) {
   Comment.create(req.body)

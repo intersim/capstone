@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var User = require('../../db/models/user');
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
 
 router.get('/', function(req, res, next) {
   User.find()

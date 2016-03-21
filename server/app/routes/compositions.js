@@ -1,7 +1,7 @@
 var router = require('express').Router();
-var models = require('../../db/models/');
-var Compositions = models.Compositions;
-var Comments = models.Comments;
+var mongoose = require('mongoose');
+var Composition = mongoose.model('Composition');
+var Comment = mongoose.model('Comment');
 
 router.get('/', function(req, res, next) {
   var query = Composition.find();
@@ -41,7 +41,7 @@ router.get('/compositionId', function(req, res, next) {
   res.json(req.composition);
 });
 
-router.put('/compositionId', functino(req, res, next) {
+router.put('/compositionId', function(req, res, next) {
   req.composition.set(req.body);
   req.composition.save()
   .then(function(composition){

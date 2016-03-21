@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var Loop = require('../../db/models/loop');
+var mongoose = require('mongoose');
+var Loop = mongoose.model('Loop');
 
 router.get('/', function(req, res, next){
   Loop.find()

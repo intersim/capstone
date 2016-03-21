@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Composition = require('./composition');
 
 var TrackSchema = new mongoose.Schema({
     loops: [
@@ -68,7 +67,7 @@ TrackSchema.methods.changeNumVoices = function(num) {
 }
 
 TrackSchema.post('remove', function(deletedTrack, next) {
-  Composition.find({tracks: deletedTrack._id})
+  mongoose.model('Composition').find({tracks: deletedTrack._id})
   .then(function(composition){
     composition.tracks = composition.tracks.filter(function(track) {
         return track !== deletedTrack._id;
