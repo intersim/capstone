@@ -6,14 +6,17 @@ router.get('/', function(req, res, next){
   Loop.find()
   .then(function(loops) {
     res.json(loops);
-  });
+  })
+  .then(null, next);
 });
 
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   Loop.create(req.body)
   .then(function(loop) {
     res.json(loop);
-  });
+  })
+  .then(null, next);
 });
 
 router.param('loopId', function(req, res, next) {

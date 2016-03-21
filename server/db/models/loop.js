@@ -9,7 +9,7 @@ var NoteSchema = new mongoose.Schema({
         required: true,
         enum: ['1n', '2n', '4n', '8n', '16n']
     },
-    note: {
+    pitch: {
         type: String,
         required: true,
         validate: {
@@ -19,7 +19,7 @@ var NoteSchema = new mongoose.Schema({
             message: '{VALUE} is not a valid note - correct format is <noteLetter>[#|b]<octaveNumber> OR frequency as a number'
         }
     },
-    time: {
+    startTime: {
         type: String,
         required: true,
         validate: {

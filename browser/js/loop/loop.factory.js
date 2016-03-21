@@ -164,7 +164,8 @@ app.factory('LoopFactory', function($http){
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
     }
-    $http.post('/api/loops', dataToSave);
+    console.log(dataToSave);
+    $http.post('/api/loops', { notes: dataToSave });
   }
 
   return LoopFactory;
