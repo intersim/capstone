@@ -1,3 +1,4 @@
+
 'use strict';
 var mongoose = require('mongoose');
 
@@ -15,8 +16,8 @@ var schema = new mongoose.Schema({
   target: {
     kind: String,
     item: {
-    type: mongoose.Schema.Types.ObjectId,
-    refPath: 'target.kind'
+      type: mongoose.Schema.Types.ObjectId,
+      refPath: 'target.kind'
     }
   }
 })
