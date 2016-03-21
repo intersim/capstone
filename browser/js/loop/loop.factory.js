@@ -17,8 +17,7 @@ app.factory('LoopFactory', function($http){
   Tone.Transport.loopEnd = "0:4:0";
   
   // intialize Transport event timeline tracking
-  var lastEvent = null;
-  var lastObjId = 16;
+  var lastObjId = 15;
 
   var loopMusicData = {};
 
@@ -44,14 +43,14 @@ app.factory('LoopFactory', function($http){
     if (xVal >= 280 && xVal < 320) return "0:3:2";
   }
 
-  function scheduleTone (objX, objY, newObjectId) {
+  function scheduleTone (objX, objY, objectId) {
     var pitch = getPitchStr(objY);
     var duration = "8n";
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
       synth.triggerAttackRelease(pitch, duration);
-    }, startTime);
-    loopMusicData[newObjectId] = {pitch: pitch, duration: duration, startTime: startTime};
+    }, startTime, objectId);
+    loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
     return eventId;
   }
 
@@ -126,30 +125,29 @@ app.factory('LoopFactory', function($http){
   }
 
   LoopFactory.snapToGrid = function(options) {
-      console.log("options", options)
-      console.log('options target', options.target)
       options.target.set({
         left: Math.round(options.target.left / grid) * grid,
         top: Math.round(options.target.top / grid) * grid
       });
-      var idC = canvas.getActiveObject().id
-      var noteToDelete = loopMusicData[idC];
+
+      var idC = canvas.getActiveObject().Myid;
+
+      // delete note from array of music data
+      var noteToDelete = loopMusicData[idC]
       delete loopMusicData[idC];
       
       //delete old event
-      Tone.Transport.clear(idC - 16);
-      lastEvent <= 0 ? lastEvent = null : lastEvent--;
+      Tone.Transport.clear(idC);
+
       //make new one
-      var xVal = Math.ceil(options.target.oCoords.tl.x)
+      var center = canvas.getActiveObject().getCenterPoint();
+      var xVal = Math.ceil(center.x)
       if(xVal < 0) xVal = 0;
-      var yVal = Math.ceil(options.target.oCoords.tl.y)
+      var yVal = Math.ceil(center.y)
       if(yVal < 0) yVal = 0;
-      // console.log("x: ", xVal, "y: ", yVal)
-      var newObjectId = newEventId + 16;
-      var newEventId = scheduleTone(xVal, yVal, newObjectId);
-      // console.log("newEventId: ", newEventId);
-      newIdC = canvas.getActiveObject().set('id', newObjectId);
-      // console.log("new objId: ", newIdC);
+
+      scheduleTone(xVal, yVal, idC);
+
   }
 
   LoopFactory.addNote = function(options, left, right, top){
@@ -158,12 +156,13 @@ app.factory('LoopFactory', function($http){
       return;
     }
 
+    var newObjectId = ++lastObjId;
+
     var offsetX = left || options.e.offsetX;
     var offsetY = top || options.e.offsetY
-    var newObjectId = lastObjId++;
 
     canvas.add(new fabric.Rect({
-        id: newObjectId,
+        Myid: newObjectId,
         left: Math.floor(offsetX / 40) * 40,
         right: Math.floor(offsetX / 40) * 40,
         top: Math.floor(offsetY / 40) * 40,
@@ -180,29 +179,22 @@ app.factory('LoopFactory', function($http){
       })
     );
 
-    var newItem = canvas.item(newObjectId);
-    canvas.setActiveObject(newItem);
-    // console.log('id of new obj: ', canvas.getActiveObject().get('id'));
-
     // sound tone when clicking, and schedule
     synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
-    // console.log('options e from 124', options.e)
-    var eventId = scheduleTone(offsetX, offsetY, newObjectId);
-    // console.log('id of new transport evt: ', eventId);
+    scheduleTone(offsetX, offsetY, newObjectId);
 
-    //increment last event for clear button
-    lastEvent === null ? lastEvent = 0 : lastEvent++;
   }
 
   LoopFactory.deleteNote = function(){
-    var selectedObjectId = canvas.getActiveObject().id;
+    var idC = canvas.getActiveObject().Myid;
     canvas.getActiveObject().remove();
     lastObjId--;
+
     // also delete tone event:
-    Tone.Transport.clear(selectedObjectId-16);
+    Tone.Transport.clear(idC);
+
     // delete from JSON data store
-    delete loopMusicData[selectedObjectId];
-    lastEvent <= 0 ? lastEvent = null : lastEvent--;
+    delete loopMusicData[idC];
   }
 
   LoopFactory.save = function() {
