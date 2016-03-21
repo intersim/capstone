@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Track = require('./track');
 
 var CompositionSchema = new mongoose.Schema({
-  artist: {
+  creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
