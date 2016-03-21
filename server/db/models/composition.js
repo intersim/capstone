@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Track = require('./track');
+var Comment = require('./comment');
 
 // TONEJS - scores can have following values:
 // {
@@ -68,6 +69,10 @@ CompositionSchema.methods.removeTags = function(tagsToRemove) {
     return tagsToRemove.indexOf(tag) === -1;
   })
   return this.save();
+}
+
+CompositionSchema.methods.getComments = function() {
+  return Comment.find({target: this._id});
 }
 
 module.exports = mongoose.model('Composition', CompositionSchema);
