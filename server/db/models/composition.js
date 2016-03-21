@@ -25,4 +25,9 @@ CompositionSchema.methods.publish = function() {
   return this.save();
 }
 
+CompositionSchema.methods.changeTempo = function(newTempo) {
+  this.tempo = newTempo;
+  return this.save();
+}
+
 module.exports = mongoose.model('Composition', CompositionSchema);
