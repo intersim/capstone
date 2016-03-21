@@ -16,12 +16,6 @@ var CompositionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  tempo: Number,
-  publish: {
-    type: Boolean,
-    default: false
-  },
-  tags: [String],
   title: {
     type: String,
     required: true
@@ -30,20 +24,47 @@ var CompositionSchema = new mongoose.Schema({
   numFavorites: {
     type: Number,
     default: 0
-  }
+  },
+  publish: {
+    type: Boolean,
+    default: false
+  },
+  tags: [String],
+  tempo: Number,
+  tracks: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Track'
+  }]
 });
 
-CompositionSchema.methods.getTracks = function() {
-  return Track.find({composition: this._id}).populate('loops').exec();
-}
-
-CompositionSchema.methods.publish = function() {
-  this.publish = true;
-  return this.save();
-}
+// CHANGE COMPOSITION MUSIC FEATURES
 
 CompositionSchema.methods.changeTempo = function(change) {
   this.tempo = this.tempo + change;
+  return this.save();
+}
+
+CompositionSchema.methods.createTrack = function() {
+  Track.create({})
+  .then(function(track) {
+    this.tracks.push(track._id);
+    return this.save();
+  })
+}
+
+CompositionSchema.methods.deleteTrack = function(trackNum) {
+  var trackToDelete = this.tracks[trackNum];
+  Track.remove({_id: trackToDelete})
+  .then(function( track ) {
+    this.tracks.splice(trackNum);
+    return this.save();
+  })
+}
+
+// MANAGE COMPOSITION
+
+CompositionSchema.methods.publish = function() {
+  this.publish = true;
   return this.save();
 }
 
@@ -74,5 +95,7 @@ CompositionSchema.methods.removeTags = function(tagsToRemove) {
 CompositionSchema.methods.getComments = function() {
   return Comment.find({target: this._id});
 }
+
+
 
 module.exports = mongoose.model('Composition', CompositionSchema);
