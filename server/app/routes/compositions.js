@@ -1,11 +1,13 @@
 var router = require('express').Router();
 var Composition = require('../../db/models/composition');
 
-router.use('/tracks', require('./tracks');
+router.use('/tracks', require('./tracks')
 })
 
 router.get('/', function(req, res, next) {
-  Composition.find();
+  var query = Composition.find();
+  if (req.query.includeTracks) query = query.populate('tracks');
+  query.exec()
   .then(function(compositions) {
     res.json(compositions);
   })
@@ -22,7 +24,9 @@ router.post('/', function(req, res, next) {
 });
 
 router.param('compositionId', function(req, res, next) {
-  Composition.findById(req.params.compositionId)
+  var query = Composition.findById(req.params.compositionId);
+  if (req.query.includeTracks) query = query.populate('tracks');
+  query.exec()
   .then(function(composition) {
     if (composition) {
       req.composition = composition;
@@ -31,7 +35,7 @@ router.param('compositionId', function(req, res, next) {
       next(new Error('failed to find composition'));
     }
   })
-  .then(null, next)
+  .catch(null, next)
 })
 
 router.get('/compositionId', function(req, res, next) {
