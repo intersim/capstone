@@ -1,24 +1,17 @@
 var router = require('express').Router();
 var Composition = require('../../db/models/composition');
 
-router.param('compositionId', function(req, res, next) {
-  Composition.findById(req.params.composition)
-  .then(function(composition) {
-    if (composition) {
-      req.composition = composition;
-      next();
-    } else {
-      next(new Error('failed to find composition'));
-    }
-  })
-  .catch(null, next)
+router.use('/tracks', require('./tracks');
 })
 
 router.get('/', function(req, res, next) {
-  Composition.find()
+  var query = Composition.find();
+  if (req.query.includeTracks) query = query.populate('tracks');
+  query.exec()
   .then(function(compositions) {
     res.json(compositions);
   })
+  .catch(null, next);
 });
 
 router.post('/', function(req, res, next) {
@@ -29,6 +22,21 @@ router.post('/', function(req, res, next) {
     res.status(201).json(comp);
   })
 });
+
+router.param('compositionId', function(req, res, next) {
+  var query = Composition.findById(req.params.compositionId);
+  if (req.query.includeTracks) query = query.populate('tracks');
+  query.exec()
+  .then(function(composition) {
+    if (composition) {
+      req.composition = composition;
+      next();
+    } else {
+      next(new Error('failed to find composition'));
+    }
+  })
+  .catch(null, next)
+})
 
 router.get('/compositionId', function(req, res, next) {
   res.json(req.composition);
