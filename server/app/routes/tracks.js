@@ -30,7 +30,7 @@ router.param('trackId', function(req, res, next) {
   })
 })
 
-router.put('/trackId', function(req, res, next) {
+router.put('/:trackId', function(req, res, next) {
   var modifiedTrack;
 
   req.track.set(req.body);
@@ -41,7 +41,7 @@ router.put('/trackId', function(req, res, next) {
   .then(null, next);
 })
 
-router.delete('/trackId', function(req, res, next) {
+router.delete('/:trackId', function(req, res, next) {
   req.track.remove({})
   .then(function() {
     res.status(204).send();

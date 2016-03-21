@@ -37,11 +37,11 @@ router.param('compositionId', function(req, res, next) {
   .catch(null, next)
 })
 
-router.get('/compositionId', function(req, res, next) {
+router.get('/:compositionId', function(req, res, next) {
   res.json(req.composition);
 });
 
-router.put('/compositionId', function(req, res, next) {
+router.put('/:compositionId', function(req, res, next) {
   req.composition.set(req.body);
   req.composition.save()
   .then(function(composition){
@@ -49,16 +49,16 @@ router.put('/compositionId', function(req, res, next) {
   })
 });
 
-router.delete('/compositionId', function(req, res, next) {
+router.delete('/:compositionId', function(req, res, next) {
   req.composition.remove()
   .then(function(){
     res.status(204).send();
   })
 });
 
-router.use('/compositionId/tracks', require('./tracks') );
+router.use('/:compositionId/tracks', require('./tracks') );
 
-router.get('/compositionId/comments', function(req, res, next) {
+router.get('/:compositionId/comments', function(req, res, next) {
   Comment.find({target: req.params.compositionId})
   .then(function(comments) {
     res.json(comments);

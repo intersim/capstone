@@ -31,11 +31,11 @@ router.param('userId', function(req, res, next) {
   })
 })
 
-router.get('/userId', function(req, res, next) {
+router.get('/:userId', function(req, res, next) {
   res.json(req.foundUser);
 })
 
-router.put('/userId', function(req, res, next) {
+router.put('/:userId', function(req, res, next) {
   req.foundUser.set(req.body);
   req.foundUser.save()
   .then(function(user) {
@@ -44,7 +44,7 @@ router.put('/userId', function(req, res, next) {
   .then(null, next);
 });
 
-router.delete('/userId', function(req, res, next) {
+router.delete('/:userId', function(req, res, next) {
   if (req.user.isAdmin || req.user._id === userId) {
     req.foundUser.remove()
     .then(function() {

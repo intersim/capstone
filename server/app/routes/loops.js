@@ -20,7 +20,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.param('loopId', function(req, res, next) {
-  Loop.findById(loopId)
+  Loop.findById(req.params.loopId)
   .then(function(loop) {
     if (loop) {
       req.loop = loop;
@@ -30,11 +30,11 @@ router.param('loopId', function(req, res, next) {
   .catch(null, next);
 })
 
-router.get('/loopId', function(req, res, next) {
+router.get('/:loopId', function(req, res, next) {
   res.json(req.loop);
 });
 
-router.put('/loopId', function(req, res, next){
+router.put('/:loopId', function(req, res, next){
   req.loop.set(req.body);
   req.loop.save()
   .then(function(loop) {
@@ -43,7 +43,7 @@ router.put('/loopId', function(req, res, next){
   .catch(null, next);
 });
 
-router.delete('/loopId', function(req, res, next) {
+router.delete('/:loopId', function(req, res, next) {
   req.loop.remove()
   .then(function(){
     res.status(204).send();
