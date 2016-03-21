@@ -11,13 +11,19 @@ router.param('composition', function(req, res, next) {
 })
 
 router.get('/', function(req, res, next) {
-  return Composition.find();
+  Composition.find()
+  .then(function(compositions) {
+    res.json(compositions);
+  })
 });
 
 router.post('/', function(req, res, next) {
   var comp = new Composition(req.body);
   comp.creator = req.user;
-  return comp.save();
+  comp.save()
+  .then(function(comp) {
+    res.status(201).json(comp);
+  })
 });
 
 router.get('/composition', function(req, res, next) {
@@ -28,12 +34,15 @@ router.put('/composition', functino(req, res, next) {
   req.composition.set(req.body);
   req.composition.save()
   .then(function(composition){
-    res.json(composition);
+    res.status(201).json(composition);
   })
 });
 
 router.delete('/composition', function(req, res, next) {
-  return req.composition.remove();
+  req.composition.remove()
+  .then(function(){
+    res.status(204).send();
+  })
 });
 
 module.exports = router;
