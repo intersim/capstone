@@ -31,7 +31,7 @@ router.param('compositionId', function(req, res, next) {
       next(new Error('failed to find composition'));
     }
   })
-  .catch(null, next)
+  .then(null, next)
 })
 
 router.get('/compositionId', function(req, res, next) {
