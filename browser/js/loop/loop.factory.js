@@ -22,28 +22,6 @@ app.factory('LoopFactory', function($http){
 
   var loopMusicData = {};
 
-  var noteYMap = [
-    {note: "c5", top: 0, bottom: 39},
-    {note: "b4", top: 40, bottom: 79},
-    {note: "a4", top: 80, bottom: 119},
-    {note: "g4", top: 120, bottom: 159},
-    {note: "f4", top: 160, bottom: 199},
-    {note: "e4", top: 200, bottom: 239},
-    {note: "d4", top: 240, bottom: 279},
-    {note: "c4", top: 280, bottom: 319}
-  ]
-
-  var noteXMap = [
-    {time: "0:0:0", left: 0, right: 39},
-    {time: "0:0:2", left: 40, right: 79},
-    {time: "0:1:0", left: 80, right: 119},
-    {time: "0:1:2", left: 120, right: 159},
-    {time: "0:2:0", left: 160, right: 199},
-    {time: "0:2:2", left: 200, right: 239},
-    {time: "0:3:0", left: 240, right: 279},
-    {time: "0:3:2", left: 280, right: 320}
-  ]
-
   function getPitchStr (yVal) {
     if (yVal >= 0 && yVal < 40) return "c5";
     if (yVal >= 40 && yVal < 80) return "b4";
@@ -90,6 +68,37 @@ app.factory('LoopFactory', function($http){
     })[0];
     return {left: edges.left, right: edges.right};
   }
+
+  var noteYMap = [
+    {note: "c5", top: 0, bottom: 39},
+    {note: "b4", top: 40, bottom: 79},
+    {note: "a4", top: 80, bottom: 119},
+    {note: "g4", top: 120, bottom: 159},
+    {note: "f4", top: 160, bottom: 199},
+    {note: "e4", top: 200, bottom: 239},
+    {note: "d4", top: 240, bottom: 279},
+    {note: "c4", top: 280, bottom: 319}
+  ]
+
+  var noteXMap = [
+    {time: "0:0:0", left: 0, right: 39},
+    {time: "0:0:2", left: 40, right: 79},
+    {time: "0:1:0", left: 80, right: 119},
+    {time: "0:1:2", left: 120, right: 159},
+    {time: "0:2:0", left: 160, right: 199},
+    {time: "0:2:2", left: 200, right: 239},
+    {time: "0:3:0", left: 240, right: 279},
+    {time: "0:3:2", left: 280, right: 320}
+  ]
+  
+  LoopFactory.drawLoop = function(loop) {
+    loop.notes.forEach(function(note) {
+      var x = getXvals(note);
+      var y = getYvals(note);
+      LoopFactory.addNote(null, x.left, x.right, y.top);
+    })
+  }
+
 
   LoopFactory.initialize = function() {
 
@@ -205,16 +214,6 @@ app.factory('LoopFactory', function($http){
     console.log(dataToSave);
     $http.post('/api/loops', { notes: dataToSave });
   }
-
-  $http.get('/api/loops/56f06287921942a929699b10')
-  .then(function(loop) {
-    console.log(loop);
-    loop.data.notes.forEach(function(note) {
-      var x = getXvals(note);
-      var y = getYvals(note);
-      LoopFactory.addNote(null, x.left, x.right, y.top);
-    })
-  })
 
   return LoopFactory;
 

@@ -1,6 +1,8 @@
-app.controller('LoopController', function ($scope, LoopFactory) {
+app.controller('LoopController', function ($scope, LoopFactory, loop) {
 
   LoopFactory.initialize();
+
+  if (loop) LoopFactory.drawLoop(loop);
 
   $scope.playing = false;
 
