@@ -1,12 +1,12 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('loop', {
-        url: '/loop',
+        url: '/loop/:loopId',
         controller: 'LoopController',
         templateUrl: 'js/loop/loop.html',
         resolve: {
-          loop: function($http) {
-            return $http.get('/api/loops/56f06287921942a929699b10')
+          loop: function($http, $stateParams) {
+            return $http.get('/api/loops/' + $stateParams.loopId)
             .then(function(res) {
               console.log(res);
               return res.data;
@@ -16,7 +16,15 @@ app.config(function ($stateProvider) {
     })
     .state('loops', {
       url: '/loops',
-      templateUrl: 'js/loop/loops.html'
+      templateUrl: 'js/loop/loops.html',
+      resolve: {
+        loops: function($http) {
+          return $http.get('/api/loops')
+            .then(function(res) {
+              return res.data;
+            })
+        }
+      }
     })
 
 });
