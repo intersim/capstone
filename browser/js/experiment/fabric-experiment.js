@@ -54,11 +54,28 @@ for (var i = 0; i < (320 / grid); i++) {
 }
 
 // snap to grid when moving obj (doesn't work when resizing):
-canvas.on('object:moving', function(options) {
+canvas.on('object:modified', function(options) {
+  console.log("options", options)
+  console.log('options target', options.target)
   options.target.set({
     left: Math.round(options.target.left / grid) * grid,
     top: Math.round(options.target.top / grid) * grid
   });
+  var idC = canvas.getActiveObject().id
+  
+  //delete old event
+  Tone.Transport.clear(idC - 16);
+  lastEvent <= 0 ? lastEvent = null : lastEvent--;
+  //make new one
+  var xVal = Math.ceil(options.target.oCoords.tl.x)
+  if(xVal < 0) xVal = 0;
+  var yVal = Math.ceil(options.target.oCoords.tl.y)
+  if(yVal < 0) yVal = 0;
+  // console.log("x: ", xVal, "y: ", yVal)
+  var newEventId = scheduleTone(xVal, yVal);
+  console.log("newEventId: ", newEventId);
+  newIdC = canvas.getActiveObject().set('id', newEventId + 16);
+  console.log("new objId: ", newIdC);
 });
 
 //resizing objects
@@ -113,6 +130,7 @@ canvas.on('mouse:down', function(options){
 
   // sound tone when clicking, and schedule
   synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
+  console.log('options e from 124', options.e)
   var eventId = scheduleTone(options.e.offsetX, options.e.offsetY);
   console.log('id of new transport evt: ', eventId);
 
