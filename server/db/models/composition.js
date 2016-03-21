@@ -30,4 +30,16 @@ CompositionSchema.methods.changeTempo = function(newTempo) {
   return this.save();
 }
 
+CompositionSchema.methods.addTags = function(arr) {
+  this.tags = this.tags.concat(arr);
+  return this.save();
+}
+
+CompositionSchema.methods.removeTags = function(tagsToRemove) {
+  this.tags.filter(function(tag) {
+    return tagsToRemove.indexOf(tag) === -1;
+  })
+  return this.save();
+}
+
 module.exports = mongoose.model('Composition', CompositionSchema);
