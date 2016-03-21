@@ -1,6 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
+var Composition = require('./composition');
+var Track = require('./track');
 
 var NoteSchema = new mongoose.Schema({
     length: {
@@ -63,6 +66,15 @@ LoopSchema.statics.findByTags = function(tags) {
 
 LoopSchema.statics.findByCategory = function(category) {
     return this.find({category: category});
+}
+
+LoopSchema.methods.findCompositions = function() {
+    Track.find({'loops.loop': this._id })
+    .then(function(tracks) {
+        return Promise.map(tracks, function(track) {
+            return Composition.findById(track.composition);
+        })
+    })
 }
 
 LoopSchema.methods.findSimilar = function() {
