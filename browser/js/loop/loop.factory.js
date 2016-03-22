@@ -152,13 +152,18 @@ app.factory('LoopFactory', function($http){
   }
 
   LoopFactory.addNote = function(options, left, right, top){
+    console.log("options", options);
     var offsetX = left;
     var offsetY = top;
+
     if (options && options.target) {
       synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
-      offsetX = options.e.offsetX;
-      offsetY = options.e.offsetY;
       return;
+    }
+
+    if (options) {
+      offsetX = Math.floor(options.e.offsetX);
+      offsetY = Math.floor(options.e.offsetY);
     }
 
     var newObjectId = ++lastObjId;
@@ -182,6 +187,8 @@ app.factory('LoopFactory', function($http){
     );
 
     // sound tone when clicking, and schedule
+    console.log("offsetX", offsetX);
+    console.log("offsetY", offsetY);
     synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
     scheduleTone(offsetX, offsetY, newObjectId);
 
