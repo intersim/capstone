@@ -176,7 +176,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
         top: Math.floor(offsetY / 40) * 40,
         width: 40, 
         height: 40, 
-        fill: '#faa', 
+        fill: '#1E63A7', 
         originX: 'left', 
         originY: 'top',
         centeredRotation: true,
