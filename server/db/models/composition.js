@@ -1,8 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Track = require('./track');
-var Comment = require('./comment');
 
 // TONEJS - scores can have following values:
 // {
@@ -25,7 +23,7 @@ var CompositionSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
-  publish: {
+  isPublic: {
     type: Boolean,
     default: false
   },
@@ -40,12 +38,12 @@ var CompositionSchema = new mongoose.Schema({
 // CHANGE COMPOSITION MUSIC FEATURES
 
 CompositionSchema.methods.changeTempo = function(change) {
-  this.tempo = this.tempo + change;
+  this.tempo += change;
   return this.save();
 }
 
 CompositionSchema.methods.createTrack = function() {
-  Track.create({})
+  mongoose.model('Track').create({})
   .then(function(track) {
     this.tracks.push(track._id);
     return this.save();
@@ -54,7 +52,7 @@ CompositionSchema.methods.createTrack = function() {
 
 CompositionSchema.methods.deleteTrack = function(trackNum) {
   var trackToDelete = this.tracks[trackNum];
-  Track.remove({_id: trackToDelete})
+  mongoose.model('Track').remove({_id: trackToDelete})
   .then(function( track ) {
     this.tracks.splice(trackNum);
     return this.save();
@@ -64,7 +62,7 @@ CompositionSchema.methods.deleteTrack = function(trackNum) {
 // MANAGE COMPOSITION
 
 CompositionSchema.methods.publish = function() {
-  this.publish = true;
+  this.isPublic = true;
   return this.save();
 }
 
@@ -92,10 +90,18 @@ CompositionSchema.methods.removeTags = function(tagsToRemove) {
   return this.save();
 }
 
-CompositionSchema.methods.getComments = function() {
-  return Comment.find({target: this._id});
+CompositionSchema.methods.getUserComments = function() {
+  return mongoose.model('Comment').find({target: this._id});
 }
 
+CompositionSchema.statics.findByLoop = function(loopId) {
+    mongoose.model('Track').find({'loops.loop': loopId })
+    .then(function(tracks) {
+        return Promise.map(tracks, function(track) {
+            return this.findById(track.composition);
+        })
+    })
+}
 
+mongoose.model('Composition', CompositionSchema);
 
-module.exports = mongoose.model('Composition', CompositionSchema);

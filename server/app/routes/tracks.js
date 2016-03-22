@@ -1,7 +1,7 @@
 var router = require('express').Router({mergeParams: true});
-var models = require('../../db/models/');
-var Composition = models.Composition;
-var Track = models.Track;
+var mongoose = require('mongoose');
+var Composition = mongoose.model('Composition');
+var Track = mongoose.model('Track');
 
 router.post('/', function(req, res, next) {
   var track = new Track(req.body);
@@ -30,7 +30,7 @@ router.param('trackId', function(req, res, next) {
   })
 })
 
-router.put('/trackId', function(req, res, next) {
+router.put('/:trackId', function(req, res, next) {
   var modifiedTrack;
 
   req.track.set(req.body);
@@ -41,7 +41,7 @@ router.put('/trackId', function(req, res, next) {
   .then(null, next);
 })
 
-router.delete('/trackId', function(req, res, next) {
+router.delete('/:trackId', function(req, res, next) {
   req.track.remove({})
   .then(function() {
     res.status(204).send();

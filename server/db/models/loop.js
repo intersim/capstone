@@ -2,8 +2,6 @@
 
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-var Composition = require('./composition');
-var Track = require('./track');
 
 var NoteSchema = new mongoose.Schema({
     duration: {
@@ -11,7 +9,7 @@ var NoteSchema = new mongoose.Schema({
         required: true,
         enum: ['1n', '2n', '4n', '8n', '16n']
     },
-    note: {
+    pitch: {
         type: String,
         required: true,
         validate: {
@@ -21,7 +19,7 @@ var NoteSchema = new mongoose.Schema({
             message: '{VALUE} is not a valid note - correct format is <noteLetter>[#|b]<octaveNumber> OR frequency as a number'
         }
     },
-    time: {
+    startTime: {
         type: String,
         required: true,
         validate: {
@@ -39,11 +37,8 @@ var LoopSchema = new mongoose.Schema({
         ref: 'User'
     },
     tags: [String],
-    publish: Boolean,
-    name: {
-        type: String,
-        unique: true
-    },
+    isPublic: Boolean,
+    name: String,
     numUses: Number,
     category: {
         type: String,
@@ -60,21 +55,12 @@ LoopSchema.statics.findByCategory = function(category) {
     return this.find({category: category});
 }
 
-LoopSchema.methods.findCompositions = function() {
-    Track.find({'loops.loop': this._id })
-    .then(function(tracks) {
-        return Promise.map(tracks, function(track) {
-            return Composition.findById(track.composition);
-        })
-    })
-}
-
 LoopSchema.methods.findSimilar = function() {
     return mongoose.model('Loop').findByTags(this.tags);
 }
 
 LoopSchema.methods.publish = function() {
-    this.publish = true;
+    this.isPublic = true;
     return this.save();
 }
 
@@ -102,4 +88,5 @@ LoopSchema.methods.removeTags = function(tagsToRemove) {
     return this.save();
 }
 
-module.exports = mongoose.model('Loop', LoopSchema);
+mongoose.model('Loop', LoopSchema);
+

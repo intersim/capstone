@@ -2,9 +2,8 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var _ = require('lodash');
-var Loop = require('./loop');
 
-var schema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: true
@@ -60,12 +59,12 @@ var schema = new mongoose.Schema({
     }
 });
 
-schema.methods.findLoops = function() {
-    return Loop.find({creator: this._id})
+UserSchema.methods.findLoops = function() {
+    return mongoose.model('Loop').find({creator: this._id})
 }
 
 // method to remove sensitive information from user objects before sending them out
-schema.methods.sanitize =  function () {
+UserSchema.methods.sanitize =  function () {
     return _.omit(this.toJSON(), ['password', 'salt']);
 };
 
@@ -82,7 +81,7 @@ var encryptPassword = function (plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function (next) {
+UserSchema.pre('save', function (next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
@@ -93,11 +92,11 @@ schema.pre('save', function (next) {
 
 });
 
-schema.statics.generateSalt = generateSalt;
-schema.statics.encryptPassword = encryptPassword;
+UserSchema.statics.generateSalt = generateSalt;
+UserSchema.statics.encryptPassword = encryptPassword;
 
-schema.method('correctPassword', function (candidatePassword) {
+UserSchema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
-mongoose.model('User', schema);
+module.exports = mongoose.model('User', UserSchema);

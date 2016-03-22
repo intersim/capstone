@@ -1,5 +1,6 @@
 var router = require('express').Router();
-var Comment = require('../../db/models/comment');
+var mongoose = require('mongoose');
+var Comment = mongoose.model('Comment');
 
 router.post('/', function(req, res, next) {
   Comment.create(req.body)
@@ -19,7 +20,7 @@ router.param('commentId', function(req, res, next) {
   })
 });
 
-router.put('/commentId', function(req, res, next) {
+router.put('/:commentId', function(req, res, next) {
   if (req.comment.author === req.user._id) {
     req.comment.set(req.body);
     req.comment.save()
@@ -29,7 +30,7 @@ router.put('/commentId', function(req, res, next) {
   } else res.status(403).send();
 })
 
-router.delete('/commentId', function(req, res, next) {
+router.delete('/:commentId', function(req, res, next) {
   if (req.comment.author === req.user._id) {
     req.comment.delete()
     .then(function() {
