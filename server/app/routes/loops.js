@@ -27,7 +27,7 @@ router.param('loopId', function(req, res, next) {
       next()
     } else next(new Error('no loop found'));
   })
-  .catch(null, next);
+  .then(null, next);
 })
 
 router.get('/:loopId', function(req, res, next) {
