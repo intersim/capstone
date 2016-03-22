@@ -126,6 +126,14 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   }
 
   LoopFactory.snapToGrid = function(options) {
+      
+      var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
+
+
+      if (options.target.getWidth() !== newWidth) {
+          options.target.set({ width: newWidth, scaleX: 1});
+        }
+
       options.target.set({
         left: Math.round(options.target.left / grid) * grid,
         top: Math.round(options.target.top / grid) * grid
