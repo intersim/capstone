@@ -14,6 +14,7 @@ router.post('/', function(req, res, next) {
   console.log(req.body);
   Loop.create(req.body)
   .then(function(loop) {
+    console.log(loop);
     res.json(loop);
   })
   .then(null, next);
