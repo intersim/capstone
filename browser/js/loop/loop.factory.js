@@ -229,7 +229,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     );
 
     // sound tone when clicking, and schedule
-    scheduleTone(offsetX, offsetY, 40, newObjectId);
+    scheduleTone(offsetX, offsetY, noteWidth, newObjectId);
 
   }
 
