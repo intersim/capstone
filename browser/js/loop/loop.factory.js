@@ -44,14 +44,26 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     if (xVal >= 280 && xVal < 320) return "0:3:2";
   }
 
-  function scheduleTone (objX, objY, objectId) {
+  function getDurationStr (width) {
+    if (width === 40) return "8n";
+    if (width === 80) return "4n";
+    if (width === 120) return "4n+8n";
+    if (width === 160) return "2n";
+    if (width === 200) return "2n+8n";
+    if (width === 240) return "2n+4n";
+    if (width === 280) return "2n+4n+8n";
+    if (width === 320) return "1n";
+  }
+
+  function scheduleTone (objX, objY, width, objectId) {
     var pitch = getPitchStr(objY);
-    var duration = "8n";
+    var duration = getDurationStr(width);
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
       synth.triggerAttackRelease(pitch, duration);
     }, startTime, objectId);
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
+
     return eventId;
   }
 
@@ -67,6 +79,13 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       return obj.time === note.startTime;
     })[0];
     return {left: edges.left, right: edges.right};
+  }
+
+    function getWidth(note) {
+    var width = widthMap.filter(function(obj) {
+      return obj.duration === note.duration;
+    })[0].width;
+    return width;
   }
 
   var noteYMap = [
@@ -90,12 +109,24 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     {time: "0:3:0", left: 240, right: 279},
     {time: "0:3:2", left: 280, right: 320}
   ]
+
+    var widthMap = [
+    {duration: "8n", width: 40},
+    {duration: "4n", width: 80},
+    {duration: "4n+8n", width: 120},
+    {duration: "2n", width: 160},
+    {duration: "2n+8n", width: 200},
+    {duration: "2n+4n", width: 240},
+    {duration: "2n+4n+8n", width: 280},
+    {duration: "1n", width: 320}
+  ]
   
   LoopFactory.drawLoop = function(loop) {
     loop.notes.forEach(function(note) {
       var x = getXvals(note);
       var y = getYvals(note);
-      LoopFactory.addNote(null, x.left, x.right, y.top);
+      var width = getWidth(note);
+      LoopFactory.addNote(null, x.left, x.right, y.top, width);
     })
   }
 
@@ -148,21 +179,23 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       //delete old event
       Tone.Transport.clear(idC);
 
-      //make new one
-      var center = canvas.getActiveObject().getCenterPoint();
-      var xVal = Math.ceil(center.x)
+      //make new tone
+      var top = canvas.getActiveObject().get('top');
+      var left = canvas.getActiveObject().get('left');
+
+      var xVal = left
       if(xVal < 0) xVal = 0;
-      var yVal = Math.ceil(center.y)
+      var yVal = top
       if(yVal < 0) yVal = 0;
 
-      scheduleTone(xVal, yVal, idC);
+      scheduleTone(xVal, yVal, newWidth, idC);
 
   }
 
-  LoopFactory.addNote = function(options, left, right, top){
-    console.log("options", options);
+  LoopFactory.addNote = function(options, left, right, top, width){
     var offsetX = left;
     var offsetY = top;
+    var noteWidth = width || 40;
 
     if (options && options.target) {
       synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
@@ -182,7 +215,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
         left: Math.floor(offsetX / 40) * 40,
         right: Math.floor(offsetX / 40) * 40,
         top: Math.floor(offsetY / 40) * 40,
-        width: 40, 
+        width: noteWidth, 
         height: 40, 
         fill: '#1E63A7', 
         originX: 'left', 
@@ -196,7 +229,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     );
 
     // sound tone when clicking, and schedule
-    scheduleTone(offsetX, offsetY, newObjectId);
+    scheduleTone(offsetX, offsetY, 40, newObjectId);
 
   }
 
