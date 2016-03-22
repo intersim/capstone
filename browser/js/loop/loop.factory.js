@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('LoopFactory', function($http, $stateParams){
+app.factory('LoopFactory', function($http, $stateParams, $state){
   var LoopFactory = {};
 
   var canvas;
@@ -213,8 +213,10 @@ app.factory('LoopFactory', function($http, $stateParams){
     }
     console.log(dataToSave);
     var id = $stateParams.loopId
-    if ( id === 'new' ) $http.post('/api/loops', { notes: dataToSave });
-    else $http.put('/api/loops/' + id, { notes: dataToSave });
+    if ( id === 'new' ) {
+      $http.post('/api/loops', { notes: dataToSave })
+      .then(function(res) { $state.go('loop', {loopId: res.data._id} ) });
+    } else $http.put('/api/loops/' + id, { notes: dataToSave });
   }
 
   return LoopFactory;
