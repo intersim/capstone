@@ -40,7 +40,7 @@ router.put('/:loopId', function(req, res, next){
   .then(function(loop) {
     res.status(201).json(loop);
   })
-  .catch(null, next);
+  .then(null, next);
 });
 
 router.delete('/:loopId', function(req, res, next) {
@@ -48,7 +48,7 @@ router.delete('/:loopId', function(req, res, next) {
   .then(function(){
     res.status(204).send();
   })
-  .catch(null, next);
+  .then(null, next);
 })
 
 module.exports = router;
