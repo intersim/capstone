@@ -164,6 +164,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     if (options) {
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
+      synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
     }
 
     var newObjectId = ++lastObjId;
@@ -187,9 +188,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     );
 
     // sound tone when clicking, and schedule
-    console.log("offsetX", offsetX);
-    console.log("offsetY", offsetY);
-    synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
     scheduleTone(offsetX, offsetY, newObjectId);
 
   }
