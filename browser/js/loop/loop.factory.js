@@ -152,15 +152,16 @@ app.factory('LoopFactory', function($http){
   }
 
   LoopFactory.addNote = function(options, left, right, top){
+    var offsetX = left;
+    var offsetY = top;
     if (options && options.target) {
-      synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
+      synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
+      offsetX = options.e.offsetX;
+      offsetY = options.e.offsetY;
       return;
     }
 
     var newObjectId = ++lastObjId;
-
-    var offsetX = left || options.e.offsetX;
-    var offsetY = top || options.e.offsetY
 
     canvas.add(new fabric.Rect({
         Myid: newObjectId,
