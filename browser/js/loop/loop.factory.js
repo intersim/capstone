@@ -4,6 +4,7 @@ app.factory('LoopFactory', function($http){
   var LoopFactory = {};
 
   var canvas;
+  var grid;
   var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
             "oscillator" : {
                 "partials" : [0, 2, 3, 4],
@@ -107,7 +108,7 @@ app.factory('LoopFactory', function($http){
     canvas.setHeight(320);
     canvas.setWidth(320);
     canvas.renderAll();
-    var grid = 40;
+    grid = 40;
 
     // draw lines on grid
     for (var i = 0; i < (320 / grid); i++) {
