@@ -1,6 +1,8 @@
 app.directive('droppable', function(){
   return {
-    scope: {},
+    scope: {
+      drop: '&'
+    },
     link: function(scope, element) {
       var elem = element[0];
 
@@ -43,6 +45,8 @@ app.directive('droppable', function(){
 
           var item = document.getElementById( e.dataTransfer.getData('Text') );
           this.appendChild(item);
+
+          scope.$apply('drop()');
 
           return false;
         },

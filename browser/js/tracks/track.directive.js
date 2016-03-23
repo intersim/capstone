@@ -6,7 +6,9 @@ app.directive("track", function() {
     },
     templateUrl: '/js/tracks/track.html',
     link: function(scope) {
-
+      scope.addLoop = function() {
+        alert('new loop dropped into track');
+      }
     }
   }
 })
