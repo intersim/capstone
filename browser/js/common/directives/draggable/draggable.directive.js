@@ -6,7 +6,7 @@ app.directive('draggable', function() {
       elem.addEventListener(
         'dragstart',
         function(e) {
-          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.effectAllowed = 'copy';
           e.dataTransfer.setData('Text', this.id);
           this.classList.add('drag');
           return false;
