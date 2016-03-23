@@ -1,0 +1,26 @@
+<style>
+  .tags {
+   	opacity:0.5;
+  }
+</style>
+<div class="container">
+	<div>
+		<h1>{{composition.title}}</h1>
+		<h4> Creator: {{composition.creator}}</h4>
+	  <track ng-repeat = "track in composition.tracks" contents="tracks"></track> {{track}} </div>
+	  <div>
+	  <p> Description: {{composition.description}}</p>
+	  </div>
+	  <div ng-repeat="tag in composition.tags" class="tags"> tags: {{tag}}</div>
+	  <h2> Comments </h2>
+	<!-- 	  <div>
+		    <comment-item ng-repeat="comment in comments">
+		    </comment-item>
+		</div> -->
+	</div>
+</div>
+
+
+look into 
+
+
