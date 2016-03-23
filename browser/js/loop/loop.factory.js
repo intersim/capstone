@@ -5,17 +5,99 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
   var canvas;
   var grid;
-  var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
-            "oscillator" : {
+  var synth1 = new Tone.PolySynth(16, Tone.SimpleSynth, {
+    "oscillator" : {
                 "partials" : [0, 2, 3, 4],
-            },
-            "volume" : -12
-        }).toMaster();
-  
+    },
+    "volume": -18
+  }).toMaster();
+
+  var synth2 = new Tone.PolySynth(16, Tone.SimpleSynth, {
+    "oscillator" : {
+                "partials" : [0, 2, 3, 4],
+    },
+    "volume": -18
+  }).toMaster();
+
+  var synth3 = new Tone.PolySynth(16, Tone.SimpleSynth, {
+    "oscillator" : {
+                "partials" : [0, 2, 3, 4],
+    },
+    "volume": -24
+  }).toMaster();
+
+  var synth4 = new Tone.PolySynth(16, Tone.SimpleSynth, {
+    "oscillator" : {
+                "partials" : [0, 2, 3, 4],
+    },
+    "volume": -18
+  }).toMaster();
+
   // initialize looping
   Tone.Transport.loop = true;
   Tone.Transport.loopStart = "0:0:0";
   Tone.Transport.loopEnd = "0:4:0";
+
+  // synth 2 bass line
+  Tone.Transport.schedule(function(){
+      synth2.triggerAttackRelease("c2", "4n");
+    }, "0:0:0", 1);
+
+  Tone.Transport.schedule(function(){
+        synth2.triggerAttackRelease("g1", "4n");
+      }, "0:2:0", 2);
+
+  // synth 3 comp figure
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("g3", "8n");
+    }, "0:0:0", 3);
+
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("c3", "8n");
+    }, "0:0:2", 4);
+
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("e3", "8n");
+    }, "0:1:0", 5);
+
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("c3", "8n");
+    }, "0:1:2", 6);
+
+  Tone.Transport.schedule(function(){
+    synth3.triggerAttackRelease("g3", "8n");
+  }, "0:2:0", 7);
+
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("c3", "8n");
+    }, "0:2:2", 8);
+
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("e3", "8n");
+    }, "0:3:0", 9);
+
+  Tone.Transport.schedule(function(){
+      synth3.triggerAttackRelease("c3", "8n");
+    }, "0:3:2", 10);
+
+  //synth 4 counterline
+  Tone.Transport.schedule(function(){
+    synth4.triggerAttackRelease("e5", "4n");
+  }, "0:0:0", 11);
+
+  Tone.Transport.schedule(function(){
+    synth4.triggerAttackRelease("c5", "4n");
+  }, "0:1:0", 12);
+
+  Tone.Transport.schedule(function(){
+    synth4.triggerAttackRelease("c5", "4n");
+  }, "0:2:0", 13);
+
+  Tone.Transport.schedule(function(){
+    synth4.triggerAttackRelease("d5", "4n");
+  }, "0:3:0", 14);
+
+
   
   // intialize Transport event timeline tracking
   var lastObjId = 15;
@@ -60,7 +142,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var duration = getDurationStr(width);
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
-      synth.triggerAttackRelease(pitch, duration);
+      synth1.triggerAttackRelease(pitch, duration);
     }, startTime, objectId);
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
 
@@ -198,14 +280,14 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var noteWidth = width || 40;
 
     if (options && options.target) {
-      synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
+      synth1.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
       return;
     }
 
     if (options) {
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
-      synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
+      synth1.triggerAttackRelease(getPitchStr(offsetY), "8n");
     }
 
     var newObjectId = ++lastObjId;
