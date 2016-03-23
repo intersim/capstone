@@ -29,6 +29,8 @@
     <option>Flute</option>
   </select>
 </form>
-<div class="track bin" drop="addLoop()">
-  <div ng-repeat="i in range(0, 12)" class="measure" droppable></div>
+<div class="track bin" >
+  <div ng-repeat="measure in contents.measures" class="measure" droppable drop="addLoop()">
+    <div ng-show="!measure.rest" class="item" draggable></div>
+  </div>
 </div>

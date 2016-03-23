@@ -10,9 +10,11 @@
   }
   .track-container {
     overflow-x: scroll;
+    overflow-y: hidden;
     white-space: nowrap;
   }
 </style>
+<div class="trash" droppable drop="deleteLoop()"></div>
 <div class="track-container">
   <track ng-repeat="track in composition.tracks" contents="track"></track></div>
 </div>

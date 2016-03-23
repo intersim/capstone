@@ -29,6 +29,10 @@ var CompositionSchema = new mongoose.Schema({
   },
   tags: [String],
   tempo: Number,
+  numBars: {
+    type: Number,
+    default: 12
+  },
   tracks: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Track'
