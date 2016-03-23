@@ -3,7 +3,7 @@ app.directive("track", function() {
     restrict: 'E',
     scope: {
       contents: "="
-    }
+    },
     templateUrl: '/js/tracks/track.html',
     link: function(scope) {
 

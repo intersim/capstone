@@ -1,3 +1,17 @@
+<style>
+  .item {
+    width: 200px;
+    background-color: #444;
+    height: 100px;
+  }
+  .loopBucket {
+    display: flex;
+    justify-content: space-around;
+  }
+</style>
 <div>
-  <track ng-repeat="track in composition.tracks" contents="track"></div>
+  <track ng-repeat="track in composition.tracks" contents="track"></track></div>
+</div>
+<div class="loopBucket">
+  <div ng-repeat="loop in loopBucket" class="panel item" id="loop-{{loop.name}}" draggable></div>
 </div>
