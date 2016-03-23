@@ -7,7 +7,7 @@ var NoteSchema = new mongoose.Schema({
     duration: {
         type: String,
         required: true,
-        enum: ['1n', '2n', '4n', '8n', '16n']
+        enum: ['1n', '2n+4n+8n', '2n+4n', '2n+8n', '2n', '4n+8n', '4n', '8n+16n', '8n', '16n']
     },
     pitch: {
         type: String,
