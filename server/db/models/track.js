@@ -9,23 +9,21 @@ var TrackSchema = new mongoose.Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Loop'
         },
-        startTime: {
-          type: String,
+        startBar: {
+          type: Number,
           required: true,
-          validate: {
-            validator: function(value) {
-                return /^(\d+(\.\d+)?\:){1,2}(\d+(\.\d+)?)?$/i.test(value);
-            },
-            message: '{VALUE} is not a valid transport time - specify in format BARS:QUARTERS:SIXTEENTHS'
-          }
         },
         repeat: {
           type: Number,
-          default: 1
+          default: 0
         }
       }
     ],
     volume: Number,
+    numBars: {
+      type: Number,
+      default: 12
+    },
     numVoices: Number,
     instrument: {
         type: String,
@@ -33,15 +31,21 @@ var TrackSchema = new mongoose.Schema({
     }
 });
 
-TrackSchema.methods.addLoop = function(loopId, startTime, repeat) {
+
+
+TrackSchema.methods.addLoop = function(loopId, start, repeat) {
     if (!repeat) repeat = 1;
-    this.loops.push({loop: loopId, startTime: startTime, repeat: repeat});
+    this.loops.push({loop: loopId, startBar: start, repeat: repeat});
+    if (this.numBars <= start + repeat) this.numBars = startTime + 1;
     return this.save();
 }
 
 TrackSchema.methods.removeLoop = function(loopId) {
     this.loops = this.loops.filter(function(loop) {
-        return loop !== loopId;
+        if (loop === loopId) {
+          if (this.numBars > loop.startBar) this.numBars = loop.startBar;
+          return false;
+        } else return true;
     })
     return this.save();
 }
