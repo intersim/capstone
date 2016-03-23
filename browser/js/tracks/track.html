@@ -1,0 +1,30 @@
+<style>
+  .track {
+    width: 100%;
+    background-color: #ebebeb;
+    height: 100px;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .item {
+    width: 200px;
+    background-color: #444;
+    height: 100px;
+  }
+  .track * {
+    display: inline-block;
+  }
+  .over {
+    background-color: #555;
+  }
+</style>
+
+<form>
+  <button>Mute</button>
+  <button>Solo</button>
+  <select>
+    <option>Flute</option>
+  </select>
+</form>
+<div class="track bin panel panel-default" droppable drop="addLoop()">
+</div>
