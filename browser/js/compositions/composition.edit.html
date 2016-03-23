@@ -8,10 +8,14 @@
     display: flex;
     justify-content: space-around;
   }
+  .track-container {
+    overflow-x: scroll;
+    white-space: nowrap;
+  }
 </style>
-<div>
+<div class="track-container">
   <track ng-repeat="track in composition.tracks" contents="track"></track></div>
 </div>
 <div class="loopBucket">
-  <div ng-repeat="loop in loopBucket" class="panel item" id="loop-{{loop.name}}" draggable></div>
+  <div ng-repeat="loop in loopBucket" class="item" id="loop-{{loop.name}}" draggable></div>
 </div>
