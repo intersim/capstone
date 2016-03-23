@@ -1,4 +1,4 @@
-app.config( function ($stateProvider) {
+app.config(function ($stateProvider) {
   // $stateProvider.state('composition', {
   //   url: '/composition/:compositionId',
   //   templateUrl: '/js/compositions/composition.html',

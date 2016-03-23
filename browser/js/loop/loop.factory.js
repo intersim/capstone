@@ -1,6 +1,6 @@
 'use strict';
 
-app.factory('LoopFactory', function($http, $stateParams, $state){
+app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactory){
   var LoopFactory = {};
 
   var canvas;
@@ -22,15 +22,18 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
   var loopMusicData = {};
 
+  console.log("C minor scale", TransposeFactory.minorScales().cMinor);
+  var selectedScale = TransposeFactory.minorScales().cMinor;
+
   function getPitchStr (yVal) {
-    if (yVal >= 0 && yVal < 40) return "c5";
-    if (yVal >= 40 && yVal < 80) return "b4";
-    if (yVal >= 80 && yVal < 120) return "a4";
-    if (yVal >= 120 && yVal < 160) return "g4";
-    if (yVal >= 160 && yVal < 200) return "f4";
-    if (yVal >= 200 && yVal < 240) return "e4";
-    if (yVal >= 240 && yVal < 280) return "d4";
-    if (yVal >= 280 && yVal < 320) return "c4";
+    if (yVal >= 0 && yVal < 40) return selectedScale[7];
+    if (yVal >= 40 && yVal < 80) return selectedScale[6];
+    if (yVal >= 80 && yVal < 120) return selectedScale[5];
+    if (yVal >= 120 && yVal < 160) return selectedScale[4];
+    if (yVal >= 160 && yVal < 200) return selectedScale[3];
+    if (yVal >= 200 && yVal < 240) return selectedScale[2];
+    if (yVal >= 240 && yVal < 280) return selectedScale[1];
+    if (yVal >= 280 && yVal < 320) return selectedScale[0];
   }
 
   function getBeatStr (xVal) {
