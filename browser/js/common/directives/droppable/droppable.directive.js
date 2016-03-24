@@ -66,10 +66,7 @@ app.directive('droppable', function($compile, CompositionFactory){
             oldItem.remove();
           }
 
-          scope.$digest();
-
           scope.$apply('drop()');
-          scope.$digest();
 
           return false;
         },
