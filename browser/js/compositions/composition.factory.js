@@ -9,12 +9,26 @@ app.factory('CompositionFactory', function($http) {
       },
       // track2
       {
-        measures: [{rest: true}, {rest: true}, {rest: false, loop: "56f16f274852b8ef37d15429"}, {rest:true}],
+        measures: [{rest: true}, {rest: true}, {rest: false, loop: {_id: "56f16f274852b8ef37d15429"} }, {rest:true}],
         numVoices: 1,
         instrument: 'flute'
       }
     ]
   }
+
+  var instrument = new Tone.PolySynth(16, Tone.SimpleSynth, {
+    "oscillator": {
+      "partials": [0,2,3,4],
+    },
+    "volume": -12
+  }).toMaster();
+
+  function scheduleLoop(loop, track, measure) {
+
+  }
+
+
+  Tone.Transport.loop = false;
 
   return {
     getById: function(compositionId, includeTracks) {
@@ -31,7 +45,7 @@ app.factory('CompositionFactory', function($http) {
       console.log('should add to: ', track, measure);
       console.log('should add the loop to', measures);
       while (measures.length <= measure) measures.push({rest: true});
-      measures[measure] = { rest: false, loop: loop };
+      measures[measure] = { rest: false, loop: {_id: loop} };
       console.log(composition.tracks)
     },
     removeLoop: function(track, measure) {

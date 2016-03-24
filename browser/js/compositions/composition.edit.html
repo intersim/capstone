@@ -57,7 +57,7 @@
     </form>
     <div class="track bin">
       <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable drop="addLoop()">
-        <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop}}" draggable type="move" title="{{measure.loop}}"></div>
+        <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop._id}}" draggable type="move" title="{{measure.loop._id}}"></div>
       </div>
     </div>
   </track></div>
