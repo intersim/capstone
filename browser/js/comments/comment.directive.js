@@ -1,6 +1,6 @@
 'use strict';
 
-app.directive('CommentItem', function() {
+app.directive('commentItem', function() {
   return {
     restrict: 'E',
     templateUrl: '/js/tasks/task.item.html',
