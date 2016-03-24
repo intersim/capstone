@@ -21,4 +21,4 @@ app.config( function ($stateProvider) {
     controller: 'CompViewCtrl'
   })
 
-})
+});

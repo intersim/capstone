@@ -1,9 +1,12 @@
 app.factory('CommentFactory', function($http) {
   return {
-  	//returns an array of objects
-    getCommentsById: function(targetId) {
-      var uri = '/api/comments/' + targetId;
-      return $http.get(uri).then(function(res) { return res.data; });
+
+    postComment: function(comment){
+    	return $http.post('/api/comments/', comment)
+    	.then(function(res){
+    		console.log('front end comment', res.data)
+    		return res.data
+    	})
     }
     
   }
