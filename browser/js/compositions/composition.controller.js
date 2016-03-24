@@ -42,6 +42,10 @@ app.controller('CompositionEditor', function($scope, CompositionFactory){
       $scope.playing = true;
     }
   }
+
+  Tone.Transport.on('end', function() {
+    $scope.playing = false;
+  })
 });
 
 app.controller('CompViewCtrl', function($scope, CompositionFactory){

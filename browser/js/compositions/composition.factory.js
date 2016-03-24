@@ -59,6 +59,11 @@ app.factory('CompositionFactory', function($http) {
 
   return {
     getById: function(compositionId, includeTracks) {
+      composition.tracks.forEach(function(track, trackIdx) {
+        track.measures.forEach(function(measure, measureIdx) {
+          if (!measure.rest) scheduleLoop(measure.loop.notes, trackIdx, measureIdx)
+        })
+      })
       return composition;
       // var uri = '/api/compositions/' + compositionId;
       // if (includeTracks) uri += "?includeTracks=true";
@@ -73,7 +78,7 @@ app.factory('CompositionFactory', function($http) {
       console.log('should add the loop to', measures);
       while (measures.length <= measure) measures.push({rest: true});
       measures[measure] = { rest: false, loop: {_id: loopId} };
-
+      console.log(Tone.Transport);
       $http.get('/api/loops/' + loopId)
         .then(function(res) {
           var loop = res.data;
