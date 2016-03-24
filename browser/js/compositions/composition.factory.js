@@ -21,7 +21,7 @@ app.factory('CompositionFactory', function($http) {
       return composition;
       // var uri = '/api/compositions/' + compositionId;
       // if (includeTracks) uri += "?includeTracks=true";
-      // return $http.get(url).then(function(res) {
+      // return $http.get(uri).then(function(res) {
       //   composition = res.data;
       //   return composition;
       // });
