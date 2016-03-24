@@ -22,18 +22,17 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
 
   var loopMusicData = {};
 
-  console.log("C minor scale", TransposeFactory.minorScales().cMinor);
-  var selectedScale = TransposeFactory.minorScales().cMinor;
+  var selectedScale = TransposeFactory.majorScales().cMajor.reverse();
 
   function getPitchStr (yVal) {
-    if (yVal >= 0 && yVal < 40) return selectedScale[7];
-    if (yVal >= 40 && yVal < 80) return selectedScale[6];
-    if (yVal >= 80 && yVal < 120) return selectedScale[5];
-    if (yVal >= 120 && yVal < 160) return selectedScale[4];
-    if (yVal >= 160 && yVal < 200) return selectedScale[3];
-    if (yVal >= 200 && yVal < 240) return selectedScale[2];
-    if (yVal >= 240 && yVal < 280) return selectedScale[1];
-    if (yVal >= 280 && yVal < 320) return selectedScale[0];
+    if (yVal >= 0 && yVal < 40) return selectedScale[0];
+    if (yVal >= 40 && yVal < 80) return selectedScale[1];
+    if (yVal >= 80 && yVal < 120) return selectedScale[2];
+    if (yVal >= 120 && yVal < 160) return selectedScale[3];
+    if (yVal >= 160 && yVal < 200) return selectedScale[4];
+    if (yVal >= 200 && yVal < 240) return selectedScale[5];
+    if (yVal >= 240 && yVal < 280) return selectedScale[6];
+    if (yVal >= 280 && yVal < 320) return selectedScale[7];
   }
 
   function getBeatStr (xVal) {
