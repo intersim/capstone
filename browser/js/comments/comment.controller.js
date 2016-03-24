@@ -1,4 +1,4 @@
-app.controller('CommentCtrl', function($scope, getCommentsById){
+app.controller('CommentCtrl', function($scope){
 
   var composition = {creator:"56f1a976ff0f75083fd3a379", title: "What a Jam", description: "an ode to fruit preserves", tags: ['truelove', 'beauty', 'and', 'grace', 'miss','unitedstates'], tracks: [[],[]] }
   

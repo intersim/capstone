@@ -1,0 +1,20 @@
+<div>
+	<table>
+	<thead>
+	  <tr>
+	    <th>Feedback</th>
+	    <th>From</th>
+	    <th>When</th>
+	  </tr>
+	</thead>
+	<tbody>
+
+	  <td>{{ comment.content }}</td>
+<!-- 	  <td><img src="{{task.imageUrl}}"></td> -->
+	  <td class="review-data">{{ comment.author.username }}</td>
+	  <td class="review-data">{{ comment.date | date: format: 'MMM dd, yyyy' }}</td>
+
+	</tbody>
+	</table>
+</div> 
+

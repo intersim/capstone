@@ -15,8 +15,22 @@ app.config( function ($stateProvider) {
     controller: 'CompositionEditor'
   })
 
+  // $stateProvider.state('Composition',{
+  //   url: '/viewcomposition/:compositionId',
+  //   templateUrl: '/js/compositions/composition.view.html',
+  //   controller: 'CompViewCtrl',
+  //   resolve: {
+
+  //     composition: function(CompositionFactory, $stateParams){
+  //       return CompositionFactory.getById($stateParams.compositionId, false)
+  //     }
+
+  //   }
+  // })
+
+
   $stateProvider.state('Composition',{
-    url: '/finalComposition',
+    url: '/viewcomposition',
     templateUrl: '/js/compositions/composition.view.html',
     controller: 'CompViewCtrl'
   })

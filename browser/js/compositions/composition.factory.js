@@ -4,6 +4,8 @@ app.factory('CompositionFactory', function($http) {
       var uri = '/api/compositions/' + compositionId;
       if (includeTracks) uri += "?includeTracks=true";
       return $http.get(url).then(function(res) { return res.data; });
-    }
+    },
+
   }
 })
+
