@@ -11,6 +11,7 @@ router.post('/', function(req, res, next) {
 })
 
 router.get('/:targetId', function(req, res, next){
+  // AW: `findAll` or just `find`
   Comment.findAll({'target': req.params.targetId})
   .then(function(comments){
     res.json(comments)
@@ -39,7 +40,9 @@ router.put('/:commentId', function(req, res, next) {
 })
 
 router.delete('/:commentId', function(req, res, next) {
+  // AW: .equal for verifying that two object ids are the same
   if (req.comment.author === req.user._id) {
+    // AW: .remove()
     req.comment.delete()
     .then(function() {
       res.status(204).send();

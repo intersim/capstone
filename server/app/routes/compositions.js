@@ -3,6 +3,9 @@ var mongoose = require('mongoose');
 var Composition = mongoose.model('Composition');
 var Comment = mongoose.model('Comment');
 
+
+// AW: consistent error handling!
+
 router.get('/', function(req, res, next) {
   var query = Composition.find();
   if (req.query.includeTracks) query = query.populate('tracks');
@@ -16,6 +19,11 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var comp = new Composition(req.body);
   comp.creator = req.user;
+  /*
+  AW: 
+    req.body.creator = req.user._id
+    Composition.create(req.body)
+  */
   comp.save()
   .then(function(comp) {
     res.status(201).json(comp);
@@ -49,6 +57,7 @@ router.put('/:compositionId', function(req, res, next) {
   })
 });
 
+// AW: error handling 
 router.delete('/:compositionId', function(req, res, next) {
   req.composition.remove()
   .then(function(){

@@ -48,6 +48,8 @@ var LoopSchema = new mongoose.Schema({
 });
 
 LoopSchema.statics.findByCreator = function(userId) {
+    // AW: return this.find({creator: userId});
+
     return this.find({creator: creator});
 };
 
@@ -65,6 +67,7 @@ LoopSchema.methods.publish = function() {
 }
 
 LoopSchema.methods.addTag = function(tag) {
+    // AW: addToSet?
     this.tags.push(tag);
     return this.save();
 }

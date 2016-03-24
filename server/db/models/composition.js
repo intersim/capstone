@@ -49,6 +49,7 @@ CompositionSchema.methods.changeTempo = function(change) {
 CompositionSchema.methods.createTrack = function() {
   mongoose.model('Track').create({})
   .then(function(track) {
+    // AW: push vs addToSet
     this.tracks.push(track._id);
     return this.save();
   })
@@ -58,6 +59,7 @@ CompositionSchema.methods.deleteTrack = function(trackNum) {
   var trackToDelete = this.tracks[trackNum];
   mongoose.model('Track').remove({_id: trackToDelete})
   .then(function( track ) {
+    // AW: splice vs pull
     this.tracks.splice(trackNum);
     return this.save();
   })
@@ -99,6 +101,7 @@ CompositionSchema.methods.getUserComments = function() {
 }
 
 CompositionSchema.statics.findByLoop = function(loopId) {
+    // AW: missing return statement here 
     mongoose.model('Track').find({'loops.loop': loopId })
     .then(function(tracks) {
         return Promise.map(tracks, function(track) {

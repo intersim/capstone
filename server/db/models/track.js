@@ -30,6 +30,8 @@ TrackSchema.path('measures').validate(function(measures) {
   })
 })
 
+
+// AW: hmmm
 TrackSchema.methods.addLoop = function(loopId, idx) {
     while (this.loops.length < idx) this.loops.push({rest: true});
     this.loops.push({rest: false, loop: loopId});
@@ -48,6 +50,10 @@ TrackSchema.methods.removeLoop = function(loopId) {
 }
 
 TrackSchema.methods.findComposition = function(){
+  // AW: tracks points to an array, yes? so you want to find one composition whose tracks array contains the 
+  // passed in track Id.... but can't more than one composition contain the track id?
+  // AW:  return mongoose.model('Composition').findOne({tracks: { $elemMatch: { $eq: this._id} } });
+
   return mongoose.model('Composition').findOne({tracks: this._id});
 }
 
@@ -71,9 +77,13 @@ TrackSchema.methods.changeNumVoices = function(num) {
     return this.save();
 }
 
+
+// AW: no need for an asynchronous post remove hook here since 
+// you don't have any other post remove hooks
 TrackSchema.post('remove', function(deletedTrack, next) {
   mongoose.model('Composition').find({tracks: deletedTrack._id})
   .then(function(composition){
+    // AW: _.remove()
     composition.tracks = composition.tracks.filter(function(track) {
         return track !== deletedTrack._id;
     });
@@ -84,9 +94,11 @@ TrackSchema.post('remove', function(deletedTrack, next) {
   })
 });
 
+// AW: same with post save 
 TrackSchema.post('save', function(track, next) {
   track.findComposition().populate('tracks')
   .then(function(composition) {
+    // AW: Math.max.apply(null, arr...)
       composition.numBars = Math.max( tracks.map(function(track) {
           return measures.length;
         })

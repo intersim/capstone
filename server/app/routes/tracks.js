@@ -7,6 +7,7 @@ router.post('/', function(req, res, next) {
   var track = new Track(req.body);
   track.save()
   .then(function(newTrack) {
+    // AW: not necessary 
     if (newTrack) {
       req.composition.tracks.push(track._id);
       return req.composition.save()
