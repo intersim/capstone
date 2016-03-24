@@ -5,6 +5,7 @@ app.directive('droppable', function($compile, CompositionFactory){
     },
     link: function(scope, element) {
       var elem = element[0];
+      var counter = 0;
 
       elem.addEventListener(
         'dragover',
@@ -42,7 +43,7 @@ app.directive('droppable', function($compile, CompositionFactory){
           if (e.stopPropagation) e.stopPropagation();
           if (e.preventDefault) e.preventDefault();
           this.classList.remove('over');
-
+ 
           var item = document.getElementById( e.dataTransfer.getData('Text') ).cloneNode(true);
           // grab info
           var info = this.id.split('-');
@@ -52,13 +53,12 @@ app.directive('droppable', function($compile, CompositionFactory){
 
           CompositionFactory.addLoop(loop, track, measure);
 
-          item.id = item.id + 1;
+          item.id = item.id + '-' + counter;
+          counter++;
           e.target.appendChild( item );
-          item.classList.remove('drag');
-          item.setAttribute('draggable', true);
-          item.removeAttribute('ng-repeat');
           // scope.$digest();
           scope.$apply('drop()');
+          scope.$digest();
 
           return false;
         },

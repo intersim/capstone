@@ -18,19 +18,18 @@ app.factory('CompositionFactory', function($http) {
 
   return {
     getById: function(compositionId, includeTracks) {
-      var uri = '/api/compositions/' + compositionId;
-      if (includeTracks) uri += "?includeTracks=true";
-      return $http.get(url).then(function(res) {
-        composition = res.data;
-        return composition;
-      });
+      return composition;
+      // var uri = '/api/compositions/' + compositionId;
+      // if (includeTracks) uri += "?includeTracks=true";
+      // return $http.get(url).then(function(res) {
+      //   composition = res.data;
+      //   return composition;
+      // });
     },
     addLoop: function(loop, track, measure) {
       console.log(loop, track, measure);
       while (composition.tracks[track].length <= measure) composition.tracks[track].push({rest: true});
       composition.tracks[track][measure] = {rest: false, loop: loop};
-      console.log('NEW COMPOSITION');
-      console.dir(composition.tracks);
     },
     save: function(){
       return composition.save();
