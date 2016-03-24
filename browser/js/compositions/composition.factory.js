@@ -3,7 +3,7 @@ app.factory('CompositionFactory', function($http) {
     getById: function(compositionId, includeTracks) {
       var uri = '/api/compositions/' + compositionId;
       if (includeTracks) uri += "?includeTracks=true";
-      return $http.get(url).then(function(res) { return res.data; });
+      return $http.get(uri).then(function(res) { return res.data; });
     },
 
   }
