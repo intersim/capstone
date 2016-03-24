@@ -3,13 +3,32 @@ app.factory('CompositionFactory', function($http) {
     tracks: [
       // track1
       {
-        measures: [{rest: true},{rest: true},{rest: true}, {rest:true}],
+        measures: [
+          {rest: true},
+          {rest: true},
+          {rest: true},
+          {rest:true}
+        ],
         numVoices: 1,
         instrument: 'flute'
       },
       // track2
       {
-        measures: [{rest: true}, {rest: true}, {rest: false, loop: {_id: "56f16f274852b8ef37d15429"} }, {rest:true}],
+        measures: [{rest: true}, {rest: true}, {
+          rest: false, 
+          loop: {
+              _id: "56f16f274852b8ef37d15429",
+              notes: [
+                {"pitch":"b4","duration":"8n","startTime":"0:1:0", _id: "56f16f274852b8ef37d1542e"},
+                {"pitch":"a4","duration":"8n","startTime":"0:2:0", _id: "56f16f274852b8ef37d1542d"},
+                {"pitch":"b4","duration":"8n","startTime":"0:3:2", _id: "56f16f274852b8ef37d1542c"},
+                {"pitch":"b4","duration":"8n","startTime":"0:0:2", _id: "56f16f274852b8ef37d1542b"},
+                {"pitch":"g4","duration":"8n","startTime":"0:2:2", _id: "56f16f274852b8ef37d1542a"}
+             ]
+            }
+          },
+          {rest:true}
+        ],
         numVoices: 1,
         instrument: 'flute'
       }
@@ -23,8 +42,16 @@ app.factory('CompositionFactory', function($http) {
     "volume": -12
   }).toMaster();
 
-  function scheduleLoop(loop, track, measure) {
-
+  function scheduleLoop(notes, track, measure) {
+    console.log('entered loop scheduler');
+    notes.forEach(function(note) {
+      note.startTime = note.startTime.split(":");
+      note.startTime[0] = measure;
+      note.startTime = note.startTime.join(":");
+      Tone.Transport.schedule(function(){
+        instrument.triggerAttackRelease(note.pitch, note.duration);
+      }, note.startTime, note._id);
+    })
   }
 
 
@@ -40,13 +67,19 @@ app.factory('CompositionFactory', function($http) {
       //   return composition;
       // });
     },
-    addLoop: function(loop, track, measure) {
+    addLoop: function(loopId, track, measure) {
       var measures = composition.tracks[track].measures;
       console.log('should add to: ', track, measure);
       console.log('should add the loop to', measures);
       while (measures.length <= measure) measures.push({rest: true});
-      measures[measure] = { rest: false, loop: {_id: loop} };
-      console.log(composition.tracks)
+      measures[measure] = { rest: false, loop: {_id: loopId} };
+
+      $http.get('/api/loops/' + loopId)
+        .then(function(res) {
+          var loop = res.data;
+          scheduleLoop(loop.notes, track, measure);  
+        })
+
     },
     removeLoop: function(track, measure) {
       composition.tracks[track].measures[measure] = { rest: true };

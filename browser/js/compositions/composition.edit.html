@@ -37,6 +37,8 @@
     background-color: darkgray;
   }
 </style>
+<button ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
+<button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 <div class="trash" droppable drop="deleteLoop()"></div>
 
 <div class="track-container">
