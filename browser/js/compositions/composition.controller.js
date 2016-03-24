@@ -2,9 +2,10 @@
 //   $scope.composition = composition;
 // });
 
-app.controller('CompositionEditor', function($scope, CompositionFactory){
+app.controller('CompositionEditor', function($scope, composition, CompositionFactory){
   // $scope.composition = composition;
-  $scope.composition = CompositionFactory.getById();
+
+  $scope.composition = composition;
 
   $scope.loopBucket = [ 
     {
@@ -43,9 +44,8 @@ app.controller('CompositionEditor', function($scope, CompositionFactory){
     }
   }
 
-  Tone.Transport.on('end', function() {
-    $scope.playing = false;
-  })
+  $scope.save = CompositionFactory.save;
+
 });
 
 app.controller('CompViewCtrl', function($scope, CompositionFactory){

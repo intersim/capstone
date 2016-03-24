@@ -84,19 +84,19 @@ TrackSchema.post('remove', function(deletedTrack, next) {
   })
 });
 
-TrackSchema.post('save', function(track, next) {
-  track.findComposition().populate('tracks')
-  .then(function(composition) {
-      composition.numBars = Math.max( tracks.map(function(track) {
-          return measures.length;
-        })
-      )
-      return composition.save();
-  })
-  .then(function() {
-    next();
-  })
-  .then(null, console.log);
-})
+// TrackSchema.post('save', function(track, next) {
+//   track.findComposition().populate('tracks')
+//   .then(function(composition) {
+//       composition.numBars = Math.max( tracks.map(function(track) {
+//           return measures.length;
+//         })
+//       )
+//       return composition.save();
+//   })
+//   .then(function() {
+//     next();
+//   })
+//   .then(null, next);
+// })
 
 module.exports = mongoose.model('Track', TrackSchema);
