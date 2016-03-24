@@ -27,12 +27,15 @@ app.factory('CompositionFactory', function($http) {
       // });
     },
     addLoop: function(loop, track, measure) {
+      var measures = composition.tracks[track].measures;
       console.log(loop, track, measure);
-      while (composition.tracks[track].length <= measure) composition.tracks[track].push({rest: true});
-      composition.tracks[track][measure] = { rest: false, loop: loop };
+      while (measures.length <= measure) measures.push({rest: true});
+      measures[measure] = { rest: false, loop: loop };
+      console.log(composition.tracks)
     },
     removeLoop: function(track, measure) {
-      composition.tracks[track][measure] = { rest:true };
+      composition.tracks[track].measures[measure] = { rest: true };
+      console.log(composition.tracks);
     },
     save: function(){
       return composition.save();

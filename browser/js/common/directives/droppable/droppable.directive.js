@@ -45,15 +45,16 @@ app.directive('droppable', function($compile, CompositionFactory){
 
           var oldItem = document.getElementById( e.dataTransfer.getData('Text') );
           var newItem = oldItem.cloneNode(true);
+
           // grab info
           var info = this.id.split('-');
           var loop = newItem.dataset.loop;
-          var measure = info[info.length - 1];
+          var measure = info[info.indexOf('m') + 1];
           var track = info[info.indexOf('t') + 1];
+          console.log(loop, track, measure)
 
           CompositionFactory.addLoop(loop, track, measure);
-          console.log(oldItem);
-          // console.log('TYPE IS: ' + scope.type + " old item is " + oldItem)
+
           if (oldItem.getAttribute('type') === 'move') {
             CompositionFactory.removeLoop(track, measure);
             oldItem.remove();
@@ -62,9 +63,14 @@ app.directive('droppable', function($compile, CompositionFactory){
           newItem.id = newItem.id + '-' + counter;
           counter++;
 
-          newItem.setAttribute('type', 'move')
+          newItem.setAttribute('type', 'move');
+          newItem.classList.remove('drag');
+          newItem.removeAttribute('ng-repeat');
 
           scope.$apply(function() {
+            console.log('ENTERED INTO APPLY')
+            console.log('New Item');
+            console.log(newItem)
             var content = $compile( newItem )(scope);
             element.append( content );
           })
