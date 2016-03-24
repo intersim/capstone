@@ -1,4 +1,6 @@
-app.controller('LoopController', function ($scope, LoopFactory, loop) {
+app.controller('LoopController', function ($scope, LoopFactory, loop, TransposeFactory) {
+
+  $scope.allScales = TransposeFactory.allScales();
 
   LoopFactory.initialize();
 

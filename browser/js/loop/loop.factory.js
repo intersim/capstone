@@ -22,17 +22,18 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
 
   var loopMusicData = {};
 
-  var selectedScale = TransposeFactory.majorScales().cMajor.reverse();
+  var cMajor = TransposeFactory.allScales().cMajor;
+  console.log(cMajor);
 
-  function getPitchStr (yVal) {
-    if (yVal >= 0 && yVal < 40) return selectedScale[0];
-    if (yVal >= 40 && yVal < 80) return selectedScale[1];
-    if (yVal >= 80 && yVal < 120) return selectedScale[2];
-    if (yVal >= 120 && yVal < 160) return selectedScale[3];
-    if (yVal >= 160 && yVal < 200) return selectedScale[4];
-    if (yVal >= 200 && yVal < 240) return selectedScale[5];
-    if (yVal >= 240 && yVal < 280) return selectedScale[6];
-    if (yVal >= 280 && yVal < 320) return selectedScale[7];
+  function getPitchStr (yVal, scaleArr) {
+    if (yVal >= 0 && yVal < 40) return scaleArr[7];
+    if (yVal >= 40 && yVal < 80) return scaleArr[6];
+    if (yVal >= 80 && yVal < 120) return scaleArr[5];
+    if (yVal >= 120 && yVal < 160) return scaleArr[4];
+    if (yVal >= 160 && yVal < 200) return scaleArr[3];
+    if (yVal >= 200 && yVal < 240) return scaleArr[2];
+    if (yVal >= 240 && yVal < 280) return scaleArr[1];
+    if (yVal >= 280 && yVal < 320) return scaleArr[0];
   }
 
   function getBeatStr (xVal) {
@@ -58,7 +59,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
   }
 
   function scheduleTone (objX, objY, width, objectId) {
-    var pitch = getPitchStr(objY);
+    var pitch = getPitchStr(objY, cMajor);
     var duration = getDurationStr(width);
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
@@ -69,7 +70,19 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
     return eventId;
   }
 
-  function getYvals(note) {
+  function getYvals(note, scaleArr) {
+    console.log("getYvals scaleArr", scaleArr);
+    var noteYMap = [
+      {note: scaleArr[7], top: 0, bottom: 39},
+      {note: scaleArr[6], top: 40, bottom: 79},
+      {note: scaleArr[5], top: 80, bottom: 119},
+      {note: scaleArr[4], top: 120, bottom: 159},
+      {note: scaleArr[3], top: 160, bottom: 199},
+      {note: scaleArr[2], top: 200, bottom: 239},
+      {note: scaleArr[1], top: 240, bottom: 279},
+      {note: scaleArr[0], top: 280, bottom: 319}
+    ]
+
     var edges = noteYMap.filter(function(obj) {
       return obj.note === note.pitch;
     })[0];
@@ -89,17 +102,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
     })[0].width;
     return width;
   }
-
-  var noteYMap = [
-    {note: "c5", top: 0, bottom: 39},
-    {note: "b4", top: 40, bottom: 79},
-    {note: "a4", top: 80, bottom: 119},
-    {note: "g4", top: 120, bottom: 159},
-    {note: "f4", top: 160, bottom: 199},
-    {note: "e4", top: 200, bottom: 239},
-    {note: "d4", top: 240, bottom: 279},
-    {note: "c4", top: 280, bottom: 319}
-  ]
 
   var noteXMap = [
     {time: "0:0:0", left: 0, right: 39},
@@ -126,7 +128,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
   LoopFactory.drawLoop = function(loop) {
     loop.notes.forEach(function(note) {
       var x = getXvals(note);
-      var y = getYvals(note);
+      var y = getYvals(note, cMajor);
       var width = getWidth(note);
       LoopFactory.addNote(null, x.left, x.right, y.top, width);
     })
@@ -162,11 +164,11 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
       
       var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
 
-
       if (options.target.getWidth() !== newWidth) {
           options.target.set({ width: newWidth, scaleX: 1});
         }
 
+      //actual snapping happens here
       options.target.set({
         left: Math.round(options.target.left / grid) * grid,
         top: Math.round(options.target.top / grid) * grid
@@ -200,14 +202,14 @@ app.factory('LoopFactory', function($http, $stateParams, $state, TransposeFactor
     var noteWidth = width || 40;
 
     if (options && options.target) {
-      synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
+      synth.triggerAttackRelease(getPitchStr(options.e.offsetY, cMajor), "8n");  
       return;
     }
 
     if (options) {
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
-      synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
+      synth.triggerAttackRelease(getPitchStr(offsetY, cMajor), "8n");
     }
 
     var newObjectId = ++lastObjId;

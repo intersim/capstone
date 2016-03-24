@@ -50,24 +50,6 @@ app.factory('TransposeFactory', function(){
   var bbMajor = TransposeFactory.transposeArr(cMajor, '7m');
   var bMajor = TransposeFactory.transposeArr(cMajor, '7M');
 
-  //set on TransposeFactory (does this need to be a function that returns the object?)
-  TransposeFactory.majorScales = function () {
-    return {
-      cMajor: cMajor,
-      dbMajor: dbMajor,
-      dMajor: dMajor,
-      ebMajor: ebMajor,
-      eMajor: eMajor,
-      fMajor: fMajor, 
-      gbMajor: gbMajor,
-      gMajor: gMajor,
-      abMajor: abMajor,
-      aMajor: aMajor,
-      bbMajor: bbMajor,
-      bMajor: bMajor
-    }
-  }
-
   // make natural minor scales
   var cMinor = ['C4','D4','Eb4','F4','G4','Ab4','Bb4','C5'];
   var dbMinor = TransposeFactory.transposeArr(cMinor, '2m');
@@ -83,8 +65,21 @@ app.factory('TransposeFactory', function(){
   var bMinor = TransposeFactory.transposeArr(cMinor, '7M');
 
   //set on TransposeFactory (does this also need to be a function that returns the object?)
-TransposeFactory.minorScales = function () {
+TransposeFactory.allScales = function () {
+    // maybe return an array instead of an object?
     return {
+      cMajor: cMajor,
+      dbMajor: dbMajor,
+      dMajor: dMajor,
+      ebMajor: ebMajor,
+      eMajor: eMajor,
+      fMajor: fMajor, 
+      gbMajor: gbMajor,
+      gMajor: gMajor,
+      abMajor: abMajor,
+      aMajor: aMajor,
+      bbMajor: bbMajor,
+      bMajor: bMajor,
       cMinor: cMinor,
       dbMinor: dbMinor,
       dMinor: dMinor,
