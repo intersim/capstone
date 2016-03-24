@@ -29,7 +29,10 @@ app.factory('CompositionFactory', function($http) {
     addLoop: function(loop, track, measure) {
       console.log(loop, track, measure);
       while (composition.tracks[track].length <= measure) composition.tracks[track].push({rest: true});
-      composition.tracks[track][measure] = {rest: false, loop: loop};
+      composition.tracks[track][measure] = { rest: false, loop: loop };
+    },
+    removeLoop: function(track, measure) {
+      composition.tracks[track][measure] = { rest:true };
     },
     save: function(){
       return composition.save();

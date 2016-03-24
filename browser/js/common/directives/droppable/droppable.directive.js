@@ -10,10 +10,9 @@ app.directive('droppable', function($compile, CompositionFactory){
       elem.addEventListener(
         'dragover',
         function(e) {
-          e.dataTransfer.dropEffect = 'copy';
+          e.dataTransfer.dropEffect = 'copyMove';
           if (e.preventDefault) e.preventDefault();
           this.classList.add('over');
-          console.log(this.classList);
           return false;
         },
         false
@@ -43,19 +42,29 @@ app.directive('droppable', function($compile, CompositionFactory){
           if (e.stopPropagation) e.stopPropagation();
           if (e.preventDefault) e.preventDefault();
           this.classList.remove('over');
- 
-          var item = document.getElementById( e.dataTransfer.getData('Text') ).cloneNode(true);
+
+          var oldItem = document.getElementById( e.dataTransfer.getData('Text') );
+          var newItem = oldItem.cloneNode(true);
           // grab info
           var info = this.id.split('-');
-          var loop = item.dataset.loop;
+          var loop = newItem.dataset.loop;
           var measure = info[info.length - 1];
-          var track = info[1];
+          var track = info[info.indexOf('t') + 1];
 
           CompositionFactory.addLoop(loop, track, measure);
+          console.log(oldItem);
+          // console.log('TYPE IS: ' + scope.type + " old item is " + oldItem)
+          if (oldItem.getAttribute('type') === 'move') {
+            CompositionFactory.removeLoop(track, measure);
+            oldItem.remove();
+          }
 
-          item.id = item.id + '-' + counter;
+          newItem.id = newItem.id + '-' + counter;
           counter++;
-          e.target.appendChild( item );
+
+          newItem.setAttribute('type', 'move');
+          
+          e.target.appendChild( newItem );
           // scope.$digest();
           scope.$apply('drop()');
           scope.$digest();
