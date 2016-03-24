@@ -3,13 +3,13 @@ app.factory('CompositionFactory', function($http) {
     tracks: [
       // track1
       {
-        measures: [{rest: true},{rest: true},{rest: true}],
+        measures: [{rest: true},{rest: true},{rest: true}, {rest:true}],
         numVoices: 1,
         instrument: 'flute'
       },
       // track2
       {
-        measures: [{rest: true}, {rest: true}, {rest: false, loop: "56f16f274852b8ef37d15429"}],
+        measures: [{rest: true}, {rest: true}, {rest: false, loop: "56f16f274852b8ef37d15429"}, {rest:true}],
         numVoices: 1,
         instrument: 'flute'
       }

@@ -57,12 +57,12 @@
     </form>
     <div class="track bin">
       <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable drop="addLoop()">
-        <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop}}" draggable type="move"></div>
+        <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop}}" draggable type="move" title="{{measure.loop}}"></div>
       </div>
     </div>
   </track></div>
 </div>
 
 <div class="loopBucket">
-  <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy"></div>
+  <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}"></div>
 </div>
