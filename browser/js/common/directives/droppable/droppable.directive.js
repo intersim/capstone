@@ -47,6 +47,9 @@ app.directive('droppable', function($compile, CompositionFactory){
           var newItem = oldItem.cloneNode(true);
 
           // grab info
+
+          // THIS NEEDS TO ADD TO NEW TRACK/MEASURE AND REMOVE FROM OLD
+          // - THERE IS NO DISTINCTION HERE
           var info = this.id.split('-');
           var loop = newItem.dataset.loop;
           var measure = info[info.indexOf('m') + 1];
@@ -56,24 +59,14 @@ app.directive('droppable', function($compile, CompositionFactory){
           CompositionFactory.addLoop(loop, track, measure);
 
           if (oldItem.getAttribute('type') === 'move') {
-            CompositionFactory.removeLoop(track, measure);
+            var oldInfo = oldItem.id.split('-');
+            var oldTrack = oldInfo[oldInfo.indexOf('t') + 1];
+            var oldMeasure = oldInfo[oldInfo.indexOf('m') + 1];
+            CompositionFactory.removeLoop(oldTrack, oldMeasure);
             oldItem.remove();
           }
 
-          newItem.id = newItem.id + '-' + counter;
-          counter++;
-
-          newItem.setAttribute('type', 'move');
-          newItem.classList.remove('drag');
-          newItem.removeAttribute('ng-repeat');
-
-          scope.$apply(function() {
-            console.log('ENTERED INTO APPLY')
-            console.log('New Item');
-            console.log(newItem)
-            var content = $compile( newItem )(scope);
-            element.append( content );
-          })
+          scope.$digest();
 
           scope.$apply('drop()');
           scope.$digest();

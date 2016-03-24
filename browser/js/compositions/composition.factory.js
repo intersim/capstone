@@ -28,7 +28,8 @@ app.factory('CompositionFactory', function($http) {
     },
     addLoop: function(loop, track, measure) {
       var measures = composition.tracks[track].measures;
-      console.log(loop, track, measure);
+      console.log('should add to: ', track, measure);
+      console.log('should add the loop to', measures);
       while (measures.length <= measure) measures.push({rest: true});
       measures[measure] = { rest: false, loop: loop };
       console.log(composition.tracks)
