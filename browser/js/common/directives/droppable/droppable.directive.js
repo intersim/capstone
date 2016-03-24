@@ -62,10 +62,13 @@ app.directive('droppable', function($compile, CompositionFactory){
           newItem.id = newItem.id + '-' + counter;
           counter++;
 
-          newItem.setAttribute('type', 'move');
-          
-          e.target.appendChild( newItem );
-          // scope.$digest();
+          newItem.setAttribute('type', 'move')
+
+          scope.$apply(function() {
+            var content = $compile( newItem )(scope);
+            element.append( content );
+          })
+
           scope.$apply('drop()');
           scope.$digest();
 
