@@ -3,7 +3,11 @@
 app.directive('commentItem', function() {
   return {
     restrict: 'E',
-    templateUrl: '/js/tasks/task.item.html',
-    controller:'CommentCtrl'
+    templateUrl: '/js/comments/comment.detail.html',
+    controller:'CommentCtrl',
+    scope: {
+    	target: '=context',
+    	comments: '=allcomments'
+    }
   };
 });

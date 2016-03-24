@@ -10,7 +10,8 @@ app.controller('CompositionEditor', function($scope, CompositionFactory){
 });
 
 app.controller('CompViewCtrl', function($scope){
-	$scope.composition = {creator: "Bonnie", title: "and Clyde", description: "dope tunes to cause havoc to", tags: ['nice'], tracks: [[], []]}
+	$scope.composition = {creator: "Clyde", title: "Bonnie", description: "dope tunes to cause havoc to", tags: ['nice'], tracks: [[], []]}
+  	$scope.comments = CompositionFactory.getCommentsById($scope.composition._id);
 	// $scope.composition = composition;
 
 })
