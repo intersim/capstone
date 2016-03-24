@@ -14,4 +14,11 @@ app.config( function ($stateProvider) {
     templateUrl: '/js/compositions/composition.edit.html',
     controller: 'CompositionEditor'
   })
+
+  $stateProvider.state('Composition',{
+    url: '/finalComposition',
+    templateUrl: '/js/compositions/composition.view.html',
+    controller: 'CompViewCtrl'
+  })
+
 })
