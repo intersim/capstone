@@ -21,15 +21,22 @@ app.factory('CompositionFactory', function($http) {
       return composition;
       // var uri = '/api/compositions/' + compositionId;
       // if (includeTracks) uri += "?includeTracks=true";
-      // return $http.get(url).then(function(res) {
+      // return $http.get(uri).then(function(res) {
       //   composition = res.data;
       //   return composition;
       // });
     },
     addLoop: function(loop, track, measure) {
-      console.log(loop, track, measure);
-      while (composition.tracks[track].length <= measure) composition.tracks[track].push({rest: true});
-      composition.tracks[track][measure] = {rest: false, loop: loop};
+      var measures = composition.tracks[track].measures;
+      console.log('should add to: ', track, measure);
+      console.log('should add the loop to', measures);
+      while (measures.length <= measure) measures.push({rest: true});
+      measures[measure] = { rest: false, loop: loop };
+      console.log(composition.tracks)
+    },
+    removeLoop: function(track, measure) {
+      composition.tracks[track].measures[measure] = { rest: true };
+      console.log(composition.tracks);
     },
     save: function(){
       return composition.save();
