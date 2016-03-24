@@ -1,17 +1,68 @@
 <style>
   .item {
-    width: 200px;
+    width: 140px;
     background-color: #444;
-    height: 100px;
+    height: 100%;
   }
   .loopBucket {
     display: flex;
     justify-content: space-around;
+    height: 100px;
+  }
+  .track-container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+  .track {
+    height: 100px;
+  }
+  .measure {
+    background-color: #ebebeb;
+    border-left: 1px solid #555;
+    border-right: 1px solid #555;
+    width: 140px;
+    height: 100%;
+  }
+  .track * {
+    display: inline-block;
+  }
+  .over {
+    background-color: #555;
+  }
+  .trash {
+    width: 200px;
+    height: 200px;
+    float: right;
+    background-color: darkgray;
   }
 </style>
-<div>
-  <track ng-repeat="track in composition.tracks" contents="track"></track></div>
+<div class="trash" droppable drop="deleteLoop()"></div>
+
+<div class="track-container">
+  <div ng-repeat="track in composition.tracks" ng-init="$track = $index">
+    <form>
+      <button>Mute</button>
+      <button>Solo</button>
+      <label>Volume</label>
+      <select>
+        <option>25%</option>
+        <option>50%</option>
+        <option>75%</option>
+        <option>100%</option>
+      </select>
+      <select>
+        <option>Flute</option>
+      </select>
+    </form>
+    <div class="track bin">
+      <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable drop="addLoop()">
+        <div ng-show="!measure.rest" class="item" data-loop={{measure.loop}} draggable></div>
+      </div>
+    </div>
+  </track></div>
 </div>
+
 <div class="loopBucket">
-  <div ng-repeat="loop in loopBucket" class="panel item" id="loop-{{loop.name}}" draggable></div>
+  <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-$index" draggable></div>
 </div>

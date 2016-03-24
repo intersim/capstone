@@ -1,27 +1,18 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Promise = require('bluebird');
 
 var TrackSchema = new mongoose.Schema({
-    loops: [
+    measures: [
       {
+        rest: {
+          type: Boolean,
+          required: true
+        },
         loop: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Loop'
-        },
-        startTime: {
-          type: String,
-          required: true,
-          validate: {
-            validator: function(value) {
-                return /^(\d+(\.\d+)?\:){1,2}(\d+(\.\d+)?)?$/i.test(value);
-            },
-            message: '{VALUE} is not a valid transport time - specify in format BARS:QUARTERS:SIXTEENTHS'
-          }
-        },
-        repeat: {
-          type: Number,
-          default: 1
         }
       }
     ],
@@ -33,17 +24,31 @@ var TrackSchema = new mongoose.Schema({
     }
 });
 
-TrackSchema.methods.addLoop = function(loopId, startTime, repeat) {
-    if (!repeat) repeat = 1;
-    this.loops.push({loop: loopId, startTime: startTime, repeat: repeat});
+TrackSchema.path('measures').validate(function(measures) {
+  return measures.every(function(item) {
+    return item.rest || item.loop;
+  })
+})
+
+TrackSchema.methods.addLoop = function(loopId, idx) {
+    while (this.loops.length < idx) this.loops.push({rest: true});
+    this.loops.push({rest: false, loop: loopId});
     return this.save();
 }
 
 TrackSchema.methods.removeLoop = function(loopId) {
-    this.loops = this.loops.filter(function(loop) {
-        return loop !== loopId;
-    })
+    for (var i in this.loops) {
+      if (this.loops[i].loop === loopId) {
+        this.loops[i].rest = true;
+        delete this.loops[i].loop;
+        break;
+      }
+    }
     return this.save();
+}
+
+TrackSchema.methods.findComposition = function(){
+  return mongoose.model('Composition').findOne({tracks: this._id});
 }
 
 TrackSchema.methods.clear = function() {
@@ -78,5 +83,20 @@ TrackSchema.post('remove', function(deletedTrack, next) {
     next();
   })
 });
+
+TrackSchema.post('save', function(track, next) {
+  track.findComposition().populate('tracks')
+  .then(function(composition) {
+      composition.numBars = Math.max( tracks.map(function(track) {
+          return measures.length;
+        })
+      )
+      return composition.save();
+  })
+  .then(function() {
+    next();
+  })
+  .then(null, console.log);
+})
 
 module.exports = mongoose.model('Track', TrackSchema);

@@ -1,13 +1,16 @@
 <style>
   .track {
-    width: 100%;
-    background-color: #ebebeb;
     height: 100px;
-    display: flex;
-    flex-wrap: nowrap;
+  }
+  .measure {
+    background-color: #ebebeb;
+    border-left: 1px solid #555;
+    border-right: 1px solid #555;
+    width: 140px;
+    height: 100%;
   }
   .item {
-    width: 200px;
+    width: 140px;
     background-color: #444;
     height: 100px;
   }
@@ -26,5 +29,8 @@
     <option>Flute</option>
   </select>
 </form>
-<div class="track bin panel panel-default" droppable drop="addLoop()">
+<div class="track bin">
+  <div ng-repeat="measure in contents.measures" class="measure" id="m-{{$index}}" droppable drop="addLoop()">
+    <div ng-show="!measure.rest" class="item" draggable></div>
+  </div>
 </div>
