@@ -39,7 +39,10 @@ var LoopSchema = new mongoose.Schema({
     tags: [String],
     isPublic: Boolean,
     name: String,
-    numUses: Number,
+    numUses: {
+        type: Number,
+        default: 0
+    },
     category: {
         type: String,
         enum: ['rhythm', 'chord', 'melody']

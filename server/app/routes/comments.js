@@ -11,7 +11,7 @@ router.post('/', function(req, res, next) {
 })
 
 router.get('/:targetId', function(req, res, next){
-  Comment.findAll({'target': req.params.targetId})
+  Comment.find({'target': req.params.targetId})
   .then(function(comments){
     res.json(comments)
   })

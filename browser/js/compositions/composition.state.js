@@ -21,4 +21,10 @@ app.config( function ($stateProvider) {
     controller: 'CompViewCtrl'
   })
 
+  $stateProvider.state('compositions',{
+    url: '/compositions/:id',
+    templateUrl: '/js/compositions/compositions.view.html',
+    controller: 'CompViewCtrl'
+  })
+
 })
