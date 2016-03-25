@@ -126,7 +126,7 @@ var seedLoops = function(users) {
 }
 
 function getRandomLoop(loops) {
-    return loops[ Math.floor( Math.random() * loops.length ) ];
+    return loops[ Math.floor( Math.random() * loops.length ) ]._id;
 }
 
 function getRandomUser(users) {
@@ -134,17 +134,14 @@ function getRandomUser(users) {
 }
 
 function seedLoopBuckets(users, loops) {
-    var promises = [];
 
     var user, savePromise;
     for (var i in loops) {
         user = getRandomUser(users);
         if (!user.bucket) user.bucket = [];
         user.bucket.push(loops[i]._id);
-        savePromise = user.save();
-        promises.push( savePromise );
     }
-    return Promise.all(promises);
+    return Promise.all(users.map(function(user) { return user.save() }));
 }
 
 function addRandomLoops(track, start, loops) {
@@ -153,20 +150,34 @@ function addRandomLoops(track, start, loops) {
     }
 }
 
+function addTracksToCompositions(tracks, compositions) {
+
+    for (var i = 0; i < compositions.length; i++) {
+        compositions[i].tracks.push(tracks[i]._id, tracks[i+1]._id)
+    }
+
+    return Promise.map(compositions, function(composition) {
+        return composition.save();
+    })
+}
+
 function seedTracks(loops) {
 
     var trackData = {
-        measures: new Array(12).fill({rest: true}),
+        measures: (new Array(12) ).fill({}),
         numVoices: 1,
         instrument: 'flute'
     }
-    var track1 = new Track(trackData);
-    var track2 = new Track(trackData);
-    var track3 = new Track(trackData);
 
-    [track1, track2, track3].forEach(function(track, idx) { addRandomLoops(track, idx, loops) });
-
-    return Promise.all([track1.save(), track2.save(), track3.save()]);
+    var tracks = [];
+    for (var i = 0; i < 3; i++) {
+        tracks.push( trackData );
+    }
+    
+    return Promise.map( tracks, function(track, idx) {
+        addRandomLoops(track, idx, loops);
+        return Track.create(track);
+    });
 }
 
 function seedCompositions(users, loops, tracks) {
@@ -177,16 +188,14 @@ function seedCompositions(users, loops, tracks) {
         creator: users[0]._id,
         title: "Composition1",
         description: "Just something for fun",
-        tags: ['rad'],
-        tracks: [tracks[0], tracks[1]]
+        tags: ['rad']
     } )
 
     compositions.push( {
         creator: users[1]._id,
         title: "Sketch1",
         description: "A quick piece I made",
-        tags: ['beautiful'],
-        tracks: [tracks[1], tracks[2]]
+        tags: ['beautiful']
     } )
 
     return Composition.createAsync(compositions);
@@ -196,23 +205,29 @@ function seedCompositions(users, loops, tracks) {
 var dbUsers;
 var dbLoops;
 var dbTracks;
+var dbCompositions;
 
 connectToDb.then(function () {
     User.findAsync({})
     .then(function (users) {
-        if (users.length) {
+        if (users && users.length) {
             console.log(chalk.magenta('Seems to already be user data!'));
             return users;
         } else {
-            console.log('Savings users');
+            console.log('Saving users');
             return seedUsers();
         }
     })
     .then(function (users) {
-        dbUsers = users;
+        if (users.length) {
+            console.log( chalk.green('Saved users') );
+            dbUsers = users;
+        } else {
+            console.log(chalk.magenta('Failed to save users'));
+        }
         return Loop.findAsync({});
     }).then(function(loops) {
-        if (loops.length) {
+        if (loops && loops.length) {
             console.log(chalk.magenta('Seems to already be loop data'));
             return loops;
         } else {
@@ -221,37 +236,60 @@ connectToDb.then(function () {
         }
     })
     .then(function(loops) {
-        dbLoops = loops;
+        if (loops.length) {
+            console.log( chalk.green('Saved loops') );
+            dbLoops = loops;
+        } else {
+            console.log( chalk.magenta('Failed to save loops'));
+        }
         console.log('Adding loops to user loop buckets')
         return seedLoopBuckets(dbUsers, dbLoops);
     })
     .then(function(users) {
         if (!users.length) console.log(chalk.magenta('issue saving to loop buckets'));
-        return Track.findAsync({});
-    })
-    .then(function(tracks) {
-        if (tracks.length) {
-            console.log(chalk.magenta('Seems to already be track data'));
-            return tracks;
-        } else {
-            console.log('Saving tracks');
-            return seedTracks(dbLoops);
-        }
-    })
-    .then(function(tracks) {
-        dbTracks = tracks;
         return Composition.findAsync({});
     })
     .then(function(compositions) {
-        if (compositions.length) console.log(chalk.magenta('Seems to already be composition data'));
-        else {
+        if (compositions.length) {
+            console.log(chalk.magenta('Seems to already be composition data'));
+            return compositions;
+        } else {
             console.log('Saving compositions');
             return seedCompositions(dbUsers, dbLoops, dbTracks);
         }
     })
     .then(function(compositions) {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
+        if (compositions.length) {
+            console.log( chalk.green('Saved compositions') );
+            dbCompositions = compositions;
+        } else {
+            console.log( chalk.magenta('Failed to save compositions'));
+        }
+        return Track.findAsync({});
+    })
+    .then(function(tracks) {
+        if (tracks && tracks.length) {
+            console.log(chalk.magenta('Seems to already be track data'));
+            return tracks;
+        } else {
+            console.log('Saving tracks');
+            return seedTracks(dbCompositions, dbLoops);
+        }
+    })
+    .then(function(tracks) {
+        if (tracks.length) {
+            console.log( chalk.green('Saved tracks') );
+            console.log('Adding tracks to compositions');
+            return addTracksToCompositions(tracks, dbCompositions);
+        } else {
+            console.log( chalk.magenta('Failed to seed tracks'));
+        }
+    })
+    .then(function(compositions) { 
+        if (compositions.length) {
+            console.log(chalk.green('Seed successful!'));
+            process.kill(0);
+        } else console.log( chalk.magenta('Failed to add tracks to compositions') );
     }).catch(function (err) {
         console.error(err);
         process.kill(1);
