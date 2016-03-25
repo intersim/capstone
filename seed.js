@@ -22,6 +22,9 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Loop = Promise.promisifyAll(mongoose.model('Loop'));
+var Track = Promise.promisifyAll(mongoose.model('Track'));
+var Composition = Promise.promisifyAll(mongoose.model('Composition'));
 
 var seedUsers = function () {
 
@@ -42,15 +45,211 @@ var seedUsers = function () {
 
 };
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
+var seedLoops = function(users) {
+
+    var loops = [
+        {
+            creator: users[users.length-1],
+            name: "loop1",
+            notes: [
+                {pitch:"b4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:2:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:3:2"},
+                {pitch:"b4",duration:"8n",startTime:"0:0:2"},
+                {pitch:"g4",duration:"8n",startTime:"0:2:2"}
+            ],
+            tags:['cool']
+        },
+        {   
+            creator: users[0],
+            name: "loop2",
+            notes:[
+                {pitch:"b4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"c5",duration:"8n",startTime:"0:2:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:3:2"},
+                {pitch:"g4",duration:"8n",startTime:"0:0:2"},
+                {pitch:"g4",duration:"8n",startTime:"0:2:2"},
+                {pitch:"f4",duration:"8n",startTime:"0:0:0"}
+            ],
+            tags:['awesome, rad']
+        },
+        {   
+            creator: users[users.length-1],
+            name: "loop3",
+            notes:[
+                {pitch:"c5",duration:"8n",startTime:"0:0:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:1:2"},
+                {pitch:"g4",duration:"8n",startTime:"0:2:0"},
+                {pitch:"e4",duration:"8n",startTime:"0:2:2"}
+            ],
+            tags:['cool']
+        },
+        {
+            creator: users[0],
+            name: "loop3",
+            notes:[
+                {pitch:"c5",duration:"8n",startTime:"0:0:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"f4",duration:"8n",startTime:"0:2:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:2:2"},
+                {pitch:"a4",duration:"8n",startTime:"0:3:0"}
+            ],
+            tags:['awesome, cool']
+        },
+        {
+            creator: users[users.length-1],
+            name: "loop4",
+            notes:[
+                {pitch:"c5",duration:"8n",startTime:"0:0:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:2:0"},
+                {pitch:"g4",duration:"8n",startTime:"0:3:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:3:2"}
+            ],
+            tags:['rad, awesome']
+        },
+        {
+            creator: users[0],
+            name: "loop5",
+            notes:[
+                {pitch:"c5",duration:"8n",startTime:"0:0:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:2:0"},
+                {pitch:"b4",duration:"8n",startTime:"0:3:0"}
+            ],
+            tags:['rad, cool']
         }
-    }).then(function () {
+    ]
+
+    return Loop.createAsync(loops);
+}
+
+function getRandomLoop(loops) {
+    return loops[ Math.floor( Math.random() * loops.length ) ];
+}
+
+function getRandomUser(users) {
+    return users[ Math.floor( Math.random() * users.length ) ];
+}
+
+function seedLoopBuckets(users, loops) {
+    var promises = [];
+
+    var user, savePromise;
+    for (var i in loops) {
+        user = getRandomUser(users);
+        if (!user.bucket) user.bucket = [];
+        user.bucket.push(loops[i]._id);
+        savePromise = user.save();
+        promises.push( savePromise );
+    }
+    return Promise.all(promises);
+}
+
+function addRandomLoops(track, start, loops) {
+    for (var i = start; i < track.measures.length; i+=2) {
+        track.measures[i] = {rest:false, loop: getRandomLoop(loops)};
+    }
+}
+
+function seedTracks(loops) {
+
+    var trackData = {
+        measures: new Array(12).fill({rest: true}),
+        numVoices: 1,
+        instrument: 'flute'
+    }
+    var track1 = new Track(trackData);
+    var track2 = new Track(trackData);
+    var track3 = new Track(trackData);
+
+    [track1, track2, track3].forEach(function(track, idx) { addRandomLoops(track, idx, loops) });
+
+    return Promise.all([track1.save(), track2.save(), track3.save()]);
+}
+
+function seedCompositions(users, loops, tracks) {
+
+    var compositions = [];
+
+    compositions.push( {
+        creator: users[0]._id,
+        title: "Composition1",
+        description: "Just something for fun",
+        tags: ['rad'],
+        tracks: [tracks[0], tracks[1]]
+    } )
+
+    compositions.push( {
+        creator: users[1]._id,
+        title: "Sketch1",
+        description: "A quick piece I made",
+        tags: ['beautiful'],
+        tracks: [tracks[1], tracks[2]]
+    } )
+
+    return Composition.createAsync(compositions);
+
+}
+
+var dbUsers;
+var dbLoops;
+var dbTracks;
+
+connectToDb.then(function () {
+    User.findAsync({})
+    .then(function (users) {
+        if (users.length) {
+            console.log(chalk.magenta('Seems to already be user data!'));
+            return users;
+        } else {
+            console.log('Savings users');
+            return seedUsers();
+        }
+    })
+    .then(function (users) {
+        dbUsers = users;
+        return Loop.findAsync({});
+    }).then(function(loops) {
+        if (loops.length) {
+            console.log(chalk.magenta('Seems to already be loop data'));
+            return loops;
+        } else {
+            console.log('Saving loops')
+            return seedLoops(dbUsers);
+        }
+    })
+    .then(function(loops) {
+        dbLoops = loops;
+        console.log('Adding loops to user loop buckets')
+        return seedLoopBuckets(dbUsers, dbLoops);
+    })
+    .then(function(users) {
+        if (!users.length) console.log(chalk.magenta('issue saving to loop buckets'));
+        return Track.findAsync({});
+    })
+    .then(function(tracks) {
+        if (tracks.length) {
+            console.log(chalk.magenta('Seems to already be track data'));
+            return tracks;
+        } else {
+            console.log('Saving tracks');
+            return seedTracks(dbLoops);
+        }
+    })
+    .then(function(tracks) {
+        dbTracks = tracks;
+        return Composition.findAsync({});
+    })
+    .then(function(compositions) {
+        if (compositions.length) console.log(chalk.magenta('Seems to already be composition data'));
+        else {
+            console.log('Saving compositions');
+            return seedCompositions(dbUsers, dbLoops, dbTracks);
+        }
+    })
+    .then(function(compositions) {
         console.log(chalk.green('Seed successful!'));
         process.kill(0);
     }).catch(function (err) {
