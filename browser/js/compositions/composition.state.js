@@ -15,16 +15,11 @@ app.config( function ($stateProvider) {
     controller: 'CompositionEditor'
   })
 
-  $stateProvider.state('Composition',{
+  $stateProvider.state('composition',{
     url: '/finalComposition',
     templateUrl: '/js/compositions/composition.view.html',
     controller: 'CompViewCtrl'
   })
 
-  $stateProvider.state('compositions',{
-    url: '/compositions/:id',
-    templateUrl: '/js/compositions/compositions.view.html',
-    controller: 'CompViewCtrl'
-  })
 
 })

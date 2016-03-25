@@ -10,7 +10,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allCompositions,
 })
 
 app.config(function($stateProvider){
-	$stateProvider.state('public', {
+	$stateProvider.state('profile', {
 		url:'/user/:id',
 		templateUrl: '/js/user/public/user.html',
 		controller: 'UserPubCtrl',
@@ -29,4 +29,11 @@ app.config(function($stateProvider){
 			}
 		}
 	})
+
+	//implement this state if we want separate compositions page view for specific users 
+
+	// $stateProvider.state('userCompositions',{
+	 //    url: '/user/:userid/compositions',
+	 //    templateUrl: '/js/compositions/compositions.view.html'
+  	// })
 })
