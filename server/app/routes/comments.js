@@ -10,6 +10,9 @@ router.post('/', function(req, res, next) {
   .then(null, next);
 })
 
+/*
+  .find() and error handling
+*/
 router.get('/:targetId', function(req, res, next){
   Comment.findAll({'target': req.params.targetId})
   .then(function(comments){
@@ -38,6 +41,9 @@ router.put('/:commentId', function(req, res, next) {
   } else res.status(403).send();
 })
 
+/*
+  .remove() and use .equals() to compare object ids
+*/
 router.delete('/:commentId', function(req, res, next) {
   if (req.comment.author === req.user._id) {
     req.comment.delete()

@@ -25,7 +25,7 @@ router.param('userId', function(req, res, next) {
     if (user) {
       req.foundUser = user;
       next()
-    } else {
+    } else { // Maybe send back an 404?
       next(new Error('couldn\'t find user'));
     }
   })
@@ -35,6 +35,9 @@ router.get('/:userId', function(req, res, next) {
   res.json(req.foundUser);
 })
 
+/*
+  May want to protect this route as well
+*/
 router.put('/:userId', function(req, res, next) {
   req.foundUser.set(req.body);
   req.foundUser.save()

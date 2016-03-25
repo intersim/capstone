@@ -30,6 +30,9 @@ TrackSchema.path('measures').validate(function(measures) {
   })
 })
 
+/*
+  Need to update these methods per new schema
+*/
 TrackSchema.methods.addLoop = function(loopId, idx) {
     while (this.loops.length < idx) this.loops.push({rest: true});
     this.loops.push({rest: false, loop: loopId});
@@ -40,7 +43,7 @@ TrackSchema.methods.removeLoop = function(loopId) {
     for (var i in this.loops) {
       if (this.loops[i].loop === loopId) {
         this.loops[i].rest = true;
-        delete this.loops[i].loop;
+        delete this.loops[i].loop; 
         break;
       }
     }
@@ -71,6 +74,9 @@ TrackSchema.methods.changeNumVoices = function(num) {
     return this.save();
 }
 
+/*
+  Watch out, .find() returns an array. $elemMatch && $eq  
+*/
 TrackSchema.post('remove', function(deletedTrack, next) {
   mongoose.model('Composition').find({tracks: deletedTrack._id})
   .then(function(composition){
@@ -80,10 +86,14 @@ TrackSchema.post('remove', function(deletedTrack, next) {
     return composition.save();
   })
   .then(function(){
-    next();
+    next(); // The next isnt needed in the post hook
   })
 });
 
+
+/*
+  This will make numBars NaN - Can call it with apply (Math.max.apply(null, trackTengthArray))
+*/
 TrackSchema.post('save', function(track, next) {
   track.findComposition().populate('tracks')
   .then(function(composition) {

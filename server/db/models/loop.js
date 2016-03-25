@@ -2,7 +2,9 @@
 
 var mongoose = require('mongoose');
 var Promise = require('bluebird');
-
+/*
+    Is the durations specific to Tone.js?
+*/
 var NoteSchema = new mongoose.Schema({
     duration: {
         type: String,
@@ -30,6 +32,10 @@ var NoteSchema = new mongoose.Schema({
         }
     }
 })
+
+/*
+    Nice extra effort on the validators
+*/
 
 var LoopSchema = new mongoose.Schema({
     creator: {
@@ -63,6 +69,7 @@ LoopSchema.methods.publish = function() {
     this.isPublic = true;
     return this.save();
 }
+
 
 LoopSchema.methods.addTag = function(tag) {
     this.tags.push(tag);

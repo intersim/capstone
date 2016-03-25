@@ -97,7 +97,9 @@ CompositionSchema.methods.removeTags = function(tagsToRemove) {
 CompositionSchema.methods.getUserComments = function() {
   return mongoose.model('Comment').find({target: this._id});
 }
-
+/*
+  Need to return here
+*/
 CompositionSchema.statics.findByLoop = function(loopId) {
     mongoose.model('Track').find({'loops.loop': loopId })
     .then(function(tracks) {

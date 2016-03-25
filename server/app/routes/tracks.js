@@ -7,7 +7,7 @@ router.post('/', function(req, res, next) {
   var track = new Track(req.body);
   track.save()
   .then(function(newTrack) {
-    if (newTrack) {
+    if (newTrack) { // this check may not be needed
       req.composition.tracks.push(track._id);
       return req.composition.save()
     } else next(new Error("could not add track to composition"));
