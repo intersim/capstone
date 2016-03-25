@@ -51,12 +51,12 @@ app.directive('droppable', function($compile, CompositionFactory){
           // THIS NEEDS TO ADD TO NEW TRACK/MEASURE AND REMOVE FROM OLD
           // - THERE IS NO DISTINCTION HERE
           var info = this.id.split('-');
-          var loop = newItem.dataset.loop;
+          var loopId = newItem.dataset.loop;
           var measure = info[info.indexOf('m') + 1];
           var track = info[info.indexOf('t') + 1];
-          console.log(loop, track, measure)
+          console.log(loopId, track, measure)
 
-          CompositionFactory.addLoop(loop, track, measure);
+          CompositionFactory.addLoop(loopId, track, measure);
 
           if (oldItem.getAttribute('type') === 'move') {
             var oldInfo = oldItem.id.split('-');

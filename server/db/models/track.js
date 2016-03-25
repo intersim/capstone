@@ -96,7 +96,7 @@ TrackSchema.methods.changeNumVoices = function(num) {
 //   .then(function() {
 //     next();
 //   })
-//   .then(null, console.log);
+//   .then(null, next);
 // })
 
 module.exports = mongoose.model('Track', TrackSchema);
