@@ -8,7 +8,7 @@ var TrackSchema = new mongoose.Schema({
       {
         rest: {
           type: Boolean,
-          required: true
+          default: true
         },
         loop: {
           type: mongoose.Schema.Types.ObjectId,
@@ -71,18 +71,18 @@ TrackSchema.methods.changeNumVoices = function(num) {
     return this.save();
 }
 
-TrackSchema.post('remove', function(deletedTrack, next) {
-  mongoose.model('Composition').find({tracks: deletedTrack._id})
-  .then(function(composition){
-    composition.tracks = composition.tracks.filter(function(track) {
-        return track !== deletedTrack._id;
-    });
-    return composition.save();
-  })
-  .then(function(){
-    next();
-  })
-});
+// TrackSchema.post('remove', function(deletedTrack, next) {
+//   mongoose.model('Composition').find({tracks: deletedTrack._id})
+//   .then(function(composition){
+//     composition.tracks = composition.tracks.filter(function(track) {
+//         return track !== deletedTrack._id;
+//     });
+//     return composition.save();
+//   })
+//   .then(function(){
+//     next();
+//   })
+// });
 
 // TrackSchema.post('save', function(track, next) {
 //   track.findComposition().populate('tracks')
