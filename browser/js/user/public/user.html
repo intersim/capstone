@@ -1,13 +1,14 @@
 <div class="container">
   <h1>{{user.username}}</h1>
+  <button ng-click='follow(user._id)'>Follow</button>
 
   <div class="row col-lg-7">
 
     <div class="col-lg-9">
       <ul class="summary">
-        <li>Bio: {{user.bio}</li>
-        <li ui-sref="followers">Followers {{followers}}</li>
-        <li ui-sref="following">Following {{user.following.length}}</li>
+        <li>Bio: {{user.bio}}</li>
+        <li ui-sref="followers">Followers: {{followers.length}}</li>
+        <li ui-sref="following">Following: {{user.following.length}}</li>
       </ul>
     </div>
   </div>
@@ -16,7 +17,7 @@
 
   <div class="col-lg-12">
     <h3>Compositions</h3>
-      <a ui-sref='compositions({id: user._id})'>See All</a>
+      <a ng-hide='!compositions.length' ui-sref='compositions({id: user._id})'>See All</a>
       <table>
         <div ng-repeat="composition in compositions">
           <div class="row">
@@ -25,23 +26,21 @@
                   <div><h3>{{composition.name}}</h3></div>
                   <p>{{composition.description}}</p>
                   <track>{{composition.tracks}}</track>
-                  <button ng-click="star(composition)" type="button" class="btn btn-danger btn-sm">
-                    <span class="glyphicon glyphicon-star"></span></button>
                   <button ng-click="edit(composition)" type="button" class="btn btn-sm">Edit</button>
                 </div>
               </div>
             </div>
           </div>
-        <span ng-show="compositions === 0">{{user.username}} has no compositions yet!</span>
+        <span ng-show="compositions.length === 0">{{user.username}} has no compositions yet!</span>
       </table>  
   </div>
 
 
   <div class="col-lg-12">
     <h3>Loops</h3>
-      <a ui-sref='loops({id: user._id})'>See All</a>
+      <a ng-hide="!loops.length" ui-sref='loops({id: user._id})'>See All</a>
       <table>
-        <div ng-repeat="loop in loops">
+        <div ng-repeat="loop in user.bucket">
           <div class="row">
             <div class='container'>
                 <div class="container">
@@ -54,7 +53,7 @@
               </div>
             </div>
           </div>
-        <span ng-show="loops === 0">{{user.username}} has no loops yet!</span>
+        <span ng-show="loops.length === 0">{{user.username}} has no loops yet!</span>
       </table>  
   </div>
 

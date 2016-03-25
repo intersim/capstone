@@ -38,6 +38,12 @@ app.factory('CompositionFactory', function($http) {
     getCommentsById: function(targetId) {
       var uri = '/api/comments/' + targetId;
       return $http.get(uri).then(function(res) { return res.data; });
+    },
+
+    getByCreator: function(userid){
+      var url = '/api/compositions/of/' +userid;
+      return $http.get(url)
+      .then(response => response.data)
     }
   }
 })

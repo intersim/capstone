@@ -35,6 +35,14 @@ router.get('/:userId', function(req, res, next) {
   res.json(req.foundUser);
 })
 
+router.get('/:userId/followers', function(req, res, next){
+  User.find({following: {$in: [req.params.userId]}})
+  .then(function(followers){
+    res.json(followers)
+  })
+  .then(null, next)
+})
+
 router.put('/:userId', function(req, res, next) {
   req.foundUser.set(req.body);
   req.foundUser.save()
