@@ -279,15 +279,24 @@ connectToDb.then(function () {
     .then(function(tracks) {
         if (tracks.length) {
             console.log( chalk.green('Saved tracks') );
-            console.log('Adding tracks to compositions');
-            return addTracksToCompositions(tracks, dbCompositions);
+            var hasTracks = dbCompositions.every(function(composition) {
+                return composition.tracks && composition.tracks.length;
+            })
+            if (!hasTracks) {
+                console.log('Adding tracks to compositions');
+                return addTracksToCompositions(tracks, dbCompositions);
+            } else {
+                console.log(chalk.magenta('Seem to already have tracks on compositions'));
+                return dbCompositions;
+            }
         } else {
             console.log( chalk.magenta('Failed to seed tracks'));
         }
     })
     .then(function(compositions) { 
         if (compositions.length) {
-            console.log(chalk.green('Seed successful!'));
+            console.log(chalk.green('Saved tracks onto compositions'))
+            console.log(chalk.green('SEED SUCCESSFUL!'));
             process.kill(0);
         } else console.log( chalk.magenta('Failed to add tracks to compositions') );
     }).catch(function (err) {
