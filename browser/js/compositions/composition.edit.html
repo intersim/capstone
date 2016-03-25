@@ -37,6 +37,9 @@
     background-color: darkgray;
   }
 </style>
+<button ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+<button ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
+<button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 <div class="trash" droppable drop="deleteLoop()"></div>
 
 <div class="track-container">
@@ -57,7 +60,7 @@
     </form>
     <div class="track bin">
       <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable drop="addLoop()">
-        <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop}}" draggable type="move" title="{{measure.loop}}"></div>
+        <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop._id}}" draggable type="move" title="{{measure.loop._id}}"></div>
       </div>
     </div>
   </track></div>

@@ -99,7 +99,7 @@ CompositionSchema.methods.getUserComments = function() {
 }
 
 CompositionSchema.statics.findByLoop = function(loopId) {
-    mongoose.model('Track').find({'loops.loop': loopId })
+    return mongoose.model('Track').find({'loops.loop': loopId })
     .then(function(tracks) {
         return Promise.map(tracks, function(track) {
             return this.findById(track.composition);
