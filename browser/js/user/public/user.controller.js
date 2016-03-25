@@ -4,6 +4,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	
 	$scope.followers = allFollowers;
 	$scope.user = theUser;
+	console.log("THE PROFILE USER", $scope.user)
 	$scope.compositions = allCompositions;
 
 	$scope.follow = function(uid){

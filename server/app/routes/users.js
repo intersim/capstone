@@ -52,6 +52,25 @@ router.put('/:userId', function(req, res, next) {
   .then(null, next);
 });
 
+router.put('/follow/:fid', function(req, res, next){
+  req.user.following.push(req.params.fid)
+  console.log("ID", req.params.fid)
+  req.user.save()
+  .then(function(){
+    res.status(201)
+  })
+  .then(null, next)
+})
+
+router.put('/addloop/:lid', function(req, res, next){
+  req.user.bucket.push(req.params.lid)
+  req.user.save()
+  .then(function(){
+    res.status(201)
+  })
+  .then(null, next)
+})
+
 router.delete('/:userId', function(req, res, next) {
   if (req.user.isAdmin || req.user._id === userId) {
     req.foundUser.remove()

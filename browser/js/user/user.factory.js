@@ -20,9 +20,9 @@ app.factory('UserFactory', function($http) {
   }
 
   //write backend
-  //follow a user
+  //follow a user; fid is the id of the followee
   UserFactory.follow = function(fid){
-  	var url = '/api/users/follow' +fid
+  	var url = '/api/users/follow/' +fid
   	return $http.put(url)
   	.then(response => response.data)
   }
