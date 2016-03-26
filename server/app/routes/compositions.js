@@ -62,6 +62,14 @@ router.get('/:compositionId', function(req, res, next) {
   res.json(req.composition);
 });
 
+router.get('/of/:userid', function(req, res, next){
+  Composition.find({creator:req.params.userid})
+  .then(function(compositions){
+    res.json(compositions)
+  })
+  .then(null, next)
+})
+
 router.put('/:compositionId', function(req, res, next) {
   req.composition.set(req.body);
   req.composition.save()

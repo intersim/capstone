@@ -18,7 +18,8 @@ app.config( function ($stateProvider) {
         return CompositionFactory.new();
       }
     }
-  }).state('editComposition', {
+  })
+  .state('editComposition', {
     url: '/composition/:compositionId',
     templateUrl: '/js/compositions/composition.edit.html',
     controller: 'CompositionEditor',
@@ -29,12 +30,11 @@ app.config( function ($stateProvider) {
       }
     }
   })
-
-
-  $stateProvider.state('Composition',{
+  .state('composition',{
     url: '/finalComposition',
     templateUrl: '/js/compositions/composition.view.html',
     controller: 'CompViewCtrl'
   })
+
 
 });

@@ -12,16 +12,11 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/', function(req, res, next) {
-  console.log("body", req.body);
-  console.log("user", req.user)
-
   Loop.create(req.body)
   .then(function(loop) {
-    console.log("id", loop._id)
     req.user.bucket.push(loop._id)
     req.user.save()
     res.json(loop)
-
   })
   .then(null, next);
 });
