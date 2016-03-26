@@ -20,11 +20,9 @@ router.post('/', function(req, res, next) {
   // Promise.map( composition.tracks, function(track) {
   //   return mongoose.model('Track').create(track);
   // } )
-  console.log(composition.tracks)
   mongoose.model('Track')
   .create(composition.tracks[0])
   .then(function(track) {
-    console.log("WHAT IS THIS", track)
     composition.tracks = [track];
   })
   .then(function() {
@@ -33,7 +31,6 @@ router.post('/', function(req, res, next) {
     return newComposition.save()
   })
   .then(function(composition) {
-    console.log('new comp', composition)
     res.status(201).json(composition);
   })
   .then(null, function(err) {

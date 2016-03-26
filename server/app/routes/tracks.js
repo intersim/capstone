@@ -20,6 +20,7 @@ router.post('/', function(req, res, next) {
 
 router.param('trackId', function(req, res, next) {
   Track.findById(req.params.trackId)
+  .populate('loop')
   .then(function(track){
     if (!track || req.composition.tracks.indexOf(track._id) === -1) {
       next(new Error("could not find track for this composition"));

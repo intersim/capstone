@@ -45,15 +45,19 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   }).toMaster();
 
   function scheduleLoop(notes, track, measure) {
-    console.log('entered loop scheduler');
-    notes.forEach(function(note) {
-      note.startTime = note.startTime.split(":");
-      note.startTime[0] = measure;
-      note.startTime = note.startTime.join(":");
-      Tone.Transport.schedule(function(){
-        instrument.triggerAttackRelease(note.pitch, note.duration);
-      }, note.startTime, note._id);
-    })
+    console.log('loop scheduler, notes: ', notes);
+    // console.log('loop scheduler notes: ', notes);
+    // console.log('loop scheduler track: ', track);
+    // console.log('loop scheduler measure: ', measure);
+
+    // notes.forEach(function(note) {
+    //   note.startTime = note.startTime.split(":");
+    //   note.startTime[0] = measure;
+    //   note.startTime = note.startTime.join(":");
+    //   Tone.Transport.schedule(function(){
+    //     instrument.triggerAttackRelease(note.pitch, note.duration);
+    //   }, note.startTime, note._id);
+    // })
   }
 
 
@@ -73,10 +77,19 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       return composition;
     },
     getById: function(compositionId, includeTracks) {
+        console.log("hit composition getById!");
         var uri = '/api/compositions/' + compositionId;
-        if (includeTracks) uri += "?includeTracks=true";
-        return $http.get(uri).then(function(res) {
+        if (includeTracks) {
+          console.log("includeTracks: ", includeTracks);
+          uri += "?includeTracks=true";
+          console.log("uri: ", uri);
+        }
+        return $http.get(uri)
+          .then(function(res) {
           composition = res.data;
+          console.log("composition data: ", composition);
+          console.log("first composition track: ", composition.tracks[0]);
+          console.log("first composition track measures: ", composition.tracks[0].measures);
           composition.tracks.forEach(function(track, trackIdx) {
             track.measures.forEach(function(measure, measureIdx) {
               if (!measure.rest) scheduleLoop(measure.loop.notes, trackIdx, measureIdx)
@@ -104,7 +117,7 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
     },
     save: function(){
       var id = $stateParams.compositionId;
-      console.log($id);
+      console.log(id);
       if ( id === 'new' ) {
         $http.post('/api/compositions', composition)
         .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });

@@ -5,3 +5,5 @@ public/main.js
 public/style.css
 .DS_Store
 coverage
+samples/
+API-design-notes

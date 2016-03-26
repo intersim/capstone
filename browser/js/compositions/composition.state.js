@@ -16,8 +16,9 @@ app.config( function ($stateProvider) {
     controller: 'CompositionEditor',
     resolve: {
       composition: function(CompositionFactory, $stateParams) {
+        console.log("hit editComposition resolve!");
         if ( $stateParams.compositionId === 'new') return CompositionFactory.new();
-        return CompositionFactory.getById($stateParams.compositionId);
+        return CompositionFactory.getById($stateParams.compositionId, true);
       }
     }
   })

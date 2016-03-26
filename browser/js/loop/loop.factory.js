@@ -152,7 +152,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     canvas.on('mouse:down', LoopFactory.addNote)
 
     // snap to grid when moving obj (doesn't work when resizing):
-    canvas.on('object:modified', LoopFactory.snapToGrid )
+    canvas.on('object:modified', LoopFactory.snapToGrid)
 
   }
 
