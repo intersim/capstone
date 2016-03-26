@@ -13,7 +13,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	}
 
 	$scope.addLoop = function(loopId){
-		UserFactory.add(loopId)
+		UserFactory.addLoop(loopId)
 	}
 })
 
@@ -34,6 +34,10 @@ app.config(function($stateProvider){
 			}
 		}
 	})
+
+
+	//GET PROPER LOOPS THROUGH USER ROUTES TO RESOLVE
+
 
 	//implement this state if we want separate compositions page view for specific users 
 
