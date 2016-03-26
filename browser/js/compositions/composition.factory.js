@@ -1,4 +1,4 @@
-app.factory('CompositionFactory', function($http, $state) {
+app.factory('CompositionFactory', function($http, $state, $stateParams) {
   // var composition = {
   //   tracks: [
   //     // track1
@@ -103,17 +103,16 @@ app.factory('CompositionFactory', function($http, $state) {
       console.log(composition.tracks);
     },
     save: function(){
-      if (composition._id) {
-        return $http.put('/api/compositions', composition)
+      if ( $state.is('createComposition') ) {
+        return $http.post('/api/compositions', composition)
+          .then(function(res) {
+            $state.go('editComposition', { compositionId: res.data._id })
+          })
+      } else {
+        return $http.put('/api/compositions/' + $stateParams.compositionId, composition)
         .then(function(res) {
           composition = res.data;
         });
-      } else {
-        return $http.post('/api/compositions', composition)
-          .then(function(res) {
-            console.log('saved')
-            $state.go('editComposition', {compositionId: res.data._id})
-          })
       }
     },
         //returns an array of objects
