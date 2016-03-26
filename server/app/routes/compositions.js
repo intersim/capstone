@@ -4,15 +4,15 @@ var Composition = mongoose.model('Composition');
 var Comment = mongoose.model('Comment');
 var Promise = require('bluebird');
 
+//gets all public compositions with tracks and routes
 router.get('/', function(req, res, next) {
-  var query = Composition.find();
-  if (req.query.includeTracks) query = query.populate('tracks');
-  query.exec()
-  .then(function(compositions) {
+  Composition.find({isPublic: true})
+  .populate('tracks tracks.measures.loop')
+  .then(function(compositions){
     if (compositions) res.json(compositions);
     else res.status(404).send();
   })
-  .then(null, next);
+  .then(null, next)
 });
 
 router.post('/', function(req, res, next) {
