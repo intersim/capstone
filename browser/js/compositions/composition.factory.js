@@ -1,4 +1,4 @@
-app.factory('CompositionFactory', function($http, $state) {
+app.factory('CompositionFactory', function($http, $state, $stateParams) {
   // var composition = {
   //   tracks: [
   //     // track1
@@ -45,12 +45,17 @@ app.factory('CompositionFactory', function($http, $state) {
   }).toMaster();
 
   function scheduleLoop(notes, track, measure) {
-    console.log('entered loop scheduler');
+    console.log('loop scheduler, notes: ', notes);
+    // console.log('loop scheduler notes: ', notes);
+    // console.log('loop scheduler track: ', track);
+    // console.log('loop scheduler measure: ', measure);
+
     notes.forEach(function(note) {
       note.startTime = note.startTime.split(":");
       note.startTime[0] = measure;
       note.startTime = note.startTime.join(":");
       Tone.Transport.schedule(function(){
+        console.log("note scheduled: ", note);
         instrument.triggerAttackRelease(note.pitch, note.duration);
       }, note.startTime, note._id);
     })
@@ -74,8 +79,11 @@ app.factory('CompositionFactory', function($http, $state) {
     },
     getById: function(compositionId, includeTracks) {
         var uri = '/api/compositions/' + compositionId;
-        if (includeTracks) uri += "?includeTracks=true";
-        return $http.get(uri).then(function(res) {
+        if (includeTracks) {
+          uri += "?includeTracks=true";
+        }
+        return $http.get(uri)
+          .then(function(res) {
           composition = res.data;
           composition.tracks.forEach(function(track, trackIdx) {
             track.measures.forEach(function(measure, measureIdx) {
@@ -87,8 +95,6 @@ app.factory('CompositionFactory', function($http, $state) {
     },
     addLoop: function(loopId, track, measure) {
       var measures = composition.tracks[track].measures;
-      console.log('should add to: ', track, measure);
-      console.log('should add the loop to', measures);
       while (measures.length <= measure) measures.push({rest: true});
       measures[measure] = { rest: false, loop: {_id: loopId} };
       $http.get('/api/loops/' + loopId)
@@ -100,23 +106,15 @@ app.factory('CompositionFactory', function($http, $state) {
     },
     removeLoop: function(track, measure) {
       composition.tracks[track].measures[measure] = { rest: true };
-      console.log(composition.tracks);
     },
     save: function(){
-      if (composition._id) {
-        return $http.put('/api/compositions', composition)
-        .then(function(res) {
-          composition = res.data;
-        });
-      } else {
-        return $http.post('/api/compositions', composition)
-          .then(function(res) {
-            console.log('saved')
-            $state.go('editComposition', {compositionId: res.data._id})
-          })
-      }
+      var id = $stateParams.compositionId;
+      if ( id === 'new' ) {
+        $http.post('/api/compositions', composition)
+        .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
+      } else $http.put('/api/compositions/' + id, composition);
     },
-        //returns an array of objects
+    //returns an array of objects
     getCommentsById: function(targetId) {
       var uri = '/api/comments/' + targetId;
       return $http.get(uri).then(function(res) { return res.data; });
