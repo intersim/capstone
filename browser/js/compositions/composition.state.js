@@ -26,7 +26,7 @@ app.config( function ($stateProvider) {
     resolve: {
       composition: function(CompositionFactory, $stateParams) {
         if ($stateParams.loopId !== "new") return CompositionFactory.getById($stateParams.compositionId);
-        else return;
+        else return CompositionFactory.new();
       }
     }
   })

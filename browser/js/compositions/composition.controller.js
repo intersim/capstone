@@ -2,35 +2,19 @@
 //   $scope.composition = composition;
 // });
 
-app.controller('CompositionEditor', function($scope, composition, CompositionFactory){
+app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http){
   // $scope.composition = composition;
 
   $scope.composition = composition;
 
-  $scope.loopBucket = [ 
-    {
-      _id:"56f16f274852b8ef37d15429",
-      name: "loop1",
-      notes: [
-                {"pitch":"b4","duration":"8n","startTime":"0:1:0", _id: "56f16f274852b8ef37d1542e"},
-                {"pitch":"a4","duration":"8n","startTime":"0:2:0", _id: "56f16f274852b8ef37d1542d"},
-                {"pitch":"b4","duration":"8n","startTime":"0:3:2", _id: "56f16f274852b8ef37d1542c"},
-                {"pitch":"b4","duration":"8n","startTime":"0:0:2", _id: "56f16f274852b8ef37d1542b"},
-                {"pitch":"g4","duration":"8n","startTime":"0:2:2", _id: "56f16f274852b8ef37d1542a"}
-             ]
-    },
-    {
-      _id:"56f16f2e4852b8ef37d1542f",
-      name: "loop2",
-      notes: [
-                {"pitch":"b4","duration":"8n","startTime":"0:1:0", _id: "56f16f274852b8ef37d1542e"},
-                {"pitch":"a4","duration":"8n","startTime":"0:2:0", _id: "56f16f274852b8ef37d1542d"},
-                {"pitch":"b4","duration":"8n","startTime":"0:3:2", _id: "56f16f274852b8ef37d1542c"},
-                {"pitch":"b4","duration":"8n","startTime":"0:0:2", _id: "56f16f274852b8ef37d1542b"},
-                {"pitch":"g4","duration":"8n","startTime":"0:2:2", _id: "56f16f274852b8ef37d1542a"}
-             ]
-    }
-  ]
+  $http.get('/api/loops')
+  .then(function(res){
+    return res.data;
+  })
+  .then(function(loops){
+    $scope.loopBucket = loops;
+    console.log($scope.loopBucket)
+  })
 
   $scope.playing = false;
   
