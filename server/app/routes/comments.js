@@ -10,8 +10,8 @@ router.post('/', function(req, res, next) {
   .then(null, next);
 })
 
-router.get('/:targetId', function(req, res, next){
-  Comment.find({'target': req.params.targetId})
+router.get('/:commentId', function(req, res, next){
+  Comment.find({'target': req.params.commentId})
   .then(function(comments){
     res.json(comments)
   })

@@ -17,11 +17,9 @@ var CommentSchema = new mongoose.Schema({
     default: Date.now
   },
   target: {
-    kind: String,
-    item: {
-      type: mongoose.Schema.Types.ObjectId,
-      refPath: 'target.kind'
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Composition',
+    required: true
   }
 })
 
