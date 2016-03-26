@@ -25,7 +25,7 @@ app.factory('UserFactory', function($http, AuthService) {
     return AuthService.getLoggedInUser()
     .then(function(currentUser){
       var url = "/api/users/" + currentUser._id
-      if (currentUser.following.indexOf(userId)!==-1) return currentUser;
+      if (currentUser.following.indexOf(userId)!==-1 || currentUser._id===userId) return currentUser;
       currentUser.following.push(userId)
       return $http.put(url, currentUser)
       .then(response => response.data)
