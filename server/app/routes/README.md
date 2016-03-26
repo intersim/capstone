@@ -8,6 +8,7 @@ Base URI: `/api`
 | `GET` | `/users` | Retrieve all users | all guests & users |
 | `POST` | `/users` | Create a new user | all guests |
 | `GET` | `/users/:userId` | Retrieve user with ID `userId` | guests, users |
+| `GET` | `/users/:userId/followers` | Retrieve list of all users currently following user with ID `userId` | all guests, users |
 | `PUT` | `/users/:userId` | Update user with ID `userId` | admin, current user |
 | `DELETE` | `/users/:userId` | Remove user with ID `userId` | admin, current user |
 | `GET` | `/users/:userId/compositions` | Retrieve all compositions created by user with ID `userId` (creator also retrieves unpublished compositions) | all guests & users
