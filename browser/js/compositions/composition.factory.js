@@ -123,7 +123,7 @@ app.factory('CompositionFactory', function($http, $state) {
     },
 
     getByCreator: function(userid){
-      var url = '/api/compositions/of/' +userid;
+      var url = '/api/users/'+userid+ '/compositions';
       return $http.get(url)
       .then(response => response.data)
     }

@@ -1,4 +1,4 @@
-app.factory('UserFactory', function($http) {
+app.factory('UserFactory', function($http, AuthService) {
 
   var UserFactory = {};
 
@@ -7,30 +7,41 @@ app.factory('UserFactory', function($http) {
     .then(response => response.data);
   }
 
-  UserFactory.fetchById = function(uid){
+  UserFactory.fetchById = function(userId){
   	var url = 'api/users/'+uid
   	return $http.get(url)
   	.then(response => response.data)
   }
 
-  UserFactory.getFollowers = function(uid){
+  UserFactory.getFollowers = function(userId){
   	var url = '/api/users/'+uid+'/followers'
   	return $http.get(url)
   	.then(response => response.data);
   }
 
-  //write backend
-  //follow a user; fid is the id of the followee
-  UserFactory.follow = function(fid){
-  	var url = '/api/users/follow/' +fid
-  	return $http.put(url)
-  	.then(response => response.data)
+  //follow user; userId is the id of the followee
+  UserFactory.followUser = function(userId){
+  	
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      var url = "/api/users/" + currentUser._id
+      if (currentUser.following.indexOf(userId)!==-1) return currentUser;
+      currentUser.following.push(userId)
+      return $http.put(url, currentUser)
+      .then(response => response.data)
+    })
   }
   //add loop to bucket
-  UserFactory.add = function(lid){
-  	var url = '/api/users/addloop/'+lid
-  	return $http.put(url)
-  	.then(response => response.data)
+  UserFactory.addLoop = function(loopId){
+
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      var url = "/api/users/" + currentUser._id
+      if (currentUser.bucket.indexOf(loopId)!==-1) return currentUser;
+      currentUser.bucket.push(loopId)
+      return $http.put(url, currentUser)
+      .then(response => response.data)
+    })
   }
 
   return UserFactory;

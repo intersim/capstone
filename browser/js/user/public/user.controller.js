@@ -7,12 +7,12 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	console.log("THE PROFILE USER", $scope.user)
 	$scope.compositions = allCompositions;
 
-	$scope.follow = function(uid){
+	$scope.followUser = function(uid){
 		UserFactory.follow(uid)
 
 	}
 
-	$scope.add = function(loop){
+	$scope.addLoop = function(loop){
 		UserFactory.add(loop)
 	}
 })
