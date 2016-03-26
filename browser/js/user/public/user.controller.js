@@ -7,30 +7,30 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	console.log("THE PROFILE USER", $scope.user)
 	$scope.compositions = allCompositions;
 
-	$scope.followUser = function(uid){
-		UserFactory.follow(uid)
+	$scope.followUser = function(userId){
+		UserFactory.follow(userId)
 
 	}
 
-	$scope.addLoop = function(loop){
-		UserFactory.add(loop)
+	$scope.addLoop = function(loopId){
+		UserFactory.add(loopId)
 	}
 })
 
 app.config(function($stateProvider){
 	$stateProvider.state('profile', {
-		url:'/user/:userid',
+		url:'/user/:userId',
 		templateUrl: '/js/user/public/user.html',
 		controller: 'UserPubCtrl',
 		resolve: {
 			theUser: function(UserFactory, $stateParams){
-				return UserFactory.fetchById($stateParams.userid);
+				return UserFactory.fetchById($stateParams.userId);
 			},
 			allCompositions: function(CompositionFactory, $stateParams){
-				return CompositionFactory.getByCreator($stateParams.userid);
+				return CompositionFactory.getByCreator($stateParams.userId);
 			},
 			allFollowers: function(UserFactory, $stateParams){
-				return UserFactory.getFollowers($stateParams.userid);
+				return UserFactory.getFollowers($stateParams.userId);
 			}
 		}
 	})
