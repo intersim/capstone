@@ -2,23 +2,44 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Composition = mongoose.model('Composition');
 var Comment = mongoose.model('Comment');
+var Promise = require('bluebird');
 
 router.get('/', function(req, res, next) {
   var query = Composition.find();
   if (req.query.includeTracks) query = query.populate('tracks');
   query.exec()
   .then(function(compositions) {
-    res.json(compositions);
+    if (compositions) res.json(compositions);
+    else res.status(404).send();
   })
-  .catch(null, next);
+  .then(null, next);
 });
 
 router.post('/', function(req, res, next) {
-  var comp = new Composition(req.body);
-  comp.creator = req.user;
-  comp.save()
-  .then(function(comp) {
-    res.status(201).json(comp);
+  var composition = req.body;
+  // Promise.map( composition.tracks, function(track) {
+  //   return mongoose.model('Track').create(track);
+  // } )
+  console.log(composition.tracks)
+  mongoose.model('Track')
+  .create(composition.tracks[0])
+  .then(function(track) {
+    console.log("WHAT IS THIS", track)
+    composition.tracks = [track];
+  })
+  .then(function() {
+    var newComposition = new Composition(req.body);
+    // comp.creator = req.user;
+    return newComposition.save()
+  })
+  .then(function(composition) {
+    console.log('new comp', composition)
+    res.status(201).json(composition);
+  })
+  .then(null, function(err) {
+    console.log("ERRROORRR")
+    console.error(err.stack);
+    res.status(404).send();
   })
 });
 
@@ -34,7 +55,7 @@ router.param('compositionId', function(req, res, next) {
       next(new Error('failed to find composition'));
     }
   })
-  .catch(null, next)
+  .then(null, next)
 })
 
 router.get('/:compositionId', function(req, res, next) {

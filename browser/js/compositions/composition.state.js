@@ -9,17 +9,32 @@ app.config( function ($stateProvider) {
   //   },
   //   controller: 'CompositionCtrl'
   // })
-  $stateProvider.state('editComposition', {
-    url: '/composition',
+  $stateProvider.state('newComposition', {
+    url: '/composition/new',
     templateUrl: '/js/compositions/composition.edit.html',
-    controller: 'CompositionEditor'
+    controller: 'CompositionEditor',
+    resolve: {
+      composition: function(CompositionFactory) {
+        return CompositionFactory.new();
+      }
+    }
   })
-
-  $stateProvider.state('composition',{
+  .state('editComposition', {
+    url: '/composition/:compositionId',
+    templateUrl: '/js/compositions/composition.edit.html',
+    controller: 'CompositionEditor',
+    resolve: {
+      composition: function(CompositionFactory, $stateParams) {
+        if ($stateParams.loopId !== "new") return CompositionFactory.getById($stateParams.compositionId);
+        else return;
+      }
+    }
+  })
+  .state('composition',{
     url: '/finalComposition',
     templateUrl: '/js/compositions/composition.view.html',
     controller: 'CompViewCtrl'
   })
 
 
-})
+});

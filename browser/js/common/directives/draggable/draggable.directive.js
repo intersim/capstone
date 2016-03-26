@@ -1,12 +1,16 @@
 app.directive('draggable', function() {
-    return function(scope, element) {
+  return {
+    scope: {
+      type: "@"
+    },
+    link: function(scope, element) {
       var elem = element[0];
       elem.draggable = true;
 
       elem.addEventListener(
         'dragstart',
         function(e) {
-          e.dataTransfer.effectAllowed = 'copy';
+          e.dataTransfer.effectAllowed = scope.type;
           e.dataTransfer.setData('Text', this.id);
           this.classList.add('drag');
           return false;
@@ -24,4 +28,5 @@ app.directive('draggable', function() {
       );
       
     }
+  }
 });

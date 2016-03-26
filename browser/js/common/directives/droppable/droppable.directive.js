@@ -10,10 +10,9 @@ app.directive('droppable', function($compile, CompositionFactory){
       elem.addEventListener(
         'dragover',
         function(e) {
-          e.dataTransfer.dropEffect = 'copy';
+          e.dataTransfer.dropEffect = 'copyMove';
           if (e.preventDefault) e.preventDefault();
           this.classList.add('over');
-          console.log(this.classList);
           return false;
         },
         false
@@ -43,22 +42,31 @@ app.directive('droppable', function($compile, CompositionFactory){
           if (e.stopPropagation) e.stopPropagation();
           if (e.preventDefault) e.preventDefault();
           this.classList.remove('over');
- 
-          var item = document.getElementById( e.dataTransfer.getData('Text') ).cloneNode(true);
+
+          var oldItem = document.getElementById( e.dataTransfer.getData('Text') );
+          var newItem = oldItem.cloneNode(true);
+
           // grab info
+
+          // THIS NEEDS TO ADD TO NEW TRACK/MEASURE AND REMOVE FROM OLD
+          // - THERE IS NO DISTINCTION HERE
           var info = this.id.split('-');
-          var loop = item.dataset.loop;
-          var measure = info[info.length - 1];
-          var track = info[1];
+          var loopId = newItem.dataset.loop;
+          var measure = info[info.indexOf('m') + 1];
+          var track = info[info.indexOf('t') + 1];
+          console.log(loopId, track, measure)
 
-          CompositionFactory.addLoop(loop, track, measure);
+          CompositionFactory.addLoop(loopId, track, measure);
 
-          item.id = item.id + '-' + counter;
-          counter++;
-          e.target.appendChild( item );
-          // scope.$digest();
+          if (oldItem.getAttribute('type') === 'move') {
+            var oldInfo = oldItem.id.split('-');
+            var oldTrack = oldInfo[oldInfo.indexOf('t') + 1];
+            var oldMeasure = oldInfo[oldInfo.indexOf('m') + 1];
+            CompositionFactory.removeLoop(oldTrack, oldMeasure);
+            oldItem.remove();
+          }
+
           scope.$apply('drop()');
-          scope.$digest();
 
           return false;
         },
