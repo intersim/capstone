@@ -8,7 +8,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	$scope.compositions = allCompositions;
 
 	$scope.followUser = function(userId){
-		UserFactory.follow(userId)
+		UserFactory.followUser(userId)
 
 	}
 
