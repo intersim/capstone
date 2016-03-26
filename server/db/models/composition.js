@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 // TONEJS - scores can have following values:
 // {
@@ -38,6 +39,9 @@ var CompositionSchema = new mongoose.Schema({
     ref: 'Track'
   }]
 });
+
+//add deepPopulate option - populates a reference's reference
+CompositionSchema.plugin(deepPopulate);
 
 // CHANGE COMPOSITION MUSIC FEATURES
 

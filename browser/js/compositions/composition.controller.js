@@ -13,7 +13,6 @@ app.controller('CompositionEditor', function($scope, composition, CompositionFac
   })
   .then(function(loops){
     $scope.loopBucket = loops;
-    console.log("$scope.loopBucket: ", $scope.loopBucket)
   })
 
   $scope.playing = false;

@@ -43,7 +43,7 @@ router.post('/', function(req, res, next) {
 
 router.param('compositionId', function(req, res, next) {
   var query = Composition.findById(req.params.compositionId);
-  if (req.query.includeTracks) query = query.populate('tracks');
+  if (req.query.includeTracks) query = query.deepPopulate('tracks tracks.measures.loop');
   query.exec()
   .then(function(composition) {
     if (composition) {
