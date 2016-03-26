@@ -23,4 +23,6 @@ Base URI: `/api`
 | `PUT` | `/compositions/:compositionId` | Update composition with ID `compositionId`, deleting removed tracks and creating added tracks (can only be performed by creator or admin) | creator or admin only |
 | `DELETE` | `/compositions/:compositionId` | Delete composition with ID `compositionId` and all of its tracks (can only be performed by creator or admin | creator or admin only |
 | `GET` | `/compositions/:compositionId/comments` | Get all comments on composition with ID `compositionId` | all guests & users
-| `POST` | `/compositions/:compositionId/comments` | Create a new comment on composition with ID `compositionId` | all guests, except composition creator |
+| `POST` | `/compositions/:compositionId/comments` | Create a new comment on composition with ID `compositionId` | all users, except composition creator |
+| `PUT` | `/compositions/:compositionId/comments/:commentId` | Update comment with ID `commentId` | author of comment & admin |
+| `DELETE` | `/compositions/:compositionId/comments/:commentId` | Delete comment with ID `commentId` | author of comment & admin |
