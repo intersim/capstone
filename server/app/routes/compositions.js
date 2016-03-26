@@ -5,6 +5,7 @@ var Comment = mongoose.model('Comment');
 var Promise = require('bluebird');
 
 router.get('/', function(req, res, next) {
+  //need to also populate tracks.measures.loops?
   var query = Composition.find();
   if (req.query.includeTracks) query = query.populate('tracks');
   query.exec()
