@@ -3,8 +3,8 @@
 
 Base URI: `/api`
 
-| Method | URI | Action | Access Allowed to... |
-| --- | --- |
+| Method | URI | Action | Access Allowed to |
+| --- | --- | --- | --- |
 | `GET` | `/users` | Retrieve all users | all guests & users |
 | `POST` | `/users` | Create a new user | all guests |
 | `GET` | `/users/:userId` | Retrieve user with ID `userId` | guests, users |
