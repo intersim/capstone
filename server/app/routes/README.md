@@ -18,7 +18,6 @@ Base URI: `/api`
 | `GET` | `/loops/:loopId` | Retrieve loop with ID `loopId` | all guests & users | 
 | `PUT` | `/loops/:loopId` | Update loop with ID `loopId` (can only be performed by creator, and only if loop is unpublished) | creator or admin only |
 | `DELETE` | `/loops/:loopId` | Remove loop with ID `loopId` (can only be performed by creator, and only if loop is unpublished) | creator or admin only |
-| `GET` | `/loops/:loopId/compositions` | Get all compositions that contain the loop with ID `loopId` | all guests & users |
 | `GET` | `/compositions` | Retrieve all public compositions, with tracks and loops populated | all guests & users |
 | `POST` | `/compositions` | Create new composition, create all tracks, and add tracks to the new composition | all users |
 | `GET` | `/compositions/:compositionId` | Retrieve composition with ID `compositionId` | all guests & users |
