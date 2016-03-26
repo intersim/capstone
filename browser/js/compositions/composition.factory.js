@@ -45,11 +45,6 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   }).toMaster();
 
   function scheduleLoop(notes, track, measure) {
-    console.log('loop scheduler, notes: ', notes);
-    // console.log('loop scheduler notes: ', notes);
-    // console.log('loop scheduler track: ', track);
-    // console.log('loop scheduler measure: ', measure);
-
     notes.forEach(function(note) {
       note.startTime = note.startTime.split(":");
       note.startTime[0] = measure;
@@ -60,7 +55,6 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       }, note.startTime, note._id);
     })
   }
-
 
   Tone.Transport.loop = false;
 
