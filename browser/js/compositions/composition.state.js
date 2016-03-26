@@ -9,22 +9,14 @@ app.config( function ($stateProvider) {
   //   },
   //   controller: 'CompositionCtrl'
   // })
-  $stateProvider.state('createComposition', {
-    url: '/composition/new',
-    templateUrl: '/js/compositions/composition.edit.html',
-    controller: 'CompositionEditor',
-    resolve: {
-      composition: function(CompositionFactory) {
-        return CompositionFactory.new()
-      }
-    }
-  })
+  $stateProvider
   .state('editComposition', {
     url: '/composition/:compositionId',
     templateUrl: '/js/compositions/composition.edit.html',
     controller: 'CompositionEditor',
     resolve: {
       composition: function(CompositionFactory, $stateParams) {
+        if ( $stateParams.compositionId === 'new') return CompositionFactory.new();
         return CompositionFactory.getById($stateParams.compositionId);
       }
     }

@@ -103,17 +103,12 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       console.log(composition.tracks);
     },
     save: function(){
-      if ( $state.is('createComposition') ) {
-        return $http.post('/api/compositions', composition)
-          .then(function(res) {
-            $state.go('editComposition', { compositionId: res.data._id })
-          })
-      } else {
-        return $http.put('/api/compositions/' + $stateParams.compositionId, composition)
-        .then(function(res) {
-          composition = res.data;
-        });
-      }
+      var id = $stateParams.compositionId;
+      console.log($id);
+      if ( id === 'new' ) {
+        $http.post('/api/compositions', composition)
+        .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
+      } else $http.put('/api/compositions/' + id, composition);
     },
         //returns an array of objects
     getCommentsById: function(targetId) {
