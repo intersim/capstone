@@ -253,14 +253,13 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var id = $stateParams.loopId
 
     if (!id) {
-      console.log('in the right if block')
       $http.post('/api/loops/', { notes: dataToSave })
       .then(function(res) { $state.go('loop', {loopId: res.data._id} ) });
     } else {$http.put('/api/loops/' + id, { notes: dataToSave })};
   }
 
   LoopFactory.getAll = function() {
-    return $http.get('/api/loops')
+    return $http.get('/api/loops/')
       .then(function(res) {
         return res.data;
       })
