@@ -272,6 +272,13 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       })
   }
 
+  LoopFactory.getCompositions = function() {
+    return $http.get('/api/loops/' + $stateParams.loopId + '/compositions')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
   return LoopFactory;
 
 })
