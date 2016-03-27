@@ -76,7 +76,6 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       ]
     }
     while (composition.tracks[0].measures.length < 16) composition.tracks[0].measures.push({rest:true});
-    console.log('this is composition from new factory', composition)
     return composition;
   }
 
