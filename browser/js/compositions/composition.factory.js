@@ -115,15 +115,12 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       } else $http.put('/api/compositions/' + id, composition);
     },
     //returns an array of objects
-    getCommentsById: function(targetId) {
-      var uri = '/api/comments/' + targetId;
-      return $http.get(uri).then(function(res) { return res.data; });
-    },
-
-    getByCreator: function(userid){
-      var url = '/api/users/'+userid+ '/compositions';
-      return $http.get(url)
-      .then(response => response.data)
+    getComments: function() {
+      return $http.get('/api/compositions/' + $stateParams.compositionId + '/comments')
+        .then(function(res) {
+          return res.data;
+        });
     }
+
   }
 })
