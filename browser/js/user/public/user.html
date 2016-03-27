@@ -26,6 +26,7 @@
                   <div><h3>{{composition.name}}</h3></div>
                   <p>{{composition.description}}</p>
                   <track>{{composition.tracks}}</track>
+                  <button ng-click="favorite(composition._id)" type="button" class="btn btn-sm">Favorite</button>
                   <button ng-click="edit(composition)" type="button" class="btn btn-sm">Edit</button>
                 </div>
               </div>
@@ -40,7 +41,7 @@
     <h3>Loops</h3>
       <a ng-hide="!loops.length" ui-sref='loops({id: user._id})'>See All</a>
       <table>
-        <div ng-repeat="loop in user.bucket">
+        <div ng-repeat="loop in loops">
           <div class="row">
             <div class='container'>
                 <div class="container">
