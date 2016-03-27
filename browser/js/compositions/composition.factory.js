@@ -65,6 +65,11 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   Tone.Transport.loop = false;
 
   return {
+    getAll: function() {
+      return $http.get('/api/compositions', function(res) {
+        return res.data;
+      })
+    },
     new: function() {
       composition = {
         title: "Untitled",
@@ -77,11 +82,8 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       while (composition.tracks[0].measures.length < 16) composition.tracks[0].measures.push({rest:true});
       return composition;
     },
-    getById: function(compositionId, includeTracks) {
+    getById: function(compositionId) {
         var uri = '/api/compositions/' + compositionId;
-        if (includeTracks) {
-          uri += "?includeTracks=true";
-        }
         return $http.get(uri)
           .then(function(res) {
           composition = res.data;
@@ -120,6 +122,27 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
         .then(function(res) {
           return res.data;
         });
+    },
+
+    addComment: function(commentData) {
+      return $http.post('/api/compositions/' + $stateParams.compositionId + '/comments', commentData)
+        .then(function(res) {
+          return res.data;
+        })
+    },
+
+    updateComment: function(commentData) {
+      return $http.put('/api/compositions/' + $stateParams.compositionId + '/comments/' + commentId, commentData)
+        .then(function(res) {
+          return res.data;
+        })
+    }
+
+    deleteComment: function(commentId) {
+      return $http.delete('/api/compositions/' + $stateParams.compositionId + '/comments/' + commentId)
+        .then(function(res) {
+          return res.data;
+        })
     }
 
   }
