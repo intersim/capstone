@@ -6,7 +6,8 @@ var Composition = mongoose.model('Composition');
 
 //retrieve all loops (all)
 router.get('/', function(req, res, next){
-  Loop.find({isPublic: true})
+  // Loop.find({isPublic: true})
+  Loop.find()
   .then(function(loops) {
     res.json(loops);
   })
@@ -19,8 +20,9 @@ router.post('/', function(req, res, next) {
   Loop.create(req.body)
   .then(function(loop) {
     savedLoop = loop;
-    req.user.bucket.push(loop._id)
+    req.user.bucket.push(loop._id);
     return req.user.save();
+  })
   .then(function(user) {
     if (!user) throw new Error('issue saving loop onto user');
     res.json(savedLoop);
@@ -61,7 +63,7 @@ router.put('/:loopId', function(req, res, next){
 
 //delete loop (creator and admin)
 router.delete('/:loopId', function(req, res, next) {
-  if ( (!req.loop.isPublic && req.user._id === req.loop.creator) || req.user.isAdmin ) {
+  if ( (!req.loop.isPublic && req.user._id.toString() === req.loop.creator.toString()) || req.user.isAdmin ) {
     req.loop.remove()
     .then(function(){
       res.status(204).send();
