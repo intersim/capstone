@@ -76,6 +76,7 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       ]
     }
     while (composition.tracks[0].measures.length < 16) composition.tracks[0].measures.push({rest:true});
+    console.log('this is composition from new factory', composition)
     return composition;
   }
 
@@ -110,7 +111,9 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   }
   
   CompositionFactory.save = function(){
+    console.log('getting into save factory')
     var id = $stateParams.compositionId;
+    console.log('this is the id', id)
     if ( id === 'new' ) {
       $http.post('/api/compositions', composition)
       .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
@@ -151,5 +154,7 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
         return res.data;
       })
   }
+
+  return CompositionFactory;
 
 })

@@ -15,7 +15,8 @@ app.config( function ($stateProvider) {
     templateUrl: '/js/compositions/composition.edit.html',
     controller: 'CompositionEditor',
     resolve: {
-      composition: function(CompositionFactory, $stateParams) {
+      getcomposition: function(CompositionFactory, $stateParams) {
+        console.log('about to resolve some shit')
         if ( $stateParams.compositionId === 'new') return CompositionFactory.new();
         return CompositionFactory.getById($stateParams.compositionId, true);
       }
