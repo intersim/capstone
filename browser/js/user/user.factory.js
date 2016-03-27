@@ -45,6 +45,13 @@ app.factory('UserFactory', function($http, AuthService) {
     })
   }
 
+  UserFactory.getCompositions = function(userId) {
+    return $http.get('/api/users/' + userId + '/compositions')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
   return UserFactory;
 
  });
