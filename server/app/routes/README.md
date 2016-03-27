@@ -27,4 +27,4 @@ Base URI: `/api`
 | `GET` | `/compositions/:compositionId/comments` | Get all comments on composition with ID `compositionId` | all guests & users
 | `POST` | `/compositions/:compositionId/comments` | Create a new comment on composition with ID `compositionId` | all users, except composition creator |
 | `PUT` | `/compositions/:compositionId/comments/:commentId` | Update comment with ID `commentId` | author of comment & admin |
-| `DELETE` | `/compositions/:compositionId/comments/:commentId` | Delete comment with ID `commentId` | author of comment & admin |
+| `DELETE` | `/compositions/:compositionId/comments/:commentId` | Delete comment with ID `commentId` | author of comment, creator of composition & admin |
