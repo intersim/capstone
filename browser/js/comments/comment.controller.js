@@ -1,4 +1,4 @@
-app.controller('CommentCtrl', function($scope, CommentFactory){
+app.controller('CommentCtrl', function($scope, CompositionFactory){
 
   var composition = {creator:"56f1a976ff0f75083fd3a379", title: "What a Jam", description: "an ode to fruit preserves", tags: ['truelove', 'beauty', 'and', 'grace', 'miss','unitedstates'], tracks: [[],[]] }
   
@@ -12,9 +12,5 @@ app.controller('CommentCtrl', function($scope, CommentFactory){
   	var body = {"comment": comment.content, "targetId": targetid}
   	CommentFactory.postComment(body)
   }
-
-
-
-
 
 });
