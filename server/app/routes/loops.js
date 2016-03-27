@@ -43,7 +43,7 @@ router.get('/:loopId', function(req, res, next) {
 
 //edit loop (creator and admin)
 router.put('/:loopId', function(req, res, next){
-  if (!req.loop.isPublic && (req.user._id === req.loop.creator || req.user.isAdmin) ){
+  if ( (!req.loop.isPublic && req.user._id === req.loop.creator) || req.user.isAdmin ){
     req.loop.set(req.body);
     req.loop.save()
     .then(function(loop) {
@@ -57,7 +57,7 @@ router.put('/:loopId', function(req, res, next){
 
 //delete loop (creator and admin)
 router.delete('/:loopId', function(req, res, next) {
-  if ( !req.loop.isPublic && (req.user._id === req.loop.creator || req.user.isAdmin) ) {
+  if ( (!req.loop.isPublic && req.user._id === req.loop.creator) || req.user.isAdmin ) {
     req.loop.remove()
     .then(function(){
       res.status(204).send();
