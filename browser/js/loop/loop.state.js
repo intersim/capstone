@@ -7,7 +7,6 @@ app.config(function ($stateProvider) {
         resolve: {
           loop: function($http, $stateParams) {
             if ($stateParams.loopId) {
-              console.log('inexplicably inside of loop')
               return $http.get('/api/loops/' + $stateParams.loopId)
               .then(function(res) {
                 console.log(res);

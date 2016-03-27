@@ -250,9 +250,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
     }
-    console.log("data to save", dataToSave);
     var id = $stateParams.loopId
-    console.log('id', id)
 
     if (!id) {
       console.log('in the right if block')

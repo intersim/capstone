@@ -16,7 +16,6 @@ app.config( function ($stateProvider) {
     controller: 'CompositionEditor',
     resolve: {
       composition: function(CompositionFactory, $stateParams) {
-        console.log('comp id', $stateParams.compositionId)
         if (!$stateParams.compositionId) return CompositionFactory.new();
         return CompositionFactory.getById($stateParams.compositionId, true);
       }
