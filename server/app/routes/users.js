@@ -25,6 +25,7 @@ router.post('/', function(req, res, next) {
 //userid param
 router.param('userId', function(req, res, next) {
   User.findById(req.params.userId)
+  .populate('bucket')
   .then(function(user) {
     if (user) {
       req.foundUser = user;

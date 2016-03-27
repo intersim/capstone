@@ -15,7 +15,7 @@ app.factory('UserFactory', function($http, AuthService) {
   }
 
   UserFactory.fetchById = function(userId){
-  	var url = 'api/users/' + userId
+  	var url = '/api/users/' + userId
   	return $http.get(url)
   	.then(response => response.data)
   }
@@ -66,6 +66,7 @@ app.factory('UserFactory', function($http, AuthService) {
       })
   }
 
+
   UserFactory.getLoopBucket = function() {
     return AuthService.getLoggedInUser()
     .then(function (currentUser) {
@@ -74,6 +75,15 @@ app.factory('UserFactory', function($http, AuthService) {
     .then(function(res) {
       return res.data;
     })
+  }
+
+  UserFactory.favorite = function(compositionId){
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      currentUser.favorites.push(compositionId) 
+    return $http.put('/api/users/'+currentUser._id, currentUser)
+    .then(response => response.data)
+    })   
   }
 
   return UserFactory;
