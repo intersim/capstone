@@ -15,12 +15,9 @@ router.get('/', function(req, res, next){
 
 //create new loop (all users)
 router.post('/', function(req, res, next) {
-  console.log('req.body', req.body)
   req.body.creator = req.user
-  console.log('req.body after addition', req.body)
   Loop.create(req.body)
   .then(function(loop) {
-    console.log('just created a loop', loop)
     req.user.bucket.push(loop._id)
     req.user.save()
     res.json(loop)

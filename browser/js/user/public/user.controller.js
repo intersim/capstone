@@ -4,7 +4,6 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	
 	$scope.followers = allFollowers;
 	$scope.user = theUser;
-	console.log("THE PROFILE USER", $scope.user)
 	$scope.compositions = allCompositions;
 	$scope.loops = [];
 	var lbucket = $scope.user.bucket;
@@ -16,7 +15,6 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 
 	$scope.followUser = function(userId){
 		UserFactory.followUser(userId)
-
 	}
 
 	$scope.favorite = function(compositionId){
