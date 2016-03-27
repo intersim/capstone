@@ -82,7 +82,7 @@ router.get('/:userId/compositions', function(req, res, next){
 })
 
 //retrieves all loops created by user (guests and users)
-router.get('/:userId/compositions', function(req, res, next){
+router.get('/:userId/loops', function(req, res, next){
   Loop.find({creator: req.foundUser._id})
   .then(function(loops){
     res.json(loops)

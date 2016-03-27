@@ -258,6 +258,27 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     } else $http.put('/api/loops/' + id, { notes: dataToSave });
   }
 
+  LoopFactory.getAll = function() {
+    return $http.get('/api/loops')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
+  LoopFactory.delete = function() {
+    return $http.delete('/api/loops/' + $stateParams.loopId)
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
+  LoopFactory.getCompositions = function() {
+    return $http.get('/api/loops/' + $stateParams.loopId + '/compositions')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
   return LoopFactory;
 
 })

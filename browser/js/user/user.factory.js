@@ -2,19 +2,26 @@ app.factory('UserFactory', function($http, AuthService) {
 
   var UserFactory = {};
 
-  UserFactory.create = function(newUser){
-    return $http.post('/api/users/', newUser)
-    .then(response => response.data);
+  UserFactory.getAll = function() {
+    return $http.get('/api/users')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
+  UserFactory.create = function(userData){
+    return $http.post('/api/users/', userData)
+      .then(response => response.data);
   }
 
   UserFactory.fetchById = function(userId){
-  	var url = 'api/users/'+userId
+  	var url = 'api/users/' + userId
   	return $http.get(url)
   	.then(response => response.data)
   }
 
   UserFactory.getFollowers = function(userId){
-  	var url = '/api/users/'+userId+'/followers'
+  	var url = '/api/users/' + userId + '/followers'
   	return $http.get(url)
   	.then(response => response.data);
   }
@@ -43,6 +50,20 @@ app.factory('UserFactory', function($http, AuthService) {
       return $http.put(url, currentUser)
       .then(response => response.data)
     })
+  }
+
+  UserFactory.getCompositions = function(userId) {
+    return $http.get('/api/users/' + userId + '/compositions')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
+  UserFactory.getLoops = function(userId) {
+    return $http.get('/api/users/' + userId + '/loops')
+      .then(function(res) {
+        return res.data;
+      })
   }
 
   return UserFactory;

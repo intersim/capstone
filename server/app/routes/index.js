@@ -2,10 +2,9 @@
 var router = require('express').Router();
 module.exports = router;
 
-router.use('/members', require('./members'));
+router.use('/comments', require('./comments'));
 router.use('/compositions', require('./compositions'));
 router.use('/loops', require('./loops'));
-router.use('/comments', require('./comments'));
 router.use('/users', require('./users'));
 
 // Make sure this is after all of
