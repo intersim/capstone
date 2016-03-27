@@ -20,10 +20,11 @@ router.post('/', function(req, res, next) {
   .then(function(loop) {
     savedLoop = loop;
     req.user.bucket.push(loop._id)
-    return req.user.save();
-  .then(function(user) {
-    if (!user) throw new Error('issue saving loop onto user');
-    res.json(savedLoop);
+    return req.user.save()
+      .then(function(user) {
+        if (!user) throw new Error('issue saving loop onto user');
+        res.json(savedLoop);
+    })
   })
   .then(null, next);
 });
