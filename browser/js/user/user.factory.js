@@ -8,13 +8,13 @@ app.factory('UserFactory', function($http, AuthService) {
   }
 
   UserFactory.fetchById = function(userId){
-  	var url = 'api/users/'+userId
+  	var url = 'api/users/' + userId
   	return $http.get(url)
   	.then(response => response.data)
   }
 
   UserFactory.getFollowers = function(userId){
-  	var url = '/api/users/'+userId+'/followers'
+  	var url = '/api/users/' + userId + '/followers'
   	return $http.get(url)
   	.then(response => response.data);
   }
