@@ -4,6 +4,7 @@ require('../../../server/db/models');
 var Loop = mongoose.model('Loop');
 var User = mongoose.model('User');
 var Composition = mongoose.model('Composition');
+var Track = mongoose.model('Track');
 
 // imported libraries 
 var Promise = require('bluebird');
@@ -36,15 +37,18 @@ describe('/api/loops', function () {
     guestAgent = supertest.agent(app);
 
     userInfo = {
+      username: 'bob',
       email: 'bob@email.com',
       password: 'password'
     };
 
     User.create(userInfo)
     .then(function(u) {
+      console.log('running test')
       user = u;
       done();
     })
+    .then(null, done)
 
   });
 
@@ -106,6 +110,7 @@ describe('/api/loops', function () {
 
     beforeEach('Create second user for access tests', function(done) {
       otherUserInfo = {
+        username: 'ABC',
         email: 'abc@gmail.com',
         password: 'blah'
       }
@@ -254,7 +259,7 @@ describe('/api/loops', function () {
         title: "Composition1",
         description: "Just something for fun",
         tags: ['rad']
-      }
+      })
       track = new Track({
         measures: [{}, {loop: loop._id}, {}],
         numVoices: 1,
