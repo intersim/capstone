@@ -1,23 +1,29 @@
-var router = require('express').Router();
+var router = require('express').Router({mergeParams: true});
 var mongoose = require('mongoose');
 var Comment = mongoose.model('Comment');
 
+// get all comments on a composition (all guests & users)
+router.get('/', function() {
+  Comment.find({target: req.composition._id})
+  .then(function(comments) {
+    res.json(comments);
+  })
+  .then(null, next);
+});
+
+// create a new comment on a composition (all users - author will be current user)
 router.post('/', function(req, res, next) {
-  Comment.create(req.body)
+  var newComment = req.body;
+  newComment.author = req.user._id;
+  newComment.target = req.composition._id;
+  Comment.create(newComment)
   .then(function(comment) {
     res.json(comment);
   })
   .then(null, next);
 })
 
-router.get('/:targetId', function(req, res, next){
-  Comment.find({'target': req.params.targetId})
-  .then(function(comments){
-    res.json(comments)
-  })
-  .then(null,next)
-})
-
+// param for individual comment
 router.param('commentId', function(req, res, next) {
   Comment.findById(req.params.commentId)
   .then(function(comment) {
@@ -28,8 +34,9 @@ router.param('commentId', function(req, res, next) {
   })
 });
 
+// update a comment on a composition (author or admin)
 router.put('/:commentId', function(req, res, next) {
-  if (req.comment.author === req.user._id) {
+  if (req.user.isAdmin || req.comment.author === req.user._id) {
     req.comment.set(req.body);
     req.comment.save()
     .then(function(comment){
@@ -38,8 +45,9 @@ router.put('/:commentId', function(req, res, next) {
   } else res.status(403).send();
 })
 
+// delete a comment on a composition (author, composition's creator, admin)
 router.delete('/:commentId', function(req, res, next) {
-  if (req.comment.author === req.user._id) {
+  if (req.user.isAdmin || req.comment.author === req.user._id || req.composition.creator === req.user._id) {
     req.comment.delete()
     .then(function() {
       res.status(204).send();
