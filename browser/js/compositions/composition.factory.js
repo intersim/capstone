@@ -152,4 +152,6 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       })
   }
 
+  return CompositionFactory;
+
 })
