@@ -61,7 +61,7 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   var CompositionFactory = {};
 
   CompositionFactory.getAll = function() {
-    return $http.get('/api/compositions', function(res) {
+    return $http.get('/api/compositions/', function(res) {
       return res.data;
     })
   }

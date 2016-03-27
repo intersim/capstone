@@ -4,12 +4,21 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	
 	$scope.followers = allFollowers;
 	$scope.user = theUser;
-	console.log("THE PROFILE USER", $scope.user)
 	$scope.compositions = allCompositions;
+	$scope.loops = [];
+	var lbucket = $scope.user.bucket;
+
+	for(var i=0; i<lbucket.length; i++){
+		console.log(lbucket)
+		if(lbucket[i].creator===$scope.user._id && lbucket[i].isPublic) $scope.loops.push(lbucket[i])
+	}
 
 	$scope.followUser = function(userId){
 		UserFactory.followUser(userId)
+	}
 
+	$scope.favorite = function(compositionId){
+		UserFactory.favorite(compositionId)
 	}
 
 	$scope.addLoop = function(loopId){
@@ -26,8 +35,8 @@ app.config(function($stateProvider){
 			theUser: function(UserFactory, $stateParams){
 				return UserFactory.fetchById($stateParams.userId);
 			},
-			allCompositions: function(CompositionFactory, $stateParams){
-				return CompositionFactory.getByCreator($stateParams.userId);
+			allCompositions: function(UserFactory, $stateParams){
+				return UserFactory.getCompositions($stateParams.userId);
 			},
 			allFollowers: function(UserFactory, $stateParams){
 				return UserFactory.getFollowers($stateParams.userId);
