@@ -1,6 +1,8 @@
-app.factory('CompositionFactory', function($http, $state, $stateParams) {
+app.factory('CompositionFactory', function($http, $state, $stateParams, AuthService) {
 
   var composition;
+
+  var currentUser;
 
   var instrument = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
@@ -14,8 +16,8 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       note.startTime = note.startTime.split(":");
       note.startTime[0] = measure;
       note.startTime = note.startTime.join(":");
+      console.log("note scheduled: ", note);
       Tone.Transport.schedule(function(){
-        console.log("note scheduled: ", note);
         instrument.triggerAttackRelease(note.pitch, note.duration);
       }, note.startTime, note._id);
     })
@@ -41,6 +43,12 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       ]
     }
     while (composition.tracks[0].measures.length < 16) composition.tracks[0].measures.push({rest:true});
+
+    AuthService.getLoggedInUser()
+    .then(function (loggedInUser) {
+      composition.creator = loggedInUser;
+    });
+
     return composition;
   }
 
@@ -67,7 +75,6 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
     //issues here?
     $http.get('/api/loops/' + loopId)
       .then(function(res) {
-        console.log("CompFactory GET that loop");
         var loop = res.data;
         scheduleLoop(loop.notes, track, measure);  
       });
@@ -81,9 +88,13 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   CompositionFactory.save = function(){
     var id = $stateParams.compositionId;
     if ( id === 'new' ) {
+      console.log("saving a new composition!");
       $http.post('/api/compositions', composition)
       .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
-    } else $http.put('/api/compositions/' + id, composition);
+    } else {
+      console.log("saving composition: ", composition);
+      $http.put('/api/compositions/' + id, composition);  
+    }
   }
     
   CompositionFactory.delete = function() {

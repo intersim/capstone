@@ -29,7 +29,6 @@ router.post('/', function(req, res, next) {
 router.param('loopId', function(req, res, next) {
   Loop.findById(req.params.loopId)
   .then(function(loop) {
-    console.log("req.params loop: ", loop)
   //   if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {
   //     req.loop = loop;
   //     next()
@@ -42,7 +41,6 @@ router.param('loopId', function(req, res, next) {
 
 //get individual loop (all)
 router.get('/:loopId', function(req, res, next) {
-  console.log("getting single loop: ", req.loop)
   res.json(req.loop);
 });
 
