@@ -35,6 +35,7 @@ router.param('loopId', function(req, res, next) {
   //     next()
   //   } else next(new Error('no published loop found'));
     req.loop = loop;
+    next();
   })
   .then(null, next);
 })
