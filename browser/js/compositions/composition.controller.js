@@ -7,7 +7,7 @@ app.controller('CompositionEditor', function($scope, composition, CompositionFac
 
   $scope.composition = composition;
 
-  $http.get('/api/loops')
+  $http.get('/api/loops/')
   .then(function(res){
     return res.data;
   })
