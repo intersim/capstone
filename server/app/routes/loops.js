@@ -15,11 +15,15 @@ router.get('/', function(req, res, next){
 
 //create new loop (all users)
 router.post('/', function(req, res, next) {
+  var savedLoop;
   Loop.create(req.body)
   .then(function(loop) {
+    savedLoop = loop;
     req.user.bucket.push(loop._id)
-    req.user.save()
-    res.json(loop)
+    return req.user.save();
+  .then(function(user) {
+    if (!user) throw new Error('issue saving loop onto user');
+    res.json(savedLoop);
   })
   .then(null, next);
 });
