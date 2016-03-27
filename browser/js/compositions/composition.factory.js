@@ -116,7 +116,14 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
         .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
       } else $http.put('/api/compositions/' + id, composition);
     },
-    //returns an array of objects
+    
+    delete: function() {
+      return $http.delete('/api/compositions/' + $stateParams.compositionId)
+        .then(function(res) {
+          return res.data;
+        })
+    },
+
     getComments: function() {
       return $http.get('/api/compositions/' + $stateParams.compositionId + '/comments')
         .then(function(res) {
