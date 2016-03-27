@@ -4,7 +4,6 @@
 
 app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http){
   // $scope.composition = composition;
-
   $scope.composition = composition;
 
   $http.get('/api/loops/')
@@ -28,6 +27,7 @@ app.controller('CompositionEditor', function($scope, composition, CompositionFac
   }
 
   $scope.save = CompositionFactory.save;
+
 
 });
 
