@@ -2,10 +2,9 @@
 //   $scope.composition = composition;
 // });
 
-app.controller('CompositionEditor', function($scope, getcomposition, CompositionFactory, $http){
+app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http){
   // $scope.composition = composition;
-  console.log('we are in composition editor controller')
-  $scope.composition = getcomposition;
+  $scope.composition = composition;
 
   $http.get('/api/loops/')
   .then(function(res){
@@ -28,7 +27,7 @@ app.controller('CompositionEditor', function($scope, getcomposition, Composition
   }
 
   $scope.save = CompositionFactory.save;
-  console.log("this is scope save", $scope.save)
+
 
 });
 
