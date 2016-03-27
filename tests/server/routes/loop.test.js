@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 var Loop = mongoose.model('Loop');
 var User = mongoose.model('User');
+var Composition = mongoose.model('Composition');
 
 // imported libraries 
 var Promise = require('bluebird');
@@ -240,55 +241,49 @@ describe('/api/loops', function () {
       .end(done);
     });
 
-  // describe('reviews', function(done) {
+  });
 
-  //   var wine, user, review1, review2
-  //   var createdWine;
+  describe('/compositions', function(done) {
 
-  //   beforeEach(function (done) {
-  //     wine = new Wine({
-  //       type: "red",
-  //       variety: "Malbec",
-  //       region: "Spain",
-  //       winery: "L&P",
-  //       year: 2016,
-  //       price: 10
-  //     });
-  //     user = new User({
-  //       email: 'GHA@email.com'
-  //     });
-  //     review1 = new Review({
-  //       stars: 3,
-  //       wine: wine._id,
-  //       author: user._id
-  //     });
-  //     review2 = Review({
-  //         stars: 5,
-  //         wine: wine._id,
-  //         author: user._id
-  //     });
-  //     Promise.all([wine.save(), user.save(), review1.save(), review2.save()])
-  //     .spread(function(wine, user, review1, review2) {
-  //       wine = wine;
-  //       user = user;
-  //       review1 = review1;
-  //       review2 = review2;
-  //       done();
-  //     });
-  //   });
+    var composition;
+    var track;
 
-  //   it('GET all', function (done) {
-  //     agent
-  //     .get('/api/wines/' + wine._id + '/reviews')
-  //     .expect(200)
-  //     .end(function (err, res) {
-  //       if (err) return done(err);
-  //       expect(res.body).to.be.instanceof(Array);
-  //       expect(res.body).to.have.length(2);
-  //       done();
-  //     });
-  //   });
+    beforeEach(function (done) {
+      composition = new Composition({
+        creator: user._id,
+        title: "Composition1",
+        description: "Just something for fun",
+        tags: ['rad']
+      }
+      track = new Track({
+        measures: [{}, {loop: loop._id}, {}],
+        numVoices: 1,
+        instrument: 'flute'
+      })
+      track.save()
+      .then(function(t) {
+        if (!composition.tracks) composition.tracks = [];
+        composition.tracks.push(track._id);
+        return composition.save();
+      })
+      .then(function(c){
+        composition = c;
+        done();
+      })
+    });
 
-  // });
+    it('GET all compositions containing the loop', function (done) {
+      guestAgent
+      .get('/api/loops/' + loop._id + '/compositions')
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        expect(res.body).to.be.instanceof(Array);
+        expect(res.body).to.have.length(1);
+        done();
+      });
+    });
+
+  });
 
 });
