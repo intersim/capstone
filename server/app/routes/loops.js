@@ -26,6 +26,7 @@ router.post('/', function(req, res, next) {
 
 //loop id param
 router.param('loopId', function(req, res, next) {
+  console.log
   Loop.findById(req.params.loopId)
   .then(function(loop) {
     if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {

@@ -111,8 +111,8 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   
   CompositionFactory.save = function(){
     var id = $stateParams.compositionId;
-    if ( id === 'new' ) {
-      $http.post('/api/compositions', composition)
+    if (!id) {
+      $http.post('/api/compositions/', composition)
       .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
     } else $http.put('/api/compositions/' + id, composition);
   }

@@ -250,12 +250,15 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
     }
-    console.log(dataToSave);
+    console.log("data to save", dataToSave);
     var id = $stateParams.loopId
-    if ( id === 'new' ) {
-      $http.post('/api/loops', { notes: dataToSave })
+    console.log('id', id)
+
+    if (!id) {
+      console.log('in the right if block')
+      $http.post('/api/loops/', { notes: dataToSave })
       .then(function(res) { $state.go('loop', {loopId: res.data._id} ) });
-    } else $http.put('/api/loops/' + id, { notes: dataToSave });
+    } else {$http.put('/api/loops/' + id, { notes: dataToSave })};
   }
 
   LoopFactory.getAll = function() {

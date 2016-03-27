@@ -37,7 +37,10 @@ var LoopSchema = new mongoose.Schema({
         ref: 'User'
     },
     tags: [String],
-    isPublic: Boolean,
+    isPublic: {
+        type: Boolean,
+        default: true
+    },
     name: String,
     numUses: {
         type: Number,
