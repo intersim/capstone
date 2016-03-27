@@ -2,17 +2,10 @@
 //   $scope.composition = composition;
 // });
 
-app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http){
-  // $scope.composition = composition;
+app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http, loopBucket){
   $scope.composition = composition;
 
-  $http.get('/api/loops/')
-  .then(function(res){
-    return res.data;
-  })
-  .then(function(loops){
-    $scope.loopBucket = loops;
-  })
+  $scope.loopBucket = loopBucket;
 
   $scope.playing = false;
   
@@ -32,7 +25,13 @@ app.controller('CompositionEditor', function($scope, composition, CompositionFac
 });
 
 app.controller('CompViewCtrl', function($scope, CompositionFactory){
-	$scope.composition = {creator: "Clyde", title: "Bonnie", description: "dope tunes to cause havoc to", tags: ['nice'], tracks: [[], []]}
+	$scope.composition = {
+    creator: "Clyde", 
+    title: "Bonnie", 
+    description: "dope tunes to cause havoc to", 
+    tags: ['nice'], 
+    tracks: [ [], [] ]
+  }
   	$scope.comments = CompositionFactory.getCommentsById($scope.composition._id);
 	// $scope.composition = composition;
 

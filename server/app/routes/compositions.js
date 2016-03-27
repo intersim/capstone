@@ -62,7 +62,8 @@ router.get('/:compositionId', function(req, res, next) {
 
 // update a composition (creator of the composition & admin)
 router.put('/:compositionId', function(req, res, next) {
-  if (req.user.isAdmin || req.composition.creator === req.user._id) {
+  //E: had to add toString for second condition
+  if (req.user.isAdmin || req.composition.creator.toString() === req.user._id.toString()) {
     req.composition.set(req.body);
     req.composition.save()
     .then(function(composition){

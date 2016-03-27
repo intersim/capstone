@@ -6,7 +6,9 @@ var Composition = mongoose.model('Composition');
 
 //retrieve all loops (all)
 router.get('/', function(req, res, next){
+
   // Loop.find({isPublic: true})
+
   Loop.find()
   .then(function(loops) {
     res.json(loops);
@@ -35,10 +37,12 @@ router.post('/', function(req, res, next) {
 router.param('loopId', function(req, res, next) {
   Loop.findById(req.params.loopId)
   .then(function(loop) {
-    if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {
-      req.loop = loop;
-      next()
-    } else next(new Error('no published loop found'));
+  //   if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {
+  //     req.loop = loop;
+  //     next()
+  //   } else next(new Error('no published loop found'));
+    req.loop = loop;
+    next();
   })
   .then(null, next);
 })

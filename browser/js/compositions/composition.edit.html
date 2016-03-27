@@ -1,8 +1,11 @@
 <style>
   .item {
-    width: 140px;
+    width: 130px;
+    margin-left: 5px;
+    margin-right: 5px;
     background-color: #444;
     height: 100%;
+    border-radius: 10px;
   }
   .loopBucket {
     display: flex;
@@ -70,5 +73,6 @@
 </div>
 
 <div class="loopBucket">
+  <h3>My Loop Bucket</h3>
   <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}"></div>
 </div>

@@ -1,41 +1,8 @@
-app.factory('CompositionFactory', function($http, $state, $stateParams) {
-  // var composition = {
-  //   tracks: [
-  //     // track1
-  //     {
-  //       measures: [
-  //         {rest: true},
-  //         {rest: true},
-  //         {rest: true},
-  //         {rest:true}
-  //       ],
-  //       numVoices: 1,
-  //       instrument: 'flute'
-  //     },
-  //     // track2
-  //     {
-  //       measures: [{rest: true}, {rest: true}, {
-  //         rest: false, 
-  //         loop: {
-  //             _id: "56f16f274852b8ef37d15429",
-  //             notes: [
-  //               {"pitch":"b4","duration":"8n","startTime":"0:1:0", _id: "56f16f274852b8ef37d1542e"},
-  //               {"pitch":"a4","duration":"8n","startTime":"0:2:0", _id: "56f16f274852b8ef37d1542d"},
-  //               {"pitch":"b4","duration":"8n","startTime":"0:3:2", _id: "56f16f274852b8ef37d1542c"},
-  //               {"pitch":"b4","duration":"8n","startTime":"0:0:2", _id: "56f16f274852b8ef37d1542b"},
-  //               {"pitch":"g4","duration":"8n","startTime":"0:2:2", _id: "56f16f274852b8ef37d1542a"}
-  //            ]
-  //           }
-  //         },
-  //         {rest:true}
-  //       ],
-  //       numVoices: 1,
-  //       instrument: 'flute'
-  //     }
-  //   ]
-  // }
+app.factory('CompositionFactory', function($http, $state, $stateParams, AuthService) {
 
   var composition;
+
+  var currentUser;
 
   var instrument = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
@@ -49,8 +16,8 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       note.startTime = note.startTime.split(":");
       note.startTime[0] = measure;
       note.startTime = note.startTime.join(":");
+      console.log("note scheduled: ", note);
       Tone.Transport.schedule(function(){
-        console.log("note scheduled: ", note);
         instrument.triggerAttackRelease(note.pitch, note.duration);
       }, note.startTime, note._id);
     })
@@ -76,6 +43,12 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
       ]
     }
     while (composition.tracks[0].measures.length < 16) composition.tracks[0].measures.push({rest:true});
+
+    AuthService.getLoggedInUser()
+    .then(function (loggedInUser) {
+      composition.creator = loggedInUser;
+    });
+
     return composition;
   }
 
@@ -94,14 +67,17 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   }
 
   CompositionFactory.addLoop = function(loopId, track, measure) {
+    console.log("adding loop!");
+    console.log("addLoop info: ", loopId, track, measure);
     var measures = composition.tracks[track].measures;
     while (measures.length <= measure) measures.push({rest: true});
     measures[measure] = { rest: false, loop: {_id: loopId} };
+    //issues here?
     $http.get('/api/loops/' + loopId)
       .then(function(res) {
         var loop = res.data;
         scheduleLoop(loop.notes, track, measure);  
-      })
+      });
 
   }
 
@@ -114,7 +90,10 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
     if (!id) {
       $http.post('/api/compositions/', composition)
       .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
-    } else $http.put('/api/compositions/' + id, composition);
+    } else {
+      console.log("saving composition: ", composition);
+      $http.put('/api/compositions/' + id, composition);  
+    }
   }
     
   CompositionFactory.delete = function() {
