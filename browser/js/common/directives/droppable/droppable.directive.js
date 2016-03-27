@@ -54,7 +54,7 @@ app.directive('droppable', function($compile, CompositionFactory){
           var loopId = newItem.dataset.loop;
           var measure = info[info.indexOf('m') + 1];
           var track = info[info.indexOf('t') + 1];
-          console.log(loopId, track, measure)
+          console.log("drop event: ", loopId, track, measure);
 
           CompositionFactory.addLoop(loopId, track, measure);
 

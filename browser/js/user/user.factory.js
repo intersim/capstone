@@ -66,6 +66,16 @@ app.factory('UserFactory', function($http, AuthService) {
       })
   }
 
+  UserFactory.getLoopBucket = function() {
+    return AuthService.getLoggedInUser()
+    .then(function (currentUser) {
+      return $http.get("/api/users/" + currentUser._id + "/loopBucket")
+    })
+    .then(function(res) {
+      return res.data;
+    })
+  }
+
   return UserFactory;
 
  });

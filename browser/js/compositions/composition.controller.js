@@ -2,17 +2,11 @@
 //   $scope.composition = composition;
 // });
 
-app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http){
+app.controller('CompositionEditor', function($scope, composition, CompositionFactory, $http, loopBucket){
   // $scope.composition = composition;
   $scope.composition = composition;
 
-  $http.get('/api/loops/')
-  .then(function(res){
-    return res.data;
-  })
-  .then(function(loops){
-    $scope.loopBucket = loops;
-  })
+  $scope.loopBucket = loopBucket;
 
   $scope.playing = false;
   

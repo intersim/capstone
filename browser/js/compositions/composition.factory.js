@@ -1,39 +1,4 @@
 app.factory('CompositionFactory', function($http, $state, $stateParams) {
-  // var composition = {
-  //   tracks: [
-  //     // track1
-  //     {
-  //       measures: [
-  //         {rest: true},
-  //         {rest: true},
-  //         {rest: true},
-  //         {rest:true}
-  //       ],
-  //       numVoices: 1,
-  //       instrument: 'flute'
-  //     },
-  //     // track2
-  //     {
-  //       measures: [{rest: true}, {rest: true}, {
-  //         rest: false, 
-  //         loop: {
-  //             _id: "56f16f274852b8ef37d15429",
-  //             notes: [
-  //               {"pitch":"b4","duration":"8n","startTime":"0:1:0", _id: "56f16f274852b8ef37d1542e"},
-  //               {"pitch":"a4","duration":"8n","startTime":"0:2:0", _id: "56f16f274852b8ef37d1542d"},
-  //               {"pitch":"b4","duration":"8n","startTime":"0:3:2", _id: "56f16f274852b8ef37d1542c"},
-  //               {"pitch":"b4","duration":"8n","startTime":"0:0:2", _id: "56f16f274852b8ef37d1542b"},
-  //               {"pitch":"g4","duration":"8n","startTime":"0:2:2", _id: "56f16f274852b8ef37d1542a"}
-  //            ]
-  //           }
-  //         },
-  //         {rest:true}
-  //       ],
-  //       numVoices: 1,
-  //       instrument: 'flute'
-  //     }
-  //   ]
-  // }
 
   var composition;
 
@@ -94,14 +59,18 @@ app.factory('CompositionFactory', function($http, $state, $stateParams) {
   }
 
   CompositionFactory.addLoop = function(loopId, track, measure) {
+    console.log("adding loop!");
+    console.log("addLoop info: ", loopId, track, measure);
     var measures = composition.tracks[track].measures;
     while (measures.length <= measure) measures.push({rest: true});
     measures[measure] = { rest: false, loop: {_id: loopId} };
+    //issues here?
     $http.get('/api/loops/' + loopId)
       .then(function(res) {
+        console.log("CompFactory GET that loop");
         var loop = res.data;
         scheduleLoop(loop.notes, track, measure);  
-      })
+      });
 
   }
 

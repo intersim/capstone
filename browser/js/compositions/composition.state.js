@@ -18,6 +18,9 @@ app.config( function ($stateProvider) {
       composition: function(CompositionFactory, $stateParams) {
         if ( $stateParams.compositionId === 'new') return CompositionFactory.new();
         return CompositionFactory.getById($stateParams.compositionId, true);
+      },
+      loopBucket: function (UserFactory) {
+          return UserFactory.getLoopBucket()
       }
     }
   })
