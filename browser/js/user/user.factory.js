@@ -2,6 +2,13 @@ app.factory('UserFactory', function($http, AuthService) {
 
   var UserFactory = {};
 
+  UserFactory.getAll = function() {
+    return $http.get('/api/users')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+  
   UserFactory.create = function(newUser){
     return $http.post('/api/users/', newUser)
     .then(response => response.data);
