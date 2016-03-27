@@ -8,10 +8,10 @@ app.factory('UserFactory', function($http, AuthService) {
         return res.data;
       })
   }
-  
-  UserFactory.create = function(newUser){
-    return $http.post('/api/users/', newUser)
-    .then(response => response.data);
+
+  UserFactory.create = function(userData){
+    return $http.post('/api/users/', userData)
+      .then(response => response.data);
   }
 
   UserFactory.fetchById = function(userId){
@@ -54,6 +54,13 @@ app.factory('UserFactory', function($http, AuthService) {
 
   UserFactory.getCompositions = function(userId) {
     return $http.get('/api/users/' + userId + '/compositions')
+      .then(function(res) {
+        return res.data;
+      })
+  }
+
+  UserFactory.getLoops = function(userId) {
+    return $http.get('/api/users/' + userId + '/loops')
       .then(function(res) {
         return res.data;
       })
