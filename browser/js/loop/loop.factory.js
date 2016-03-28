@@ -131,7 +131,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   }
 
   LoopFactory.initialize = function() {
-
+    Tone.Transport.cancel();
+    loopMusicData = {};
     // initialize canvas for a 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
         selection: false
@@ -246,6 +247,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   }
 
   LoopFactory.save = function() {
+
     var dataToSave = [];
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
