@@ -2,7 +2,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Loop = mongoose.model('Loop');
 var User = mongoose.model('User');
-var Composition = mongoose.model('Composition');
+var Mix = mongoose.model('Mix');
 
 //retrieve all loops (all)
 router.get('/', function(req, res, next){
@@ -79,11 +79,11 @@ router.delete('/:loopId', function(req, res, next) {
   }
 })
 
-//get compositions containing the loop (all)
-router.get('/:loopId/compositions', function(req, res, next){
-  Composition.findByLoop(req.loop._id)
-  .then(function(compositions){
-    res.json(compositions)
+//get mixes containing the loop (all)
+router.get('/:loopId/mixes', function(req, res, next){
+  Mix.findByLoop(req.loop._id)
+  .then(function(mixes){
+    res.json(mixes)
   })
   .then(null, next)
 })

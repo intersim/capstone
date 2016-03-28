@@ -2,20 +2,20 @@ var router = require('express').Router({mergeParams: true});
 var mongoose = require('mongoose');
 var Comment = mongoose.model('Comment');
 
-// get all comments on a composition (all guests & users)
+// get all comments on a mix (all guests & users)
 router.get('/', function() {
-  Comment.find({target: req.composition._id})
+  Comment.find({target: req.mix._id})
   .then(function(comments) {
     res.json(comments);
   })
   .then(null, next);
 });
 
-// create a new comment on a composition (all users - author will be current user)
+// create a new comment on a mix (all users - author will be current user)
 router.post('/', function(req, res, next) {
   var newComment = req.body;
   newComment.author = req.user._id;
-  newComment.target = req.composition._id;
+  newComment.target = req.mix._id;
   Comment.create(newComment)
   .then(function(comment) {
     res.json(comment);
@@ -34,7 +34,7 @@ router.param('commentId', function(req, res, next) {
   })
 });
 
-// update a comment on a composition (author or admin)
+// update a comment on a mix (author or admin)
 router.put('/:commentId', function(req, res, next) {
   if (req.user.isAdmin || req.comment.author === req.user._id) {
     req.comment.set(req.body);
@@ -45,9 +45,9 @@ router.put('/:commentId', function(req, res, next) {
   } else res.status(403).send();
 })
 
-// delete a comment on a composition (author, composition's creator, admin)
+// delete a comment on a mix (author, mix's creator, admin)
 router.delete('/:commentId', function(req, res, next) {
-  if (req.user.isAdmin || req.comment.author === req.user._id || req.composition.creator === req.user._id) {
+  if (req.user.isAdmin || req.comment.author === req.user._id || req.mix.creator === req.user._id) {
     req.comment.delete()
     .then(function() {
       res.status(204).send();

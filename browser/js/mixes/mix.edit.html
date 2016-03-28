@@ -50,7 +50,7 @@
 <button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 
 <div class="track-container">
-  <div ng-repeat="track in composition.tracks" ng-init="$track = $index">
+  <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
     <form>
       <button>Mute</button>
       <button>Solo</button>

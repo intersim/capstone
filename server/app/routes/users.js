@@ -1,7 +1,7 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
-var Composition = mongoose.model('Composition');
+var Mix = mongoose.model('Mix');
 var Loop = mongoose.model('Loop');
 
 //retrieve all users (all guests and users)
@@ -73,11 +73,11 @@ router.get('/:userId/followers', function(req, res, next){
   .then(null, next)
 })
 
-//retrieves all compositions of the user (guests and users)
-router.get('/:userId/compositions', function(req, res, next){
-  Composition.find({creator: req.foundUser._id})
-  .then(function(compositions){
-    res.json(compositions)
+//retrieves all mixes of the user (guests and users)
+router.get('/:userId/mixes', function(req, res, next){
+  Mix.find({creator: req.foundUser._id})
+  .then(function(mixes){
+    res.json(mixes)
   })
   .then(null, next)
 })

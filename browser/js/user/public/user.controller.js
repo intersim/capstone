@@ -1,10 +1,10 @@
 'use strict';
 
-app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, allCompositions, UserFactory){
+app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, allMixes, UserFactory){
 	
 	$scope.followers = allFollowers;
 	$scope.user = theUser;
-	$scope.compositions = allCompositions;
+	$scope.mixes = allMixes;
 	$scope.loops = [];
 	var lbucket = $scope.user.bucket;
 
@@ -17,8 +17,8 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 		UserFactory.followUser(userId)
 	}
 
-	$scope.favorite = function(compositionId){
-		UserFactory.favorite(compositionId)
+	$scope.favorite = function(mixId){
+		UserFactory.favorite(mixId)
 	}
 
 	$scope.addLoop = function(loopId){
@@ -35,8 +35,8 @@ app.config(function($stateProvider){
 			theUser: function(UserFactory, $stateParams){
 				return UserFactory.fetchById($stateParams.userId);
 			},
-			allCompositions: function(UserFactory, $stateParams){
-				return UserFactory.getCompositions($stateParams.userId);
+			allMixes: function(UserFactory, $stateParams){
+				return UserFactory.getMixes($stateParams.userId);
 			},
 			allFollowers: function(UserFactory, $stateParams){
 				return UserFactory.getFollowers($stateParams.userId);
@@ -48,10 +48,10 @@ app.config(function($stateProvider){
 	//GET PROPER LOOPS THROUGH USER ROUTES TO RESOLVE
 
 
-	//implement this state if we want separate compositions page view for specific users 
+	//implement this state if we want separate mixes page view for specific users 
 
-	// $stateProvider.state('userCompositions',{
-	 //    url: '/user/:userid/compositions',
-	 //    templateUrl: '/js/compositions/compositions.view.html'
+	// $stateProvider.state('userMixes',{
+	 //    url: '/user/:userid/mixes',
+	 //    templateUrl: '/js/mixes/mixes.view.html'
   	// })
 })

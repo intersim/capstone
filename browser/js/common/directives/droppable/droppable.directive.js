@@ -1,4 +1,4 @@
-app.directive('droppable', function($compile, CompositionFactory){
+app.directive('droppable', function($compile, MixFactory){
   return {
     scope: {
       // drop: '&',
@@ -63,13 +63,13 @@ app.directive('droppable', function($compile, CompositionFactory){
             var oldLoop = oldItem.dataset.loop;
             var oldTrack = oldInfo[oldInfo.indexOf('t') + 1];
             var oldMeasure = oldInfo[oldInfo.indexOf('m') + 1];
-            CompositionFactory.removeLoop(oldLoop, oldTrack, oldMeasure);
+            MixFactory.removeLoop(oldLoop, oldTrack, oldMeasure);
             oldItem.remove();
           }
 
           //now add new notes
           if (scope.type !== 'delete') {
-            CompositionFactory.addLoop(loopId, track, measure);
+            MixFactory.addLoop(loopId, track, measure);
           }
           
           scope.$apply('drop()');

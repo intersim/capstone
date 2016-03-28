@@ -18,7 +18,7 @@ var CommentSchema = new mongoose.Schema({
   },
   target: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Composition',
+    ref: 'Mix',
     required: true
   }
 })
