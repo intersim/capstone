@@ -18,6 +18,8 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
 
   $scope.playing = false;
   
+  Tone.Transport.loop = false;
+
   $scope.togglePlay = function() {
     if ($scope.playing) {
       Tone.Transport.stop();
