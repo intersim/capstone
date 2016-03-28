@@ -2,6 +2,6 @@
 
 app.controller('MixesCtrl', function($scope, mixes){
 
-  $scope.types = mtype;
+  $scope.mixes = mixes;
 
 })

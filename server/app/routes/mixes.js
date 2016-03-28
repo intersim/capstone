@@ -6,7 +6,7 @@ var Promise = require('bluebird');
 
 //gets all public mixes with tracks and routes
 router.get('/', function(req, res, next) {
-  Mix.find({isPublic: true})
+  Mix.find()
   .deepPopulate('tracks.measures.loop')
   .exec()
   .then(function(mixes){
