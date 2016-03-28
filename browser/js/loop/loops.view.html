@@ -5,16 +5,16 @@
       <div class="form-group">
         <h4>Sort By...</h4>
         <div>
-          <button class="btn" ng-repeat="sortType in sortTypes" ng-click="sortLoops(sortType)">{{sortType}}</button><br>
+          <button class="btn" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod.value)">{{sortMethod.name}}</button><br>
         </div>
       </div>
 
       <div class="form-group">
         <h4>Filter By...</h4>
-        <div ng-repeat="filterType in filterTypes">
-          <h5>{{filterType.name}}</h5>
-            <div class="form-group" ng-repeat="value in filterType.values">
-              <input name="{{value}}" type="checkbox" ng-click="include(value)"><label for="{{value}}">{{value}}</label>
+        <div ng-repeat="filterMethod in filterMethods">
+          <h5>{{filterMethod.name}}</h5>
+            <div class="form-group" ng-repeat="value in filterMethod.values">
+              <input name="{{value}}" type="checkbox" ng-click="filterLoops(value)"><label for="{{value}}">{{value}}</label>
             </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
 
   <h2>Browse Loops</h2>
   <div class="loops-container">
-    <div ng-repeat="loop in loops" ng-click="select(loop)">{{loop.name}}</div>
+    <div ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">{{loop.name}}</div>
   </div>
 
   <div ng-show="selected">
