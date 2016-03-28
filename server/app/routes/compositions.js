@@ -64,12 +64,41 @@ router.get('/:compositionId', function(req, res, next) {
 router.put('/:compositionId', function(req, res, next) {
   //E: had to add toString for second condition
   if (req.user.isAdmin || req.composition.creator.toString() === req.user._id.toString()) {
-    req.composition.set(req.body);
-    req.composition.save()
-    .then(function(composition){
-      res.status(201).json(composition);
+    //save tracks
+    var composition = req.body;
+    var tracksToUpdate = req.body.tracks;
+
+    var arrTrackPromises = [];
+
+    tracksToUpdate.forEach(function(trackToUpdate) {
+      console.log("track id: ", trackToUpdate._id);
+      var trackPromise = Track.findById(trackToUpdate._id).exec()
+      arrTrackPromises.push(trackPromise);
     })
-  } else res.status(403).send();
+
+    Promise.all(arrTrackPromises)
+    .then(function(tracks) {
+      //save tracks to composition
+      composition.tracks = tracks.map(function (track) {
+        return track._id;
+      });
+      if (!req.user.isAdmin || !compositions.creator) composition.creator = req.user._id;
+      return composition.save();
+    })
+    .then(function(composition){
+        res.status(201).json(composition);
+      });
+    } else res.status(403).send();
+
+    // Promise.all(arrTrackPromises, function(trackToUpdate) {
+    //   console.log("track we're saving: ", trackToUpdate);
+    //   Track.findById(trackToUpdate._id)
+    //   .then(function(foundTrack) {
+    //     foundTrack.set(trackToUpdate);
+    //     return trackToUpdate.save();
+    //   })
+    // })
+
 });
 
 // delete a composition (creator of compostion & admin)

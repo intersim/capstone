@@ -21,7 +21,6 @@ app.controller('CompositionEditor', function($scope, composition, CompositionFac
 
   $scope.save = CompositionFactory.save;
 
-
 });
 
 app.controller('CompViewCtrl', function($scope, CompositionFactory){
