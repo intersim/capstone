@@ -32,7 +32,7 @@ app.controller('CompViewCtrl', function($scope, CompositionFactory){
     tags: ['nice'], 
     tracks: [ [], [] ]
   }
-  	$scope.comments = CompositionFactory.getCommentsById($scope.composition._id);
+  	$scope.comments = CompositionFactory.getComments();
 	// $scope.composition = composition;
 
 })

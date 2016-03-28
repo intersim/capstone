@@ -3,7 +3,7 @@ app.factory('UserFactory', function($http, AuthService) {
   var UserFactory = {};
 
   UserFactory.getAll = function() {
-    return $http.get('/api/users')
+    return $http.get('/api/users/')
       .then(function(res) {
         return res.data;
       })
