@@ -21,4 +21,14 @@ app.config( function ($stateProvider) {
     controller: 'MixViewCtrl'
     // resolve: {mix: function(mixId){}}
   })
+  .state('mixes', {
+    url: '/mixes',
+    templateUrl: '/js/mixes/mixes.view.html',
+    controller: 'MixesCtrl',
+    resolve: {
+      mixes: function($http, MixFactory) {
+        return MixFactory.getAll();
+      }
+    }
+  })
 });
