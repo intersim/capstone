@@ -10,7 +10,7 @@ var deepPopulate = require('mongoose-deep-populate')(mongoose);
 //  <instrumentName>: [ <note object that will be passed into the Tone.Note constructor> ] (This value that is returned when the channel callback is invoked.)
 //}
 
-var CompositionSchema = new mongoose.Schema({
+var MixSchema = new mongoose.Schema({
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -41,16 +41,16 @@ var CompositionSchema = new mongoose.Schema({
 });
 
 //add deepPopulate option - populates a reference's reference
-CompositionSchema.plugin(deepPopulate);
+MixSchema.plugin(deepPopulate);
 
-// CHANGE COMPOSITION MUSIC FEATURES
+// CHANGE MIX MUSIC FEATURES
 
-CompositionSchema.methods.changeTempo = function(change) {
+MixSchema.methods.changeTempo = function(change) {
   this.tempo += change;
   return this.save();
 }
 
-CompositionSchema.methods.createTrack = function() {
+MixSchema.methods.createTrack = function() {
   mongoose.model('Track').create({})
   .then(function(track) {
     this.tracks.push(track._id);
@@ -58,7 +58,7 @@ CompositionSchema.methods.createTrack = function() {
   })
 }
 
-CompositionSchema.methods.deleteTrack = function(trackNum) {
+MixSchema.methods.deleteTrack = function(trackNum) {
   var trackToDelete = this.tracks[trackNum];
   mongoose.model('Track').remove({_id: trackToDelete})
   .then(function( track ) {
@@ -67,49 +67,49 @@ CompositionSchema.methods.deleteTrack = function(trackNum) {
   })
 }
 
-// MANAGE COMPOSITION
+// MANAGE MIX
 
-CompositionSchema.methods.publish = function() {
+MixSchema.methods.publish = function() {
   this.isPublic = true;
   return this.save();
 }
 
-CompositionSchema.methods.addTag = function(tag) {
+MixSchema.methods.addTag = function(tag) {
   this.tags.push(tag);
   return this.save();
 }
 
-CompositionSchema.methods.addTags = function(arr) {
+MixSchema.methods.addTags = function(arr) {
   this.tags = this.tags.concat(arr);
   return this.save();
 }
 
-CompositionSchema.methods.removeTag = function(tagToRemove) {
+MixSchema.methods.removeTag = function(tagToRemove) {
   this.tags = this.tags.filter(function(tag) {
     return tag !== tagToRemove;
   })
   return this.save();
 }
 
-CompositionSchema.methods.removeTags = function(tagsToRemove) {
+MixSchema.methods.removeTags = function(tagsToRemove) {
   this.tags = this.tags.filter(function(tag) {
     return tagsToRemove.indexOf(tag) === -1;
   })
   return this.save();
 }
 
-CompositionSchema.methods.getUserComments = function() {
+MixSchema.methods.getUserComments = function() {
   return mongoose.model('Comment').find({target: this._id});
 }
 
-CompositionSchema.statics.findByLoop = function(loopId) {
+MixSchema.statics.findByLoop = function(loopId) {
     return mongoose.model('Track').find({'loops.loop': loopId })
     .then(function(tracks) {
         return Promise.map(tracks, function(track) {
-            return this.findById(track.composition);
+            return this.findById(track.mix);
         })
     })
 }
 
-mongoose.model('Composition', CompositionSchema);
+mongoose.model('Mix', MixSchema);
 

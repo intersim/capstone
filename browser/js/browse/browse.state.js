@@ -5,8 +5,8 @@ app.config( function ($stateProvider) {
 	    templateUrl: '/js/browse/browse.html',
 	    controller: 'BrowseCtrl',
 	    resolve: {
-	      allCompositions: function(CompositionFactory){
-	      	return CompositionFactory.getAll();
+	      allMixes: function(MixFactory){
+	      	return MixFactory.getAll();
 	      },
 	      allLoops: function(LoopFactory){
 	      	return LoopFactory.getAll();

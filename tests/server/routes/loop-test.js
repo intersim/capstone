@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 var Loop = mongoose.model('Loop');
 var User = mongoose.model('User');
-var Composition = mongoose.model('Composition');
+var Mix = mongoose.model('Mix');
 var Track = mongoose.model('Track');
 
 // imported libraries 
@@ -248,15 +248,15 @@ describe('/api/loops', function () {
 
   });
 
-  describe('/compositions', function(done) {
+  describe('/mixes', function(done) {
 
-    var composition;
+    var mix;
     var track;
 
     beforeEach(function (done) {
-      composition = new Composition({
+      mix = new Mix({
         creator: user._id,
-        title: "Composition1",
+        title: "Mix1",
         description: "Just something for fun",
         tags: ['rad']
       })
@@ -267,19 +267,19 @@ describe('/api/loops', function () {
       })
       track.save()
       .then(function(t) {
-        if (!composition.tracks) composition.tracks = [];
-        composition.tracks.push(track._id);
-        return composition.save();
+        if (!mix.tracks) mix.tracks = [];
+        mix.tracks.push(track._id);
+        return mix.save();
       })
       .then(function(c){
-        composition = c;
+        mix = c;
         done();
       })
     });
 
-    it('GET all compositions containing the loop', function (done) {
+    it('GET all mixes containing the loop', function (done) {
       guestAgent
-      .get('/api/loops/' + loop._id + '/compositions')
+      .get('/api/loops/' + loop._id + '/mixes')
       .expect(200)
       .end(function (err, res) {
         if (err) return done(err);

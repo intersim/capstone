@@ -52,8 +52,8 @@ app.factory('UserFactory', function($http, AuthService) {
     })
   }
 
-  UserFactory.getCompositions = function(userId) {
-    return $http.get('/api/users/' + userId + '/compositions')
+  UserFactory.getMixes = function(userId) {
+    return $http.get('/api/users/' + userId + '/mixes')
       .then(function(res) {
         return res.data;
       })
@@ -77,11 +77,11 @@ app.factory('UserFactory', function($http, AuthService) {
     })
   }
 
-  UserFactory.favorite = function(compositionId){
+  UserFactory.favorite = function(mixId){
     return AuthService.getLoggedInUser()
     .then(function(currentUser){
-      currentUser.favorites.push(compositionId) 
-    return $http.put('/api/users/'+currentUser._id, currentUser)
+      currentUser.favorites.push(mixId) 
+    return $http.put('/api/users/' + currentUser._id, currentUser)
     .then(response => response.data)
     })   
   }

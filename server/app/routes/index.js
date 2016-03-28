@@ -3,7 +3,7 @@ var router = require('express').Router();
 module.exports = router;
 
 router.use('/comments', require('./comments'));
-router.use('/compositions', require('./compositions'));
+router.use('/mixes', require('./mixes'));
 router.use('/loops', require('./loops'));
 router.use('/users', require('./users'));
 

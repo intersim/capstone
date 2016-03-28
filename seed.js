@@ -24,7 +24,7 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Loop = Promise.promisifyAll(mongoose.model('Loop'));
 var Track = Promise.promisifyAll(mongoose.model('Track'));
-var Composition = Promise.promisifyAll(mongoose.model('Composition'));
+var Mix = Promise.promisifyAll(mongoose.model('Mix'));
 
 var seedUsers = function () {
 
@@ -150,14 +150,14 @@ function addRandomLoops(track, start, loops) {
     }
 }
 
-function addTracksToCompositions(tracks, compositions) {
+function addTracksToMixes(tracks, mixes) {
 
-    for (var i = 0; i < compositions.length; i++) {
-        compositions[i].tracks.push(tracks[i]._id, tracks[i+1]._id)
+    for (var i = 0; i < mixes.length; i++) {
+        mixes[i].tracks.push(tracks[i]._id, tracks[i+1]._id)
     }
 
-    return Promise.map(compositions, function(composition) {
-        return composition.save();
+    return Promise.map(mixes, function(Mix) {
+        return Mix.save();
     })
 }
 
@@ -180,32 +180,32 @@ function seedTracks(loops) {
     });
 }
 
-function seedCompositions(users, loops, tracks) {
+function seedMixes(users, loops, tracks) {
 
-    var compositions = [];
+    var mixes = [];
 
-    compositions.push( {
+    mixes.push( {
         creator: users[0]._id,
-        title: "Composition1",
+        title: "Mix1",
         description: "Just something for fun",
         tags: ['rad']
     } )
 
-    compositions.push( {
+    mixes.push( {
         creator: users[1]._id,
         title: "Sketch1",
         description: "A quick piece I made",
         tags: ['beautiful']
     } )
 
-    return Composition.createAsync(compositions);
+    return Mix.createAsync(mixes);
 
 }
 
 var dbUsers;
 var dbLoops;
 var dbTracks;
-var dbCompositions;
+var dbMixes;
 
 connectToDb.then(function () {
     User.findAsync({})
@@ -247,23 +247,23 @@ connectToDb.then(function () {
     })
     .then(function(users) {
         if (!users.length) console.log(chalk.magenta('issue saving to loop buckets'));
-        return Composition.findAsync({});
+        return Mix.findAsync({});
     })
-    .then(function(compositions) {
-        if (compositions.length) {
-            console.log(chalk.magenta('Seems to already be composition data'));
-            return compositions;
+    .then(function(mixes) {
+        if (mixes.length) {
+            console.log(chalk.magenta('Seems to already be mix data'));
+            return mixes;
         } else {
-            console.log('Saving compositions');
-            return seedCompositions(dbUsers, dbLoops, dbTracks);
+            console.log('Saving mixes');
+            return seedMixes(dbUsers, dbLoops, dbTracks);
         }
     })
-    .then(function(compositions) {
-        if (compositions.length) {
-            console.log( chalk.green('Saved compositions') );
-            dbCompositions = compositions;
+    .then(function(mixes) {
+        if (mixes.length) {
+            console.log( chalk.green('Saved mixes') );
+            dbMixes = mixes;
         } else {
-            console.log( chalk.magenta('Failed to save compositions'));
+            console.log( chalk.magenta('Failed to save mixes'));
         }
         return Track.findAsync({});
     })
@@ -273,32 +273,32 @@ connectToDb.then(function () {
             return tracks;
         } else {
             console.log('Saving tracks');
-            return seedTracks(dbCompositions, dbLoops);
+            return seedTracks(dbMixes, dbLoops);
         }
     })
     .then(function(tracks) {
         if (tracks.length) {
             console.log( chalk.green('Saved tracks') );
-            var hasTracks = dbCompositions.every(function(composition) {
-                return composition.tracks && composition.tracks.length;
+            var hasTracks = dbMixes.every(function(Mix) {
+                return Mix.tracks && Mix.tracks.length;
             })
             if (!hasTracks) {
-                console.log('Adding tracks to compositions');
-                return addTracksToCompositions(tracks, dbCompositions);
+                console.log('Adding tracks to mixes');
+                return addTracksToMixes(tracks, dbMixes);
             } else {
-                console.log(chalk.magenta('Seem to already have tracks on compositions'));
-                return dbCompositions;
+                console.log(chalk.magenta('Seem to already have tracks on mixes'));
+                return dbMixes;
             }
         } else {
             console.log( chalk.magenta('Failed to seed tracks'));
         }
     })
-    .then(function(compositions) { 
-        if (compositions.length) {
-            console.log(chalk.green('Saved tracks onto compositions'))
+    .then(function(mixes) { 
+        if (mixes.length) {
+            console.log(chalk.green('Saved tracks onto mixes'))
             console.log(chalk.green('SEED SUCCESSFUL!'));
             process.kill(0);
-        } else console.log( chalk.magenta('Failed to add tracks to compositions') );
+        } else console.log( chalk.magenta('Failed to add tracks to mixes') );
     }).catch(function (err) {
         console.error(err);
         process.kill(1);

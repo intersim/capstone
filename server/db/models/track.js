@@ -47,8 +47,8 @@ TrackSchema.methods.removeLoop = function(loopId) {
     return this.save();
 }
 
-TrackSchema.methods.findComposition = function(){
-  return mongoose.model('Composition').findOne({tracks: this._id});
+TrackSchema.methods.findMix = function(){
+  return mongoose.model('Mix').findOne({tracks: this._id});
 }
 
 TrackSchema.methods.clear = function() {
@@ -72,12 +72,12 @@ TrackSchema.methods.changeNumVoices = function(num) {
 }
 
 // TrackSchema.post('remove', function(deletedTrack, next) {
-//   mongoose.model('Composition').find({tracks: deletedTrack._id})
-//   .then(function(composition){
-//     composition.tracks = composition.tracks.filter(function(track) {
+//   mongoose.model('Mix').find({tracks: deletedTrack._id})
+//   .then(function(mix){
+//     mix.tracks = mix.tracks.filter(function(track) {
 //         return track !== deletedTrack._id;
 //     });
-//     return composition.save();
+//     return mix.save();
 //   })
 //   .then(function(){
 //     next();
@@ -85,13 +85,13 @@ TrackSchema.methods.changeNumVoices = function(num) {
 // });
 
 // TrackSchema.post('save', function(track, next) {
-//   track.findComposition().populate('tracks')
-//   .then(function(composition) {
-//       composition.numBars = Math.max( tracks.map(function(track) {
+//   track.findMix().populate('tracks')
+//   .then(function(mix) {
+//       mix.numBars = Math.max( tracks.map(function(track) {
 //           return measures.length;
 //         })
 //       )
-//       return composition.save();
+//       return mix.save();
 //   })
 //   .then(function() {
 //     next();

@@ -1,8 +1,8 @@
 'use strict';
 
-app.controller('BrowseCtrl', function($scope, $state, allCompositions, allLoops){
+app.controller('BrowseCtrl', function($scope, $state, allMixes, allLoops){
 
-	$scope.composition = allCompositions;
+	$scope.mixes = allMixes;
 	$scope.loops = allLoops;
 
 

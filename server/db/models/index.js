@@ -3,6 +3,6 @@
 // anywhere the User model needs to be used.
 require('./user');
 require('./comment');
-require('./composition');
+require('./mix');
 require('./track');
 require('./loop');

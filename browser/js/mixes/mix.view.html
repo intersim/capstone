@@ -1,0 +1,32 @@
+<style>
+  .tags {
+   	opacity:0.5;
+  }
+/*  .flex-container {
+  	display: flex;
+  	flex-direction: column;
+  	justify-content: space-between;
+  	align-items: center;
+  }*/
+</style>
+<div class="container col-md-4">
+	<div>
+		<h1>{{mix.title}}</h1>
+		<h4> Creator: {{mix.creator}}</h4>
+	  <track ng-repeat = "track in mix.tracks" contents="tracks"></track> {{track}} </div>
+	  <div>
+	  <p> Description: {{mix.description}}</p>
+	  </div>
+	  <div ng-repeat="tag in mix.tags" class="tags"> tags: {{tag}}</div>
+	  <h2> Comments </h2>
+		  <div>
+		    <comment-item context="mix" allcomments="comments">
+		    </comment-item>
+		</div>
+	</div>
+</div>
+
+
+
+
+
