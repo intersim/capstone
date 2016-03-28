@@ -4,5 +4,4 @@
 require('./user');
 require('./comment');
 require('./mix');
-require('./track');
 require('./loop');
