@@ -4,12 +4,39 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var currentUser;
 
-  var instrument = new Tone.PolySynth(16, Tone.SimpleSynth, {
+  // E: these synth settings are just from Tone.js examples! Must make custom ones in future...
+  var simpleSynth = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
       "partials": [0,2,3,4],
     },
     "volume": -12
   }).toMaster();
+
+  var monoSynth = new Tone.PolySynth(16, Tone.MonoSynth, {
+      "portamento" : 0.01,
+      "oscillator" : {
+        "type" : "square"
+      },
+      "envelope" : {
+        "attack" : 0.005,
+        "decay" : 0.2,
+        "sustain" : 0.4,
+        "release" : 0.5
+      },
+      "filterEnvelope" : {
+        "attack" : 0.005,
+        "decay" : 0.1,
+        "sustain" : 0.05,
+        "release" : 0.5
+        // "baseFrequency" : 300,
+        // "octaves" : 4
+      },
+      "volume": -12
+    }).toMaster();
+
+  var drumSynth = new Tone.PolySynth(16, Tone.DrumSynth).toMaster();
+
+  var instrument = monoSynth;
 
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
@@ -80,6 +107,14 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         var loop = res.data;
         scheduleLoop(loop.notes, track, measure);  
       });
+  }
+
+  MixFactory.addTrack = function(track) {
+    console.log("addTrack's track: ", track);
+    console.log("mix? ", mix);
+    // var measureCount = mix.tracks[0].measures.length;
+    // var measures = mix.tracks[track].measures;
+    // while (measures.length <= measureCount) measures.push({rest: true});
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {
