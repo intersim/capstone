@@ -16,10 +16,15 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
       note.startTime = note.startTime.split(":");
       note.startTime[0] = measure;
       note.startTime = note.startTime.join(":");
-      console.log("note scheduled: ", note);
       Tone.Transport.schedule(function(){
         instrument.triggerAttackRelease(note.pitch, note.duration);
       }, note.startTime, note._id);
+    })
+  }
+
+  function clearLoop(notes, track, measure) {
+    notes.forEach(function(note) {
+      Tone.Transport.clear(note._id);
     })
   }
 
@@ -67,12 +72,9 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
   }
 
   CompositionFactory.addLoop = function(loopId, track, measure) {
-    console.log("adding loop!");
-    console.log("addLoop info: ", loopId, track, measure);
     var measures = composition.tracks[track].measures;
     while (measures.length <= measure) measures.push({rest: true});
     measures[measure] = { rest: false, loop: {_id: loopId} };
-    //issues here?
     $http.get('/api/loops/' + loopId)
       .then(function(res) {
         var loop = res.data;
@@ -81,18 +83,22 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
 
   }
 
-  CompositionFactory.removeLoop = function(track, measure) {
+  CompositionFactory.removeLoop = function(loopId, track, measure) {
     composition.tracks[track].measures[measure] = { rest: true };
+    $http.get('/api/loops/' + loopId)
+      .then(function(res) {
+        var loop = res.data;
+        clearLoop(loop.notes, track, measure);  
+      });    
   }
   
   CompositionFactory.save = function(){
     var id = $stateParams.compositionId;
     if ( id === 'new' ) {
-      console.log("saving a new composition!");
       $http.post('/api/compositions', composition)
       .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
     } else {
-      console.log("saving composition: ", composition);
+      console.log("saving composition.tracks[0]: ", composition.tracks[0]);
       $http.put('/api/compositions/' + id, composition);  
     }
   }
