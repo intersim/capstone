@@ -112,12 +112,17 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
-  MixFactory.addTrack = function(track) {
-    console.log("addTrack's track: ", track);
-    console.log("mix? ", mix);
-    // var measureCount = mix.tracks[0].measures.length;
-    // var measures = mix.tracks[track].measures;
-    // while (measures.length <= measureCount) measures.push({rest: true});
+  MixFactory.addTrack = function() {
+    var newTrack = {
+      measures: []
+    };
+
+    var measureCount = mix.tracks[0].measures.length;
+    while (newTrack.measures.length < measureCount) newTrack.measures.push({rest: true});
+
+    mix.tracks.push(newTrack);
+
+    console.log("mix w/ new track: ", mix);
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {

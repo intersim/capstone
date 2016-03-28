@@ -6,11 +6,7 @@ app.config( function ($stateProvider) {
     controller: 'MixEditor',
     resolve: {
       mix: function(MixFactory, $stateParams) {
-        if ($stateParams.mixId==="new") {
-          console.log("making a new mix!");
-          return MixFactory.new();
-        }
-        console.log("getting that mix...");
+        if ($stateParams.mixId==="new") return MixFactory.new();
         return MixFactory.getById($stateParams.mixId, true);
       },
       loopBucket: function (UserFactory, AuthService, LoopFactory) {
