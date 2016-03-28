@@ -16,7 +16,7 @@
   }
   .track-container {
     overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-y: scroll;
     white-space: nowrap;
   }
   .track {
@@ -44,7 +44,7 @@
     margin-top: 5px;
   }
 </style>
-  <h1><span contenteditable="true">Untitled</span></h1>
+  <h1>Composition Editor</h1>
 <button ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
 <button ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
 <button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
