@@ -33,7 +33,7 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
   var CompositionFactory = {};
 
   CompositionFactory.getAll = function() {
-    return $http.get('/api/compositions', function(res) {
+    return $http.get('/api/compositions/', function(res) {
       return res.data;
     })
   }
@@ -93,8 +93,8 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
   
   CompositionFactory.save = function(){
     var id = $stateParams.compositionId;
-    if ( id === 'new' ) {
-      $http.post('/api/compositions', composition)
+    if (!id) {
+      $http.post('/api/compositions/', composition)
       .then(function(res) { $state.go('editComposition', {compositionId: res.data._id} ) });
     } else {
       console.log("saving composition.tracks[0]: ", composition.tracks[0]);
