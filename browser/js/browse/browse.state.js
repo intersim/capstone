@@ -5,10 +5,8 @@ app.config( function ($stateProvider) {
 	    templateUrl: '/js/browse/browse.html',
 	    controller: 'BrowseCtrl',
 	    resolve: {
-	      allMixes: function(MixFactory){
-	      	return MixFactory.getAll();
-	      },
-	      allLoops: function(LoopFactory){
+	      mtype: function(MixFactory, LoopFactory, $stateParams){
+	      	if($stateParams.kind==="mixes") return MixFactory.getAll();
 	      	return LoopFactory.getAll();
 	      }
 	    }
