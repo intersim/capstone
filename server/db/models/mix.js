@@ -3,12 +3,32 @@
 var mongoose = require('mongoose');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
-// TONEJS - scores can have following values:
-// {
-//  "tempo": <bpm number>,
-//  "timeSignature": <time signature object>,
-//  <instrumentName>: [ <note object that will be passed into the Tone.Note constructor> ] (This value that is returned when the channel callback is invoked.)
-//}
+var TrackSchema = new mongoose.Schema({
+    measures: [
+      {
+        rest: {
+          type: Boolean,
+          default: true
+        },
+        loop: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Loop'
+        }
+      }
+    ],
+    volume: Number,
+    numVoices: Number,
+    instrument: {
+        type: String,
+        enum: ['flute']
+    }
+});
+
+TrackSchema.path('measures').validate(function(measures) {
+  return measures.every(function(item) {
+    return item.rest || item.loop;
+  })
+})
 
 var MixSchema = new mongoose.Schema({
   creator: {
@@ -34,40 +54,21 @@ var MixSchema = new mongoose.Schema({
     type: Number,
     default: 12
   },
-  tracks: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Track'
-  }]
+  tracks: [TrackSchema]
 });
 
 //add deepPopulate option - populates a reference's reference
 MixSchema.plugin(deepPopulate);
 
-// CHANGE MIX MUSIC FEATURES
-
-MixSchema.methods.changeTempo = function(change) {
-  this.tempo += change;
-  return this.save();
-}
-
-MixSchema.methods.createTrack = function() {
-  mongoose.model('Track').create({})
-  .then(function(track) {
-    this.tracks.push(track._id);
-    return this.save();
-  })
-}
-
-MixSchema.methods.deleteTrack = function(trackNum) {
-  var trackToDelete = this.tracks[trackNum];
-  mongoose.model('Track').remove({_id: trackToDelete})
-  .then(function( track ) {
-    this.tracks.splice(trackNum);
-    return this.save();
-  })
-}
 
 // MANAGE MIX
+
+MixSchema.statics.findByLoop = function(loopId) {
+  return this.find({'tracks.measures.loop': loopId})
+  .then(function(mix) {
+    return mix;
+  })
+}
 
 MixSchema.methods.publish = function() {
   this.isPublic = true;
@@ -102,13 +103,11 @@ MixSchema.methods.getUserComments = function() {
   return mongoose.model('Comment').find({target: this._id});
 }
 
-MixSchema.statics.findByLoop = function(loopId) {
-    return mongoose.model('Track').find({'loops.loop': loopId })
-    .then(function(tracks) {
-        return Promise.map(tracks, function(track) {
-            return this.findById(track.mix);
-        })
-    })
+// CHANGE MIX MUSIC FEATURES
+
+MixSchema.methods.changeTempo = function(change) {
+  this.tempo += change;
+  return this.save();
 }
 
 mongoose.model('Mix', MixSchema);
