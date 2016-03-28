@@ -128,11 +128,10 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   
   MixFactory.save = function(){
     var id = $stateParams.mixId;
-    if (!id) {
+    if (id==="new") {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', {mixId: res.data._id} ) });
     } else {
-      console.log("saving mix.tracks[0]: ", mix.tracks[0]);
       $http.put('/api/mixes/' + id, mix);  
     }
   }

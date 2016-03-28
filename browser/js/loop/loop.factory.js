@@ -252,7 +252,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     }
     var id = $stateParams.loopId
 
-    if (!id) {
+    if (id==="new") {
       $http.post('/api/loops/', { notes: dataToSave })
       .then(function(res) { $state.go('loop', {loopId: res.data._id} ) });
     } else {$http.put('/api/loops/' + id, { notes: dataToSave })};
