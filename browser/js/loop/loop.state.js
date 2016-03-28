@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/loop/loop.html',
         resolve: {
           loop: function($http, $stateParams) {
-            if ($stateParams.loopId) {
+            if ($stateParams.loopId!=="new") {
               return $http.get('/api/loops/' + $stateParams.loopId)
               .then(function(res) {
                 console.log(res);
