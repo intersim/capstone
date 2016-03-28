@@ -3,7 +3,14 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   LoopFactory.initialize();
   // SamplerFactory.test();
 
-  if (loop) LoopFactory.drawLoop(loop);
+  if (loop) {
+    LoopFactory.drawLoop(loop);
+    console.log(loop);
+    $scope.title = loop.title;
+  } else {
+    $scope.title = "Untitled Loop";
+  }
+    
 
   $scope.playing = false;
 

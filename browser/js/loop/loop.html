@@ -1,9 +1,9 @@
 <div>
-  <h1>Loop Creator</h1>
+  <h1><span contenteditable="true" ng-model="title">{{ title }}</span></h1>
   <button id="delete" ng-click="deleteSelected()">Delete Selected</button>
   <button id="play" ng-show="!playing" ng-click="toggle()">Play</button>
   <button id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
-  <button id="save" ng-click="saveLoop()">Save Loop</button>
+  <button id="save" ng-click="saveLoop(title)">Save Loop</button>
 </div>
 
 <!-- <div>
