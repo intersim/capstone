@@ -133,6 +133,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   LoopFactory.initialize = function() {
     Tone.Transport.cancel();
     loopMusicData = {};
+    console.log("initializing canvas, clearing transport, clearing loopData");
     // initialize canvas for a 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
         selection: false
