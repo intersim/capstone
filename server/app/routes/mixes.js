@@ -1,7 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
 var Mix = mongoose.model('Mix');
-var Track = mongoose.model('Track');
 var Comment = mongoose.model('Comment');
 var Promise = require('bluebird');
 
@@ -19,14 +18,13 @@ router.get('/', function(req, res, next) {
 
 // create a new mix (current user, admin)
 router.post('/', function(req, res, next) {
-  if (!req.user.isAdmin || !mixes.creator) mix.creator = req.user._id;
-  Mix.create(req.body);
+  var mix = req.body;
+  mix.creator = req.user._id;
+  Mix.create(mix)
   .then(function(mix) {
     res.status(201).json(mix);
   })
-  .then(null, function(err) {
-    res.status(404).send();
-  })
+  .then(null, next)
 });
 
 // mix param - loop up the mix in the db
@@ -52,7 +50,7 @@ router.get('/:mixId', function(req, res, next) {
 
 // update a mix (creator of the mix & admin)
 router.put('/:mixId', function(req, res, next) {
-  if (req.user.isAdmin || req.mix.creator.equals(req.user._id) {
+  if (req.user.isAdmin || req.mix.creator.equals(req.user._id) ){
     req.mix.set(req.body);
     req.mix.save()
     .then(function(mix){
