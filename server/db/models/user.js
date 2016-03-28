@@ -58,7 +58,7 @@ var UserSchema = new mongoose.Schema({
         id: String
     }
 });
-
+UserSchema.set('versionKey', false)
 UserSchema.methods.findLoops = function() {
     return mongoose.model('Loop').find({creator: this._id})
 }

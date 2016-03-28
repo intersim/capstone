@@ -21,9 +21,9 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 		UserFactory.favorite(mixId)
 	}
 
-	$scope.addLoop = function(loopId){
-		UserFactory.addLoop(loopId)
-	}
+	// $scope.addToBucket = function(loopId){
+	// 	UserFactory.addToBucket(loopId)
+	// }
 })
 
 app.config(function($stateProvider){

@@ -40,13 +40,28 @@ app.factory('UserFactory', function($http, AuthService) {
     })
   }
   //add loop to bucket
-  UserFactory.addLoop = function(loopId){
-
+  UserFactory.addToBucket = function(loop){
+    console.log('add bucket')
     return AuthService.getLoggedInUser()
     .then(function(currentUser){
       var url = "/api/users/" + currentUser._id
-      if (currentUser.bucket.indexOf(loopId)!==-1) return currentUser;
-      currentUser.bucket.push(loopId)
+      if (currentUser.bucket.indexOf(loop._id)!==-1) return currentUser;
+      currentUser.bucket.push(loop._id)
+      return $http.put(url, currentUser)
+      .then(response => response.data)
+    })
+  }
+
+  //removes loop from bucket
+  UserFactory.removeFromBucket = function(loop){
+    console.log('remove from bucket', loop)
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      var url = "/api/users/" + currentUser._id
+      var index = currentUser.bucket.indexOf(loop._id)
+      console.log("loop bucket", currentUser.bucket)
+      console.log("index", index)
+      currentUser.bucket.splice(index, 1)
       return $http.put(url, currentUser)
       .then(response => response.data)
     })
