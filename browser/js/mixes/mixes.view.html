@@ -1,7 +1,7 @@
-<div> 
+<div>
   <h2>Browse Mixes</h2>
   <div class="mix-container">
-    <div ng-repeat="mix in mixes">
+    <div ng-repeat="mix in mixes" ng-click="select(mix)">
       {{mix.title}}
     </div>
   </div>
@@ -13,7 +13,7 @@
     
     
     <h5>Loops Used:</h5>
-    <div>
+    <div class="loop-container">
       <div ng-repeat="selected.loops">
     </div>
     
