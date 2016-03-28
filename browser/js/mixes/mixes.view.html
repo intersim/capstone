@@ -8,7 +8,7 @@
   <div class="details" ng-show="selected">
     <h4>{{selected.title}}</h4>
     <p>{{selected.description}}</p>
-    <p><strong>Created By:</strong> <a href="" ui-sref="user({userId: selected.creator._id })">{{selected.creator.username}}</a></p>
+    <p><strong>Created By:</strong> <a href="" ui-sref="user({userId: selected.creator._id})">{{selected.creator.username}}</a></p>
     <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}
     
     

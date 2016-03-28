@@ -1,0 +1,28 @@
+<div>
+  <div>
+    <form>
+    
+      <div class="form-group">
+        <h3>Sort By...</h3>
+        <div class="btn-group">
+          <button ng-repeat="sortType in sortTypes" ng-click="sortLoops(sortType)">{{sortType}}</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <h3>Filter By...</h3>
+        <div ng-repeat="filterType in filterTypes">
+          <h4>{{filterType.name}}</h4>
+            <div class="form-group" ng-repeat="value in filterType.values">
+              <label for="{{value}}">{{value}}</label><input name="{{value}}" type="checkbox" ng-click="include(value)">
+            </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <h2>Browse Loops</h2>
+
+  
+</div>

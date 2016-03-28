@@ -18,7 +18,7 @@ app.config(function ($stateProvider) {
     })
     .state('loops', {
       url: '/loops',
-      templateUrl: 'js/loop/loops.html',
+      templateUrl: 'js/loop/loops.view.html',
       resolve: {
         loops: function($http) {
           return $http.get('/api/loops')
