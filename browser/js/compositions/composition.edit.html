@@ -40,13 +40,14 @@
     height: 200px;
     float: right;
     background-color: darkgray;
+    border-radius: 10px;
+    margin-top: 5px;
   }
 </style>
   <h1><span contenteditable="true">Untitled</span></h1>
 <button ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
 <button ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
 <button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
-<div class="trash" droppable drop="deleteLoop()"></div>
 
 <div class="track-container">
   <div ng-repeat="track in composition.tracks" ng-init="$track = $index">
@@ -65,7 +66,7 @@
       </select>
     </form>
     <div class="track bin">
-      <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable drop="addLoop()">
+      <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable>
         <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop._id}}" draggable type="move" title="{{measure.loop._id}}"></div>
       </div>
     </div>
@@ -75,4 +76,5 @@
 <div class="loopBucket">
   <h3>My Loop Bucket</h3>
   <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}"></div>
+  <div class="trash" droppable type="delete">TRASH BIN</div>
 </div>

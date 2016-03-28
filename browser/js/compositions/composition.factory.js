@@ -18,13 +18,13 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
       note.startTime = note.startTime.join(":");
       Tone.Transport.schedule(function(){
         instrument.triggerAttackRelease(note.pitch, note.duration);
-      }, note.startTime, note._id);
+      }, note.startTime, measure+note._id);
     })
   }
 
   function clearLoop(notes, track, measure) {
     notes.forEach(function(note) {
-      Tone.Transport.clear(note._id);
+      Tone.Transport.clear(measure+note._id);
     })
   }
 
@@ -80,7 +80,6 @@ app.factory('CompositionFactory', function($http, $state, $stateParams, AuthServ
         var loop = res.data;
         scheduleLoop(loop.notes, track, measure);  
       });
-
   }
 
   CompositionFactory.removeLoop = function(loopId, track, measure) {

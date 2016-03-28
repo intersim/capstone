@@ -1,7 +1,8 @@
 app.directive('droppable', function($compile, CompositionFactory){
   return {
     scope: {
-      drop: '&'
+      // drop: '&',
+      type: '@'
     },
     link: function(scope, element) {
       var elem = element[0];
@@ -57,7 +58,7 @@ app.directive('droppable', function($compile, CompositionFactory){
 
           
           //remove old notes before adding new ones
-          if (oldItem.getAttribute('type') === 'move') {
+          if (oldItem.getAttribute('type') === 'move' || scope.type === 'delete') {
             var oldInfo = oldItem.id.split('-');
             var oldLoop = oldItem.dataset.loop;
             var oldTrack = oldInfo[oldInfo.indexOf('t') + 1];
@@ -67,7 +68,9 @@ app.directive('droppable', function($compile, CompositionFactory){
           }
 
           //now add new notes
-          CompositionFactory.addLoop(loopId, track, measure);
+          if (scope.type !== 'delete') {
+            CompositionFactory.addLoop(loopId, track, measure);
+          }
           
           scope.$apply('drop()');
 
