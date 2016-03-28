@@ -61,7 +61,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   var MixFactory = {};
 
   MixFactory.getAll = function() {
-    return $http.get('/api/mixes/', function(res) {
+    return $http.get('/api/mixes/')
+    .then(function(res) {
       return res.data;
     })
   }

@@ -275,8 +275,9 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       })
   }
 
-  LoopFactory.getMixes = function() {
-    return $http.get('/api/loops/' + $stateParams.loopId + '/mixes')
+  LoopFactory.getMixes = function(loopId) {
+    var loopId = loopId || $stateParams.loopId;
+    return $http.get('/api/loops/' + loopId + '/mixes')
       .then(function(res) {
         return res.data;
       })

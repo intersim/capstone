@@ -21,6 +21,10 @@ var TrackSchema = new mongoose.Schema({
     instrument: {
         type: String,
         enum: ['flute']
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now
     }
 });
 
