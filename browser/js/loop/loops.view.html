@@ -3,18 +3,18 @@
     <form>
     
       <div class="form-group">
-        <h3>Sort By...</h3>
-        <div class="btn-group">
-          <button ng-repeat="sortType in sortTypes" ng-click="sortLoops(sortType)">{{sortType}}</button>
+        <h4>Sort By...</h4>
+        <div>
+          <button class="btn" ng-repeat="sortType in sortTypes" ng-click="sortLoops(sortType)">{{sortType}}</button><br>
         </div>
       </div>
 
       <div class="form-group">
-        <h3>Filter By...</h3>
+        <h4>Filter By...</h4>
         <div ng-repeat="filterType in filterTypes">
-          <h4>{{filterType.name}}</h4>
+          <h5>{{filterType.name}}</h5>
             <div class="form-group" ng-repeat="value in filterType.values">
-              <label for="{{value}}">{{value}}</label><input name="{{value}}" type="checkbox" ng-click="include(value)">
+              <input name="{{value}}" type="checkbox" ng-click="include(value)"><label for="{{value}}">{{value}}</label>
             </div>
         </div>
       </div>
@@ -23,6 +23,15 @@
   </div>
 
   <h2>Browse Loops</h2>
+  <div class="loops-container">
+    <div ng-repeat="loop in loops" ng-click="select(loop)">{{loop.name}}</div>
+  </div>
 
+  <div ng-show="selected">
+    <h4>This Loop Was Used In...</h4>
+    <div class="mix-container">
+      <div ng-repeat="mix in selected.mixes">{{mix.title}}</div>
+    </div>
+  </div>
   
 </div>
