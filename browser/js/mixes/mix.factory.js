@@ -4,6 +4,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var currentUser;
 
+  console.log("welcome to MixFactory!");
+
   // E: these synth settings are just from Tone.js examples! Must make custom ones in future...
   var simpleSynth = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
