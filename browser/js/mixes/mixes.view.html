@@ -8,13 +8,13 @@
   <div class="details" ng-show="selected">
     <h4>{{selected.title}}</h4>
     <p>{{selected.description}}</p>
-    <p><strong>Created By:</strong> <a href="" ui-sref="user({userId: selected.creator._id })">{{selected.creator}}</a></p>
+    <p><strong>Created By:</strong> <a href="" ui-sref="user({userId: selected.creator._id })">{{selected.creator.username}}</a></p>
     <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}
     
     
     <h5>Loops Used:</h5>
     <div class="loop-container">
-      <div ng-repeat="selected.loops">
+      <div ng-repeat="loop in selected.loops">{{loop.name}}</div>
     </div>
     
 

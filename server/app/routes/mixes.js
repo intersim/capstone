@@ -8,6 +8,7 @@ var Promise = require('bluebird');
 router.get('/', function(req, res, next) {
   Mix.find()
   .deepPopulate('tracks.measures.loop')
+  .populate('creator')
   .exec()
   .then(function(mixes){
     if (mixes) res.json(mixes);

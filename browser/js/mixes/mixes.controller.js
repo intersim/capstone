@@ -7,6 +7,7 @@ app.controller('MixesCtrl', function($scope, mixes){
   $scope.mixes = mixes;
 
   $scope.select = function(mix) {
+    console.log(mix);
     var loops = [];
     mix.tracks.forEach(function(track) {
       track.measures.forEach(function(measure) {
