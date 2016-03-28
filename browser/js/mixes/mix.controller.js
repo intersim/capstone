@@ -3,12 +3,23 @@
 // });
 
 app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket){
+  var trackCount = mix.tracks.length;
+  console.log("this mix's trackCount: ", trackCount);
+
+  $scope.addTrack = function() {
+    var newTrackNum = trackCount++;
+    MixFactory.addTrack(newTrackNum);
+    // need to digest here?
+  };
+
   $scope.mix = mix;
 
   $scope.loopBucket = loopBucket;
 
   $scope.playing = false;
   
+  Tone.Transport.loop = false;
+
   $scope.togglePlay = function() {
     if ($scope.playing) {
       Tone.Transport.stop();

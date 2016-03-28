@@ -48,6 +48,7 @@
 <button ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
 <button ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
 <button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
+<button ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span></button>
 
 <div class="track-container">
   <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
