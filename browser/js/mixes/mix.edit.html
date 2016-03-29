@@ -30,8 +30,9 @@
   <button class="btn btn-primary btn-lg" title="add track" ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span></button>
 </div>
 
+<h3>My Loop Bucket</h3>
+<div class="trash" droppable type="delete"><i class="fa fa-trash"></i></div>
 <div class="loopBucket">
-  <h3>My Loop Bucket</h3>
   <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}"></div>
-  <div class="trash" droppable type="delete">TRASH BIN</div>
+  
 </div>

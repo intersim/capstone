@@ -146,9 +146,13 @@ tutorial-section-menu {
   background-color: #555; }
 
 .trash {
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 140px;
+  padding: 20px;
   float: right;
   background-color: darkgray;
   border-radius: 10px;
   margin-top: 5px; }
+  .trash i {
+    font-size: 100px;
+    opacity: 0.7; }
