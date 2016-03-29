@@ -13,8 +13,15 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 		if(lbucket[i].creator===$scope.user._id && lbucket[i].isPublic) $scope.loops.push(lbucket[i])
 	}
     
-    $scope.follow=false;
-    $scope.status="Follow"
+
+
+    UserFactory.following($scope.user._id)
+    .then(function(value){
+    	$scope.follow=value;
+    	if(value) $scope.status="Unfollow"
+    	else $scope.status="Follow"
+    })
+
     $scope.change = function(userId){
 
         if($scope.follow){

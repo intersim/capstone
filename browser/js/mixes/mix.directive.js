@@ -9,7 +9,11 @@ app.directive('mixItem', function() {
     },
     controller: function($scope, UserFactory, $state){
 
-        $scope.favorited=false;
+        UserFactory.favorited($scope.mix._id)
+        .then(function(value){
+            $scope.favorited=value;
+        })
+
 
         $scope.edit = function(mixId){
             $state.go('editMix', {mixId: mixId})
