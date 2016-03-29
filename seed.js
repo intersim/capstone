@@ -172,7 +172,7 @@ function seedMixes(users, loops) {
     var trackData = {
         measures: (new Array(12) ).fill({rest: true}),
         numVoices: 1,
-        instrument: 'flute'
+        instrument: 'synth1'
     }
 
     var tracks = [];
