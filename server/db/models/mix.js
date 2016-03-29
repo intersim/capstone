@@ -20,7 +20,7 @@ var TrackSchema = new mongoose.Schema({
     numVoices: Number,
     instrument: {
         type: String,
-        enum: ['flute']
+        enum: ['synth1', 'synth2', 'drumSynth']
     },
     dateCreated: {
         type: Date,
