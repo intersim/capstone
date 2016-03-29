@@ -40,7 +40,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var instruments = {};
 
-  instruments.track1 = simpleSynth;
+  instruments.track0 = simpleSynth;
 
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
@@ -49,9 +49,10 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       scheduleTime = note.startTime.split(":");
       scheduleTime[0] = measure;
       scheduleTime = scheduleTime.join(":");
-      var trackNum = Number(track) + 1;
+      console.log("scheduling onto instr: ", instruments["track"+track]);
+      console.log(scheduleTime);
       Tone.Transport.schedule(function(){
-        instruments["track"+trackNum].triggerAttackRelease(note.pitch, note.duration);
+        instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
     })
   }
@@ -65,11 +66,12 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   var MixFactory = {};
 
   MixFactory.changeInstr = function (instrStr, track) {
-    //E: MUST UPDATE THIS TO CHANGE ON THE ACTUAL TRACK IN MIX
-    console.log("changeInstr track: ", mix.tracks[track]);
-    if (instrStr == 'synth1') mix.tracks[track].instrument = simpleSynth;
-    if (instrStr == 'synth2') mix.tracks[track].instrument = monoSynth;
-    if (instrStr == 'drumSynth') mix.tracks[track].instrument = drumSynth;
+    //E: need to pass in track and save the instrument on the track here...
+    console.log("changeInstr track: ", track);
+    if (instrStr == 'synth1') instruments["track"+track] = simpleSynth;
+    if (instrStr == 'synth2') instruments["track"+track] = monoSynth;
+    if (instrStr == 'drumSynth') instruments["track"+track] = drumSynth;
+    console.log("instruments is now", instruments);
   }
 
   MixFactory.getAll = function() {
@@ -127,7 +129,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
-  MixFactory.addTrack = function(trackNum) {
+  MixFactory.addTrack = function(track) {
     var newTrack = {
       measures: [],
       instrument: 'synth1'
@@ -138,8 +140,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
     mix.tracks.push(newTrack);
 
-    // need to get rid of this...
-    instruments["track"+trackNum] = simpleSynth;
+    // need to get rid of this eventually?
+    instruments["track"+track] = simpleSynth;
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {

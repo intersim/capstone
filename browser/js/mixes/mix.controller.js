@@ -6,9 +6,9 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
   var trackCount = mix.tracks.length;
 
   $scope.addTrack = function() {
-    trackCount++;
     if (trackCount < 4) MixFactory.addTrack(trackCount);
     else console.error("Can't have more than 4 tracks!");
+    trackCount++;
   };
 
   $scope.mix = mix;
@@ -38,9 +38,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
     ];
 
   $scope.changeInstr = function(selectedInstr, trackNum) {
-    console.log("changed instrument!");
-    console.log("selected instr: ", selectedInstr);
-    console.log("trackNum: ", trackNum);
+    console.log("changeInstr trackNum: ", trackNum);
     MixFactory.changeInstr(selectedInstr.name, trackNum);
   }
 
