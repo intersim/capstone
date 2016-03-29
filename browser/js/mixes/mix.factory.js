@@ -38,7 +38,9 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var drumSynth = new Tone.PolySynth(16, Tone.DrumSynth).toMaster();
 
-  var instrument = simpleSynth;
+  var instruments = {};
+
+  instruments.track1 = simpleSynth;
 
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
@@ -46,8 +48,9 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       scheduleTime = note.startTime.split(":");
       scheduleTime[0] = measure;
       scheduleTime = scheduleTime.join(":");
+      var trackNum = Number(track) + 1;
       Tone.Transport.schedule(function(){
-        instrument.triggerAttackRelease(note.pitch, note.duration);
+        instruments["track"+trackNum].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
     })
   }
@@ -121,7 +124,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
-  MixFactory.addTrack = function() {
+  MixFactory.addTrack = function(trackNum) {
     var newTrack = {
       measures: []
     };
@@ -131,7 +134,9 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
     mix.tracks.push(newTrack);
 
-    console.log("mix w/ new track: ", mix);
+    instruments["track"+trackNum] = simpleSynth;
+
+    console.log("instruments: ", instruments);
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {
