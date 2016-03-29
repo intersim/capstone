@@ -17,6 +17,8 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
     }
   }
 
+  // $scope.loops = allLoops;
+
   $scope.deleteSelected = LoopFactory.deleteNote;
   
   $scope.saveLoop = LoopFactory.save;
