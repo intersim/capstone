@@ -247,15 +247,15 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     delete loopMusicData[idC];
   }
 
-  LoopFactory.save = function() {
+  LoopFactory.save = function(copy) {
 
     var dataToSave = [];
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
     }
-    var id = $stateParams.loopId
+    var id = $stateParams.loopId;
 
-    if (id==="new") {
+    if (id === "new" || copy) {
       $http.post('/api/loops/', { notes: dataToSave })
       .then(function(res) { $state.go('loop', {loopId: res.data._id} ) });
     } else {$http.put('/api/loops/' + id, { notes: dataToSave })};
