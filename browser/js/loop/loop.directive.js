@@ -11,6 +11,7 @@ app.directive('loopItem', function() {
     	$scope.added = false;
 
     	$scope.toggle = function(){
+            //checker
     		if($scope.added) {
     			removeFromBucket()
     		} else {
