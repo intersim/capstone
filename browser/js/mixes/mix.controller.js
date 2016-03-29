@@ -31,6 +31,18 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
 
   $scope.save = MixFactory.save;
 
+  $scope.instruments = [
+      { name: "synth1" },
+      { name: "synth2" },
+      { name: "drumSynth" }
+    ];
+
+  $scope.update = function(selectedInstr) {
+    console.log("changed instrument!");
+    console.log("selected instr: ", selectedInstr);
+    // run something from mix factory to update track's instrument, and change the selected instrument
+  }
+
 });
 
 app.controller('CompViewCtrl', function($scope, MixFactory){
