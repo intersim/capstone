@@ -26,12 +26,11 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
         $scope.status="Unfollow"
     }
 
-    function follow(){
+    function follow(userId){
     	UserFactory.followUser(userId)
 	}
 
-	function unfollow(){
-    //write in factory
+	function unfollow(userId){
     	UserFactory.unfollowUser(userId)
 	}
 })
