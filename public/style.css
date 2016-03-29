@@ -10,10 +10,18 @@ fullstack-logo {
     display: block;
     width: 100%; }
 
-navbar fullstack-logo {
-  margin-top: 5px;
-  margin-right: 20px;
-  width: 40px; }
+navbar .fa {
+  margin-top: -10px; }
+
+navbar .fa-clone {
+  font-size: 40px; }
+
+navbar .fa-music {
+  font-size: 20px;
+  margin-top: 4px;
+  margin-left: -25px;
+  float: left;
+  position: absolute; }
 
 #home fullstack-logo {
   padding-top: 30px;
