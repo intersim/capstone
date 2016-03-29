@@ -1,0 +1,45 @@
+
+.item {
+  width: 130px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #444;
+  height: 100%;
+  border-radius: 10px;
+}
+.loopBucket {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-between;
+  height: 100px;
+}
+.track-container {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  white-space: nowrap;
+}
+.track {
+  height: 100px;
+}
+.measure {
+  background-color: #ebebeb;
+  border-left: 1px solid #555;
+  border-right: 1px solid #555;
+  width: 140px;
+  height: 100%;
+}
+.track * {
+  display: inline-block;
+}
+.over {
+  background-color: #555;
+}
+.trash {
+  width: 200px;
+  height: 200px;
+  float: right;
+  background-color: darkgray;
+  border-radius: 10px;
+  margin-top: 5px;
+}

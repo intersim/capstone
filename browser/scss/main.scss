@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background: #fdfdfd;
-}
-
 @mixin clearfix {
   &:after {
     content: "";
@@ -15,7 +11,6 @@ body {
 }
 
 #main {
-  padding-top: 60px;
   margin: 0 auto;
 }
 
@@ -24,3 +19,5 @@ body {
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import 'loop/main';
+@import 'mix/main';

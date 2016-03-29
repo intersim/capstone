@@ -1,11 +1,7 @@
 * {
   box-sizing: border-box; }
 
-body {
-  background: #fdfdfd; }
-
 #main {
-  padding-top: 60px;
   margin: 0 auto; }
 
 fullstack-logo {
@@ -14,48 +10,10 @@ fullstack-logo {
     display: block;
     width: 100%; }
 
-navbar {
-  display: block;
-  background: white;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black; }
-  navbar .container {
-    width: 91%;
-    max-width: 1340px;
-    padding-top: 20px; }
-  navbar fullstack-logo {
-    margin-top: 5px;
-    margin-right: 20px;
-    width: 40px; }
-  navbar a {
-    color: black;
-    font-size: 16px; }
-  navbar .nav > li > a {
-    cursor: pointer;
-    transition: color 0.2s; }
-    navbar .nav > li > a.active {
-      color: #c80a0c; }
-    navbar .nav > li > a:hover {
-      background: none;
-      color: #f31214; }
-    navbar .nav > li > a:focus {
-      background: none; }
-  navbar .login-button {
-    float: right;
-    border: 1px solid black;
-    margin-top: 10px;
-    background: none;
-    outline: none !important; }
-  navbar .welcome {
-    float: right;
-    margin-top: 12px; }
-    navbar .welcome span {
-      color: black;
-      font-size: 16px;
-      margin-right: 5px; }
-    navbar .welcome a {
-      color: #f30046;
-      cursor: pointer; }
+navbar fullstack-logo {
+  margin-top: 5px;
+  margin-right: 20px;
+  width: 40px; }
 
 #home fullstack-logo {
   padding-top: 30px;
@@ -140,3 +98,57 @@ tutorial-section-menu {
 #login-form {
   width: 60%;
   margin: 0 auto; }
+
+.loop-editor-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center; }
+  .loop-editor-container button {
+    display: inline; }
+  .loop-editor-container canvas {
+    border: 1px solid #ccc; }
+
+.item {
+  width: 130px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #444;
+  height: 100%;
+  border-radius: 10px; }
+
+.loopBucket {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: space-between;
+  height: 100px; }
+
+.track-container {
+  overflow-x: scroll;
+  overflow-y: scroll;
+  white-space: nowrap; }
+
+.track {
+  height: 100px; }
+
+.measure {
+  background-color: #ebebeb;
+  border-left: 1px solid #555;
+  border-right: 1px solid #555;
+  width: 140px;
+  height: 100%; }
+
+.track * {
+  display: inline-block; }
+
+.over {
+  background-color: #555; }
+
+.trash {
+  width: 200px;
+  height: 200px;
+  float: right;
+  background-color: darkgray;
+  border-radius: 10px;
+  margin-top: 5px; }

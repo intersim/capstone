@@ -1,60 +1,14 @@
-<style>
-  .item {
-    width: 130px;
-    margin-left: 5px;
-    margin-right: 5px;
-    background-color: #444;
-    height: 100%;
-    border-radius: 10px;
-  }
-  .loopBucket {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-content: space-between;
-    height: 100px;
-  }
-  .track-container {
-    overflow-x: scroll;
-    overflow-y: scroll;
-    white-space: nowrap;
-  }
-  .track {
-    height: 100px;
-  }
-  .measure {
-    background-color: #ebebeb;
-    border-left: 1px solid #555;
-    border-right: 1px solid #555;
-    width: 140px;
-    height: 100%;
-  }
-  .track * {
-    display: inline-block;
-  }
-  .over {
-    background-color: #555;
-  }
-  .trash {
-    width: 200px;
-    height: 200px;
-    float: right;
-    background-color: darkgray;
-    border-radius: 10px;
-    margin-top: 5px;
-  }
-</style>
-  <h1>Composition Editor</h1>
-<button ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
-<button ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
-<button ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
-<button ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span></button>
+<h1>Mix Editor</h1>
+  <button class="btn btn-primary" title="save" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+  <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
+  <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 
 <div class="track-container">
   <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
     <form>
-      <button>Mute</button>
-      <button>Solo</button>
+      <button class="btn btn-xs btn-primary" title="mute"><i class="fa fa-microphone-slash"></i>
+</button>
+      <button class="btn btn-xs btn-primary" title="solo"><i class="fa fa-microphone"></i></button>
       <label>Volume</label>
       <select>
         <option>25%</option>
@@ -71,7 +25,9 @@
         <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop._id}}" draggable type="move" title="{{measure.loop._id}}"></div>
       </div>
     </div>
-  </track></div>
+  </track>
+  </div>
+  <button class="btn btn-primary btn-lg" title="add track" ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span></button>
 </div>
 
 <div class="loopBucket">
