@@ -3,6 +3,7 @@
 app.controller('LoopsCtrl', function($scope, loops, LoopFactory){
 
   $scope.loops = loops;
+  console.log(loops);
 
   $scope.selectedSortMethod = 'numUses';
   $scope.selectedFilterMethod = null;

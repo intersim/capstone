@@ -5,7 +5,8 @@
     <button class="btn btn-danger" id="delete" ng-click="deleteSelected()">Delete Selected</button>
     <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
     <button class="btn btn-warning" id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
-    <button class="btn btn-info" id="save" ng-click="saveLoop()">Save Loop</button>
+    <button ng-show="loopBelongsToUser" class="btn btn-info" id="save" ng-click="saveLoop()">Save Loop</button>
+    <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy" ng-click="copyLoop()">Copy Loop</button>
   </div>
 
 <canvas id="c" width="600" height="600"></canvas>

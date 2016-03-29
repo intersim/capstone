@@ -10,6 +10,7 @@ router.get('/', function(req, res, next){
   // Loop.find({isPublic: true})
 
   Loop.find()
+  .populate('creator')
   .then(function(loops) {
     res.json(loops);
   })

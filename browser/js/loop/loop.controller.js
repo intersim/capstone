@@ -1,9 +1,18 @@
-app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFactory) {
+app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFactory, AuthService) {
 
   LoopFactory.initialize();
   // SamplerFactory.test();
 
   if (loop) LoopFactory.drawLoop(loop);
+
+  AuthService.getLoggedInUser()
+  .then(function(user) {
+    $scope.loopBelongsToUser = user._id === loop.creator;
+  })
+
+  $scope.copyLoop = function() {
+    LoopFactory.save(true);
+  }
 
   $scope.playing = false;
 

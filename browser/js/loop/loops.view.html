@@ -31,6 +31,8 @@
   </div>
 
   <div ng-show="selected" class="details">
+    <p><strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a></p>
+    <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}</p>
     <h4>This Loop Was Used In...</h4>
     <div class="mix-container">
       <div ng-repeat="mix in selected.mixes">{{mix.title}}</div>
