@@ -27,18 +27,11 @@ app.directive('mixItem', function() {
 
 	    function favorite(mixId) {
             UserFactory.favorite(mixId)
-
-			// UserFactory.addToBucket($scope.loop)
-			// .then(function(user){
-			// 	console.log('user from add', user)
-			// })
 		}
 
 		function unfavorite(mixId) {
-            //write in factory
             UserFactory.unfavorite(mixId)
 		}
-
     }
-  };
-});
+  }
+})

@@ -31,14 +31,26 @@ app.factory('UserFactory', function($http, AuthService) {
   	
     return AuthService.getLoggedInUser()
     .then(function(currentUser){
-      console.log('curr user', currentUser)
-      var url = "/api/users/" + currentUser._id
+      var url = "/api/users/" + currentUser._id;
       if (currentUser.following.indexOf(userId)!==-1 || currentUser._id===userId) return currentUser;
       currentUser.following.push(userId)
       return $http.put(url, currentUser)
       .then(response => response.data)
     })
   }
+
+  //unfollow user; userId is the id of the followee
+    UserFactory.unfollowUser = function(userId){
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      var url = "/api/users/" + currentUser._id;
+      var index = currentUser.following.indexOf(userId);
+      currentUser.following.splice(index, 1)
+      return $http.put(url, currentUser)
+      .then(response => response.data)
+    })
+  }
+
   //add loop to bucket
   UserFactory.addToBucket = function(loop){
     console.log('add bucket')
@@ -92,10 +104,22 @@ app.factory('UserFactory', function($http, AuthService) {
     })
   }
 
+  //favorite a mix
   UserFactory.favorite = function(mixId){
     return AuthService.getLoggedInUser()
     .then(function(currentUser){
       currentUser.favorites.push(mixId) 
+    return $http.put('/api/users/' + currentUser._id, currentUser)
+    .then(response => response.data)
+    })   
+  }
+
+  //unfavorite a mix
+  UserFactory.unfavorite = function(mixId){
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      var index = currentUser.favorites.indexOf(mixId)
+      currentUser.favorites.splice(index, 1) 
     return $http.put('/api/users/' + currentUser._id, currentUser)
     .then(response => response.data)
     })   
