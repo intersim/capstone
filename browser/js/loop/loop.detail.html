@@ -1,14 +1,8 @@
-<table>
-  <div class="row">
+<div class="loop-item">
+    <button ng-click="toggle()" type="button" class="btn btn-sm btn-info pull-right">
+    <span class="glyphicon glyphicon-{{added ? 'remove':'plus'}}-sign"></span></button>
+    <h4>{{loop.name}}</h4>    
+    <p>Number of Uses: {{loop.numUses}}</p>
+    <p>Tags: {{loop.tags.join(", ")}}</p>
 
-      <div><h3>{{loop.name}}</h3></div>
-      <p>Number of Uses: {{loop.numUses}}</p>
-      <track>Loop Category: {{loop.category}}</track>
-
-      <div>
-        <button ng-click="toggle()" type="button" class="btn btn-sm">
-        <span class="glyphicon glyphicon-{{added ? 'remove':'plus'}}-sign"></span></button>
-      </div>
-
-  </div>
-</table>  
+</div>
