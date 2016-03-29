@@ -63,12 +63,14 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var MixFactory = {};
 
-  MixFactory.changeInstr = function (instrStr) {
+  MixFactory.changeInstr = function (instrStr, track) {
     //E: need to pass in track and save the instrument on the track here...
-    if (instrStr == 'synth1') instrument = simpleSynth;
-    if (instrStr == 'synth2') instrument = monoSynth;
-    if (instrStr == 'drumSynth') instrument = drumSynth;
-    console.log("instrument is now", instrument);
+    console.log("changeInstr track: ", track);
+    var trackNum = Number(track) + 1;
+    if (instrStr == 'synth1') instruments["track"+trackNum] = simpleSynth;
+    if (instrStr == 'synth2') instruments["track"+trackNum] = monoSynth;
+    if (instrStr == 'drumSynth') instruments["track"+trackNum] = drumSynth;
+    console.log("instruments is now", instruments);
   }
 
   MixFactory.getAll = function() {

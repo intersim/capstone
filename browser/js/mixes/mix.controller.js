@@ -37,10 +37,11 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
       { name: "drumSynth" }
     ];
 
-  $scope.update = function(selectedInstr) {
+  $scope.update = function(selectedInstr, trackNum) {
     console.log("changed instrument!");
     console.log("selected instr: ", selectedInstr);
-    MixFactory.changeInstr(selectedInstr.name);
+    console.log("trackNum: ", trackNum);
+    MixFactory.changeInstr(selectedInstr.name, trackNum);
   }
 
 });
