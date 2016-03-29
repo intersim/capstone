@@ -7,7 +7,6 @@
     "start": "nodemon --watch server -e js,html server/start.js",
     "postinstall": "gulp build",
     "test": "./node_modules/.bin/mocha -w tests/server/*/*-test.js"
-
   },
   "engines": {
     "node": ">=4.0.0"
@@ -23,6 +22,7 @@
     "bluebird": "^2.9.34",
     "body-parser": "^1.12.0",
     "bootstrap": "^3.3.4",
+    "bootswatch": "^3.3.6",
     "chai": "^2.1.0",
     "chalk": "^1.0.0",
     "connect-mongo": "^0.7.0",
