@@ -6,6 +6,8 @@
 <div class="track-container">
   <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
     <form>
+<!--       <button>Mute</button>
+      <button>Solo</button>
       <button class="btn btn-xs btn-primary" title="mute"><i class="fa fa-microphone-slash"></i>
 </button>
       <button class="btn btn-xs btn-primary" title="solo"><i class="fa fa-microphone"></i></button>
@@ -15,9 +17,8 @@
         <option>50%</option>
         <option>75%</option>
         <option>100%</option>
-      </select>
-      <select>
-        <option>Flute</option>
+      </select> -->
+      <select ng-model="selectInstr" ng-change="update(selectInstr, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
       </select>
     </form>
     <div class="track bin">

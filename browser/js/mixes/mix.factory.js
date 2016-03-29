@@ -38,16 +38,20 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var drumSynth = new Tone.PolySynth(16, Tone.DrumSynth).toMaster();
 
-  var instrument = simpleSynth;
+  var instruments = {};
+
+  instruments.track1 = simpleSynth;
 
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
+      console.log("scheduling loop on track...", track);
       var scheduleTime;
       scheduleTime = note.startTime.split(":");
       scheduleTime[0] = measure;
       scheduleTime = scheduleTime.join(":");
+      var trackNum = Number(track) + 1;
       Tone.Transport.schedule(function(){
-        instrument.triggerAttackRelease(note.pitch, note.duration);
+        instruments["track"+trackNum].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
     })
   }
@@ -59,6 +63,16 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   }
 
   var MixFactory = {};
+
+  MixFactory.changeInstr = function (instrStr, track) {
+    //E: need to pass in track and save the instrument on the track here...
+    console.log("changeInstr track: ", track);
+    var trackNum = Number(track) + 1;
+    if (instrStr == 'synth1') instruments["track"+trackNum] = simpleSynth;
+    if (instrStr == 'synth2') instruments["track"+trackNum] = monoSynth;
+    if (instrStr == 'drumSynth') instruments["track"+trackNum] = drumSynth;
+    console.log("instruments is now", instruments);
+  }
 
   MixFactory.getAll = function() {
     return $http.get('/api/mixes/')
@@ -72,7 +86,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       title: "Untitled",
       tracks: [
         {
-          measures: []
+          measures: [],
+          instrument: 'synth1'
         }
       ]
     }
@@ -113,9 +128,10 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
-  MixFactory.addTrack = function() {
+  MixFactory.addTrack = function(trackNum) {
     var newTrack = {
-      measures: []
+      measures: [],
+      instrument: 'synth1'
     };
 
     var measureCount = mix.tracks[0].measures.length;
@@ -123,7 +139,9 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
     mix.tracks.push(newTrack);
 
-    console.log("mix w/ new track: ", mix);
+    instruments["track"+trackNum] = simpleSynth;
+
+    console.log("instruments: ", instruments);
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {
@@ -137,9 +155,10 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   
   MixFactory.save = function(){
     var id = $stateParams.mixId;
+    console.log("saving mix: ", mix);
     if (id==="new") {
       $http.post('/api/mixes/', mix)
-      .then(function(res) { $state.go('editMix', {mixId: res.data._id} ) });
+      .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
     } else {
       $http.put('/api/mixes/' + id, mix);  
     }
