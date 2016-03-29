@@ -12,6 +12,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
             "volume" : -12
         }).toMaster();
   
+  var selectedInstr = synth;
+
   // initialize looping
   Tone.Transport.loop = true;
   Tone.Transport.loopStart = "0:0:0";
@@ -60,7 +62,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var duration = getDurationStr(width);
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
-      synth.triggerAttackRelease(pitch, duration);
+      selectedInstr.triggerAttackRelease(pitch, duration);
     }, startTime, objectId);
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
 
@@ -200,14 +202,14 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var noteWidth = width || 40;
 
     if (options && options.target) {
-      synth.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
+      selectedInstr.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
       return;
     }
 
     if (options) {
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
-      synth.triggerAttackRelease(getPitchStr(offsetY), "8n");
+      selectedInstr.triggerAttackRelease(getPitchStr(offsetY), "8n");
     }
 
     var newObjectId = ++lastObjId;
