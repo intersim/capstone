@@ -50,7 +50,11 @@ var LoopSchema = new mongoose.Schema({
         type: String,
         enum: ['rhythm', 'chord', 'melody']
     },
-    notes: [NoteSchema]
+    notes: [NoteSchema],
+    dateCreated: {
+        type: Date,
+        default: Date.now
+    }
 });
 
 LoopSchema.statics.findByCreator = function(userId) {

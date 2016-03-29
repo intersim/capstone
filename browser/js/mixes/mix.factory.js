@@ -4,21 +4,51 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var currentUser;
 
-  var instrument = new Tone.PolySynth(16, Tone.SimpleSynth, {
+  console.log("welcome to MixFactory!");
+
+  // E: these synth settings are just from Tone.js examples! Must make custom ones in future...
+  var simpleSynth = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
       "partials": [0,2,3,4],
     },
     "volume": -12
   }).toMaster();
 
+  var monoSynth = new Tone.PolySynth(16, Tone.MonoSynth, {
+      "portamento" : 0.01,
+      "oscillator" : {
+        "type" : "square"
+      },
+      "envelope" : {
+        "attack" : 0.005,
+        "decay" : 0.2,
+        "sustain" : 0.4,
+        "release" : 0.5
+      },
+      "filterEnvelope" : {
+        "attack" : 0.005,
+        "decay" : 0.1,
+        "sustain" : 0.05,
+        "release" : 0.5
+        // "baseFrequency" : 300,
+        // "octaves" : 4
+      },
+      "volume": -12
+    }).toMaster();
+
+  var drumSynth = new Tone.PolySynth(16, Tone.DrumSynth).toMaster();
+
+  var instrument = simpleSynth;
+
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
-      note.startTime = note.startTime.split(":");
-      note.startTime[0] = measure;
-      note.startTime = note.startTime.join(":");
+      var scheduleTime;
+      scheduleTime = note.startTime.split(":");
+      scheduleTime[0] = measure;
+      scheduleTime = scheduleTime.join(":");
       Tone.Transport.schedule(function(){
         instrument.triggerAttackRelease(note.pitch, note.duration);
-      }, note.startTime, measure+note._id);
+      }, scheduleTime, measure+note._id);
     })
   }
 
@@ -28,12 +58,11 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     })
   }
 
-  Tone.Transport.loop = false;
-
   var MixFactory = {};
 
   MixFactory.getAll = function() {
-    return $http.get('/api/mixes/', function(res) {
+    return $http.get('/api/mixes/')
+    .then(function(res) {
       return res.data;
     })
   }
@@ -64,7 +93,9 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         mix = res.data;
         mix.tracks.forEach(function(track, trackIdx) {
           track.measures.forEach(function(measure, measureIdx) {
-            if (!measure.rest) scheduleLoop(measure.loop.notes, trackIdx, measureIdx)
+            if (!measure.rest) {
+              scheduleLoop(measure.loop.notes, trackIdx, measureIdx);
+            }
           })
         })
         return mix;
@@ -82,6 +113,19 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
+  MixFactory.addTrack = function() {
+    var newTrack = {
+      measures: []
+    };
+
+    var measureCount = mix.tracks[0].measures.length;
+    while (newTrack.measures.length < measureCount) newTrack.measures.push({rest: true});
+
+    mix.tracks.push(newTrack);
+
+    console.log("mix w/ new track: ", mix);
+  }
+
   MixFactory.removeLoop = function(loopId, track, measure) {
     mix.tracks[track].measures[measure] = { rest: true };
     $http.get('/api/loops/' + loopId)
@@ -97,7 +141,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', {mixId: res.data._id} ) });
     } else {
-      console.log("saving mix.tracks[0]: ", mix.tracks[0]);
       $http.put('/api/mixes/' + id, mix);  
     }
   }

@@ -131,7 +131,9 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   }
 
   LoopFactory.initialize = function() {
-
+    Tone.Transport.cancel();
+    loopMusicData = {};
+    console.log("initializing canvas, clearing transport, clearing loopData");
     // initialize canvas for a 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
         selection: false
@@ -246,6 +248,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   }
 
   LoopFactory.save = function() {
+
     var dataToSave = [];
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
@@ -272,8 +275,9 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       })
   }
 
-  LoopFactory.getMixes = function() {
-    return $http.get('/api/loops/' + $stateParams.loopId + '/mixes')
+  LoopFactory.getMixes = function(loopId) {
+    var loopId = loopId || $stateParams.loopId;
+    return $http.get('/api/loops/' + loopId + '/mixes')
       .then(function(res) {
         return res.data;
       })

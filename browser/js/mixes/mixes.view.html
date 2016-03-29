@@ -1,0 +1,22 @@
+<div>
+  <h2>Browse Mixes</h2>
+  <div class="mix-container">
+    <div ng-repeat="mix in mixes" ng-click="select(mix)">
+      {{mix.title}}
+    </div>
+  </div>
+  <div class="details" ng-show="selected">
+    <h4>{{selected.title}}</h4>
+    <p>{{selected.description}}</p>
+    <p><strong>Created By:</strong> <a href="" ui-sref="user({userId: selected.creator._id})">{{selected.creator.username}}</a></p>
+    <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}
+    
+    
+    <h5>Loops Used:</h5>
+    <div class="loop-container">
+      <div ng-repeat="loop in selected.loops">{{loop.name}}</div>
+    </div>
+    
+
+  </div>
+</div>

@@ -9,8 +9,9 @@ app.config( function ($stateProvider) {
         if ($stateParams.mixId==="new") return MixFactory.new();
         return MixFactory.getById($stateParams.mixId, true);
       },
-      loopBucket: function (UserFactory) {
-          return UserFactory.getLoopBucket()
+      loopBucket: function (UserFactory, AuthService, LoopFactory) {
+          // return AuthService.isAuthenticated() ? UserFactory.getLoopBucket() : LoopFactory.getAll();
+        return UserFactory.getLoopBucket();
       }
     }
   })
@@ -20,5 +21,15 @@ app.config( function ($stateProvider) {
     templateUrl: '/js/mixes/mix.view.html',
     controller: 'MixViewCtrl'
     // resolve: {mix: function(mixId){}}
+  })
+  .state('mixes', {
+    url: '/mixes',
+    templateUrl: '/js/mixes/mixes.view.html',
+    controller: 'MixesCtrl',
+    resolve: {
+      mixes: function($http, MixFactory) {
+        return MixFactory.getAll();
+      }
+    }
   })
 });

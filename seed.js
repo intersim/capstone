@@ -23,7 +23,6 @@ var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Loop = Promise.promisifyAll(mongoose.model('Loop'));
-var Track = Promise.promisifyAll(mongoose.model('Track'));
 var Mix = Promise.promisifyAll(mongoose.model('Mix'));
 
 var seedUsers = function () {
@@ -150,21 +149,28 @@ function addRandomLoops(track, start, loops) {
     }
 }
 
-function addTracksToMixes(tracks, mixes) {
+function seedMixes(users, loops) {
 
-    for (var i = 0; i < mixes.length; i++) {
-        mixes[i].tracks.push(tracks[i]._id, tracks[i+1]._id)
-    }
+    var mixes = [];
 
-    return Promise.map(mixes, function(Mix) {
-        return Mix.save();
-    })
-}
+    mixes.push( {
+        creator: users[0]._id,
+        title: "Mix1",
+        description: "Just something for fun",
+        tags: ['rad'],
+        tracks: []
+    } )
 
-function seedTracks(loops) {
+    mixes.push( {
+        creator: users[1]._id,
+        title: "Sketch1",
+        description: "A quick piece I made",
+        tags: ['beautiful'],
+        tracks: []
+    } )
 
     var trackData = {
-        measures: (new Array(12) ).fill({}),
+        measures: (new Array(12) ).fill({rest: true}),
         numVoices: 1,
         instrument: 'flute'
     }
@@ -174,29 +180,13 @@ function seedTracks(loops) {
         tracks.push( trackData );
     }
     
-    return Promise.map( tracks, function(track, idx) {
+    tracks.forEach(function(track, idx) {
         addRandomLoops(track, idx, loops);
-        return Track.create(track);
     });
-}
 
-function seedMixes(users, loops, tracks) {
-
-    var mixes = [];
-
-    mixes.push( {
-        creator: users[0]._id,
-        title: "Mix1",
-        description: "Just something for fun",
-        tags: ['rad']
-    } )
-
-    mixes.push( {
-        creator: users[1]._id,
-        title: "Sketch1",
-        description: "A quick piece I made",
-        tags: ['beautiful']
-    } )
+    for (var i = 0; i < mixes.length; i++) {
+        mixes[i].tracks.push(tracks[i], tracks[i+1])
+    }
 
     return Mix.createAsync(mixes);
 
@@ -255,50 +245,16 @@ connectToDb.then(function () {
             return mixes;
         } else {
             console.log('Saving mixes');
-            return seedMixes(dbUsers, dbLoops, dbTracks);
+            return seedMixes(dbUsers, dbLoops);
         }
     })
     .then(function(mixes) {
         if (mixes.length) {
             console.log( chalk.green('Saved mixes') );
             dbMixes = mixes;
-        } else {
-            console.log( chalk.magenta('Failed to save mixes'));
-        }
-        return Track.findAsync({});
-    })
-    .then(function(tracks) {
-        if (tracks && tracks.length) {
-            console.log(chalk.magenta('Seems to already be track data'));
-            return tracks;
-        } else {
-            console.log('Saving tracks');
-            return seedTracks(dbMixes, dbLoops);
-        }
-    })
-    .then(function(tracks) {
-        if (tracks.length) {
-            console.log( chalk.green('Saved tracks') );
-            var hasTracks = dbMixes.every(function(Mix) {
-                return Mix.tracks && Mix.tracks.length;
-            })
-            if (!hasTracks) {
-                console.log('Adding tracks to mixes');
-                return addTracksToMixes(tracks, dbMixes);
-            } else {
-                console.log(chalk.magenta('Seem to already have tracks on mixes'));
-                return dbMixes;
-            }
-        } else {
-            console.log( chalk.magenta('Failed to seed tracks'));
-        }
-    })
-    .then(function(mixes) { 
-        if (mixes.length) {
-            console.log(chalk.green('Saved tracks onto mixes'))
             console.log(chalk.green('SEED SUCCESSFUL!'));
             process.kill(0);
-        } else console.log( chalk.magenta('Failed to add tracks to mixes') );
+        } else console.log( chalk.magenta('Failed to seed mixes') );
     }).catch(function (err) {
         console.error(err);
         process.kill(1);

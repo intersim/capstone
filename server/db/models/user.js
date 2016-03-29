@@ -56,6 +56,10 @@ var UserSchema = new mongoose.Schema({
     },
     soundcloud: {
         id: String
+    },
+    joinDate: {
+        type: Date,
+        default: Date.now
     }
 });
 UserSchema.set('versionKey', false)
