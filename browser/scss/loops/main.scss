@@ -1,0 +1,13 @@
+.loops {
+  display: flex;
+  justify-content: flex-start;
+  .details {
+    flex-grow: 1;
+    margin-top: 10px;
+    .loop-container {
+      display: flex;
+      max-width: 300px;
+      flex-wrap: wrap;
+    }
+  }
+}

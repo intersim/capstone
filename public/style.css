@@ -169,3 +169,14 @@ tutorial-section-menu {
       display: flex;
       max-width: 300px;
       flex-wrap: wrap; }
+
+.loops {
+  display: flex;
+  justify-content: flex-start; }
+  .loops .details {
+    flex-grow: 1;
+    margin-top: 10px; }
+    .loops .details .loop-container {
+      display: flex;
+      max-width: 300px;
+      flex-wrap: wrap; }

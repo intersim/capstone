@@ -1,7 +1,8 @@
-<div>
-  <div>
+<div class="loops">
+
+  <div class="filters">
+
     <form>
-    
       <div class="form-group">
         <h4>Sort By...</h4>
         <div>
@@ -22,12 +23,14 @@
     </form>
   </div>
 
-  <h2>Browse Loops</h2>
-  <div class="loops-container">
-    <div ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">{{loop.name}}</div>
+  <div class="browse">
+    <h2>Browse Loops</h2>
+    <div class="loops-container">
+      <div ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">{{loop.name}}</div>
+    </div>
   </div>
 
-  <div ng-show="selected">
+  <div ng-show="selected" class="details">
     <h4>This Loop Was Used In...</h4>
     <div class="mix-container">
       <div ng-repeat="mix in selected.mixes">{{mix.title}}</div>
