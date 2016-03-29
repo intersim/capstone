@@ -7,13 +7,12 @@ app.directive('mixItem', function() {
     scope: {
     	mix: '='
     },
-    controller: function($scope, UserFactory, MixFactory){
+    controller: function($scope, UserFactory, $state){
 
         $scope.favorited=false;
 
         $scope.edit = function(mixId){
-            //check adn write
-            MixFactory.edit(mixId);
+            $state.go('editMix', {mixId: mixId})
         }
 
     	$scope.toggle = function(mixId){
