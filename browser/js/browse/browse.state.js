@@ -1,14 +1,23 @@
 app.config( function ($stateProvider) {
   $stateProvider
-	  .state('browse',{
-	    url: '/browse',
-	    templateUrl: '/js/browse/browse.html',
-	    controller: 'BrowseCtrl',
+	  .state('loopsBrowse',{
+	    url: '/browseloops',
+	    templateUrl: '/js/browse/loops.html',
+	    controller: 'BrowseLoops',
 	    resolve: {
-	      mtype: function(MixFactory, LoopFactory, $stateParams){
-	      	if($stateParams.kind==="mixes") return MixFactory.getAll();
+	      loops: function(LoopFactory, $stateParams){
 	      	return LoopFactory.getAll();
 	      }
 	    }
 	})
+	  .state('mixes',{
+	  	url:'/browsemixes',
+	  	templateUrl: '/js/browse/mixes.html',
+	  	controller: 'BrowseMixes',
+	  	resolve: {
+	  		mixes: function(MixFactory, $stateParams){
+	  			return MixFactory.getAll()
+	  		}
+	  	}
+	  })
 })

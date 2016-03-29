@@ -1,7 +1,10 @@
 'use strict';
 
-app.controller('BrowseCtrl', function($scope, $state, mtype){
+app.controller('BrowseLoops', function($scope, loops){
+	$scope.loops = loops;
 
-	$scope.types = mtype;
+})
 
+app.controller('BrowseMixes', function($scope, mixes){
+	$scope.mixes=mixes;
 })
