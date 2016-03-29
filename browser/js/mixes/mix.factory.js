@@ -44,6 +44,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
+      console.log("scheduling loop on track...", track);
       var scheduleTime;
       scheduleTime = note.startTime.split(":");
       scheduleTime[0] = measure;
@@ -85,7 +86,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       title: "Untitled",
       tracks: [
         {
-          measures: []
+          measures: [],
+          instrument: 'synth1'
         }
       ]
     }
@@ -128,7 +130,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   MixFactory.addTrack = function(trackNum) {
     var newTrack = {
-      measures: []
+      measures: [],
+      instrument: 'synth1'
     };
 
     var measureCount = mix.tracks[0].measures.length;
