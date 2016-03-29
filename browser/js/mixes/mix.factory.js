@@ -65,13 +65,11 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   var MixFactory = {};
 
   MixFactory.changeInstr = function (instrStr, track) {
-    //E: need to pass in track and save the instrument on the track here...
-    console.log("changeInstr track: ", track);
-    var trackNum = Number(track) + 1;
-    if (instrStr == 'synth1') instruments["track"+trackNum] = simpleSynth;
-    if (instrStr == 'synth2') instruments["track"+trackNum] = monoSynth;
-    if (instrStr == 'drumSynth') instruments["track"+trackNum] = drumSynth;
-    console.log("instruments is now", instruments);
+    //E: MUST UPDATE THIS TO CHANGE ON THE ACTUAL TRACK IN MIX
+    console.log("changeInstr track: ", mix.tracks[track]);
+    if (instrStr == 'synth1') mix.tracks[track].instrument = simpleSynth;
+    if (instrStr == 'synth2') mix.tracks[track].instrument = monoSynth;
+    if (instrStr == 'drumSynth') mix.tracks[track].instrument = drumSynth;
   }
 
   MixFactory.getAll = function() {
@@ -107,6 +105,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         .then(function(res) {
         mix = res.data;
         mix.tracks.forEach(function(track, trackIdx) {
+          console.log("loading track: ", track);
           track.measures.forEach(function(measure, measureIdx) {
             if (!measure.rest) {
               scheduleLoop(measure.loop.notes, trackIdx, measureIdx);
@@ -139,9 +138,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
     mix.tracks.push(newTrack);
 
+    // need to get rid of this...
     instruments["track"+trackNum] = simpleSynth;
-
-    console.log("instruments: ", instruments);
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {
@@ -155,7 +153,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   
   MixFactory.save = function(){
     var id = $stateParams.mixId;
-    console.log("saving mix: ", mix);
     if (id==="new") {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
