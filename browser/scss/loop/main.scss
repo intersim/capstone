@@ -1,0 +1,12 @@
+.loop-editor-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  button {
+    display: inline;
+  }
+  canvas {
+    border: 1px solid #ccc;
+  }
+}

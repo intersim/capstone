@@ -1,14 +1,12 @@
-<div>
-  <h1>Loop Creator</h1>
-  <button id="delete" ng-click="deleteSelected()">Delete Selected</button>
-  <button id="play" ng-show="!playing" ng-click="toggle()">Play</button>
-  <button id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
-  <button id="save" ng-click="saveLoop()">Save Loop</button>
-</div>
+<div class="loop-editor-container">
+
+<h1>Loop Creator</h1>
+  <div class="loopControls">
+    <button class="btn btn-danger" id="delete" ng-click="deleteSelected()">Delete Selected</button>
+    <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
+    <button class="btn btn-warning" id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
+    <button class="btn btn-info" id="save" ng-click="saveLoop()">Save Loop</button>
+  </div>
 
 <canvas id="c" width="600" height="600"></canvas>
-<style type="text/css">
-  canvas {
-    border: 1px solid #ccc;
-  }
-</style>
+</div>
