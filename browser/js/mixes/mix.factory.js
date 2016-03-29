@@ -37,8 +37,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var instruments = {};
 
-  instruments.track0 = synth1;
-
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
       var scheduleTime;
@@ -60,7 +58,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   var MixFactory = {};
 
   MixFactory.changeInstr = function (instrStr, track) {
-    //E: need to pass in track and save the instrument on the track here...
     if (instrStr == 'synth1') {
       instruments["track"+track] = synth1;
       mix.tracks[track].instrument = instrStr;
@@ -93,6 +90,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         }
       ]
     }
+
+    MixFactory.changeInstr("synth1", 0);
     while (mix.tracks[0].measures.length < 16) mix.tracks[0].measures.push({rest:true});
 
     AuthService.getLoggedInUser()
