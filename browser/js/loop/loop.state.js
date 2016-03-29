@@ -21,7 +21,7 @@ app.config(function ($stateProvider) {
       controller: 'LoopsCtrl',
       resolve: {
         loops: function($http) {
-          return $http.get('/api/loops')
+          return $http.get('/api/loops/')
             .then(function(res) {
               return res.data;
             })
