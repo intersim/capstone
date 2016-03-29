@@ -8,7 +8,12 @@ app.directive('loopItem', function() {
     	loop: '='
     },
     controller: function($scope, UserFactory){
-    	$scope.added = false;
+
+        UserFactory.inBucket($scope.loop)
+        .then(function(value){
+            $scope.added=value;
+            console.log("scope added", $scope.added)
+        })
 
     	$scope.toggle = function(){
             //checker
@@ -22,15 +27,9 @@ app.directive('loopItem', function() {
 
 	    function addToBucket() {
 			UserFactory.addToBucket($scope.loop)
-			.then(function(user){
-				console.log('user from add', user)
-			})
 		}
 		function removeFromBucket() {
 			UserFactory.removeFromBucket($scope.loop)
-			.then(function(user){
-				console.log('user from remove', user)
-			})
 		}
     }
   };

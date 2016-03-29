@@ -125,6 +125,27 @@ app.factory('UserFactory', function($http, AuthService) {
     })   
   }
 
+  UserFactory.inBucket = function(loop){
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      return currentUser.bucket.indexOf(loop._id)!==-1
+    })
+  }
+
+  UserFactory.favorited = function(mixId){
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      return currentUser.favorites.indexOf(mixId)!==-1
+    })
+  }
+
+  UserFactory.following= function(userId){
+    return AuthService.getLoggedInUser()
+    .then(function(currentUser){
+      return currentUser.following.indexOf(userId)!==-1
+    })
+  }
+
   return UserFactory;
 
  });

@@ -26,7 +26,11 @@
   <div class="browse">
     <h2>Browse Loops</h2>
     <div class="loops-container">
-      <div ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">{{loop.name}}</div>
+        <div> 
+          <loop-item loop="loop" ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">
+          </loop-item>
+      </div>
+<!--       <div ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">{{loop.name}}</div> -->
     </div>
   </div>
 
