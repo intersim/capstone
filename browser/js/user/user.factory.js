@@ -125,7 +125,7 @@ app.factory('UserFactory', function($http, AuthService) {
     })   
   }
 
-  UserFactory.inLoop = function(loop){
+  UserFactory.inBucket = function(loop){
     return AuthService.getLoggedInUser()
     .then(function(currentUser){
       return currentUser.bucket.indexOf(loop._id)!==-1

@@ -9,7 +9,7 @@ app.directive('loopItem', function() {
     },
     controller: function($scope, UserFactory){
 
-        UserFactory.inLoop($scope.loop)
+        UserFactory.inBucket($scope.loop)
         .then(function(value){
             $scope.added=value;
             console.log("scope added", $scope.added)
