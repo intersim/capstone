@@ -3,12 +3,12 @@
 // });
 
 app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket){
-  var trackCount = mix.tracks.length;
+  var trackCount = mix.tracks.length - 1;
 
   $scope.addTrack = function() {
-    trackCount++;
     if (trackCount < 4) MixFactory.addTrack(trackCount);
     else console.error("Can't have more than 4 tracks!");
+    trackCount++;
   };
 
   $scope.mix = mix;
@@ -37,10 +37,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
       { name: "drumSynth" }
     ];
 
-  $scope.update = function(selectedInstr, trackNum) {
-    console.log("changed instrument!");
-    console.log("selected instr: ", selectedInstr);
-    console.log("trackNum: ", trackNum);
+  $scope.changeInstr = function(selectedInstr, trackNum) {
     MixFactory.changeInstr(selectedInstr.name, trackNum);
   }
 
