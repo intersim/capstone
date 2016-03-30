@@ -58,7 +58,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   var MixFactory = {};
 
   MixFactory.changeInstr = function (instrStr, track) {
-    console.log("changing instrument!");
     if (instrStr == 'synth1') {
       instruments["track"+track] = synth1;
       mix.tracks[track].instrument = instrStr;
