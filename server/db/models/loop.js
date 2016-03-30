@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Mix = require('./mix')
 var Promise = require('bluebird');
 
 var NoteSchema = new mongoose.Schema({
@@ -96,6 +97,15 @@ LoopSchema.methods.removeTags = function(tagsToRemove) {
         return tagsToRemove.indexOf(tag) === -1;
     })
     return this.save();
+}
+
+LoopSchema.methods.getMixes = function() {
+    Mix.find
+    mix.tracks.forEach(function(track) {
+      track.measures.forEach(function(measure) {
+        if (measure.loop) loops.push(measure.loop);
+      })
+    })
 }
 
 mongoose.model('Loop', LoopSchema);
