@@ -1,7 +1,5 @@
-<h1>Mix Editor</h1>
+<h1>Mix Editor: {{ mix.title }}</h1>
 <!--   <button class="btn btn-primary" title="save" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button> -->
-  <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
-  <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 
 <div>
 
@@ -10,15 +8,17 @@
     <input ng-model="mixform.title"/>
     <label>Description: </label>
     <input ng-model="mixform.description"/>
-    <label>Privacy: </label>
-    <input type="radio" value="true" ng-model="mixform.isPublic">Public
-    <input type="radio" value="false" ng-model="mixform.isPublic">Private
+    <input type="radio" value="true" ng-model="mixform.isPublic">Public?
+    <input type="radio" value="false" ng-model="mixform.isPublic">Private?
     <label>Tags: </label>
     <input ng-model="mixform.tags"/>
     <button type="submit" class="btn btn-primary" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
   </form>
 
 </div>
+
+  <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
+  <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 
 <div class="track-container">
   <div ng-repeat="track in mix.tracks" ng-init="$track = $index">

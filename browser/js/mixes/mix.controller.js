@@ -2,7 +2,7 @@
 //   $scope.mix = mix;
 // });
 
-app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket){
+app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket, $uibModal){
   var trackCount = mix.tracks.length - 1;
 
   $scope.addTrack = function() {
@@ -43,6 +43,19 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
     MixFactory.changeInstr(selectedInstr.name, trackNum);
   }
 
+  $scope.open = function () {
+    var detailsModal = $uibModal.open({
+    animation: true,
+    template: '<h1>YOU GOT THE MODAL!!!!!</h1>',
+    controller: 'mixDetailsCtrl' 
+  });
+
+  }
+
+});
+
+app.controller('mixDetailsCtrl', function($scope){
+  //do stuff in here
 });
 
 app.controller('CompViewCtrl', function($scope, MixFactory){
