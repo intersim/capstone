@@ -70,7 +70,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       instruments["track"+track] = drumSynth;
       mix.tracks[track].instrument = instrStr;
     }
-    console.log("mix inst: ", mix);
   }
 
   MixFactory.getAll = function() {
@@ -166,6 +165,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     }
 
     var id = $stateParams.mixId;
+    console.log("saving mix: ", mix);
     if (id==="new") {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });

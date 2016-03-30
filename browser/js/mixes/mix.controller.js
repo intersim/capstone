@@ -13,6 +13,19 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
 
   $scope.mix = mix;
 
+  $scope.instruments = [
+    { name: "synth1" },
+    { name: "synth2" },
+    { name: "drumSynth" }
+  ];
+
+  mix.tracks.forEach(function (track) {
+    track.instrumentModel = $scope.instruments.filter(function(instr){
+      return instr.name == track.instrument; 
+    })[0];
+  });
+
+
   $scope.loopBucket = loopBucket;
 
   $scope.playing = false;
@@ -33,14 +46,8 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
     MixFactory.save(meta);
   }
 
-  $scope.instruments = [
-      { name: "synth1" },
-      { name: "synth2" },
-      { name: "drumSynth" }
-    ];
-
   $scope.changeInstr = function(selectedInstr, trackNum) {
-    MixFactory.changeInstr(selectedInstr.name, trackNum);
+    MixFactory.changeInstr(selectedInstr, trackNum);
   }
 
 });

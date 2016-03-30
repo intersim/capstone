@@ -18,7 +18,7 @@
         <option>75%</option>
         <option>100%</option>
       </select> -->
-      <select ng-model="selectInstr" ng-change="changeInstr(selectInstr, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
+      <select ng-model="track.instrumentModel" ng-change="changeInstr(track.instrumentModel.name, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
       </select>
     </form>
     <div class="track bin">
