@@ -70,7 +70,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       instruments["track"+track] = drumSynth;
       mix.tracks[track].instrument = instrStr;
     }
-    console.log("mix: ", mix);
+    console.log("mix inst: ", mix);
   }
 
   MixFactory.getAll = function() {
@@ -153,7 +153,18 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });    
   }
   
-  MixFactory.save = function(){
+  MixFactory.save = function(meta){
+    var tagArr=[];
+
+    if(meta.tags){
+      meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
+      meta.tags=tagArr;
+    }
+
+    for(var key in meta){
+      mix[key]=meta[key]
+    }
+
     var id = $stateParams.mixId;
     if (id==="new") {
       $http.post('/api/mixes/', mix)
