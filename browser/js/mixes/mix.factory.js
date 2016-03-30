@@ -161,16 +161,16 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       meta.tags=tagArr;
     }
 
-    for(var key in mix){
-      meta[key]=mix[key]
+    for(var key in meta){
+      mix[key]=meta[key]
     }
 
     var id = $stateParams.mixId;
     if (id==="new") {
-      $http.post('/api/mixes/', meta)
+      $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
     } else {
-      $http.put('/api/mixes/' + id, meta);  
+      $http.put('/api/mixes/' + id, mix);  
     }
   }
     
