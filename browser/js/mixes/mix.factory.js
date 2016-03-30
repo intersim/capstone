@@ -155,15 +155,15 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   
   MixFactory.save = function(meta){
     var tagArr=[];
-    meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
-    meta.tags=tagArr;
-    console.log("MIXXXXXXXXXXXX", mix)
+
+    if(meta.tags){
+      meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
+      meta.tags=tagArr;
+    }
 
     for(var key in mix){
       meta[key]=mix[key]
     }
-
-    console.log("Metaaaaa", meta)
 
     var id = $stateParams.mixId;
     if (id==="new") {
