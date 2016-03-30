@@ -1,5 +1,22 @@
-<h1>Mix Editor</h1>
+<h1>Mix Editor: {{ mix.title }}</h1>
 <!--   <button class="btn btn-primary" title="save" ng-click="save()"><span class="glyphicon glyphicon-floppy-disk"></span></button> -->
+
+<div>
+
+  <form ng-model="mixform" ng-submit="save(mixform)">
+    <label>Title: </label>
+    <input ng-model="mixform.title"/>
+    <label>Description: </label>
+    <input ng-model="mixform.description"/>
+    <input type="radio" value="true" ng-model="mixform.isPublic">Public?
+    <input type="radio" value="false" ng-model="mixform.isPublic">Private?
+    <label>Tags: </label>
+    <input ng-model="mixform.tags"/>
+    <button type="submit" class="btn btn-primary" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+  </form>
+
+</div>
+
   <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
   <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 
@@ -16,7 +33,8 @@
         <option>50%</option>
         <option>25%</option>
       </select>
-      <select ng-model="selectInstr" ng-change="changeInstr(selectInstr, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
+      </select>
+      <select ng-model="track.instrumentModel" ng-change="changeInstr(track.instrumentModel.name, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
       </select>
     </form>
     <div class="track bin">
@@ -53,6 +71,4 @@
 
 </div>
 
-
-  
 </div>

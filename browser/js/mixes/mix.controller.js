@@ -2,7 +2,7 @@
 //   $scope.mix = mix;
 // });
 
-app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket){
+app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket, $uibModal){
   var trackCount = mix.tracks.length - 1;
 
   $scope.addTrack = function() {
@@ -12,6 +12,19 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
   };
 
   $scope.mix = mix;
+
+  $scope.instruments = [
+    { name: "synth1" },
+    { name: "synth2" },
+    { name: "drumSynth" }
+  ];
+
+  mix.tracks.forEach(function (track) {
+    track.instrumentModel = $scope.instruments.filter(function(instr){
+      return instr.name == track.instrument; 
+    })[0];
+  });
+
 
   $scope.loopBucket = loopBucket;
 
@@ -33,16 +46,23 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
     MixFactory.save(meta);
   }
 
-  $scope.instruments = [
-      { name: "synth1" },
-      { name: "synth2" },
-      { name: "drumSynth" }
-    ];
-
   $scope.changeInstr = function(selectedInstr, trackNum) {
-    MixFactory.changeInstr(selectedInstr.name, trackNum);
+    MixFactory.changeInstr(selectedInstr, trackNum);
   }
 
+  $scope.open = function () {
+    var detailsModal = $uibModal.open({
+    animation: true,
+    template: '<h1>YOU GOT THE MODAL!!!!!</h1>',
+    controller: 'mixDetailsCtrl' 
+  });
+
+  }
+
+});
+
+app.controller('mixDetailsCtrl', function($scope){
+  //do stuff in here
 });
 
 app.controller('CompViewCtrl', function($scope, MixFactory){
