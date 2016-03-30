@@ -143,9 +143,12 @@ tutorial-section-menu {
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap; }
+  .track-container form {
+    margin-top: 20px; }
 
 .track {
-  height: 100px; }
+  height: 100px;
+  margin-bottom: 20px; }
 
 .measure {
   background-color: #ebebeb;

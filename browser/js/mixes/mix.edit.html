@@ -17,8 +17,8 @@
 
 </div>
 
-  <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
-  <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
+  <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span> Play</button>
+  <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span> Stop</button>
 
 <div class="track-container">
   <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
@@ -44,7 +44,7 @@
     </div>
   </track>
   </div>
-  <button class="btn btn-primary btn-lg" title="add track" ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span></button>
+  <button class="btn btn-primary btn-lg" title="add track" ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span> New Track</button>
 </div>
 
 <h3>My Loop Bucket</h3>
