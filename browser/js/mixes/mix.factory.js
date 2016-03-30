@@ -4,17 +4,14 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var currentUser;
 
-  console.log("welcome to MixFactory!");
-
   // E: these synth settings are just from Tone.js examples! Must make custom ones in future...
-  var simpleSynth = new Tone.PolySynth(16, Tone.SimpleSynth, {
+  var synth1 = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
       "partials": [0,2,3,4],
-    },
-    "volume": -12
+    }
   }).toMaster();
 
-  var monoSynth = new Tone.PolySynth(16, Tone.MonoSynth, {
+  var synth2 = new Tone.PolySynth(16, Tone.MonoSynth, {
       "portamento" : 0.01,
       "oscillator" : {
         "type" : "square"
@@ -40,18 +37,14 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var instruments = {};
 
-  instruments.track1 = simpleSynth;
-
   function scheduleLoop(notes, track, measure) {
     notes.forEach(function(note) {
-      console.log("scheduling loop on track...", track);
       var scheduleTime;
       scheduleTime = note.startTime.split(":");
       scheduleTime[0] = measure;
       scheduleTime = scheduleTime.join(":");
-      var trackNum = Number(track) + 1;
       Tone.Transport.schedule(function(){
-        instruments["track"+trackNum].triggerAttackRelease(note.pitch, note.duration);
+        instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
     })
   }
@@ -65,13 +58,19 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   var MixFactory = {};
 
   MixFactory.changeInstr = function (instrStr, track) {
-    //E: need to pass in track and save the instrument on the track here...
-    console.log("changeInstr track: ", track);
-    var trackNum = Number(track) + 1;
-    if (instrStr == 'synth1') instruments["track"+trackNum] = simpleSynth;
-    if (instrStr == 'synth2') instruments["track"+trackNum] = monoSynth;
-    if (instrStr == 'drumSynth') instruments["track"+trackNum] = drumSynth;
-    console.log("instruments is now", instruments);
+    if (instrStr == 'synth1') {
+      instruments["track"+track] = synth1;
+      mix.tracks[track].instrument = instrStr;
+    }
+    if (instrStr == 'synth2') {
+      instruments["track"+track] = synth2;
+      mix.tracks[track].instrument = instrStr;
+    }
+    if (instrStr == 'drumSynth') {
+      instruments["track"+track] = drumSynth;
+      mix.tracks[track].instrument = instrStr;
+    }
+    console.log("mix: ", mix);
   }
 
   MixFactory.getAll = function() {
@@ -91,6 +90,8 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         }
       ]
     }
+
+    MixFactory.changeInstr("synth1", 0);
     while (mix.tracks[0].measures.length < 16) mix.tracks[0].measures.push({rest:true});
 
     AuthService.getLoggedInUser()
@@ -107,6 +108,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         .then(function(res) {
         mix = res.data;
         mix.tracks.forEach(function(track, trackIdx) {
+          MixFactory.changeInstr(track.instrument, trackIdx);
           track.measures.forEach(function(measure, measureIdx) {
             if (!measure.rest) {
               scheduleLoop(measure.loop.notes, trackIdx, measureIdx);
@@ -128,7 +130,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
-  MixFactory.addTrack = function(trackNum) {
+  MixFactory.addTrack = function(track) {
     var newTrack = {
       measures: [],
       instrument: 'synth1'
@@ -139,9 +141,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
     mix.tracks.push(newTrack);
 
-    instruments["track"+trackNum] = simpleSynth;
-
-    console.log("instruments: ", instruments);
+    instruments["track"+track] = synth1;
   }
 
   MixFactory.removeLoop = function(loopId, track, measure) {
@@ -155,7 +155,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   
   MixFactory.save = function(){
     var id = $stateParams.mixId;
-    console.log("saving mix: ", mix);
     if (id==="new") {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
