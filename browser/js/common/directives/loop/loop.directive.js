@@ -3,7 +3,7 @@
 app.directive('loopItem', function() {
   return {
     restrict: 'E',
-    templateUrl: '/js/loop/loop.detail.html',
+    templateUrl: '/js/common/directives/loop/loop.html',
     scope: {
       loop: '='
     },

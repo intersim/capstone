@@ -99,14 +99,5 @@ LoopSchema.methods.removeTags = function(tagsToRemove) {
     return this.save();
 }
 
-LoopSchema.methods.getMixes = function() {
-    Mix.find
-    mix.tracks.forEach(function(track) {
-      track.measures.forEach(function(measure) {
-        if (measure.loop) loops.push(measure.loop);
-      })
-    })
-}
-
 mongoose.model('Loop', LoopSchema);
 
