@@ -122,6 +122,11 @@ tutorial-section-menu {
   .loop-editor-container canvas {
     border: 1px solid #ccc; }
 
+.saveLoopForm {
+  margin-top: 20px; }
+  .saveLoopForm .well {
+    background-color: #fff !important; }
+
 .mixEditor h1 {
   margin-left: 10px;
   display: inline; }
