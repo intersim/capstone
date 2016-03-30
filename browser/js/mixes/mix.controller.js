@@ -25,6 +25,9 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     })[0];
   });
 
+  $scope.showSaveModal = function(){
+    $scope.showSave = true;
+  }
 
   $scope.loopBucket = loopBucket;
 

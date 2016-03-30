@@ -15,11 +15,15 @@
   width: 800px;
   margin-bottom: 0;
   background-color: #fff;
+  .saveButton {
+    margin-top: 4px;
+  }
 }
-.playPause {
+.playPause, .saveButton {
   margin-left: 10px;
-  margin-top: -20px;
+  vertical-align: top;
 }
+  
 .addTrack {
   margin-left: 10px;
 }
