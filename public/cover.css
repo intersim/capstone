@@ -30,18 +30,18 @@ a:hover {
 html,
 body {
   height: 100%;
-  background-image: url("/img/background-picture.png");
+  background-image: url("/img/background-picture.jpg");
   background-size: 100%;
-  opacity: 50%;
   background-color: #000;
 }
 body {
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
+  z-index: 0;
 }
 .cover-heading, .lead, .inner {
-  color: black;
+  color: white;
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */
