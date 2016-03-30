@@ -10,8 +10,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: '+ Loop', state: 'loop({loopId: "new"})' },
                 { label: '+ Mix', state: 'editMix({mixId: "new"})'},
                 { label: 'Browse Loops', state: 'loops'},
-                { label: 'Browse Mixes', state: 'mixes'},
-                { label: 'Me', state: 'dashboard', auth: true }
+                { label: 'Browse Mixes', state: 'mixes'}
             ];
 
             scope.user = null;
