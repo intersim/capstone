@@ -262,7 +262,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     if (id === "new" || copy) {
       $http.post('/api/loops/', meta)
       .then(function(res) { 
-        console.log("response", res)
         $state.go('loop', {loopId: res.data._id} ) });
     } else {
       $http.put('/api/loops/' + id, meta)
