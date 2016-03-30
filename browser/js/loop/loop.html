@@ -18,8 +18,8 @@
 
 <canvas id="c" width="600" height="600"></canvas>
 </div>
-<div class="container form-group center">
-	<form name="loopForm" ng-model="loopform" ng-submit="loopBelongsToUser ? saveLoop(loopform) : copyLoop(loopform)">
+<div class="saveLoopForm container form-group center">
+	<form class="well text-left" name="loopForm" ng-model="loopform" ng-submit="loopBelongsToUser ? saveLoop(loopform) : copyLoop(loopform)">
 
 <!-- loopform.$valid && 
     <alert type="danger" ng-show="error">
@@ -27,17 +27,21 @@
     </alert> -->
 
 		<label> Name: </label>
-			<input ng-model="loopform.name"/>
+			<input class="form-control" ng-model="loopform.name"/>
 		<label> Tags: </label>
-			<input ng-model="loopform.tags"/>
+			<input class="form-control" ng-model="loopform.tags"/>
 		<label> Category: </label>
-			<select ng-model="loopform.category">
+			<select class="form-control" ng-model="loopform.category">
 				<option value="rhythm">rhythm</option>
 				<option value="chord">chord</option>
 				<option value="melody">melody</option>
 			</select>
-    <input type="radio" ng-model="loopform.isPublic" value="true"/>Public?
-    <input type="radio" ng-model="loopform.isPublic" value="false"/>Private?
+    <div class="radio">
+      <label><input type="radio" ng-model="loopform.isPublic" value="true"/>Public?</label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" ng-model="loopform.isPublic" value="false"/>Private?</label>
+    </div>
     <button ng-show="loopBelongsToUser" class="btn btn-info" id="save">Save Loop</button>
     <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy">Copy Loop</button>	
 <!-- 	<button type="submit" class="btn btn-default">Save</button> -->
