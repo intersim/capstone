@@ -27,9 +27,9 @@
 			<input ng-model="loopform.tags"/>
 		<div>
 		<label> Privacy: </label>
-			<input type="radio" ng-model="loopform.privacy" value="Public"/>Public
+			<input type="radio" ng-model="loopform.isPublic" value="true"/>Public
 
-			<input type="radio" ng-model="loopform.privacy" value="Private"/>Private
+			<input type="radio" ng-model="loopform.isPublic" value="false"/>Private
 		</div>
 		<label> Category: </label>
 			<select ng-model="loopform.category">
