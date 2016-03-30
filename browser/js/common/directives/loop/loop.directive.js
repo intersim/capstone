@@ -5,7 +5,7 @@ app.directive('loopItem', function() {
     restrict: 'E',
     templateUrl: '/js/loop/loop.detail.html',
     scope: {
-    	loop: '='
+      loop: '='
     },
     controller: function($scope, UserFactory){
 
@@ -15,22 +15,22 @@ app.directive('loopItem', function() {
             console.log("scope added", $scope.added)
         })
 
-    	$scope.toggle = function(){
+      $scope.toggle = function(){
             //checker
-    		if($scope.added) {
-    			removeFromBucket()
-    		} else {
-    			addToBucket()
-    		}
-    		$scope.added=!$scope.added;
-    	}
+        if($scope.added) {
+          removeFromBucket()
+        } else {
+          addToBucket()
+        }
+        $scope.added=!$scope.added;
+      }
 
-	    function addToBucket() {
-			UserFactory.addToBucket($scope.loop)
-		}
-		function removeFromBucket() {
-			UserFactory.removeFromBucket($scope.loop)
-		}
+      function addToBucket() {
+      UserFactory.addToBucket($scope.loop)
+    }
+    function removeFromBucket() {
+      UserFactory.removeFromBucket($scope.loop)
+    }
     }
   };
 });
