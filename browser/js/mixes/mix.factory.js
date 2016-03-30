@@ -70,7 +70,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       instruments["track"+track] = drumSynth;
       mix.tracks[track].instrument = instrStr;
     }
-    console.log("mix: ", mix);
   }
 
   MixFactory.getAll = function() {
