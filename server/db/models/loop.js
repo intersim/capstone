@@ -1,6 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
+var Mix = require('./mix')
 var Promise = require('bluebird');
 
 var NoteSchema = new mongoose.Schema({
