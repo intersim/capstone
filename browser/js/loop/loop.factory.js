@@ -147,8 +147,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
     // draw lines on grid
     for (var i = 0; i < (320 / grid); i++) {
-      canvas.add(new fabric.Line([ i * grid, 0, i * grid, 320], { stroke: '#ccc', selectable: false }));
-      canvas.add(new fabric.Line([ 0, i * grid, 320, i * grid], { stroke: '#ccc', selectable: false }))
+      canvas.add(new fabric.Line([ i * grid, 0, i * grid, 320], { stroke: '#686868', selectable: false }));
+      canvas.add(new fabric.Line([ 0, i * grid, 320, i * grid], { stroke: '#686868', selectable: false }))
     }
 
     // create a new rectangle obj on mousedown in canvas area
