@@ -37,6 +37,11 @@ var seedUsers = function () {
             username: 'Obama',
             email: 'obama@gmail.com',
             password: 'potus'
+        },
+        {
+            username: 'baby_mozart',
+            email: 'mozart@baby.com',
+            password: '123'
         }
     ];
 
@@ -48,7 +53,7 @@ var seedLoops = function(users) {
 
     var loops = [
         {
-            creator: users[users.length-1],
+            creator: users[1],
             name: "loop1",
             notes: [
                 {pitch:"b4",duration:"8n",startTime:"0:1:0"},
@@ -73,7 +78,7 @@ var seedLoops = function(users) {
             tags:['awesome, rad']
         },
         {   
-            creator: users[users.length-1],
+            creator: users[1],
             name: "loop3",
             notes:[
                 {pitch:"c5",duration:"8n",startTime:"0:0:0"},
@@ -97,7 +102,7 @@ var seedLoops = function(users) {
             tags:['awesome, cool']
         },
         {
-            creator: users[users.length-1],
+            creator: users[1],
             name: "loop4",
             notes:[
                 {pitch:"c5",duration:"8n",startTime:"0:0:0"},
@@ -118,6 +123,50 @@ var seedLoops = function(users) {
                 {pitch:"b4",duration:"8n",startTime:"0:3:0"}
             ],
             tags:['rad, cool']
+        },
+        {
+            creator: users[2],
+            name: "fj-1",
+            notes:[
+                {pitch:"c4",duration:"4n",startTime:"0:0:0"},
+                {pitch:"b4",duration:"4n",startTime:"0:1:0"},
+                {pitch:"e4",duration:"4n",startTime:"0:2:0"},
+                {pitch:"c4",duration:"4n",startTime:"0:3:0"}
+            ],
+            tags:['demo']
+        },
+        {
+            creator: users[2],
+            name: "fj-2",
+            notes:[
+                {pitch:"e4",duration:"4n",startTime:"0:0:0"},
+                {pitch:"f4",duration:"4n",startTime:"0:1:0"},
+                {pitch:"g4",duration:"2n",startTime:"0:2:0"}
+            ],
+            tags:['demo']
+        },
+        {
+            creator: users[2],
+            name: "fj-3",
+            notes:[
+                {pitch:"g4",duration:"8n",startTime:"0:0:0"},
+                {pitch:"a4",duration:"8n",startTime:"0:0:2"},
+                {pitch:"g4",duration:"8n",startTime:"0:1:0"},
+                {pitch:"f4",duration:"8n",startTime:"0:1:2"},
+                {pitch:"e4",duration:"4n",startTime:"0:2:0"},
+                {pitch:"c4",duration:"4n",startTime:"0:3:0"}
+            ],
+            tags:['demo']
+        },
+        {
+            creator: users[2],
+            name: "fj-4",
+            notes:[
+                {pitch:"c4",duration:"4n",startTime:"0:0:0"},
+                {pitch:"g4",duration:"4n",startTime:"0:1:0"},
+                {pitch:"c4",duration:"2n",startTime:"0:2:0"},
+            ],
+            tags:['demo']
         }
     ]
 

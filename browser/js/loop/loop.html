@@ -1,6 +1,13 @@
+<style type="text/css">
+  .center {
+    text-align: center;
+  }
+
+</style>
+
 <div class="loop-editor-container">
 
-<h1>Loop Creator</h1>
+<h1>Loop Editor</h1>
   <div class="loopControls">
     <button class="btn btn-danger" id="delete" ng-click="deleteSelected()">Delete Selected</button>
     <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
@@ -11,9 +18,7 @@
 
 <canvas id="c" width="600" height="600"></canvas>
 </div>
-<br>
-
-<div class="container form-group">
+<div class="container form-group center">
 	<form name="loopForm" ng-model="loopform" ng-submit="loopBelongsToUser ? saveLoop(loopform) : copyLoop(loopform)">
 
 <!-- loopform.$valid && 
@@ -25,19 +30,14 @@
 			<input ng-model="loopform.name"/>
 		<label> Tags: </label>
 			<input ng-model="loopform.tags"/>
-		<div>
-		<label> Privacy: </label>
-			<input type="radio" ng-model="loopform.isPublic" value="true"/>Public
-
-			<input type="radio" ng-model="loopform.isPublic" value="false"/>Private
-		</div>
 		<label> Category: </label>
 			<select ng-model="loopform.category">
 				<option value="rhythm">rhythm</option>
 				<option value="chord">chord</option>
 				<option value="melody">melody</option>
 			</select>
-
+    <input type="radio" ng-model="loopform.isPublic" value="true"/>Public?
+    <input type="radio" ng-model="loopform.isPublic" value="false"/>Private?
     <button ng-show="loopBelongsToUser" class="btn btn-info" id="save">Save Loop</button>
     <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy">Copy Loop</button>	
 <!-- 	<button type="submit" class="btn btn-default">Save</button> -->
