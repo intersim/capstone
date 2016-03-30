@@ -35,5 +35,25 @@
 <div class="trash" droppable type="delete"><i class="fa fa-trash"></i></div>
 <div class="loopBucket">
   <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}"></div>
+
+
+<div>
+
+  <form ng-model="mixform">
+    <label>Title: </label>
+    <input ng-model="mixform.title"></input>
+    <label>Description: </label>
+    <input ng-model="mixform.description"></input>
+    <label>Privacy: </label>
+    <input type="radio">
+  </form>
+
+</div>
+
+
+
+
+
+
   
 </div>
