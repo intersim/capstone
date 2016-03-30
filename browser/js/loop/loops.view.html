@@ -1,44 +1,52 @@
-<div class="loops">
+<div class="loops container">
+  <div class="row">
 
-  <div class="filters">
+    <div class="filters col-md-3">
 
-    <form>
-      <div class="form-group">
-        <h4>Sort By...</h4>
-        <div>
-          <button class="btn" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod.value)">{{sortMethod.name}}</button><br>
+      <form>
+        <div class="form-group">
+          <h4>Sort By...</h4>
+          <div>
+            <button class="btn" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod.value)">{{sortMethod.name}}</button><br>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <h4>Filter By...</h4>
+          <div ng-repeat="filterMethod in filterMethods">
+            <h5>{{filterMethod.name}}</h5>
+              <div class="form-group" ng-repeat="value in filterMethod.values">
+                <input name="{{value}}" type="checkbox" ng-click="filterLoops(value)"><label for="{{value}}">{{value}}</label>
+              </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <div class="browse col-md-6">
+      <h2>Browse Loops</h2>
+      <div class="loop-container well">
+          <loop-item loop="loop" ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">
+            </loop-item>
+      </div>
+    </div>
+
+    <div ng-show="selected" class="details col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h3>About {{selected.name}}</h3>
+          <p><strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a></p>
+          <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}</p>
+          <p><strong>Tags:</strong> <span class="label label-success" ng-repeat="tag in selected.tags">{{tag}}</span></p>
+          <h4>This Loop Was Used In...</h4>
+          <div class="mix-container well">
+            <div ng-repeat="mix in selected.mixes">{{mix.title}}</div>
+          </div>
         </div>
       </div>
-
-      <div class="form-group">
-        <h4>Filter By...</h4>
-        <div ng-repeat="filterMethod in filterMethods">
-          <h5>{{filterMethod.name}}</h5>
-            <div class="form-group" ng-repeat="value in filterMethod.values">
-              <input name="{{value}}" type="checkbox" ng-click="filterLoops(value)"><label for="{{value}}">{{value}}</label>
-            </div>
-        </div>
-      </div>
-
-    </form>
-  </div>
-
-  <div class="browse">
-    <h2>Browse Loops</h2>
-    <div class="loop-container">
-        <loop-item loop="loop" ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">
-          </loop-item>
-<!--       <div ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">{{loop.name}}</div> -->
     </div>
+    
   </div>
 
-  <div ng-show="selected" class="details">
-    <p><strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a></p>
-    <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}</p>
-    <h4>This Loop Was Used In...</h4>
-    <div class="mix-container">
-      <div ng-repeat="mix in selected.mixes">{{mix.title}}</div>
-    </div>
-  </div>
-  
 </div>

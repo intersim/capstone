@@ -178,24 +178,28 @@ tutorial-section-menu {
       max-width: 300px;
       flex-wrap: wrap; }
 
-.loops {
+.loops .details {
+  margin-top: 60px; }
+
+.loops .filters {
+  margin-top: 60px; }
+
+.loops .loop-container {
   display: flex;
-  justify-content: flex-start; }
-  .loops .details {
-    flex-grow: 1;
-    margin-top: 10px; }
-  .loops .browse {
-    flex-grow: 3; }
-  .loops .loop-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: space-between;
-    height: 100%; }
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: space-between;
+  /*background: #ebebeb;*/
+  height: 100%;
+  /*    border: 2px solid lightgray;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 2px 2px 4px hsla(0,0,0,0.5);*/ }
 
 .loop-item {
   padding-left: 5px;
   padding-top: 5px;
+  margin: 6px;
   width: 130px;
   background-color: #9600BF;
   height: 100px;
