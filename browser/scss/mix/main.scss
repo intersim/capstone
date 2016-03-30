@@ -3,9 +3,18 @@
   width: 130px;
   margin-left: 5px;
   margin-right: 5px;
-  background-color: #444;
+  background-color: #9600BF;
   height: 100%;
-  border-radius: 10px;
+  border-radius: 4px;
+  color: white;
+  :hover {
+    cursor: pointer;
+  }
+  h4 {
+    color: white;
+    display: block;
+    margin: 0;
+  }
 }
 .loopBucket {
   display: flex;
