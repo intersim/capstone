@@ -3,6 +3,23 @@
   <button class="btn btn-success" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span></button>
   <button class="btn btn-warning" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span></button>
 
+<div>
+
+  <form ng-model="mixform" ng-submit="save(mixform)">
+    <label>Title: </label>
+    <input ng-model="mixform.title"/>
+    <label>Description: </label>
+    <input ng-model="mixform.description"/>
+    <label>Privacy: </label>
+    <input type="radio" value="true" ng-model="mixform.isPublic">Public
+    <input type="radio" value="false" ng-model="mixform.isPublic">Private
+    <label>Tags: </label>
+    <input ng-model="mixform.tags"/>
+    <button type="submit" class="btn btn-primary" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+  </form>
+
+</div>
+
 <div class="track-container">
   <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
     <form>
@@ -35,26 +52,4 @@
 <div class="trash" droppable type="delete"><i class="fa fa-trash"></i></div>
 <div class="loopBucket">
   <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}"></div>
-
-
-<div>
-
-  <form ng-model="mixform" ng-submit="save(mixform)">
-    <label>Title: </label>
-    <input ng-model="mixform.title"/>
-    <label>Description: </label>
-    <input ng-model="mixform.description"/>
-    <label>Privacy: </label>
-    <input type="radio" value="true" ng-model="mixform.isPublic">Public
-    <input type="radio" value="false" ng-model="mixform.isPublic">Private
-    <label>Tags: </label>
-    <input ng-model="mixform.tags"/>
-    <button type="submit" class="btn btn-primary" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
-    {{mixform}}
-  </form>
-
-</div>
-
-
-  
 </div>
