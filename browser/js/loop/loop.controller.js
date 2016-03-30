@@ -10,8 +10,11 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
     $scope.loopBelongsToUser = user._id === loop.creator;
   })
 
-  $scope.copyLoop = function() {
-    LoopFactory.save(true);
+  $scope.copyLoop = function(meta) {
+    var arr=[];
+    meta.tags.split(',').forEach(function(tag){arr.push(tag.trim())})
+    meta.tags = arr;
+    LoopFactory.save(true, meta);
   }
 
   $scope.playing = false;
@@ -30,7 +33,12 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
 
   $scope.deleteSelected = LoopFactory.deleteNote;
   
-  $scope.saveLoop = LoopFactory.save;
+  $scope.saveLoop = function(meta){
+    var arr=[];
+    meta.tags.split(',').forEach(function(tag){arr.push(tag.trim())})
+    meta.tags = arr;
+    LoopFactory.save(false, meta);
+  }
 
   // var piano = new Tone.PolySynth(8, Tone.Sampler, {
   //     A : {
