@@ -122,6 +122,31 @@ tutorial-section-menu {
   .loop-editor-container canvas {
     border: 1px solid #ccc; }
 
+.mixEditor h1 {
+  margin-left: 10px;
+  display: inline; }
+
+.mixEditor h3 {
+  margin-left: 10px;
+  margin-top: 60px;
+  margin-bottom: 20px; }
+
+.mixform {
+  margin-top: 20px;
+  margin-left: 10px;
+  width: 800px;
+  margin-bottom: 0;
+  background-color: #fff; }
+  .mixform .saveButton {
+    margin-top: 4px; }
+
+.playPause, .saveButton {
+  margin-left: 10px;
+  vertical-align: top; }
+
+.addTrack {
+  margin-left: 10px; }
+
 .item {
   width: 130px;
   margin-left: 5px;
@@ -148,9 +173,15 @@ tutorial-section-menu {
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap; }
+  .track-container form {
+    margin-top: 24px;
+    margin-left: 10px; }
 
 .track {
-  height: 100px; }
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px; }
 
 .measure {
   background-color: #ebebeb;
@@ -172,7 +203,9 @@ tutorial-section-menu {
   float: right;
   background-color: darkgray;
   border-radius: 10px;
-  margin-top: 5px; }
+  margin-top: 5px;
+  margin-right: 40px;
+  margin-bottom: 40px; }
   .trash i {
     font-size: 100px;
     opacity: 0.7; }
