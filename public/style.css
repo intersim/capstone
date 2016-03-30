@@ -23,6 +23,11 @@ navbar .fa-music {
   float: left;
   position: absolute; }
 
+navbar .welcome {
+  margin-top: 15px;
+  color: gray;
+  text-shadow: none; }
+
 #home fullstack-logo {
   padding-top: 30px;
   width: 150px;
