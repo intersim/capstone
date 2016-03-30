@@ -70,7 +70,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       instruments["track"+track] = drumSynth;
       mix.tracks[track].instrument = instrStr;
     }
-    console.log("mix: ", mix);
+    console.log("mix inst: ", mix);
   }
 
   MixFactory.getAll = function() {
@@ -153,13 +153,24 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });    
   }
   
-  MixFactory.save = function(){
+  MixFactory.save = function(meta){
+    var tagArr=[];
+    meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
+    meta.tags=tagArr;
+    console.log("MIXXXXXXXXXXXX", mix)
+
+    for(var key in mix){
+      meta[key]=mix[key]
+    }
+
+    console.log("Metaaaaa", meta)
+
     var id = $stateParams.mixId;
     if (id==="new") {
-      $http.post('/api/mixes/', mix)
+      $http.post('/api/mixes/', meta)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
     } else {
-      $http.put('/api/mixes/' + id, mix);  
+      $http.put('/api/mixes/' + id, meta);  
     }
   }
     

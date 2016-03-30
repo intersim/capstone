@@ -29,7 +29,9 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket)
     }
   }
 
-  $scope.save = MixFactory.save;
+  $scope.save = function(meta){
+    MixFactory.save(meta);
+  }
 
   $scope.instruments = [
       { name: "synth1" },
