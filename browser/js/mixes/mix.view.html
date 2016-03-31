@@ -13,6 +13,8 @@
 	<div>
 		<h1>{{mix.title}}</h1>
 		<h4> Creator: {{mix.creator}}</h4>
+    <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
+    <button class="btn btn-warning" id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
 	  <track ng-repeat = "track in mix.tracks" contents="tracks"></track> {{track}} </div>
 	  <div>
 	  <p> Description: {{mix.description}}</p>
