@@ -246,66 +246,71 @@ var dbLoops;
 var dbTracks;
 var dbMixes;
 
-connectToDb.then(function () {
-    User.findAsync({})
-    .then(function (users) {
-        if (users && users.length) {
-            console.log(chalk.magenta('Seems to already be user data!'));
-            return users;
-        } else {
-            console.log('Saving users');
-            return seedUsers();
-        }
-    })
-    .then(function (users) {
-        if (users.length) {
-            console.log( chalk.green('Saved users') );
-            dbUsers = users;
-        } else {
-            console.log(chalk.magenta('Failed to save users'));
-        }
-        return Loop.findAsync({});
-    }).then(function(loops) {
-        if (loops && loops.length) {
-            console.log(chalk.magenta('Seems to already be loop data'));
-            return loops;
-        } else {
-            console.log('Saving loops')
-            return seedLoops(dbUsers);
-        }
-    })
-    .then(function(loops) {
-        if (loops.length) {
-            console.log( chalk.green('Saved loops') );
-            dbLoops = loops;
-        } else {
-            console.log( chalk.magenta('Failed to save loops'));
-        }
-        console.log('Adding loops to user loop buckets')
-        return seedLoopBuckets(dbUsers, dbLoops);
-    })
-    .then(function(users) {
-        if (!users.length) console.log(chalk.magenta('issue saving to loop buckets'));
-        return Mix.findAsync({});
-    })
-    .then(function(mixes) {
-        if (mixes.length) {
-            console.log(chalk.magenta('Seems to already be mix data'));
-            return mixes;
-        } else {
-            console.log('Saving mixes');
-            return seedMixes(dbUsers, dbLoops);
-        }
-    })
-    .then(function(mixes) {
-        if (mixes.length) {
-            console.log( chalk.green('Saved mixes') );
-            dbMixes = mixes;
-            console.log(chalk.green('SEED SUCCESSFUL!'));
-            process.kill(0);
-        } else console.log( chalk.magenta('Failed to seed mixes') );
-    }).catch(function (err) {
-        console.error(err);
-        process.kill(1);
-    });
+connectToDb.then(function() {
+    console.log(chalk.green('Dropping current DB contents'))
+    return Promise.all([User.remove({}), Loop.remove({}), Mix.remove({})])
+})
+.then(function () {
+    return User.findAsync({})
+})
+.then(function (users) {
+    if (users && users.length) {
+        console.log(chalk.magenta('Seems to already be user data!'));
+        return users;
+    } else {
+        console.log('Saving users');
+        return seedUsers();
+    }
+})
+.then(function (users) {
+    if (users.length) {
+        console.log( chalk.green('Saved users') );
+        dbUsers = users;
+    } else {
+        console.log(chalk.magenta('Failed to save users'));
+    }
+    return Loop.findAsync({});
+}).then(function(loops) {
+    if (loops && loops.length) {
+        console.log(chalk.magenta('Seems to already be loop data'));
+        return loops;
+    } else {
+        console.log('Saving loops')
+        return seedLoops(dbUsers);
+    }
+})
+.then(function(loops) {
+    if (loops.length) {
+        console.log( chalk.green('Saved loops') );
+        dbLoops = loops;
+    } else {
+        console.log( chalk.magenta('Failed to save loops'));
+    }
+    console.log('Adding loops to user loop buckets')
+    return seedLoopBuckets(dbUsers, dbLoops);
+})
+.then(function(users) {
+    if (!users.length) console.log(chalk.magenta('issue saving to loop buckets'));
+    return Mix.findAsync({});
+})
+.then(function(mixes) {
+    if (mixes.length) {
+        console.log(chalk.magenta('Seems to already be mix data'));
+        return mixes;
+    } else {
+        console.log('Saving mixes');
+        return seedMixes(dbUsers, dbLoops);
+    }
+})
+.then(function(mixes) {
+    if (mixes.length) {
+        console.log( chalk.green('Saved mixes') );
+        dbMixes = mixes;
+        console.log(chalk.green('SEED SUCCESSFUL!'));
+        process.kill(0);
+    } else console.log( chalk.magenta('Failed to seed mixes') );
+})
+.catch(function (err) {
+    console.error(err);
+    process.kill(1);
 });
