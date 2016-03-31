@@ -10,7 +10,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 
 	for(var i=0; i<lbucket.length; i++){
 		console.log(lbucket)
-		if(lbucket[i].creator===$scope.user._id && lbucket[i].isPublic) $scope.loops.push(lbucket[i])
+		if(lbucket[i].creator===$scope.user._id) $scope.loops.push(lbucket[i])
 	}
     
     UserFactory.following($scope.user._id)

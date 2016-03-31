@@ -15,10 +15,14 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   })
 
   $scope.copyLoop = function(meta) {
+    if(!meta) LoopFactory.save(true)
     var arr=[];
-    meta.tags.split(',').forEach(function(tag){arr.push(tag.trim())})
-    meta.tags = arr;
-    LoopFactory.save(true, meta);
+    if (meta.tags){
+      meta.tags.split(',').forEach(function(tag){arr.push(tag.trim())})
+      meta.tags = arr;
+    }
+    LoopFactory.save(true, meta)
+
   }
 
   $scope.playing = false;
@@ -38,10 +42,15 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   $scope.deleteSelected = LoopFactory.deleteNote;
   
   $scope.saveLoop = function(meta){
-    var arr=[];
-    meta.tags.split(',').forEach(function(tag){arr.push(tag.trim())})
-    meta.tags = arr;
-    LoopFactory.save(false, meta);
+    if(!meta) {LoopFactory.save(false)}
+    else {var arr=[];
+      if(meta.tags){
+        meta.tags.split(',').forEach(function(tag){arr.push(tag.trim())})
+        meta.tags = arr;
+      }
+      LoopFactory.save(false, meta)
+    }
+    
   }
 
   // var piano = new Tone.PolySynth(8, Tone.Sampler, {
