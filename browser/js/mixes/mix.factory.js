@@ -209,6 +209,16 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       })
   }
 
+  MixFactory.getLoops = function(mix) {
+    var loops = [];
+    mix.tracks.forEach(function(track) {
+      track.measures.forEach(function(measure) {
+        if (measure.loop) loops.push(measure.loop);
+      })
+    })
+    return _.uniq(loops, '_id');
+  }
+
   return MixFactory;
 
 })

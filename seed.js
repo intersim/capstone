@@ -218,21 +218,20 @@ function seedMixes(users, loops) {
         tracks: []
     } )
 
-    var trackData = {
-        measures: (new Array(12) ).fill({rest: true}),
-        numVoices: 1,
-        instrument: 'synth1'
-    }
-
     var tracks = [];
     for (var i = 0; i < 3; i++) {
-        tracks.push( trackData );
+        tracks.push( {
+            measures: (new Array(12) ).fill({rest: true}),
+            numVoices: 1,
+            instrument: 'synth1'
+        });
     }
     
     tracks.forEach(function(track, idx) {
         addRandomLoops(track, idx, loops);
     });
 
+    console.log(tracks.length);
     for (var i = 0; i < mixes.length; i++) {
         mixes[i].tracks.push(tracks[i], tracks[i+1])
     }
