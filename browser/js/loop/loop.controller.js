@@ -2,6 +2,7 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
 
   LoopFactory.initialize();
   // SamplerFactory.test();
+  $scope.loop = loop;
 
   if (loop) LoopFactory.drawLoop(loop);
 

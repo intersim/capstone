@@ -7,7 +7,7 @@ app.directive('loopItem', function() {
     scope: {
       loop: '='
     },
-    controller: function($scope, UserFactory){
+    controller: function($scope, UserFactory, AuthService){
 
       UserFactory.inBucket($scope.loop)
       .then(function(value){
@@ -15,7 +15,7 @@ app.directive('loopItem', function() {
           console.log("scope added", $scope.added)
       })
 
-      UserFactory.getLoggedInUser()
+      AuthService.getLoggedInUser()
       .then(function(user) {
         $scope.belongsToUser = (user._id === $scope.loop._id);
       })
