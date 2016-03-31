@@ -3,7 +3,6 @@
 app.controller('LoopsCtrl', function($scope, loops, LoopFactory){
 
   $scope.loops = loops;
-  console.log(loops);
 
   $scope.selectedSortMethod = 'numUses';
   $scope.selectedFilterMethod = null;
@@ -11,7 +10,9 @@ app.controller('LoopsCtrl', function($scope, loops, LoopFactory){
   $scope.sortMethods = [
     {
       name: 'Popularity',
-      value: 'numUses',
+      value: function(loop) {
+        return loop.mixes.length;
+      },
       reverse: true
     },
     {
@@ -21,7 +22,7 @@ app.controller('LoopsCtrl', function($scope, loops, LoopFactory){
     },
     {
       name: 'Name',
-      value: 'name'
+      value: 'name',
       reverse: false
     }
   ];
@@ -42,14 +43,8 @@ app.controller('LoopsCtrl', function($scope, loops, LoopFactory){
   }
 
   $scope.select = function(loop) {
-    LoopFactory.getMixes(loop._id)
-    .then(function(mixes) {
-      loop.mixes = mixes;
-      $scope.selected = loop;
-    })
-
-  }
-  
+    $scope.selected = loop;
+  }  
 
 
 })
