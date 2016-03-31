@@ -57,7 +57,7 @@ var LoopSchema = new mongoose.Schema({
         default: Date.now
     }
 });
-// LoopSchema.set('versionKey', false)
+
 
 LoopSchema.statics.findByCreator = function(userId) {
     return this.find({creator: creator});
