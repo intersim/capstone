@@ -6,13 +6,6 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	$scope.user = theUser;
 	$scope.mixes = allMixes;
 	$scope.loops = loopBucket;
-	// $scope.loops = [];
-	var lbucket = $scope.user.bucket;
-
-	// for(var i=0; i<lbucket.length; i++){
-	// 	console.log(lbucket)
-	// 	if(lbucket[i].creator===$scope.user._id) $scope.loops.push(lbucket[i])
-	// }
     
     UserFactory.following($scope.user._id)
     .then(function(value){
