@@ -14,7 +14,7 @@
   </div>
 
   <div class="col-lg-12">
-    <h3>Mixes</h3>
+    <h3>My Mixes</h3>
       <a ng-hide='!mixes.length' ui-sref='mixes({id: user._id})'>See All</a>
       <div> 
         <mix-item mix="mix" ng-repeat="mix in mixes">
@@ -25,7 +25,17 @@
 
 
   <div class="col-lg-12">
-    <h3>Loops</h3>
+    <h3>My Loops</h3>
+      <a ng-hide="!loops.length" ui-sref='loops({id: user._id})'>See All</a>
+    <div> 
+      <loop-item loop="loop" ng-repeat="{{loop | loop.creator==user._id}} in loops">
+      </loop-item>
+    </div>
+    <span ng-show="loops.length === 0">{{user.username}} has no loops yet!</span>
+  </div>
+
+    <div class="col-lg-12">
+    <h3>My Loop Bucket</h3>
       <a ng-hide="!loops.length" ui-sref='loops({id: user._id})'>See All</a>
     <div> 
       <loop-item loop="loop" ng-repeat="loop in loops">
@@ -35,7 +45,7 @@
   </div>
 
   <div class="col-lg-12">
-    <h3>Favorites</h3>
+    <h3>Mix Favorites</h3>
       <div> 
         <mix-item mix="mix" ng-repeat="mix in user.favorites">
         </mix-item>
