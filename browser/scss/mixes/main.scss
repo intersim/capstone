@@ -1,11 +1,5 @@
 .mixes {
-  display: flex;
-  justify-content: space-between;
-  .browse {
-    flex-grow: 3;
-  }
   .details {
-    flex-grow: 1;
     margin-top: 10px;
     .loop-container {
       display: flex;
