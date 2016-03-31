@@ -52,10 +52,13 @@ router.get('/:mixId', function(req, res, next) {
 
 // update a mix (creator of the mix & admin)
 router.put('/:mixId', function(req, res, next) {
-  if (req.user.isAdmin || req.mix.creator.equals(req.user._id) ){
+  console.log('REQ MIX CREATOR', req.mix.creator)
+  console.log("REQ MIX USER ID", req.user._id )
+  if (req.user.isAdmin || req.mix.creator._id.equals(req.user._id) ){
     req.mix.set(req.body);
     req.mix.save()
     .then(function(mix){
+      console.log("MIXMIXMIXMIX", mix)
       res.status(201).json(mix);
     })
     .then(null, next);
