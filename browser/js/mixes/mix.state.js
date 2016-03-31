@@ -15,12 +15,15 @@ app.config( function ($stateProvider) {
       }
     }
   })
-  //WIRE UP WHEN WE CAN SAVE MIXES
-  .state('mix',{
-    url: '/finalMix/',
+  .state('mix', {
+    url: '/finalMix/:mixId',
     templateUrl: '/js/mixes/mix.view.html',
-    controller: 'MixViewCtrl'
-    // resolve: {mix: function(mixId){}}
+    controller: 'FinalMixCtrl',
+    resolve: {
+      finalMix: function(MixFactory, $stateParams) {
+        return MixFactory.getById($stateParams.mixId, true);
+      }
+    }
   })
   .state('mixes', {
     url: '/mixes',

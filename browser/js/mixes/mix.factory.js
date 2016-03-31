@@ -49,6 +49,19 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     })
   }
 
+  // E: should clean up the transport for us... DRY this and above func out?
+  function scheduleLoopOnce(notes, track, measure) {
+    notes.forEach(function(note) {
+      var scheduleTime;
+      scheduleTime = note.startTime.split(":");
+      scheduleTime[0] = measure;
+      scheduleTime = scheduleTime.join(":");
+      Tone.Transport.scheduleOnce(function(){
+        instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
+      }, scheduleTime, measure+note._id);
+    })
+  }
+
   function clearLoop(notes, track, measure) {
     notes.forEach(function(note) {
       Tone.Transport.clear(measure+note._id);
@@ -116,6 +129,29 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         })
         return mix;
       });
+  }
+
+  MixFactory.getFinalMix =function(mixId) {
+    var uri = '/api/mixes/' + mixId;
+    return $http.get(uri)
+      .then(function(res) {
+      mix = res.data;
+      console.log("data from api/mixes/:mixId: ", mix);
+      MixFactory.scheduleMix(mix);
+      return mix;
+    });
+  }
+
+// new function to let us schedule and play loops
+  MixFactory.scheduleMix = function (mixObj) {
+    mix.tracks.forEach(function(track, trackIdx) {
+      MixFactory.changeInstr(track.instrument, trackIdx);
+      track.measures.forEach(function(measure, measureIdx) {
+        if (!measure.rest) {
+          scheduleLoopOnce(measure.loop.notes, trackIdx, measureIdx);
+        }
+      })
+    })
   }
 
   MixFactory.addLoop = function(loopId, track, measure) {

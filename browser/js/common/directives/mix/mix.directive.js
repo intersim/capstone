@@ -3,7 +3,7 @@
 app.directive('mixItem', function() {
   return {
     restrict: 'E',
-    templateUrl: '/js/mixes/mix.detail.html',
+    templateUrl: '/js/common/directives/mix/mix.html',
     scope: {
     	mix: '='
     },
