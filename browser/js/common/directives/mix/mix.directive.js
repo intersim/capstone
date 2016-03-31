@@ -7,7 +7,7 @@ app.directive('mixItem', function() {
     scope: {
     	mix: '='
     },
-    controller: function($scope, UserFactory, $state){
+    controller: function($scope, UserFactory, $state, MixFactory){
 
         UserFactory.favorited($scope.mix._id)
         .then(function(value){
@@ -35,6 +35,20 @@ app.directive('mixItem', function() {
 		function unfavorite(mixId) {
             UserFactory.unfavorite(mixId)
 		}
+
+        $scope.playing = false;
+
+        $scope.toggleMix = function () {
+            if (!$scope.playing) {
+            console.log("about to schedule and play this mix: ", $scope.mix);
+            $scope.playing = true;
+            MixFactory.scheduleMix($scope.mix);
+            Tone.Transport.start();
+        } else {
+            $scope.playing = false;
+            Tone.Transport.stop();
+        }
+      }
     }
   }
 })
