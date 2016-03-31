@@ -28,7 +28,7 @@
     <h3>My Loops</h3>
       <a ng-hide="!loops.length" ui-sref='loops({id: user._id})'>See All</a>
     <div> 
-      <loop-item loop="loop" ng-repeat="{{loop | loop.creator==user._id}} in loops">
+      <loop-item loop="loop" ng-repeat="loop in loops">
       </loop-item>
     </div>
     <span ng-show="loops.length === 0">{{user.username}} has no loops yet!</span>
