@@ -6,9 +6,6 @@ var Mix = mongoose.model('Mix');
 
 //retrieve all loops (all)
 router.get('/', function(req, res, next){
-
-  // Loop.find({isPublic: true})
-
   Loop.find()
   .populate('creator')
   .then(function(loops) {
@@ -37,6 +34,8 @@ router.post('/', function(req, res, next) {
 //loop id param
 router.param('loopId', function(req, res, next) {
   Loop.findById(req.params.loopId)
+  .populate('creator')
+  .exec()
   .then(function(loop) {
   //   if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {
   //     req.loop = loop;

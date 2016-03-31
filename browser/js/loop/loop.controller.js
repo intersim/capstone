@@ -2,12 +2,13 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
 
   LoopFactory.initialize();
   // SamplerFactory.test();
+  $scope.loop = loop;
 
   if (loop) LoopFactory.drawLoop(loop);
 
   AuthService.getLoggedInUser()
   .then(function(user) {
-    if (!loop || user._id === loop.creator){
+    if (!loop || user._id === loop.creator._id){
       $scope.loopBelongsToUser = true;
     } else {
       $scope.loopBelongsToUser = false;

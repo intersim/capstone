@@ -7,7 +7,7 @@
 
 <div class="loop-editor-container">
 
-<h1>Loop Editor</h1>
+<h1>Loop Editor<span ng-show="loop.name">: {{loop.name}}</span><small ng-show="!loopBelongsToUser">by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h1>
   <div class="loopControls">
     <button class="btn btn-danger" id="delete" ng-click="deleteSelected()">Delete Selected</button>
     <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
