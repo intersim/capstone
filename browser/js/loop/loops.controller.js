@@ -11,15 +11,18 @@ app.controller('LoopsCtrl', function($scope, loops, LoopFactory){
   $scope.sortMethods = [
     {
       name: 'Popularity',
-      value: 'numUses'
+      value: 'numUses',
+      reverse: true
     },
     {
       name: 'Date Created',
       value: 'dateCreated',
+      reverse: true
     },
     {
       name: 'Name',
       value: 'name'
+      reverse: false
     }
   ];
 

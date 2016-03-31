@@ -2,6 +2,6 @@
     <button ng-click="toggle()" type="button" class="btn btn-sm btn-info pull-right">
     <span class="glyphicon glyphicon-{{added ? 'remove':'plus'}}-sign"></span></button>
     <h4>{{loop.name}}</h4>  
-    <h4>{{loop.creator}}</h4>  
+    <h4>{{loop.creator.username}}</h4>  
     <p><span class="label label-success" ng-repeat="tag in loop.tags">{{tag}}</span></p>
 </div>
