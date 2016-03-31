@@ -215,18 +215,12 @@ tutorial-section-menu {
     font-size: 100px;
     opacity: 0.7; }
 
-.mixes {
-  display: flex;
-  justify-content: space-between; }
-  .mixes .browse {
-    flex-grow: 3; }
-  .mixes .details {
-    flex-grow: 1;
-    margin-top: 10px; }
-    .mixes .details .loop-container {
-      display: flex;
-      max-width: 300px;
-      flex-wrap: wrap; }
+.mixes .details {
+  margin-top: 10px; }
+  .mixes .details .loop-container {
+    display: flex;
+    max-width: 300px;
+    flex-wrap: wrap; }
 
 .loops .details {
   margin-top: 60px; }

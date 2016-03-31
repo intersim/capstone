@@ -255,8 +255,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
     }
-    meta.notes=dataToSave;
-    console.log("META DATA", meta)
+    if(meta) meta.notes=dataToSave;
     var id = $stateParams.loopId;
 
     if (id === "new" || copy) {
@@ -264,7 +263,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       .then(function(res) { 
         $state.go('loop', {loopId: res.data._id} ) });
     } else {
-      $http.put('/api/loops/' + id, meta)
+      if (!meta) $http.put('/api/loops/' + id, {notes: dataToSave})
+      else $http.put('/api/loops/' + id, meta)
     };
   }
 
