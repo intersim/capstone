@@ -20,12 +20,23 @@ app.config(function ($stateProvider) {
       templateUrl: 'js/loop/loops.view.html',
       controller: 'LoopsCtrl',
       resolve: {
-        loops: function($http) {
+        loops: function($http, LoopFactory, $q) {
+          var loops;
           return $http.get('/api/loops/')
             .then(function(res) {
-              return res.data;
+              loops = res.data;
+              return $q.all( loops.map( function(loop) {
+                return LoopFactory.getMixes(loop._id)
+                  .then(function(mixes) {
+                    loop.mixes = mixes
+                  })
+                }) )
+            })
+            .then(function() {
+              return loops;
             })
         }
+
       }
     })
 
