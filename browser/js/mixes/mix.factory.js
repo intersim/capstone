@@ -114,7 +114,6 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     return mix;
   }
 
-// refactor this to use new scheduleMix function?
   MixFactory.getById =function(mixId) {
       var uri = '/api/mixes/' + mixId;
       return $http.get(uri)
@@ -130,6 +129,17 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         })
         return mix;
       });
+  }
+
+  MixFactory.getFinalMix =function(mixId) {
+    var uri = '/api/mixes/' + mixId;
+    return $http.get(uri)
+      .then(function(res) {
+      mix = res.data;
+      console.log("data from api/mixes/:mixId: ", mix);
+      MixFactory.scheduleMix(mix);
+      return mix;
+    });
   }
 
 // new function to let us schedule and play loops
