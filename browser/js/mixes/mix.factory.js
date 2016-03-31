@@ -189,23 +189,28 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   }
   
   MixFactory.save = function(meta){
+
     var tagArr=[];
 
-    if(meta.tags){
-      meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
-      meta.tags=tagArr;
-    }
+    if(meta){
 
-    for(var key in meta){
-      mix[key]=meta[key]
+      if(meta.tags){
+        meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
+        meta.tags=tagArr;
+      }
+
+      for(var key in meta){
+        mix[key]=meta[key]
+      }
     }
 
     var id = $stateParams.mixId;
-    console.log("saving mix: ", mix);
+
     if (id==="new") {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
     } else {
+      console.log("MIX BEFORE PUT FACTORY", mix)
       $http.put('/api/mixes/' + id, mix);  
     }
   }
