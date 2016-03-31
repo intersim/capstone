@@ -11,15 +11,16 @@
 </style>
 <div class="container col-md-4">
 	<div>
-		<h1>{{mix.title}}</h1>
-		<h4> Creator: {{mix.creator}}</h4>
-    <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
-    <button class="btn btn-warning" id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
+		<h1>{{ mix.title }}</h1>
+    <!-- E: Put link to creator's page here... -->
+		<h4> Creator: {{ mix.creator.username }}</h4>
+    <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggleMix()">Play</button>
+    <button class="btn btn-warning" id="stop" ng-show="playing" ng-click="toggleMix()">Stop</button>
 	  <track ng-repeat = "track in mix.tracks" contents="tracks"></track> {{track}} </div>
 	  <div>
-	  <p> Description: {{mix.description}}</p>
+	  <p> Description: {{ mix.description }}</p>
 	  </div>
-	  <div ng-repeat="tag in mix.tags" class="tags"> tags: {{tag}}</div>
+	  <div ng-repeat="tag in mix.tags" class="tags"> tags: {{ tag }}</div>
 	  <h2> Comments </h2>
 		  <div>
 		    <comment-item context="mix" allcomments="comments">

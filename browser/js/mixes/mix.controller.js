@@ -53,6 +53,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     MixFactory.changeInstr(selectedInstr, trackNum);
   }
 
+  // E: this modal is half-implemented
   $scope.open = function () {
     var detailsModal = $uibModal.open({
     animation: true,
@@ -64,19 +65,33 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
 
 });
 
+app.controller('FinalMixCtrl', function($scope, MixFactory, finalMix){
+	$scope.mix = finalMix;
+  
+  // E: issues here, 'req is undefined'
+  // $scope.comments = MixFactory.getComments();
+
+  // E: to play mixes:
+  // get all loops from mix, get all notes, then schedule every single one of those notes on the right instrument
+  // use MixFactory.getById? or write a similar but separate function
+  // need to scheduleOnce!
+
+  $scope.playing = false;
+
+  $scope.toggleMix = function () {
+    if (!$scope.playing) {
+      console.log("about to schedule and play this mix: ", $scope.mix);
+      $scope.playing = true;
+      MixFactory.scheduleMix($scope.mix);
+      Tone.Transport.start();
+    } else {
+      $scope.playing = false;
+      Tone.Transport.stop();
+    }
+  }
+
+})
+
 app.controller('mixDetailsCtrl', function($scope){
   //do stuff in here
 });
-
-app.controller('CompViewCtrl', function($scope, MixFactory){
-	$scope.mix = {
-    creator: "Clyde", 
-    title: "Bonnie", 
-    description: "dope tunes to cause havoc to", 
-    tags: ['nice'], 
-    tracks: [ [], [] ]
-  }
-  	$scope.comments = MixFactory.getComments();
-	// $scope.mix = mix;
-
-})
