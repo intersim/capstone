@@ -20,6 +20,10 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
     	else $scope.status="Follow"
     })
 
+    $scope.loopFilter = function(loop){
+    	return loop.creator==$scope.user._id
+    }
+
     $scope.change = function(userId){
 
         if($scope.follow){
