@@ -32,6 +32,7 @@ router.post('/', function(req, res, next) {
 router.param('mixId', function(req, res, next) {
   Mix.findById(req.params.mixId)
   .deepPopulate('tracks.measures.loop')
+  .populate('creator')
   .exec()
   .then(function(mix) {
     if (mix) {

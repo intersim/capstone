@@ -7,17 +7,7 @@
         <div class="form-group">
           <h4>Sort By...</h4>
           <div>
-            <button class="btn" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod.value)">{{sortMethod.name}}</button><br>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <h4>Filter By...</h4>
-          <div ng-repeat="filterMethod in filterMethods">
-            <h5>{{filterMethod.name}}</h5>
-              <div class="form-group" ng-repeat="value in filterMethod.values">
-                <input name="{{value}}" type="checkbox" ng-click="filterLoops(value)"><label for="{{value}}">{{value}}</label>
-              </div>
+            <button class="btn" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
           </div>
         </div>
 
@@ -27,7 +17,7 @@
     <div class="browse col-md-6">
       <h2>Browse Loops</h2>
       <div class="loop-container well">
-          <loop-item loop="loop" ng-repeat="loop in loops | orderBy : selectedSortMethod" ng-click="select(loop)">
+          <loop-item loop="loop" ng-repeat="loop in loops | orderBy : selectedSortMethod.value : selectedSortMethod.reverse" ng-click="select(loop)">
             </loop-item>
       </div>
     </div>
@@ -36,6 +26,7 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <h3>About {{selected.name}}</h3>
+          <button ui-sref="loop({loopId: selected._id})" type="button" class="btn btn-sm btn-info pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
           <p><strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a></p>
           <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}</p>
           <p><strong>Tags:</strong> <span class="label label-success" ng-repeat="tag in selected.tags">{{tag}}</span></p>

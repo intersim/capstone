@@ -49,6 +49,19 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     })
   }
 
+  // E: should clean up the transport for us... DRY this and above func out?
+  function scheduleLoopOnce(notes, track, measure) {
+    notes.forEach(function(note) {
+      var scheduleTime;
+      scheduleTime = note.startTime.split(":");
+      scheduleTime[0] = measure;
+      scheduleTime = scheduleTime.join(":");
+      Tone.Transport.scheduleOnce(function(){
+        instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
+      }, scheduleTime, measure+note._id);
+    })
+  }
+
   function clearLoop(notes, track, measure) {
     notes.forEach(function(note) {
       Tone.Transport.clear(measure+note._id);
@@ -118,6 +131,29 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       });
   }
 
+  MixFactory.getFinalMix =function(mixId) {
+    var uri = '/api/mixes/' + mixId;
+    return $http.get(uri)
+      .then(function(res) {
+      mix = res.data;
+      console.log("data from api/mixes/:mixId: ", mix);
+      MixFactory.scheduleMix(mix);
+      return mix;
+    });
+  }
+
+// new function to let us schedule and play loops
+  MixFactory.scheduleMix = function (mixObj) {
+    mix.tracks.forEach(function(track, trackIdx) {
+      MixFactory.changeInstr(track.instrument, trackIdx);
+      track.measures.forEach(function(measure, measureIdx) {
+        if (!measure.rest) {
+          scheduleLoopOnce(measure.loop.notes, trackIdx, measureIdx);
+        }
+      })
+    })
+  }
+
   MixFactory.addLoop = function(loopId, track, measure) {
     var measures = mix.tracks[track].measures;
     while (measures.length <= measure) measures.push({rest: true});
@@ -153,23 +189,28 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   }
   
   MixFactory.save = function(meta){
+
     var tagArr=[];
 
-    if(meta.tags){
-      meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
-      meta.tags=tagArr;
-    }
+    if(meta){
 
-    for(var key in meta){
-      mix[key]=meta[key]
+      if(meta.tags){
+        meta.tags.split(',').forEach(function(tag){tagArr.push(tag.trim())})
+        meta.tags=tagArr;
+      }
+
+      for(var key in meta){
+        mix[key]=meta[key]
+      }
     }
 
     var id = $stateParams.mixId;
-    console.log("saving mix: ", mix);
+
     if (id==="new") {
       $http.post('/api/mixes/', mix)
       .then(function(res) { $state.go('editMix', { mixId: res.data._id } ) });
     } else {
+      console.log("MIX BEFORE PUT FACTORY", mix)
       $http.put('/api/mixes/' + id, mix);  
     }
   }
@@ -207,6 +248,16 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       .then(function(res) {
         return res.data;
       })
+  }
+
+  MixFactory.getLoops = function(mix) {
+    var loops = [];
+    mix.tracks.forEach(function(track) {
+      track.measures.forEach(function(measure) {
+        if (measure.loop) loops.push(measure.loop);
+      })
+    })
+    return _.uniq(loops, '_id');
   }
 
   return MixFactory;

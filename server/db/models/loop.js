@@ -58,6 +58,7 @@ var LoopSchema = new mongoose.Schema({
     }
 });
 
+
 LoopSchema.statics.findByCreator = function(userId) {
     return this.find({creator: creator});
 };
