@@ -1,6 +1,7 @@
 <div class="loop-item">
     <button ng-click="toggle()" type="button" class="btn btn-sm btn-info pull-right">
     <span class="glyphicon glyphicon-{{added ? 'remove':'plus'}}-sign"></span></button>
-    <h4>{{loop.name}}</h4>    
+    <button ui-sref="loop({loopId: loop._id})" type="button" class="btn btn-sm btn-info pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
+    <h4>{{loop.name}}</h4>
     <p><span class="label label-success" ng-repeat="tag in loop.tags">{{tag}}</span></p>
 </div>
