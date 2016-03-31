@@ -115,25 +115,25 @@ MixSchema.methods.changeTempo = function(change) {
   return this.save();
 }
 
-// MixSchema.post('save', function(mix, done) {
-//   var loops = [];
+MixSchema.post('save', function(mix, done) {
+  var loops = [];
 
-//   mix.populate('tracks.measures.loop').execPopulate()
-//   .then(function(mix) {
-//     mix.tracks.forEach(function(track) {
-//       track.measures.forEach(function(measure) {
-//         if (measure.loop && loops.indexOf(measure.loop) === -1) loops.push(measure.loop);
-//       });
-//     });
-//     return Promise.map(loops, function(loop) {
-//       loop.numUses++;
-//       return loop.save();
-//     })
-//   })
-//   .then(function(){
-//     done();
-//   }, done)
-// })
+  mix.populate('tracks.measures.loop').execPopulate()
+  .then(function(mix) {
+    mix.tracks.forEach(function(track) {
+      track.measures.forEach(function(measure) {
+        if (measure.loop && loops.indexOf(measure.loop) === -1) loops.push(measure.loop);
+      });
+    });
+    return Promise.map(loops, function(loop) {
+      loop.numUses++;
+      return loop.save();
+    })
+  })
+  .then(function(){
+    done();
+  }, done)
+})
 
 mongoose.model('Mix', MixSchema);
 
