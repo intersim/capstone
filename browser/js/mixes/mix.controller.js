@@ -46,7 +46,8 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   }
 
   $scope.save = function(meta){
-    MixFactory.save(meta);
+    if (meta) MixFactory.save(meta)
+    else MixFactory.save();
   }
 
   $scope.changeInstr = function(selectedInstr, trackNum) {

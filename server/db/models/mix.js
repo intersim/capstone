@@ -62,6 +62,9 @@ var MixSchema = new mongoose.Schema({
   tracks: [TrackSchema]
 });
 
+MixSchema.set('versionKey', false)
+TrackSchema.set('versionKey', false)
+
 //add deepPopulate option - populates a reference's reference
 MixSchema.plugin(deepPopulate);
 
