@@ -27,10 +27,10 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
   // for animations
   var lastNotePlayed = {};
-  var lastNoteArr = {};
+  var lastNoteArr = [];
 
   var lastAnimatedNoteRect = null;
-  var lastAnimatedNoteArr = {};
+  var lastAnimatedArr = [];
 
 
   function tick (wallTime) {
@@ -40,13 +40,24 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     window.requestAnimationFrame(tick);
     if (!canvas) return;
     // E: set old color back to last animated note
-    lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
-
+    lastNoteArr.forEach(function (note) {
+      note.set('fill', '#fff');
+    })
     // E: set new exciting color on note now playing
-    lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
+    lastAnimatedArr.forEach(function (note) {
+      note.set('fill', '#ff00ff');
+    })
     canvas.renderAll();
 
-    lastAnimatedNoteRect = lastNotePlayed.rect;
+    lastAnimatedArr = lastNoteArr;
+
+    lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
+
+    
+    // lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
+    // canvas.renderAll();
+
+    // lastAnimatedNoteRect = lastNotePlayed.rect;
 
   }
 
@@ -60,11 +71,10 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var eventId = Tone.Transport.schedule(function(){
       selectedInstr.triggerAttackRelease(pitch, duration);
       // E: animate notes here!
-      if (!lastNoteArr[objX]) lastNoteArr[objX] = {};
-      lastNoteArr[objX].rect = notes[objX];
+      lastNoteArr = notes[objX];
 
       console.log("lastNoteArr: ", lastNoteArr);
-      console.log("lastAnimatedNoteArr: ", lastAnimatedNoteArr);
+      console.log("lastAnimatedArr: ", lastAnimatedArr);
       // in tick callback: use info to set color, other stuff
       // push an animation (what note, pulse color, start time (using window.performance.now)) into a stack...
       // animationList.push({noteObj: lastNotePlayed.rect, oldColor: lastNotePlayed.rect.get('fill'), startTime: window.performance.now() })
