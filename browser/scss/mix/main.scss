@@ -1,3 +1,6 @@
+$loopColor: #005BDB;
+$loopPulseColor: lighten(#005BDB, 30%);
+
 .mixEditor {
   h1 {
     margin-left: 10px;
@@ -31,7 +34,7 @@
   width: 130px;
   margin-left: 4px;
   margin-right: 5px;
-  background-color: #9600BF;
+  background-color: $loopColor;
   height: 100%;
   border-radius: 4px;
   color: white;
@@ -97,10 +100,10 @@
 }
 
 .playing {
-  -webkit-animation: pulse 0.5s linear infinite;
-  -moz-animation: pulse 0.5s linear infinite;
-  -ms-animation: pulse 0.5s linear infinite;
-  animation: pulse 0.5s linear infinite;
+  -webkit-animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
+  -moz-animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
+  -ms-animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
+  animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
 }
 
 @keyframes "pulse" {
@@ -110,6 +113,7 @@
     -o-transform: scale(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
+    border: 4px solid lighten($loopColor, 10%);
  }
  50% {
     -webkit-transform: scale(1.05);
@@ -131,6 +135,7 @@
  0% {
    -moz-transform: scale(1.1);
    transform: scale(1.1);
+   border: 4px solid lighten($loopColor, 10%);
  }
  50% {
    -moz-transform: scale(1.05);
@@ -146,6 +151,7 @@
  0% {
    -webkit-transform: scale(1.1);
    transform: scale(1.1);
+   border: 4px solid lighten($loopColor, 10%);
  }
  50% {
    -webkit-transform: scale(1.05);
@@ -161,6 +167,7 @@
  0% {
    -ms-transform: scale(1.1);
    transform: scale(1.1);
+   border: 4px solid lighten($loopColor, 10%);
  }
  50% {
    -ms-transform: scale(1.05);
@@ -170,4 +177,25 @@
    -ms-transform: scale(1);
    transform: scale(1);
  }
+}
+
+@-webkit-keyframes color_change {
+  from { background-color: $loopColor; }
+  to { background-color: $loopPulseColor; }
+}
+@-moz-keyframes color_change {
+  from { background-color: $loopColor; }
+  to { background-color: $loopPulseColor; }
+}
+@-ms-keyframes color_change {
+  from { background-color: $loopColor; }
+  to { background-color: $loopPulseColor; }
+}
+@-o-keyframes color_change {
+  from { background-color: $loopColor; }
+  to { background-color: $loopPulseColor; }
+}
+@keyframes color_change {
+  from { background-color: $loopColor; }
+  to { background-color: $loopPulseColor; }
 }
