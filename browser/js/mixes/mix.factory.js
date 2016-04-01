@@ -44,6 +44,18 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       scheduleTime[0] = measure;
       scheduleTime = scheduleTime.join(":");
       Tone.Transport.schedule(function(){
+        setTimeout(function() {
+
+          var loops = Array.prototype.slice.call(document.getElementsByClassName('playing'));
+          loops.forEach(function(loop) {
+            loop.classList.remove('playing');
+          });
+          var loops = Array.prototype.slice.call(document.getElementsByClassName('m-' + measure.toString()));
+          loops.forEach(function(loop) {
+            if (!loop.classList.contains('playing')) loop.classList.add('playing');
+          });
+        }, 13)
+
         instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
     })

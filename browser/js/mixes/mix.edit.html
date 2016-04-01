@@ -2,8 +2,11 @@
 <div class="mixEditor">
 
   <h1>Mix Editor<span ng-show="mix.title !== 'Untitled'">: {{ mix.title }}</span> <button class="btn btn-success playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span> Play</button>
-  <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span> Stop</button>
+
+  <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+
   <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+
   </h1>  
 
 
@@ -28,7 +31,7 @@
       </form>
       <div class="track bin">
         <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable>
-          <div ng-show="!measure.rest" class="item" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop._id}}" draggable type="move" title="{{measure.loop._id}}"><h4 class="text-center">{{measure.loop.name}}</h4></div>
+          <div ng-show="!measure.rest" class="item m-{{$index}}" id="loop-t-{{$track}}-m-{{$index}}" data-loop="{{measure.loop._id}}" draggable type="move" title="{{measure.loop._id}}"><h4 class="text-center">{{measure.loop.name}}</h4></div>
         </div>
       </div>
     </track>
