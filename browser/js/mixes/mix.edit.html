@@ -15,19 +15,24 @@
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
       <form>
-        <h2>Track {{$index + 1}}</h2>
-        <button class="btn btn-xs btn-primary" title="mute"><i class="fa fa-microphone-slash"></i></button>
-        <button class="btn btn-xs btn-primary" title="solo"><i class="fa fa-microphone"></i></button>
-        <label>Volume</label>
-        <select>
-          <option>100%</option>
-          <option>75%</option>
-          <option>50%</option>
-          <option>25%</option>
-        </select>
-        </select>
-        <select ng-model="track.instrumentModel" ng-change="changeInstr(track.instrumentModel.name, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
-        </select>
+        <h4>Track {{$index + 1}}</h4>
+        <div class="volumeButtons">
+          <button class="btn btn-xs btn-primary" title="mute"><i class="fa fa-microphone-slash"></i></button>
+          <button class="btn btn-xs btn-primary" title="solo"><i class="fa fa-microphone"></i></button>
+        </div>
+        <div class="volumeControl">
+          <label><i class="fa fa-volume-up"></i></label>
+          <select>
+            <option>100%</option>
+            <option>75%</option>
+            <option>50%</option>
+            <option>25%</option>
+          </select>
+        </div>
+        <div class="instrSelect">
+          <select ng-model="track.instrumentModel" ng-change="changeInstr(track.instrumentModel.name, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
+          </select>
+        </div>
       </form>
       <div class="track bin">
         <div ng-repeat="measure in track.measures" class="measure" id="t-{{$track}}-m-{{$index}}" droppable>

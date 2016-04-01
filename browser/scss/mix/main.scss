@@ -63,6 +63,12 @@ $loopPulseColor: lighten(#005BDB, 30%);
   form {
     margin-top: 24px;
     margin-left: 10px;
+    height: 120px;
+    width: 100px;
+    display: inline-block;
+    .volumeButtons {
+      display: inline;
+    }
   }
 }
 .track {
@@ -70,12 +76,13 @@ $loopPulseColor: lighten(#005BDB, 30%);
   margin-top: 10px;
   margin-bottom: 20px;
   margin-left: 10px;
+  display: flex;
 }
 .measure {
   background-color: #ebebeb;
   border-left: 1px solid #555;
   border-right: 1px solid #555;
-  width: 140px;
+  min-width: 140px;
   height: 100%;
 }
 .track * {
