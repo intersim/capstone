@@ -36,11 +36,11 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     // console.log(Tone.Transport.ticks, lastNotePlayed.rect);
     // if (!lastAnimatedNoteRect || lastAnimatedNoteRect !== lastNotePlayed.rect) {
       // E: set old color back to last animated note
-      // lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
+      lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
       // // E: set new exciting color on note now playing
       lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
       canvas.renderAll();
-      // lastAnimatedNoteRect = lastNotePlayed.rect;
+      lastAnimatedNoteRect = lastNotePlayed.rect;
     // }
   }
 
@@ -254,7 +254,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
         top: roundedY,
         width: noteWidth, 
         height: 40, 
-        fill: 'hsla(' + roundedY + ', 85%, 70%, 1)', 
+        // fill: 'hsla(' + roundedY + ', 85%, 70%, 1)', 
+        fill: '#fff',
         originX: 'left', 
         originY: 'top',
         centeredRotation: true,
