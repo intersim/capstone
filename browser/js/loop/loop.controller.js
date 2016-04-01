@@ -1,4 +1,4 @@
-app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFactory, AuthService) {
+app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFactory, AuthService, $uibModal) {
 
   LoopFactory.initialize();
   // SamplerFactory.test();
@@ -14,6 +14,15 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
       $scope.loopBelongsToUser = false;
     }
   })
+
+  $scope.open = function () {
+    var detailsModal = $uibModal.open({
+    animation: true,
+    templateUrl: "/js/loop/loop.modal.html",
+    scope: $scope,
+    size: "lg"
+    })
+  }
 
   $scope.copyLoop = function(meta) {
     if(!meta) LoopFactory.save(true)
