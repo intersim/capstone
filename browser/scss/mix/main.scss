@@ -58,6 +58,12 @@
   form {
     margin-top: 24px;
     margin-left: 10px;
+    height: 120px;
+    width: 100px;
+    display: inline-block;
+    .volumeButtons {
+      display: inline;
+    }
   }
 }
 .track {
@@ -65,6 +71,7 @@
   margin-top: 10px;
   margin-bottom: 20px;
   margin-left: 10px;
+  display: inline-block;
 }
 .measure {
   background-color: #ebebeb;

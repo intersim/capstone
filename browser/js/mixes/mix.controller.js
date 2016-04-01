@@ -64,6 +64,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
 
   }
 
+
 });
 
 app.controller('FinalMixCtrl', function($scope, MixFactory, finalMix){
@@ -90,6 +91,7 @@ app.controller('FinalMixCtrl', function($scope, MixFactory, finalMix){
       Tone.Transport.stop();
     }
   }
+
 
 })
 

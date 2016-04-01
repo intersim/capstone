@@ -180,13 +180,19 @@ tutorial-section-menu {
   white-space: nowrap; }
   .track-container form {
     margin-top: 24px;
-    margin-left: 10px; }
+    margin-left: 10px;
+    height: 120px;
+    width: 100px;
+    display: inline-block; }
+    .track-container form .volumeButtons {
+      display: inline; }
 
 .track {
   height: 100px;
   margin-top: 10px;
   margin-bottom: 20px;
-  margin-left: 10px; }
+  margin-left: 10px;
+  display: inline-block; }
 
 .measure {
   background-color: #ebebeb;
