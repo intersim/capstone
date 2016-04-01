@@ -20,6 +20,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   ];
 
   mix.tracks.forEach(function (track) {
+    // AW: use _.find
     track.instrumentModel = $scope.instruments.filter(function(instr){
       return instr.name == track.instrument; 
     })[0];
@@ -45,7 +46,9 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     }
   }
 
+
   $scope.save = function(meta){
+    // AW: error handling
     if (meta) MixFactory.save(meta)
     else MixFactory.save();
   }

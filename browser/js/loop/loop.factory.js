@@ -1,6 +1,15 @@
 'use strict';
 
 app.factory('LoopFactory', function($http, $stateParams, $state){
+  
+  /*
+    AW:   
+      1. use _.find()
+      2. smaller functions 
+      3. convert functions to objects 
+
+  */
+
   var LoopFactory = {};
 
   var canvas;
@@ -46,6 +55,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     if (xVal >= 280 && xVal < 320) return "0:3:2";
   }
 
+
+  // AW: create an object 
   function getDurationStr (width) {
     if (width === 40) return "8n";
     if (width === 80) return "4n";
@@ -70,6 +81,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   }
 
   function getYvals(note) {
+    // AW: use _.find()
     var edges = noteYMap.filter(function(obj) {
       return obj.note === note.pitch;
     })[0];

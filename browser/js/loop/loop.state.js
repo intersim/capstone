@@ -1,12 +1,15 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('loop', {
+      // AW: rethink state design  
         url: '/loop/:loopId',
         controller: 'LoopController',
         templateUrl: 'js/loop/loop.html',
         resolve: {
           loop: function($http, $stateParams) {
+            // AW: why?
             if ($stateParams.loopId !== "new") {
+              // AW: create a getLoopById method in a factory 
               return $http.get('/api/loops/' + $stateParams.loopId)
               .then(function(res) {
                 return res.data;
@@ -21,6 +24,7 @@ app.config(function ($stateProvider) {
       controller: 'LoopsCtrl',
       resolve: {
         loops: function($http, LoopFactory, $q) {
+          // AW: better promise composition please 
           var loops;
           return $http.get('/api/loops/')
             .then(function(res) {

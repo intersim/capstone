@@ -8,6 +8,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
 	$scope.loops = [];
 	var lbucket = $scope.user.bucket;
 
+  // AW: wrap this in a function and invoke it upon controller instantiation 
 	for(var i=0; i<lbucket.length; i++){
 		console.log(lbucket)
 		if(lbucket[i].creator===$scope.user._id) $scope.loops.push(lbucket[i])
@@ -21,7 +22,7 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
     })
 
     $scope.change = function(userId){
-
+        // AW: error handling
         if($scope.follow){
             unfollow(userId)
         } else {
@@ -49,6 +50,8 @@ app.config(function($stateProvider){
 			theUser: function(UserFactory, $stateParams){
 				return UserFactory.fetchById($stateParams.userId);
 			},
+
+      // AW: get all mixes and followers at the same time w $q.all
 			allMixes: function(UserFactory, $stateParams){
 				return UserFactory.getMixes($stateParams.userId);
 			},

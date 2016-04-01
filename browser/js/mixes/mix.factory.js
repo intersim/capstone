@@ -4,6 +4,14 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var currentUser;
 
+  /*
+      AW: 
+        1. api request factory, tone logic factory
+        2. choose objects over functions 
+        3. smaller functions please 
+
+  */
+
   // E: these synth settings are just from Tone.js examples! Must make custom ones in future...
   var synth1 = new Tone.PolySynth(16, Tone.SimpleSynth, {
     "oscillator": {
@@ -70,7 +78,25 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
 
   var MixFactory = {};
 
+  // AW: rewrite changeInstr like so: 
+  // var synthHash = {
+  //   "synth1": synth1, 
+  //   "synth2": synth2, 
+  //   "drumSynth": drumSynth 
+  // }
+
+
+  // MixFactory.changeInstr = function (instrStr, track) {
+  //   instrumes["track" + track] = synthHash[instrStr]
+  //   mix.tracks[track].instrume = instrStr
+  // }
+
+
   MixFactory.changeInstr = function (instrStr, track) {
+
+    instrumes["track" + track] = synthHash[instrStr]
+    mix.tracks[track].instrume = instrStr
+
     if (instrStr == 'synth1') {
       instruments["track"+track] = synth1;
       mix.tracks[track].instrument = instrStr;
@@ -119,6 +145,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       return $http.get(uri)
         .then(function(res) {
         mix = res.data;
+        // AW: should be another function
         mix.tracks.forEach(function(track, trackIdx) {
           MixFactory.changeInstr(track.instrument, trackIdx);
           track.measures.forEach(function(measure, measureIdx) {

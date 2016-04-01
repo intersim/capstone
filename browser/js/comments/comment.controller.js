@@ -10,7 +10,9 @@ app.controller('CommentCtrl', function($scope, MixFactory){
   $scope.sendComment = function(comment, targetid){
   	console.log("passing comment", comment)
   	var body = {"comment": comment.content, "targetId": targetid}
-  	CommentFactory.postComment(body)
+  	// AW: catch error 
+    CommentFactory.postComment(body)
+    
   }
 
 });

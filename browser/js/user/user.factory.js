@@ -1,5 +1,13 @@
 app.factory('UserFactory', function($http, AuthService) {
 
+
+  /*
+  AW: 
+    1. do an audit of getting the logged in user 
+    2. create a loopBucket factory 
+    3. implement solid promise composition --- promise returning vs promise chaining/nesting 
+
+  */
   var UserFactory = {};
 
   UserFactory.getAll = function() {
@@ -34,6 +42,7 @@ app.factory('UserFactory', function($http, AuthService) {
       var url = "/api/users/" + currentUser._id;
       if (currentUser.following.indexOf(userId)!==-1 || currentUser._id===userId) return currentUser;
       currentUser.following.push(userId)
+      //AW: not good promise composition
       return $http.put(url, currentUser)
       .then(response => response.data)
     })
@@ -48,7 +57,7 @@ app.factory('UserFactory', function($http, AuthService) {
       currentUser.following.splice(index, 1)
       return $http.put(url, currentUser)
       .then(response => response.data)
-    })
+    }) // AW: .then here for good promise composition
   }
 
   //add loop to bucket
