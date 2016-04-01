@@ -141,6 +141,7 @@ tutorial-section-menu {
   margin-top: 20px;
   margin-left: 10px;
   width: 800px;
+  position: fixed;
   margin-bottom: 0;
   background-color: #fff; }
   .mixform .saveButton {
