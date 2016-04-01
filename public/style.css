@@ -216,25 +216,64 @@ tutorial-section-menu {
     font-size: 100px;
     opacity: 0.7; }
 
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1); }
-  50% {
-    -webkit-transform: scale(1.1); }
-  100% {
-    -webkit-transform: scale(1); } }
+.playing {
+  -webkit-animation: pulse 0.5s linear infinite;
+  -moz-animation: pulse 0.5s linear infinite;
+  -ms-animation: pulse 0.5s linear infinite;
+  animation: pulse 0.5s linear infinite; }
 
-@keyframes pulse {
+@keyframes "pulse" {
   0% {
-    transform: scale(1); }
-  50% {
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
     transform: scale(1.1); }
+  50% {
+    -webkit-transform: scale(1.05);
+    -moz-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05); }
   100% {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    -ms-transform: scale(1);
     transform: scale(1); } }
 
-.playing {
-  -webkit-animation-name: pulse;
-  animation-name: pulse; }
+@-moz-keyframes pulse {
+  0% {
+    -moz-transform: scale(1.1);
+    transform: scale(1.1); }
+  50% {
+    -moz-transform: scale(1.05);
+    transform: scale(1.05); }
+  100% {
+    -moz-transform: scale(1);
+    transform: scale(1); } }
+
+@-webkit-keyframes "pulse" {
+  0% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1); }
+  50% {
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05); }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1); } }
+
+@-ms-keyframes "pulse" {
+  0% {
+    -ms-transform: scale(1.1);
+    transform: scale(1.1); }
+  50% {
+    -ms-transform: scale(1.05);
+    transform: scale(1.05); }
+  100% {
+    -ms-transform: scale(1);
+    transform: scale(1); } }
 
 .mixes .details {
   margin-top: 10px; }
