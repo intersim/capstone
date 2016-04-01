@@ -51,7 +51,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         });
         var loops = Array.prototype.slice.call(document.querySelectorAll('[id*="m-' + (measure - 1).toString() + '"]'));
         loops.forEach(function(loop) {
-          if (loop.classList.contains('playing') && !loop.classList.contains('measure')) loop.classList.remove('playing');
+          if (loop.classList.contains('playing')) loop.classList.remove('playing');
         });
         instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
