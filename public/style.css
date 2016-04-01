@@ -125,7 +125,8 @@ tutorial-section-menu {
 .saveLoopForm {
   margin-top: 20px; }
   .saveLoopForm .well {
-    background-color: #fff !important; }
+    background-color: #fff !important;
+    width: 75%; }
 
 .mixEditor h1 {
   margin-left: 10px;
