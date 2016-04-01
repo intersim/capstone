@@ -1,0 +1,28 @@
+<div class="saveLoopForm container form-group center">
+	<form class="well text-left" name="loopForm" ng-model="loopform" ng-submit="loopBelongsToUser ? saveLoop(loopform) : copyLoop(loopform)">
+
+<!-- loopform.$valid && 
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert> -->
+
+		<label> Name: </label>
+			<input class="form-control" ng-model="loopform.name" value="{{loop.name}}"/>
+		<label> Tags: </label>
+			<input class="form-control" ng-model="loopform.tags"/>
+		<label> Category: </label>
+			<select class="form-control" ng-model="loopform.category">
+				<option value="rhythm">rhythm</option>
+				<option value="chord">chord</option>
+				<option value="melody">melody</option>
+			</select>
+    <div class="radio">
+      <label><input type="radio" ng-model="loopform.isPublic" value="true"/>Public?</label>
+    </div>
+    <div class="radio">
+      <label><input type="radio" ng-model="loopform.isPublic" value="false"/>Private?</label>
+    </div>
+    <button ng-show="loopBelongsToUser" class="btn btn-info" id="save">Save Loop</button>
+    <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy">Copy Loop</button>	
+	</form>
+</div>
