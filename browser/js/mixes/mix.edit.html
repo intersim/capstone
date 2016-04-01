@@ -2,7 +2,9 @@
 <div class="mixEditor">
 
   <h1>Mix Editor<span ng-show="mix.title !== 'Untitled'">: {{ mix.title }}</span> <button class="btn btn-success playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span> Play</button>
-  <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-pause"></span> Stop</button>
+
+  <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+
   <button ng-click="showSaveModal()" type="submit" class="btn btn-primary saveButton" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
   </h1>  
 

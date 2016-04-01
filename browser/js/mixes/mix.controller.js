@@ -38,6 +38,10 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   $scope.togglePlay = function() {
     if ($scope.playing) {
       Tone.Transport.stop();
+      var playingDivs = Array.prototype.slice.call(document.querySelectorAll('.playing'));
+      playingDivs.forEach(function(div) {
+        div.classList.remove('playing');
+      })
       $scope.playing = false;
     } else {
       Tone.Transport.start();
