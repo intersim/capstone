@@ -10,9 +10,9 @@
   </div>
 
   <div class="details col-md-4" ng-show="selected">
-    <h4>{{selected.title}}</h4>
+    <a href="" ui-sref="mix({mixId: selected._id})"><h4>{{selected.title}}</h4></a>
     <p>{{selected.description}}</p>
-    <p><strong>Created By:</strong> <a href="" ui-sref="user({userId: selected.creator._id})">{{selected.creator.username}}</a></p>
+    <p><strong>Created By:</strong> <a href="" ui-sref="profile({userId: selected.creator._id})">{{selected.creator.username}}</a></p>
     <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}
     
     
