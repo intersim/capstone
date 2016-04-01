@@ -45,9 +45,15 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
       scheduleTime = scheduleTime.join(":");
       Tone.Transport.schedule(function(){
         // any loops whose HTML Id contains m<measure>
-          if (loop.classList.indexOf('playing') === -1) loop.classList.add('playing');
-        // any loops whose HTML Id contains m<measure-1>
-          if (loop.classList.indexOf('playing') > -1) loop.classList.remove('playing');
+        var loops = Array.prototype.slice.call(document.querySelectorAll('[id*="m-' + measure.toString() + '"]'));
+        loops.forEach(function(loop) {
+          console.log('HELLO')
+          if (!loop.classList.contains('playing')) loop.classList.add('playing');
+        });
+        var loops = Array.prototype.slice.call(document.querySelectorAll('[id*="m-' + (measure - 1).toString() + '"]'));
+        loops.forEach(function(loop) {
+          if (loop.classList.contains('playing')) loop.classList.remove('playing');
+        });
         instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
     })

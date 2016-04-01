@@ -222,6 +222,9 @@ tutorial-section-menu {
     max-width: 300px;
     flex-wrap: wrap; }
 
+.playing {
+  background-color: red; }
+
 .loops .details {
   margin-top: 60px; }
 
