@@ -41,17 +41,17 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     if (!canvas) return;
     // E: set old color back to last animated note
     lastNoteArr.forEach(function (note) {
-      note.set('fill', '#fff');
+      note.set('fill', '#ff00ff');
     })
     // E: set new exciting color on note now playing
     lastAnimatedArr.forEach(function (note) {
-      note.set('fill', '#ff00ff');
+      note.set('fill', '#fff');
     })
     canvas.renderAll();
 
     lastAnimatedArr = lastNoteArr;
 
-    lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
+    // lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
 
     
     // lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
@@ -73,8 +73,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       // E: animate notes here!
       lastNoteArr = notes[objX];
 
-      console.log("lastNoteArr: ", lastNoteArr);
-      console.log("lastAnimatedArr: ", lastAnimatedArr);
       // in tick callback: use info to set color, other stuff
       // push an animation (what note, pulse color, start time (using window.performance.now)) into a stack...
       // animationList.push({noteObj: lastNotePlayed.rect, oldColor: lastNotePlayed.rect.get('fill'), startTime: window.performance.now() })
