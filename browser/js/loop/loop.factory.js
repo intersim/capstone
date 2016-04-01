@@ -24,6 +24,28 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
   var loopMusicData = {};
 
+  var lastNotePlayed = {};
+  var lastAnimatedNoteRect = null;  
+
+  function tick (wallTime) {
+    // wall time - start time (what has been pushed into the animation list) is the amount of time since the note was struck
+    // after animation period, remove that animation from list
+    // during that time, then the color is f(walltime - startime), where f is some crazy function (sine? start with a constant...)
+    window.requestAnimationFrame(tick);
+    if (!canvas) return;
+    // console.log(Tone.Transport.ticks, lastNotePlayed.rect);
+    // if (!lastAnimatedNoteRect || lastAnimatedNoteRect !== lastNotePlayed.rect) {
+      // E: set old color back to last animated note
+      // lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
+      // // E: set new exciting color on note now playing
+      lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
+      canvas.renderAll();
+      // lastAnimatedNoteRect = lastNotePlayed.rect;
+    // }
+  }
+
+  tick();
+
   function getPitchStr (yVal) {
     if (yVal >= 0 && yVal < 40) return "c5";
     if (yVal >= 40 && yVal < 80) return "b4";
@@ -63,10 +85,12 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
       selectedInstr.triggerAttackRelease(pitch, duration);
-      // E: do whatever here
-      console.log("noteObj: ", notes[objectId]);
-      notes[objectId].set('fill', '#fff');
-      canvas.renderAll();
+      // E: animate notes here!
+      // push an animation (what note, pulse color, start time (using window.performance.now))
+      // into a stack...
+      // in tick callback: use info to set color, 
+      lastNotePlayed.rect = notes[objectId];
+      lastNotePlayed.time = window.performance.now();
     }, startTime, objectId);
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
 
