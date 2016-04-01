@@ -1,17 +1,11 @@
 'use strict';
 
-app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, allMixes, UserFactory){
+app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, allMixes, loopBucket, UserFactory){
 	
 	$scope.followers = allFollowers;
 	$scope.user = theUser;
 	$scope.mixes = allMixes;
-	$scope.loops = [];
-	var lbucket = $scope.user.bucket;
-
-	for(var i=0; i<lbucket.length; i++){
-		console.log(lbucket)
-		if(lbucket[i].creator===$scope.user._id) $scope.loops.push(lbucket[i])
-	}
+	$scope.loops = loopBucket;
     
     UserFactory.following($scope.user._id)
     .then(function(value){
@@ -19,6 +13,10 @@ app.controller('UserPubCtrl', function($scope, $state, theUser, allFollowers, al
     	if(value) $scope.status="Unfollow"
     	else $scope.status="Follow"
     })
+
+    $scope.loopFilter = function(loop){
+    	return loop.creator==$scope.user._id
+    }
 
     $scope.change = function(userId){
 
@@ -54,6 +52,9 @@ app.config(function($stateProvider){
 			},
 			allFollowers: function(UserFactory, $stateParams){
 				return UserFactory.getFollowers($stateParams.userId);
+			},
+			loopBucket: function(UserFactory, $stateParams){
+				return UserFactory.getLoopBucket($stateParams.userId);
 			}
 		}
 	})
