@@ -63,6 +63,10 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var startTime = getBeatStr(objX);
     var eventId = Tone.Transport.schedule(function(){
       selectedInstr.triggerAttackRelease(pitch, duration);
+      // E: do whatever here
+      console.log("noteObj: ", notes[objectId]);
+      notes[objectId].set('fill', '#fff');
+      canvas.renderAll();
     }, startTime, objectId);
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
 
@@ -196,6 +200,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
   }
 
+  var notes = {};
+
   LoopFactory.addNote = function(options, left, right, top, width){
     var offsetX = left;
     var offsetY = top;
@@ -214,14 +220,17 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
     var newObjectId = ++lastObjId;
 
-    canvas.add(new fabric.Rect({
+    var roundedX = Math.floor(offsetX / 40) * 40;
+    var roundedY = Math.floor(offsetY / 40) * 40;
+
+    var newRect = new fabric.Rect({
         Myid: newObjectId,
-        left: Math.floor(offsetX / 40) * 40,
-        right: Math.floor(offsetX / 40) * 40,
-        top: Math.floor(offsetY / 40) * 40,
+        left: roundedX,
+        right: roundedX,
+        top: roundedY,
         width: noteWidth, 
         height: 40, 
-        fill: '#1E63A7', 
+        fill: 'hsla(' + roundedY + ', 85%, 70%, 1)', 
         originX: 'left', 
         originY: 'top',
         centeredRotation: true,
@@ -229,8 +238,10 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
         lockScalingY: true,
         lockScalingFlip: true,
         hasRotatingPoint: false
-      })
-    );
+      });
+
+    canvas.add(newRect);
+    notes[newObjectId] = newRect;
 
     // sound tone when clicking, and schedule
     scheduleTone(offsetX, offsetY, noteWidth, newObjectId);
