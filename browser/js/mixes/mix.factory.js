@@ -47,12 +47,11 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
         // any loops whose HTML Id contains m<measure>
         var loops = Array.prototype.slice.call(document.querySelectorAll('[id*="m-' + measure.toString() + '"]'));
         loops.forEach(function(loop) {
-          console.log('HELLO')
-          if (!loop.classList.contains('playing')) loop.classList.add('playing');
+          if (!loop.classList.contains('playing') && !loop.classList.contains('measure')) loop.classList.add('playing');
         });
         var loops = Array.prototype.slice.call(document.querySelectorAll('[id*="m-' + (measure - 1).toString() + '"]'));
         loops.forEach(function(loop) {
-          if (loop.classList.contains('playing')) loop.classList.remove('playing');
+          if (loop.classList.contains('playing') && !loop.classList.contains('measure')) loop.classList.remove('playing');
         });
         instruments["track"+track].triggerAttackRelease(note.pitch, note.duration);
       }, scheduleTime, measure+note._id);
