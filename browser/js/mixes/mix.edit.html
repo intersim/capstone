@@ -5,25 +5,12 @@
 
   <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-stop"></span> Stop</button>
 
-  <button ng-click="showSaveModal()" type="submit" class="btn btn-primary saveButton" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+  <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+
   </h1>  
 
-  <form ng-show="showSave" class="mixform well" ng-model="mixform" ng-submit="save(mixform)">
-    <label>Title: </label>
-    <input class="form-control" ng-model="mixform.title"/>
-    <label>Description: </label>
-    <input class="form-control" ng-model="mixform.description"/>
-    <div class="radio">
-      <label>
-        <input type="radio" value="true" ng-model="mixform.isPublic">Public?</label>
-    </div>
-    <div class="radio">
-      <label><input class="radio" type="radio" value="false" ng-model="mixform.isPublic">Private?</label>
-    </div>
-    <label>Tags: </label>
-    <input class="form-control" ng-model="mixform.tags"/>
-    <button type="submit" class="btn btn-primary saveButton" title="save">Save</button>
-  </form>
+
+
 
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">

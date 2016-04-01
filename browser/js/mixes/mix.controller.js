@@ -25,9 +25,6 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     })[0];
   });
 
-  $scope.showSaveModal = function(){
-    $scope.showSave = true;
-  }
 
   $scope.loopBucket = loopBucket;
 
@@ -62,8 +59,9 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   $scope.open = function () {
     var detailsModal = $uibModal.open({
     animation: true,
-    template: '<h1>YOU GOT THE MODAL!!!!!</h1>',
-    controller: 'mixDetailsCtrl' 
+    size: "lg",
+    scope: $scope,
+    templateUrl: '/js/mixes/mix.module.html'
   });
 
   }
@@ -94,9 +92,4 @@ app.controller('FinalMixCtrl', function($scope, MixFactory, finalMix){
       Tone.Transport.stop();
     }
   }
-
 })
-
-app.controller('mixDetailsCtrl', function($scope){
-  //do stuff in here
-});
