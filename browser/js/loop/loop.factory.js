@@ -22,10 +22,16 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   // intialize Transport event timeline tracking
   var lastObjId = 15;
 
+  // for saving in our BE
   var loopMusicData = {};
 
+  // for animations
   var lastNotePlayed = {};
-  var lastAnimatedNoteRect = null;  
+  var lastNoteArr = {};
+
+  var lastAnimatedNoteRect = null;
+  var lastAnimatedNoteArr = {};
+
 
   function tick (wallTime) {
     // wall time - start time (what has been pushed into the animation list) is the amount of time since the note was struck
@@ -33,18 +39,40 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     // during that time, then the color is f(walltime - startime), where f is some crazy function (sine? start with a constant...)
     window.requestAnimationFrame(tick);
     if (!canvas) return;
-    // console.log(Tone.Transport.ticks, lastNotePlayed.rect);
-    // if (!lastAnimatedNoteRect || lastAnimatedNoteRect !== lastNotePlayed.rect) {
-      // E: set old color back to last animated note
-      // lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
-      // // E: set new exciting color on note now playing
-      lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
-      canvas.renderAll();
-      // lastAnimatedNoteRect = lastNotePlayed.rect;
-    // }
+    // E: set old color back to last animated note
+    lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
+
+    // E: set new exciting color on note now playing
+    lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
+    canvas.renderAll();
+
+    lastAnimatedNoteRect = lastNotePlayed.rect;
+
   }
 
   tick();
+
+  function scheduleTone (objX, objY, width, objectId) {
+    var pitch = getPitchStr(objY);
+    var duration = getDurationStr(width);
+    var startTime = getBeatStr(objX);
+
+    var eventId = Tone.Transport.schedule(function(){
+      selectedInstr.triggerAttackRelease(pitch, duration);
+      // E: animate notes here!
+      if (!lastNoteArr[objX]) lastNoteArr[objX] = {};
+      lastNoteArr[objX].rect = notes[objX];
+
+      console.log("lastNoteArr: ", lastNoteArr);
+      console.log("lastAnimatedNoteArr: ", lastAnimatedNoteArr);
+      // in tick callback: use info to set color, other stuff
+      // push an animation (what note, pulse color, start time (using window.performance.now)) into a stack...
+      // animationList.push({noteObj: lastNotePlayed.rect, oldColor: lastNotePlayed.rect.get('fill'), startTime: window.performance.now() })
+    }, startTime, objectId);
+    loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
+
+    return eventId;
+  }
 
   function getPitchStr (yVal) {
     if (yVal >= 0 && yVal < 40) return "c5";
@@ -77,24 +105,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     if (width === 240) return "2n+4n";
     if (width === 280) return "2n+4n+8n";
     if (width === 320) return "1n";
-  }
-
-  function scheduleTone (objX, objY, width, objectId) {
-    var pitch = getPitchStr(objY);
-    var duration = getDurationStr(width);
-    var startTime = getBeatStr(objX);
-    var eventId = Tone.Transport.schedule(function(){
-      selectedInstr.triggerAttackRelease(pitch, duration);
-      // E: animate notes here!
-      // push an animation (what note, pulse color, start time (using window.performance.now))
-      // into a stack...
-      // in tick callback: use info to set color, 
-      lastNotePlayed.rect = notes[objectId];
-      lastNotePlayed.time = window.performance.now();
-    }, startTime, objectId);
-    loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
-
-    return eventId;
   }
 
   function getYvals(note) {
@@ -138,9 +148,9 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     {time: "0:2:2", left: 200, right: 239},
     {time: "0:3:0", left: 240, right: 279},
     {time: "0:3:2", left: 280, right: 320}
-  ]
+  ];
 
-    var widthMap = [
+  var widthMap = [
     {duration: "8n", width: 40},
     {duration: "4n", width: 80},
     {duration: "4n+8n", width: 120},
@@ -149,7 +159,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     {duration: "2n+4n", width: 240},
     {duration: "2n+4n+8n", width: 280},
     {duration: "1n", width: 320}
-  ]
+  ];
   
   LoopFactory.drawLoop = function(loop) {
     loop.notes.forEach(function(note) {
@@ -254,7 +264,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
         top: roundedY,
         width: noteWidth, 
         height: 40, 
-        fill: 'hsla(' + roundedY + ', 85%, 70%, 1)', 
+        // fill: 'hsla(' + roundedY + ', 85%, 70%, 1)', 
+        fill: '#fff', 
         originX: 'left', 
         originY: 'top',
         centeredRotation: true,
@@ -265,10 +276,11 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
       });
 
     canvas.add(newRect);
-    notes[newObjectId] = newRect;
+    if (!notes[roundedX]) notes[roundedX] = [];
+    notes[roundedX].push(newRect);
 
     // sound tone when clicking, and schedule
-    scheduleTone(offsetX, offsetY, noteWidth, newObjectId);
+    scheduleTone(roundedX, roundedY, noteWidth, newObjectId);
 
   }
 
