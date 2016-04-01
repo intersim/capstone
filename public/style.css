@@ -217,10 +217,10 @@ tutorial-section-menu {
     opacity: 0.7; }
 
 .playing {
-  -webkit-animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
-  -moz-animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
-  -ms-animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate;
-  animation: pulse 0.5s linear infinite, color_change 0.25s infinite alternate; }
+  -webkit-animation: pulse 0.5s linear 4, color_change 0.25s 8 alternate;
+  -moz-animation: pulse 0.5s linear 4, color_change 0.25s 8 alternate;
+  -ms-animation: pulse 0.5s linear 4, color_change 0.25s 8 alternate;
+  animation: pulse 0.5s linear 4, color_change 0.25s 8 alternate; }
 
 @keyframes "pulse" {
   0% {
