@@ -32,6 +32,9 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
   var lastAnimatedNoteRect = null;
   var lastAnimatedArr = [];
 
+function animColor (wallTime) {
+  return Math.sin(wallTime/1000);
+}
 
   function tick (wallTime) {
     // wall time - start time (what has been pushed into the animation list) is the amount of time since the note was struck
@@ -40,13 +43,24 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     window.requestAnimationFrame(tick);
     if (!canvas) return;
     // E: set old color back to last animated note
-    lastNoteArr.forEach(function (note) {
-      note.set('fill', '#ff00ff');
-    })
-    // E: set new exciting color on note now playing
-    lastAnimatedArr.forEach(function (note) {
-      note.set('fill', '#fff');
-    })
+
+    animationList.forEach(function (animation) {
+      animation.note.set('fill', '#ffffff');
+      if (wallTime > animation.startTime + animation.duration) {
+        animation.note.set('fill', animation.oldColor);
+        animation.dead = true;
+      }
+    });
+
+    animationList = animationList.filter(anim => !anim.dead);
+
+    // lastNoteArr.forEach(function (note) {
+    //   note.set('fill', '#ff00ff');
+    // })
+    // // E: set new exciting color on note now playing
+    // lastAnimatedArr.forEach(function (note) {
+    //   note.set('fill', '#fff');
+    // })
     canvas.renderAll();
 
     lastAnimatedArr = lastNoteArr;
@@ -63,6 +77,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
 
   tick();
 
+  var animationList = [];
+
   function scheduleTone (objX, objY, width, objectId) {
     var pitch = getPitchStr(objY);
     var duration = getDurationStr(width);
@@ -71,14 +87,18 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
     var eventId = Tone.Transport.schedule(function(){
       selectedInstr.triggerAttackRelease(pitch, duration);
       // E: animate notes here!
-      lastNoteArr = notes[objX];
-
+      // lastNoteArr = notes[objX];
+      notes[objX].forEach(function (note) {
+        animationList.push({note: note, oldColor: note.get('fill'), startTime: window.performance.now(), duration: 100 });
+      });
       // in tick callback: use info to set color, other stuff
       // push an animation (what note, pulse color, start time (using window.performance.now)) into a stack...
       // animationList.push({noteObj: lastNotePlayed.rect, oldColor: lastNotePlayed.rect.get('fill'), startTime: window.performance.now() })
     }, startTime, objectId);
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
-
+    
+    // console.log("lastNoteArr: ", lastNoteArr);
+    // console.log("lastAnimatedArr: ", lastAnimatedArr);
     return eventId;
   }
 
@@ -272,8 +292,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
         top: roundedY,
         width: noteWidth, 
         height: 40, 
-        // fill: 'hsla(' + roundedY + ', 85%, 70%, 1)', 
-        fill: '#fff', 
+        fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
         originX: 'left', 
         originY: 'top',
         centeredRotation: true,
