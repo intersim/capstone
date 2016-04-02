@@ -151,17 +151,14 @@ tutorial-section-menu {
   margin-left: 10px;
   display: inline; }
 
-.mixEditor h2 {
-  margin-left: 10px; }
+.mixEditor h3 {
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 0; }
 
 .mixEditor .mixControls {
   margin-left: 10px;
   display: inline; }
-
-.mixEditor h3 {
-  margin-left: 10px;
-  margin-top: 60px;
-  margin-bottom: 20px; }
 
 .mixform {
   margin-top: 20px;
