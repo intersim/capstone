@@ -251,6 +251,9 @@ function animColor (wallTime) {
       var noteToDelete = loopMusicData[idC]
       delete loopMusicData[idC];
       
+      // delete old object from notes data structure (used to animate notes)
+      // add updated object to new place in notes obj
+
       //delete old event
       Tone.Transport.clear(idC);
 
@@ -266,7 +269,8 @@ function animColor (wallTime) {
       canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
 
       console.log("new coords: ", xVal, yVal);
-
+      if (!notes[xVal]) notes[xVal] = [];
+      notes[xVal].push(canvas.getActiveObject());
       scheduleTone(xVal, yVal, newWidth, idC);
 
   }
