@@ -12,7 +12,17 @@
   </div>
 
   </h1>  
+  <button class="openLoopBucket btn btn-lg btn-primary pull-right" ng-click="showLoopBucket()"><i class="fa fa-shopping-basket"></i> <span ng-show="loopBucketOpen">Close</span><span ng-show="!loopBucketOpen">Open</span> Loop Bucket</button>
+  
+  <div class="pull-right">
+    <div class="trash" disabled droppable type="delete"><i class="fa fa-trash"></i></div>
+  </div>
 
+  <div class="loopBucket" ng-show="loopBucketOpen">
+    <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy">
+      <h4 class="text-center">{{loop.name}}</h4>
+    </div>
+  </div>
 
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
@@ -31,14 +41,6 @@
     </track>
     </div>
     <button class="btn btn-primary btn-lg addTrack" title="add track" ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span> New Track</button>
-  </div>
-
-  <h3>My Loop Bucket</h3>
-  <div class="trash" droppable type="delete"><i class="fa fa-trash"></i></div>
-  <div class="loopBucket">
-    <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}">
-      <h4 class="text-center">{{loop.name}}</h4>
-    </div>
   </div>
 
 </div>
