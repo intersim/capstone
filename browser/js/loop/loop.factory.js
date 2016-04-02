@@ -3,7 +3,7 @@
 app.factory('LoopFactory', function($http, $stateParams, $state){
   var LoopFactory = {};
 
-  var canvas;
+  var canvases = [];
   var grid;
   var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
             "oscillator" : {
@@ -41,7 +41,7 @@ function animColor (wallTime) {
     // after animation period, remove that animation from list
     // during that time, then the color is f(walltime - startime), where f is some crazy function (sine? start with a constant...)
     window.requestAnimationFrame(tick);
-    if (!canvas) return;
+    if (!canvases.length) return;
     // E: set old color back to last animated note
 
     animationList.forEach(function (animation) {
@@ -61,7 +61,7 @@ function animColor (wallTime) {
     // lastAnimatedArr.forEach(function (note) {
     //   note.set('fill', '#fff');
     // })
-    canvas.renderAll();
+    canvases[0].renderAll();
 
     lastAnimatedArr = lastNoteArr;
 
@@ -177,13 +177,13 @@ function animColor (wallTime) {
     return widthMap[note.duration]
   }
   
-  LoopFactory.drawLoop = function(loop) {
+  LoopFactory.drawLoop = function(loop, canvas) {
     console.log('drawing loop')
     loop.notes.forEach(function(note) {
       var x = getXvals(note);
       var y = getYvals(note);
       var width = getWidth(note);
-      LoopFactory.addNote(null, x.left, x.right, y.top, width);
+      LoopFactory.addNote(null, x.left, x.right, y.top, width, canvas);
     })
   }
   // canvasId - element to contain canvas,
@@ -195,7 +195,7 @@ function animColor (wallTime) {
     loopMusicData = {};
     console.log("initializing canvas, clearing transport, clearing loopData");
     // initialize canvas for an 8 * 8 grid
-    canvas = new fabric.Canvas(canvasId, { 
+    var canvas = new fabric.Canvas(canvasId, { 
         selection: false,
         defaultCursor: 'pointer',
         freeDrawingCursor: 'pointer',
@@ -208,20 +208,22 @@ function animColor (wallTime) {
     canvas.renderAll();
     grid = cellSize;
 
+    canvases.push(canvas);
+
     if (!minify) {
       // draw lines on grid
       for (var i = 0; i < (cellSize * 8 / grid); i++) {
-        canvas.add(new fabric.Line([ i * grid, 0, i * grid, cellSize * 8], { stroke: '#686868', selectable: false }));
-        canvas.add(new fabric.Line([ 0, i * grid, cellSize * 8, i * grid], { stroke: '#686868', selectable: false }))
+        canvases[0].add(new fabric.Line([ i * grid, 0, i * grid, cellSize * 8], { stroke: '#686868', selectable: false }));
+        canvases[0].add(new fabric.Line([ 0, i * grid, cellSize * 8, i * grid], { stroke: '#686868', selectable: false }))
       }
 
       // create a new rectangle obj on mousedown in canvas area
       // change this to a double-click event ?
-      canvas.on('mouse:down', LoopFactory.addNote)
+      canvases[0].on('mouse:down', LoopFactory.addNote)
 
       // snap to grid when moving or elongating obj
-      canvas.on('object:modified', LoopFactory.snapToGrid)
-
+      canvases[0].on('object:modified', LoopFactory.snapToGrid)
+      return canvas;
     }
   }
 
@@ -238,7 +240,7 @@ function animColor (wallTime) {
         top: Math.round(options.target.top / grid) * grid
       });
 
-      var idC = canvas.getActiveObject().Myid;
+      var idC = canvases[0].getActiveObject().Myid;
 
       // delete note from array of music data
       var noteToDelete = loopMusicData[idC]
@@ -251,25 +253,25 @@ function animColor (wallTime) {
       Tone.Transport.clear(idC);
 
       //make new tone
-      var top = canvas.getActiveObject().get('top');
-      var left = canvas.getActiveObject().get('left');
+      var top = canvases[0].getActiveObject().get('top');
+      var left = canvases[0].getActiveObject().get('left');
 
       var xVal = left
       if(xVal < 0) xVal = 0;
       var yVal = top
       if(yVal < 0) yVal = 0;
 
-      canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+      canvases[0].getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
 
       if (!notes[xVal]) notes[xVal] = [];
-      notes[xVal].push(canvas.getActiveObject());
+      notes[xVal].push(canvases[0].getActiveObject());
       scheduleTone(xVal, yVal, newWidth, idC);
 
   }
 
   var notes = {};
 
-  LoopFactory.addNote = function(options, left, right, top, width){
+  LoopFactory.addNote = function(options, left, right, top, width, canvas){
     var offsetX = left;
     var offsetY = top;
     var noteWidth = width || grid;
@@ -307,7 +309,8 @@ function animColor (wallTime) {
         hasRotatingPoint: false
       });
     
-    canvas.add(newRect);
+    if (canvas) canvas.add(newRect);
+    else canvases[0].add(newRect);
 
     if (grid === 12.5) newRect.set('fill', '#fff');
     
@@ -320,8 +323,8 @@ function animColor (wallTime) {
   }
 
   LoopFactory.deleteNote = function(){
-    var idC = canvas.getActiveObject().Myid;
-    canvas.getActiveObject().remove();
+    var idC = canvases[0].getActiveObject().Myid;
+    canvases[0].getActiveObject().remove();
     lastObjId--;
 
     // also delete tone event:
