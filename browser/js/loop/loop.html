@@ -3,19 +3,31 @@
     text-align: center;
   }
 
+  .margin-top {
+    margin-top: 8px;
+  }
+
 </style>
 
 <div class="loop-editor-container">
 
-<h1>Loop Editor<span ng-show="loop.name">: {{loop.name}}</span><small ng-show="!loopBelongsToUser">by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h1>
-  <div class="loopControls">
-    <button class="btn btn-danger" id="delete" ng-click="deleteSelected()">Delete Selected</button>
-    <button class="btn btn-success" id="play" ng-show="!playing" ng-click="toggle()">Play</button>
-    <button class="btn btn-warning" id="stop" ng-show="playing" ng-click="toggle()">Stop</button>
-    <button class="btn btn-info" id="save" ng-click="open()">Save</button>
+  <h1>Loop Editor<span ng-show="loop.name">: {{loop.name}}</span><small ng-show="!loopBelongsToUser">by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h1>
+
+  <canvas id="c" width="600" height="600"></canvas>
+
+  <div class="loopControls margin-top">
+    <button class="btn btn-primary" id="delete" ng-click="deleteSelected()">
+      <i class="fa fa-trash-o" alt="delete"></i></button>
+    <button class="btn btn-primary" id="play" ng-show="!playing" ng-click="toggle()">
+      <i class="fa fa-play" alt="play"></i></button>
+    <button class="btn btn-primary" id="stop" ng-show="playing" ng-click="toggle()">
+      <i class="fa fa-stop" alt="stop"></i></button>
+    <button class="btn btn-primary" id="save" ng-click="open()" alt="save">
+      <i class="fa fa-floppy-o"></i>
+</button>
+
   <!--   <button ng-show="loopBelongsToUser" class="btn btn-info" id="save" ng-click="saveLoop()">Save Loop</button>
     <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy" ng-click="copyLoop()">Copy Loop</button> -->
   </div>
 
-<canvas id="c" width="600" height="600"></canvas>
 </div>
