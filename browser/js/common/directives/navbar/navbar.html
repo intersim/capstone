@@ -7,7 +7,8 @@
         <div class="navbar-brand text-center"><p>SYMPH</p></div>
         </a>
         <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+            <!-- <li ng-repeat="item in items" ng-if="!item.auth || isLoggedIn()"> -->
+            <li ng-repeat="item in items" ng-if="isLoggedIn()">
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
