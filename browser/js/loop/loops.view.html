@@ -20,7 +20,7 @@
         <form>
           <div class="form-group">
             <div class="form-btn">
-              <button class="btn btn-default" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
+              <button class="btn btn-default btn-sm" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
             </div>
           </div>
         </form>
@@ -38,11 +38,17 @@
         <h3>{{selected.name}}</h3>
           <button ui-sref="loop({loopId: selected._id})" type="button" class="btn btn-sm btn-primary pull-right">
           <i class="fa fa-pencil"></i></button>
-          <p><strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a></p>
-          <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}</p>
-          <p ng-show="selected.tags.length"><strong>Tags:</strong> <span class="label label-primary" ng-repeat="tag in selected.tags">{{tag}}</span></p>
+          <p>
+            <strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a>
+          </p>
+          <p>
+            <strong>Created On:</strong> {{selected.dateCreated | date : format : short}}
+          </p>
+          <p ng-show="selected.tags.length">
+            <strong>Tags:</strong> <span class="label label-primary" ng-repeat="tag in selected.tags">{{tag}}</span>
+          </p>
           <div ng-hide="!selected.mixes.length">
-            <h4>This Loop Was Used In...</h4>
+            <h4>This Loop Was Used In:</h4>
             <div class="mix-container well">
               <div ng-repeat="mix in selected.mixes">
                 <a ui-sref="mix({mixId: mix._id})"><h5>{{mix.title}}</h5></a>
