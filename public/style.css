@@ -340,6 +340,9 @@ tutorial-section-menu {
     padding: 10px;
     box-shadow: 2px 2px 4px hsla(0,0,0,0.5);*/ }
 
+.padd {
+  padding: 0px 0px 10px; }
+
 .loop-item {
   padding-left: 5px;
   padding-top: 5px;
