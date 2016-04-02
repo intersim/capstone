@@ -7,7 +7,22 @@ app.directive('loopItem', function() {
     scope: {
       loop: '='
     },
-    controller: function($scope, UserFactory, AuthService){
+    controller: function($scope, UserFactory, AuthService, LoopFactory){
+
+      // generate random ID for canvas
+      function guidGenerator() {
+          var S4 = function() {
+             return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+          };
+          return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+      }
+
+      $scope.uniqueId = guidGenerator();
+
+      // initialize canvas with small cellSize, and minify=true
+      LoopFactory.initialize($scope.uniqueId, 12, true);
+      // draw the loop onto the canvas
+      LoopFactory.drawLoop($scope.loop);
 
       UserFactory.inBucket($scope.loop)
       .then(function(value){
