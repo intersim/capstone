@@ -135,14 +135,14 @@ function animColor (wallTime) {
 
   function getYvals(note) {
     var noteYMap = {
-      c5: {top: 0, bottom: 39},
-      b4: {top: 40, bottom: 79},
-      a4: {top: 80, bottom: 119},
-      g4: {top: 120, bottom: 159},
-      f4: {top: 160, bottom: 199},
-      e4: {top: 200, bottom: 239},
-      d4: {top: 240, bottom: 279},
-      c4: {top: 280, bottom: 319}
+      c5: {top: 0, bottom: grid - 1},
+      b4: {top: grid, bottom: (grid * 2) - 1},
+      a4: {top: grid * 2, bottom: (grid * 3) - 1},
+      g4: {top: grid * 3, bottom: (grid * 4) - 1},
+      f4: {top: grid * 4, bottom: (grid * 5) - 1},
+      e4: {top: grid * 5, bottom: (grid * 6) - 1},
+      d4: {top: grid * 6, bottom: (grid * 7) - 1},
+      c4: {top: grid * 7, bottom: (grid * 8) - 1}
     }
     var edges = noteYMap[note.pitch];
     return {top: edges.top, bottom: edges.bottom};
@@ -150,14 +150,14 @@ function animColor (wallTime) {
 
   function getXvals(note) {
     var noteXMap = {
-      "0:0:0": {left: 0, right: 39},
-      "0:0:2": {left: 40, right: 79},
-      "0:1:0": {left: 80, right: 119},
-      "0:1:2": {left: 120, right: 159},
-      "0:2:0": {left: 160, right: 199},
-      "0:2:2": {left: 200, right: 239},
-      "0:3:0": {left: 240, right: 279},
-      "0:3:2": {left: 280, right: 320}
+      "0:0:0": {left: 0, right: grid - 1},
+      "0:0:2": {left: grid, right: (grid * 2) - 1},
+      "0:1:0": {left: grid * 2, right: (grid * 3) - 1},
+      "0:1:2": {left: grid * 3, right: (grid * 4) - 1},
+      "0:2:0": {left: grid * 4, right: (grid * 5) - 1},
+      "0:2:2": {left: grid * 5, right: (grid * 6) - 1},
+      "0:3:0": {left: grid * 6, right: (grid * 7) - 1},
+      "0:3:2": {left: grid * 7, right: grid * 8}
     }
     var edges = noteXMap[note.startTime]
     return {left: edges.left, right: edges.right};
@@ -186,7 +186,7 @@ function animColor (wallTime) {
     })
   }
 
-  LoopFactory.initialize = function(cellSize) {
+  LoopFactory.initialize = function(cellSize, minify) {
     Tone.Transport.cancel();
     loopMusicData = {};
     console.log("initializing canvas, clearing transport, clearing loopData");
@@ -204,10 +204,12 @@ function animColor (wallTime) {
     canvas.renderAll();
     grid = cellSize;
 
-    // draw lines on grid
-    for (var i = 0; i < (cellSize * 8 / grid); i++) {
-      canvas.add(new fabric.Line([ i * grid, 0, i * grid, cellSize * 8], { stroke: '#686868', selectable: false }));
-      canvas.add(new fabric.Line([ 0, i * grid, cellSize * 8, i * grid], { stroke: '#686868', selectable: false }))
+    if (!minify) {
+      // draw lines on grid
+      for (var i = 0; i < (cellSize * 8 / grid); i++) {
+        canvas.add(new fabric.Line([ i * grid, 0, i * grid, cellSize * 8], { stroke: '#686868', selectable: false }));
+        canvas.add(new fabric.Line([ 0, i * grid, cellSize * 8, i * grid], { stroke: '#686868', selectable: false }))
+      }
     }
 
     // create a new rectangle obj on mousedown in canvas area
@@ -267,7 +269,7 @@ function animColor (wallTime) {
   LoopFactory.addNote = function(options, left, right, top, width){
     var offsetX = left;
     var offsetY = top;
-    var noteWidth = width || 40;
+    var noteWidth = width || grid;
 
     if (options && options.target) {
       selectedInstr.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
@@ -301,7 +303,7 @@ function animColor (wallTime) {
         lockScalingFlip: true,
         hasRotatingPoint: false
       });
-
+    if (grid === 12.5) newRect.set('fill', '#fff');
     canvas.add(newRect);
     if (!notes[roundedX]) notes[roundedX] = [];
     notes[roundedX].push(newRect);
