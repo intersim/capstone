@@ -1,35 +1,24 @@
 
 <div class="mixEditor">
 
-  <h1>Mix Editor<span ng-show="mix.title !== 'Untitled'">: {{ mix.title }}</span> <button class="btn btn-success playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span> Play</button>
+  <h1>Mix Editor<span ng-show="mix.title !== 'Untitled'">: {{ mix.title }}</span>
 
-  <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+  <div class="mixControls">
+    <button class="btn btn-primary playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="fa fa-play"></span></button>
 
-  <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+    <button class="btn btn-primary playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="fa fa-stop"></span></button>
+
+    <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="fa fa-floppy-o"></span></button>
+  </div>
 
   </h1>  
-
-
 
 
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
       <form>
         <h4>Track {{$index + 1}}</h4>
-        <div class="volumeButtons">
-          <button class="btn btn-xs btn-primary" title="mute"><i class="fa fa-microphone-slash"></i></button>
-          <button class="btn btn-xs btn-primary" title="solo"><i class="fa fa-microphone"></i></button>
-        </div>
-        <div class="volumeControl">
-          <label><i class="fa fa-volume-up"></i></label>
-          <select>
-            <option>100%</option>
-            <option>75%</option>
-            <option>50%</option>
-            <option>25%</option>
-          </select>
-        </div>
-        <div class="instrSelect">
+        <div class="instrSelect styled-select">
           <select ng-model="track.instrumentModel" ng-change="changeInstr(track.instrumentModel.name, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
           </select>
         </div>

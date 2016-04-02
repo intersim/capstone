@@ -127,7 +127,31 @@ tutorial-section-menu {
   .saveLoopForm .well {
     width: 75%; }
 
+.styled-select {
+  background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% -6px;
+  overflow: hidden;
+  width: 120px;
+  background-color: #000;
+  border-radius: 4px;
+  height: 20px; }
+  .styled-select select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 20px;
+    padding: 0;
+    width: 120px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    option-width: 120px; }
+
 .mixEditor h1 {
+  margin-left: 10px;
+  display: inline; }
+
+.mixEditor .mixControls {
   margin-left: 10px;
   display: inline; }
 
@@ -146,7 +170,6 @@ tutorial-section-menu {
     margin-top: 4px; }
 
 .playPause, .saveButton {
-  margin-left: 10px;
   vertical-align: top; }
 
 .addTrack {
@@ -179,12 +202,14 @@ tutorial-section-menu {
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap; }
+  .track-container h4 {
+    margin: 0;
+    margin-right: 6px; }
   .track-container form {
     margin-top: 24px;
     margin-left: 10px;
-    height: 120px;
-    width: 100px;
-    display: inline-block; }
+    display: flex;
+    align-content: flex-end; }
     .track-container form .volumeButtons {
       display: inline; }
 
