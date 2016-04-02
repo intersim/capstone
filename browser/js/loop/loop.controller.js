@@ -1,6 +1,6 @@
 app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFactory, AuthService, $uibModal) {
 
-  LoopFactory.initialize();
+  LoopFactory.initialize(40);
   // SamplerFactory.test();
   $scope.loop = loop;
 

@@ -103,36 +103,36 @@ function animColor (wallTime) {
   }
 
   function getPitchStr (yVal) {
-    if (yVal >= 0 && yVal < 40) return "c5";
-    if (yVal >= 40 && yVal < 80) return "b4";
-    if (yVal >= 80 && yVal < 120) return "a4";
-    if (yVal >= 120 && yVal < 160) return "g4";
-    if (yVal >= 160 && yVal < 200) return "f4";
-    if (yVal >= 200 && yVal < 240) return "e4";
-    if (yVal >= 240 && yVal < 280) return "d4";
-    if (yVal >= 280 && yVal < 320) return "c4";
+    if (yVal >= 0 && yVal < grid) return "c5";
+    if (yVal >= grid && yVal < grid * 2) return "b4";
+    if (yVal >= grid * 2 && yVal < grid * 3) return "a4";
+    if (yVal >= grid * 3 && yVal < grid * 4) return "g4";
+    if (yVal >= grid * 4 && yVal < grid * 5) return "f4";
+    if (yVal >= grid * 5 && yVal < grid * 6) return "e4";
+    if (yVal >= grid * 6 && yVal < grid * 7) return "d4";
+    if (yVal >= grid * 7 && yVal < grid * 8) return "c4";
   }
 
   function getBeatStr (xVal) {
-    if (xVal >= 0 && xVal < 40) return "0:0:0";
-    if (xVal >= 40 && xVal < 80) return "0:0:2";
-    if (xVal >= 80 && xVal < 120) return "0:1:0";
-    if (xVal >= 120 && xVal < 160) return "0:1:2";
-    if (xVal >= 160 && xVal < 200) return "0:2:0";
-    if (xVal >= 200 && xVal < 240) return "0:2:2";
-    if (xVal >= 240 && xVal < 280) return "0:3:0";
-    if (xVal >= 280 && xVal < 320) return "0:3:2";
+    if (xVal >= 0 && xVal < grid) return "0:0:0";
+    if (xVal >= grid && xVal < grid * 2) return "0:0:2";
+    if (xVal >= grid * 2 && xVal < grid * 3) return "0:1:0";
+    if (xVal >= grid * 3 && xVal < grid * 4) return "0:1:2";
+    if (xVal >= grid * 4 && xVal < grid * 5) return "0:2:0";
+    if (xVal >= grid * 5 && xVal < grid * 6) return "0:2:2";
+    if (xVal >= grid * 6 && xVal < grid * 7) return "0:3:0";
+    if (xVal >= grid * 7 && xVal < grid * 8) return "0:3:2";
   }
 
   function getDurationStr (width) {
-    if (width === 40) return "8n";
-    if (width === 80) return "4n";
-    if (width === 120) return "4n+8n";
-    if (width === 160) return "2n";
-    if (width === 200) return "2n+8n";
-    if (width === 240) return "2n+4n";
-    if (width === 280) return "2n+4n+8n";
-    if (width === 320) return "1n";
+    if (width === grid) return "8n";
+    if (width === grid * 2) return "4n";
+    if (width === grid * 3) return "4n+8n";
+    if (width === grid * 4) return "2n";
+    if (width === grid * 5) return "2n+8n";
+    if (width === grid * 6) return "2n+4n";
+    if (width === grid * 7) return "2n+4n+8n";
+    if (width === grid * 8) return "1n";
   }
 
   function getYvals(note) {
@@ -198,7 +198,7 @@ function animColor (wallTime) {
     })
   }
 
-  LoopFactory.initialize = function() {
+  LoopFactory.initialize = function(cellSize) {
     Tone.Transport.cancel();
     loopMusicData = {};
     console.log("initializing canvas, clearing transport, clearing loopData");
@@ -206,15 +206,15 @@ function animColor (wallTime) {
     canvas = new fabric.Canvas('c', { 
         selection: false
       });
-    canvas.setHeight(320);
-    canvas.setWidth(320);
+    canvas.setHeight(cellSize * 8);
+    canvas.setWidth(cellSize * 8);
     canvas.renderAll();
-    grid = 40;
+    grid = cellSize;
 
     // draw lines on grid
-    for (var i = 0; i < (320 / grid); i++) {
-      canvas.add(new fabric.Line([ i * grid, 0, i * grid, 320], { stroke: '#686868', selectable: false }));
-      canvas.add(new fabric.Line([ 0, i * grid, 320, i * grid], { stroke: '#686868', selectable: false }))
+    for (var i = 0; i < (cellSize * 8 / grid); i++) {
+      canvas.add(new fabric.Line([ i * grid, 0, i * grid, cellSize * 8], { stroke: '#686868', selectable: false }));
+      canvas.add(new fabric.Line([ 0, i * grid, cellSize * 8, i * grid], { stroke: '#686868', selectable: false }))
     }
 
     // create a new rectangle obj on mousedown in canvas area
@@ -282,8 +282,8 @@ function animColor (wallTime) {
 
     var newObjectId = ++lastObjId;
 
-    var roundedX = Math.floor(offsetX / 40) * 40;
-    var roundedY = Math.floor(offsetY / 40) * 40;
+    var roundedX = Math.floor(offsetX / grid) * grid;
+    var roundedY = Math.floor(offsetY / grid) * grid;
 
     var newRect = new fabric.Rect({
         Myid: newObjectId,
@@ -291,7 +291,7 @@ function animColor (wallTime) {
         right: roundedX,
         top: roundedY,
         width: noteWidth, 
-        height: 40, 
+        height: grid, 
         fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
         originX: 'left', 
         originY: 'top',
