@@ -24,7 +24,9 @@
             </li>
         </ul>
         <button ng-show="!user" ui-sref="login" class="btn btn-primary pull-right">Login</button>
-        <button ng-show="!user" ui-sref="signup" class="btn btn-primary pull-right">Sign Up</button>
+        <div ng-controller="HomeCtrl">
+        <button ng-show="!user" ng-click="open()"class="btn btn-primary pull-right">Sign Up</button>
+        </div>
         <div ng-show="user" class="welcome pull-right">
             <span>Welcome, {{ user.username }}!</span>
             <a ng-click="logout()">Logout</a>
