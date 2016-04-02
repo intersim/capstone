@@ -4,6 +4,7 @@
   }
   .filters {
     margin-top: 60px;
+    display: inline-flex;
   }
   .loop-container {
     display: flex;
@@ -19,8 +20,16 @@
  }
 }
 
+.form-group {
+  margin-left: 25px;
+}
+
 .padd {
   padding: 0px 0px 10px;
+}
+
+.form-btn {
+  margin-top: 18px;
 }
 
 .loop-item {
