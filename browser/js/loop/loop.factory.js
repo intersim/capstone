@@ -178,6 +178,7 @@ function animColor (wallTime) {
   }
   
   LoopFactory.drawLoop = function(loop) {
+    console.log('drawing loop')
     loop.notes.forEach(function(note) {
       var x = getXvals(note);
       var y = getYvals(note);
@@ -305,8 +306,11 @@ function animColor (wallTime) {
         lockScalingFlip: true,
         hasRotatingPoint: false
       });
-    if (grid === 12.5) newRect.set('fill', '#fff');
+    
     canvas.add(newRect);
+
+    if (grid === 12.5) newRect.set('fill', '#fff');
+    
     if (!notes[roundedX]) notes[roundedX] = [];
     notes[roundedX].push(newRect);
 
