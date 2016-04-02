@@ -1,3 +1,15 @@
+h1 {
+  padding-top: 30px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+}
+
+/* .axis-label {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+} */
+
 .loop-editor-container {
   display: flex;
   flex-direction: column;
@@ -11,9 +23,20 @@
   }
 }
 
+.loop-controls {
+  margin-top: 15px;
+  .btn {
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+}
+
 .saveLoopForm {
   margin-top: 20px;
   .well {
     width: 75%;
   }
 }
+
+
+

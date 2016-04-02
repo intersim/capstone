@@ -1,3 +1,6 @@
+h1 {
+  font-family: 'Pontano Sans'; }
+
 * {
   box-sizing: border-box; }
 
@@ -9,6 +12,10 @@ fullstack-logo {
   fullstack-logo img {
     display: block;
     width: 100%; }
+
+navbar .btn {
+  margin-top: 6px;
+  margin-left: 6px; }
 
 navbar .fa {
   margin-top: -10px; }
@@ -112,6 +119,16 @@ tutorial-section-menu {
   width: 60%;
   margin: 0 auto; }
 
+h1 {
+  padding-top: 30px;
+  padding-bottom: 10px;
+  text-transform: uppercase; }
+
+/* .axis-label {
+  display: inline-block;
+  height: 40px;
+  width: 40px;
+} */
 .loop-editor-container {
   display: flex;
   flex-direction: column;
@@ -121,6 +138,12 @@ tutorial-section-menu {
     display: inline; }
   .loop-editor-container canvas {
     border: 1px solid #ccc; }
+
+.loop-controls {
+  margin-top: 15px; }
+  .loop-controls .btn {
+    margin-left: 5px;
+    margin-right: 5px; }
 
 .saveLoopForm {
   margin-top: 20px; }

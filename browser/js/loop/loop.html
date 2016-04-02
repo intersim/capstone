@@ -1,20 +1,3 @@
-<style type="text/css">
-  .center {
-    text-align: center;
-  }
-
-  .margin-top {
-    margin-top: 8px;
-  }
-
-  .axis-label {
-    display: inline-block;
-    height: 40px;
-    width: 40px;
-  }
-
-</style>
-
 <div class="loop-editor-container">
 
   <h1>Loop Editor<span ng-show="loop.name">: {{loop.name}}</span><small ng-show="!loopBelongsToUser">by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h1>
@@ -31,7 +14,7 @@
   </div> -->
   <canvas id="c" width="600" height="600"></canvas>
 
-  <div class="loopControls margin-top">
+  <div class="loop-controls">
     <button class="btn btn-primary" id="delete" ng-click="deleteSelected()">
       <i class="fa fa-trash-o" alt="delete"></i></button>
     <button class="btn btn-primary" id="play" ng-show="!playing" ng-click="toggle()">
