@@ -1,7 +1,7 @@
 
 <div class="mixEditor">
 
-  <h1>Mix Editor<span ng-show="mix.title !== 'Untitled'">: {{ mix.title }}</span>
+  <h1>Mix Editor
 
   <div class="mixControls">
     <button class="btn btn-primary playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="fa fa-play"></span></button>
@@ -11,7 +11,7 @@
     <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="fa fa-floppy-o"></span></button>
   </div>
 
-  </h1>  
+  </h1>
   <button class="openLoopBucket btn btn-lg btn-primary pull-right" ng-click="showLoopBucket()"><i class="fa fa-shopping-basket"></i> <span ng-show="loopBucketOpen">Close</span><span ng-show="!loopBucketOpen">Open</span> Loop Bucket</button>
   
   <div class="pull-right">
@@ -23,6 +23,7 @@
       <h4 class="text-center">{{loop.name}}</h4>
     </div>
   </div>
+  <h2 ng-show="mix.title !== 'Untitled'">{{ mix.title }} <small> by <a href="" ui-sref="profile({userId: mix.creator._id})">{{mix.creator.username}}</a></small></h2>
 
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">

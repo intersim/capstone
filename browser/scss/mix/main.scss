@@ -31,6 +31,9 @@ $loopPulseColor: lighten(#005BDB, 30%);
     margin-left: 10px;
     display: inline;
   }
+  h2 {
+    margin-left: 10px;
+  }
   .mixControls {
     margin-left: 10px;
     display: inline;
@@ -68,6 +71,7 @@ $loopPulseColor: lighten(#005BDB, 30%);
   color: white;
   vertical-align: text-bottom;
   display: inline-block;
+  box-sizing: border-box;
   cursor: alias;
   h4 {
     color: white;
@@ -99,7 +103,7 @@ $loopPulseColor: lighten(#005BDB, 30%);
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap;
-  margin-top: 100px;
+  margin-top: 60px;
   margin-left: 10px;
   margin-right: 10px;
   background-color: lighten(#272b30, 7%);
@@ -123,12 +127,13 @@ $loopPulseColor: lighten(#005BDB, 30%);
     margin-left: 10px;
     display: flex;
     .measure {
+      box-sizing: border-box;
       box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
       border-radius: 6px;
       background-color: lighten(#272b30, 70%);
-      border-left: 1px solid #555;
-      border-right: 1px solid #555;
-      min-width: 140px;
+      border-left: 2px solid lighten(#272b30, 3%);
+      border-right: 2px solid lighten(#272b30, 3%);
+      min-width: 143px;
       height: 100%;
     }
   }

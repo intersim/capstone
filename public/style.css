@@ -151,6 +151,9 @@ tutorial-section-menu {
   margin-left: 10px;
   display: inline; }
 
+.mixEditor h2 {
+  margin-left: 10px; }
+
 .mixEditor .mixControls {
   margin-left: 10px;
   display: inline; }
@@ -185,6 +188,7 @@ tutorial-section-menu {
   color: white;
   vertical-align: text-bottom;
   display: inline-block;
+  box-sizing: border-box;
   cursor: alias; }
   .item h4 {
     color: white;
@@ -213,7 +217,7 @@ tutorial-section-menu {
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap;
-  margin-top: 100px;
+  margin-top: 60px;
   margin-left: 10px;
   margin-right: 10px;
   background-color: #373d44; }
@@ -234,12 +238,13 @@ tutorial-section-menu {
     margin-left: 10px;
     display: flex; }
     .track-container .track .measure {
+      box-sizing: border-box;
       box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
       border-radius: 6px;
       background-color: #dbdee1;
-      border-left: 1px solid #555;
-      border-right: 1px solid #555;
-      min-width: 140px;
+      border-left: 2px solid #2e3338;
+      border-right: 2px solid #2e3338;
+      min-width: 143px;
       height: 100%; }
 
 .track * {
