@@ -35,9 +35,8 @@
     <div ng-show="selected" class="details col-md-4">
       <div class="panel panel-default">
         <div class="panel-body">
-        <h3>{{selected.name}}</h3>
-          <button ui-sref="loop({loopId: selected._id})" type="button" class="btn btn-sm btn-primary pull-right">
-          <i class="fa fa-pencil"></i></button>
+        <h3>{{selected.name}} <button ui-sref="loop({loopId: selected._id})" type="button" class="btn btn-sm btn-primary pull-right"><i class="fa fa-pencil"></i></button></h3>
+          
           <p>
             <strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a>
           </p>
