@@ -363,7 +363,8 @@ tutorial-section-menu {
   .loop-item :hover {
     cursor: pointer; }
   .loop-item h4 {
-    color: white; }
+    color: white;
+    vertical-align: center; }
   .loop-item .btn {
     margin-right: 6px; }
   .loop-item .btn-accent {

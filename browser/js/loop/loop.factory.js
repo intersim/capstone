@@ -85,20 +85,17 @@ function animColor (wallTime) {
     var startTime = getBeatStr(objX);
 
     var eventId = Tone.Transport.schedule(function(){
+      // make sound
       selectedInstr.triggerAttackRelease(pitch, duration);
-      // E: animate notes here!
-      // lastNoteArr = notes[objX];
+      // change note color
       notes[objX].forEach(function (note) {
         animationList.push({note: note, oldColor: note.get('fill'), startTime: window.performance.now(), duration: 100 });
       });
-      // in tick callback: use info to set color, other stuff
-      // push an animation (what note, pulse color, start time (using window.performance.now)) into a stack...
-      // animationList.push({noteObj: lastNotePlayed.rect, oldColor: lastNotePlayed.rect.get('fill'), startTime: window.performance.now() })
     }, startTime, objectId);
+
+    //save music data
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
     
-    // console.log("lastNoteArr: ", lastNoteArr);
-    // console.log("lastAnimatedArr: ", lastAnimatedArr);
     return eventId;
   }
 
@@ -202,9 +199,14 @@ function animColor (wallTime) {
     Tone.Transport.cancel();
     loopMusicData = {};
     console.log("initializing canvas, clearing transport, clearing loopData");
-    // initialize canvas for a 8 * 8 grid
+    // initialize canvas for an 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
-        selection: false
+        selection: false,
+        defaultCursor: 'pointer',
+        freeDrawingCursor: 'pointer',
+        hoverCursor: 'grab',
+        moveCursor: 'grabbing',
+        rotationCursor: 'pointer'
       });
     canvas.setHeight(320);
     canvas.setWidth(320);
@@ -218,10 +220,10 @@ function animColor (wallTime) {
     }
 
     // create a new rectangle obj on mousedown in canvas area
-    // change this to a double-click event (have to add a listener)?
+    // change this to a double-click event ?
     canvas.on('mouse:down', LoopFactory.addNote)
 
-    // snap to grid when moving obj (doesn't work when resizing):
+    // snap to grid when moving or elongating obj
     canvas.on('object:modified', LoopFactory.snapToGrid)
 
   }
@@ -246,6 +248,9 @@ function animColor (wallTime) {
       var noteToDelete = loopMusicData[idC]
       delete loopMusicData[idC];
       
+      // delete old object from notes data structure (used to animate notes)
+      // add updated object to new place in notes obj
+
       //delete old event
       Tone.Transport.clear(idC);
 
@@ -258,6 +263,10 @@ function animColor (wallTime) {
       var yVal = top
       if(yVal < 0) yVal = 0;
 
+      canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+
+      if (!notes[xVal]) notes[xVal] = [];
+      notes[xVal].push(canvas.getActiveObject());
       scheduleTone(xVal, yVal, newWidth, idC);
 
   }

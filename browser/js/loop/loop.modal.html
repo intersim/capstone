@@ -6,11 +6,11 @@
         {{ error }}
     </alert> -->
 
-		<label> Name: </label>
+		<label> Loop Name: </label>
 			<input class="form-control" ng-model="loopform.name" value="{{loop.name}}"/>
 		<label> Tags: </label>
 			<input class="form-control" ng-model="loopform.tags"/>
-		<label> Category: </label>
+<!-- 		<label> Category: </label>
 			<select class="form-control" ng-model="loopform.category">
 				<option value="rhythm">rhythm</option>
 				<option value="chord">chord</option>
@@ -20,9 +20,9 @@
       <label><input type="radio" ng-model="loopform.isPublic" value="true"/>Public?</label>
     </div>
     <div class="radio">
-      <label><input type="radio" ng-model="loopform.isPublic" value="false"/>Private?</label>
+      <label><input type="radio" ng-model="loopform.isPublic" value="false"/>Private?</label> -->
     </div>
-    <button ng-show="loopBelongsToUser" class="btn btn-info" id="save">Save Loop</button>
-    <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy">Copy Loop</button>	
+    <button ng-show="loopBelongsToUser" class="btn btn-primary" id="save">Save</button>
+    <button ng-show="!loopBelongsToUser" class="btn btn-primary" id="copy">Copy</button>	
 	</form>
 </div>
