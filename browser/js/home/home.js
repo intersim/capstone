@@ -25,6 +25,11 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 	      $uibModalInstance.close()
 	    })
 	  }
+
+	  $scope.close = function(){
+	  	$uibModalInstance.close()
+	  }
+
 	}
   })
 
