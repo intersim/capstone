@@ -220,10 +220,10 @@ function animColor (wallTime) {
     }
 
     // create a new rectangle obj on mousedown in canvas area
-    // change this to a double-click event (have to add a listener)?
+    // change this to a double-click event ?
     canvas.on('mouse:down', LoopFactory.addNote)
 
-    // snap to grid when moving obj (doesn't work when resizing):
+    // snap to grid when moving or elongating obj
     canvas.on('object:modified', LoopFactory.snapToGrid)
 
   }
