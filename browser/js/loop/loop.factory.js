@@ -263,6 +263,10 @@ function animColor (wallTime) {
       var yVal = top
       if(yVal < 0) yVal = 0;
 
+      canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+
+      console.log("new coords: ", xVal, yVal);
+
       scheduleTone(xVal, yVal, newWidth, idC);
 
   }
