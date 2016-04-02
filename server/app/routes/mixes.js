@@ -11,7 +11,10 @@ router.get('/', function(req, res, next) {
   .populate('creator')
   .exec()
   .then(function(mixes){
-    if (mixes) res.json(mixes);
+    if (mixes) res.json(mixes.map(function(mix) {
+      mix.creator = mix.creator.sanitize();
+      return mix;
+    }));
     else res.status(404).send();
   })
   .then(null, next)
@@ -36,6 +39,7 @@ router.param('mixId', function(req, res, next) {
   .exec()
   .then(function(mix) {
     if (mix) {
+      mix.creator = mix.creator.sanitize();
       req.mix = mix;
       next();
     } else {
