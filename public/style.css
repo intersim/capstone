@@ -192,16 +192,20 @@ tutorial-section-menu {
     margin: 0; }
 
 .loopBucket {
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+  background-color: #373d44;
+  border-radius: 6px;
   white-space: nowrap;
   justify-content: space-around;
   align-content: space-between;
   height: 120px;
-  width: 50%;
+  width: 50vw;
   overflow-x: scroll;
-  float: right; }
+  float: right;
+  margin-right: 10px; }
   .loopBucket .item {
     height: 100px;
-    margin: 0 10px; }
+    margin: 8px 10px; }
 
 .track-container {
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);

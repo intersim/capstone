@@ -76,18 +76,23 @@ $loopPulseColor: lighten(#005BDB, 30%);
   }
 }
 .loopBucket {
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1); 
+  background-color: lighten(#272b30, 7%);
+  border-radius: 6px;
   white-space: nowrap;
   justify-content: space-around;
   align-content: space-between;
   height: 120px;
-  width: 50%;
+  width: 50vw;
   overflow-x: scroll;
   float: right;
+  margin-right: 10px;
   .item {
     height: 100px;
-    margin: 0 10px;
+    margin: 8px 10px;
   }
 }
+
 .track-container {
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
@@ -97,7 +102,6 @@ $loopPulseColor: lighten(#005BDB, 30%);
   margin-top: 100px;
   margin-left: 10px;
   margin-right: 10px;
-  
   background-color: lighten(#272b30, 7%);
   h4 {
     margin:0;
