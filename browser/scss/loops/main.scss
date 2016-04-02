@@ -1,9 +1,9 @@
 .loops {
   .details {
-    margin-top: 60px;
+    margin-top: 30px;
   }
   .filters {
-    margin-top: 60px;
+    margin-top: 30px;
     display: inline-flex;
   }
   .loop-container {
@@ -19,6 +19,8 @@
     box-shadow: 2px 2px 4px hsla(0,0,0,0.5);*/
  }
 }
+
+/* for selects: use class "style-select" */
 
 .form-group {
   margin-left: 25px;
@@ -48,6 +50,9 @@
     color: white;
   }
   .btn {
+    margin-right: 6px;
+  }
+  .btn-accent {
     margin-right: 6px;
   }
 }
