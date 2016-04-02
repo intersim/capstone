@@ -150,14 +150,38 @@ h1 {
   .saveLoopForm .well {
     width: 75%; }
 
+.styled-select {
+  background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% -6px;
+  overflow: hidden;
+  width: 120px;
+  background-color: #000;
+  border-radius: 4px;
+  height: 20px; }
+  .styled-select select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 20px;
+    padding: 0;
+    width: 120px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    option-width: 120px; }
+
 .mixEditor h1 {
   margin-left: 10px;
   display: inline; }
 
 .mixEditor h3 {
   margin-left: 10px;
-  margin-top: 60px;
-  margin-bottom: 20px; }
+  margin-top: 5px;
+  margin-bottom: 0; }
+
+.mixEditor .mixControls {
+  margin-left: 10px;
+  display: inline; }
 
 .mixform {
   margin-top: 20px;
@@ -169,81 +193,103 @@ h1 {
     margin-top: 4px; }
 
 .playPause, .saveButton {
-  margin-left: 10px;
   vertical-align: top; }
 
 .addTrack {
-  margin-left: 10px; }
+  margin-left: 10px;
+  margin-bottom: 10px; }
 
 .item {
-  width: 130px;
-  margin-left: 4px;
-  margin-right: 5px;
+  min-width: 140px;
+  width: 140px;
   background-color: #005BDB;
   height: 100%;
   border-radius: 4px;
   color: white;
-  vertical-align: text-bottom; }
-  .item :hover {
-    cursor: pointer; }
+  vertical-align: text-bottom;
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: alias; }
   .item h4 {
     color: white;
     display: block;
     margin: 0; }
 
 .loopBucket {
-  display: flex;
-  flex-wrap: wrap;
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+  background-color: #373d44;
+  border-radius: 6px;
+  white-space: nowrap;
   justify-content: space-around;
   align-content: space-between;
-  height: 100px; }
+  height: 120px;
+  width: 50vw;
+  overflow-x: scroll;
+  float: right;
+  margin-right: 10px; }
+  .loopBucket .item {
+    height: 100px;
+    margin: 8px 10px; }
 
 .track-container {
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
   overflow-x: scroll;
   overflow-y: scroll;
-  white-space: nowrap; }
+  white-space: nowrap;
+  margin-top: 86px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: #373d44; }
+  .track-container h4 {
+    margin: 0;
+    margin-right: 6px; }
   .track-container form {
     margin-top: 24px;
     margin-left: 10px;
-    height: 120px;
-    width: 100px;
-    display: inline-block; }
+    display: flex;
+    align-content: flex-end; }
     .track-container form .volumeButtons {
       display: inline; }
-
-.track {
-  height: 100px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  display: flex; }
-
-.measure {
-  background-color: #ebebeb;
-  border-left: 1px solid #555;
-  border-right: 1px solid #555;
-  min-width: 140px;
-  height: 100%; }
+  .track-container .track {
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    display: flex; }
+    .track-container .track .measure {
+      box-sizing: border-box;
+      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      background-color: #dbdee1;
+      border-left: 2px solid #2e3338;
+      border-right: 2px solid #2e3338;
+      min-width: 143px;
+      height: 100%; }
 
 .track * {
   display: inline-block; }
 
 .over {
-  background-color: #555; }
+  background-color: #333; }
 
 .trash {
+  display: none;
+  padding: 10px 20px;
   width: 120px;
-  height: 140px;
-  padding: 20px;
-  float: right;
-  background-color: darkgray;
+  height: 120px;
   border-radius: 10px;
-  margin-top: 5px;
-  margin-right: 40px;
-  margin-bottom: 40px; }
+  background-color: #555d68;
+  margin-right: 20px; }
   .trash i {
-    font-size: 100px;
-    opacity: 0.7; }
+    color: #86909d;
+    font-size: 100px; }
+
+.openLoopBucket {
+  cursor: pointer;
+  margin-right: 10px; }
+  .openLoopBucket i {
+    font-size: 20px; }
 
 .playing {
   -webkit-animation: pulse 0.5s linear 4, color_change 0.25s 8 alternate;

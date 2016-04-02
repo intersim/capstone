@@ -1,15 +1,44 @@
 $loopColor: #005BDB;
 $loopPulseColor: lighten(#005BDB, 30%);
 
+
+.styled-select {
+  background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% -6px;
+  overflow: hidden;
+  width: 120px;
+  background-color: #000;
+  border-radius: 4px;
+  height: 20px;
+  select {
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    height: 20px;
+    padding: 0;
+    width: 120px;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    option: {
+      width: 120px
+    }
+  }
+}
+
 .mixEditor {
   h1 {
     margin-left: 10px;
-    display:inline;
+    display: inline;
   }
   h3 {
     margin-left: 10px;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+  .mixControls {
+    margin-left: 10px;
+    display: inline;
   }
 }
 .mixform {
@@ -23,25 +52,24 @@ $loopPulseColor: lighten(#005BDB, 30%);
   }
 }
 .playPause, .saveButton {
-  margin-left: 10px;
   vertical-align: top;
 }
   
 .addTrack {
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 .item {
-  width: 130px;
-  margin-left: 4px;
-  margin-right: 5px;
+  min-width: 140px;
+  width: 140px;
   background-color: $loopColor;
   height: 100%;
   border-radius: 4px;
   color: white;
   vertical-align: text-bottom;
-  :hover {
-    cursor: pointer;
-  }
+  display: inline-block;
+  box-sizing: border-box;
+  cursor: alias;
   h4 {
     color: white;
     display: block;
@@ -49,60 +77,90 @@ $loopPulseColor: lighten(#005BDB, 30%);
   }
 }
 .loopBucket {
-  display: flex;
-  flex-wrap: wrap;
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1); 
+  background-color: lighten(#272b30, 7%);
+  border-radius: 6px;
+  white-space: nowrap;
   justify-content: space-around;
   align-content: space-between;
-  height: 100px;
+  height: 120px;
+  width: 50vw;
+  overflow-x: scroll;
+  float: right;
+  margin-right: 10px;
+  .item {
+    height: 100px;
+    margin: 8px 10px;
+  }
 }
+
 .track-container {
+  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap;
+  margin-top: 86px;
+  margin-left: 10px;
+  margin-right: 10px;
+  background-color: lighten(#272b30, 7%);
+  h4 {
+    margin:0;
+    margin-right: 6px;
+  }
   form {
     margin-top: 24px;
     margin-left: 10px;
-    height: 120px;
-    width: 100px;
-    display: inline-block;
+    display: flex;
+    align-content: flex-end;
     .volumeButtons {
       display: inline;
     }
   }
-}
-.track {
-  height: 100px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  display: flex;
-}
-.measure {
-  background-color: #ebebeb;
-  border-left: 1px solid #555;
-  border-right: 1px solid #555;
-  min-width: 140px;
-  height: 100%;
+  .track {
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    display: flex;
+    .measure {
+      box-sizing: border-box;
+      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      background-color: lighten(#272b30, 70%);
+      border-left: 2px solid lighten(#272b30, 3%);
+      border-right: 2px solid lighten(#272b30, 3%);
+      min-width: 143px;
+      height: 100%;
+    }
+  }
 }
 .track * {
   display: inline-block;
 }
 .over {
-  background-color: #555;
+  background-color: #333;
 }
+
 .trash {
+  display: none;
+  padding: 10px 20px;
   width: 120px;
-  height: 140px;
-  padding: 20px;
-  float: right;
-  background-color: darkgray;
+  height: 120px;
   border-radius: 10px;
-  margin-top: 5px;
-  margin-right: 40px;
-  margin-bottom: 40px;
+  background-color: lighten(#272b30, 20%);
+  margin-right: 20px;
   i {
+    color: lighten(#272b30, 40%);
     font-size: 100px;
-    opacity: 0.7;
+  }
+}
+
+.openLoopBucket {
+  cursor: pointer;
+  margin-right: 10px;
+  i {
+    font-size: 20px;
   }
 }
 

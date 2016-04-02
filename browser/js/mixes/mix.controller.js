@@ -5,6 +5,8 @@
 app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket, $uibModal){
   var trackCount = mix.tracks.length - 1;
 
+  $scope.loopBucketOpen = false;
+
   $scope.addTrack = function() {
     if (trackCount < 4) MixFactory.addTrack(trackCount);
     else console.error("Can't have more than 4 tracks!");
@@ -65,7 +67,9 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   });
 
   }
-
+  $scope.showLoopBucket = function() {
+    $scope.loopBucketOpen = !$scope.loopBucketOpen;
+  }
 
 });
 
