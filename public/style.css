@@ -177,12 +177,14 @@ tutorial-section-menu {
   margin-bottom: 10px; }
 
 .item {
+  min-width: 140px;
   width: 140px;
   background-color: #005BDB;
   height: 100%;
   border-radius: 4px;
   color: white;
   vertical-align: text-bottom;
+  display: inline-block;
   cursor: alias; }
   .item h4 {
     color: white;
@@ -190,11 +192,16 @@ tutorial-section-menu {
     margin: 0; }
 
 .loopBucket {
-  display: flex;
-  flex-wrap: wrap;
+  white-space: nowrap;
   justify-content: space-around;
   align-content: space-between;
-  height: 100px; }
+  height: 120px;
+  width: 50%;
+  overflow-x: scroll;
+  float: right; }
+  .loopBucket .item {
+    height: 100px;
+    margin: 0 10px; }
 
 .track-container {
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -202,7 +209,7 @@ tutorial-section-menu {
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap;
-  margin-top: 50px;
+  margin-top: 100px;
   margin-left: 10px;
   margin-right: 10px;
   background-color: #373d44; }
@@ -216,22 +223,20 @@ tutorial-section-menu {
     align-content: flex-end; }
     .track-container form .volumeButtons {
       display: inline; }
-
-.track {
-  height: 100px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  display: flex; }
-
-.measure {
-  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  background-color: #dbdee1;
-  border-left: 1px solid #555;
-  border-right: 1px solid #555;
-  min-width: 140px;
-  height: 100%; }
+  .track-container .track {
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    display: flex; }
+    .track-container .track .measure {
+      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      background-color: #dbdee1;
+      border-left: 1px solid #555;
+      border-right: 1px solid #555;
+      min-width: 140px;
+      height: 100%; }
 
 .track * {
   display: inline-block; }

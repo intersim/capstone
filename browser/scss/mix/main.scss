@@ -60,12 +60,14 @@ $loopPulseColor: lighten(#005BDB, 30%);
   margin-bottom: 10px;
 }
 .item {
+  min-width: 140px;
   width: 140px;
   background-color: $loopColor;
   height: 100%;
   border-radius: 4px;
   color: white;
   vertical-align: text-bottom;
+  display: inline-block;
   cursor: alias;
   h4 {
     color: white;
@@ -74,11 +76,17 @@ $loopPulseColor: lighten(#005BDB, 30%);
   }
 }
 .loopBucket {
-  display: flex;
-  flex-wrap: wrap;
+  white-space: nowrap;
   justify-content: space-around;
   align-content: space-between;
-  height: 100px;
+  height: 120px;
+  width: 50%;
+  overflow-x: scroll;
+  float: right;
+  .item {
+    height: 100px;
+    margin: 0 10px;
+  }
 }
 .track-container {
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -86,7 +94,7 @@ $loopPulseColor: lighten(#005BDB, 30%);
   overflow-x: scroll;
   overflow-y: scroll;
   white-space: nowrap;
-  margin-top: 50px;
+  margin-top: 100px;
   margin-left: 10px;
   margin-right: 10px;
   
@@ -104,22 +112,22 @@ $loopPulseColor: lighten(#005BDB, 30%);
       display: inline;
     }
   }
-}
-.track {
-  height: 100px;
-  margin-top: 10px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  display: flex;
-}
-.measure {
-  box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
-  border-radius: 4px;
-  background-color: lighten(#272b30, 70%);
-  border-left: 1px solid #555;
-  border-right: 1px solid #555;
-  min-width: 140px;
-  height: 100%;
+  .track {
+    height: 100px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    display: flex;
+    .measure {
+      box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+      background-color: lighten(#272b30, 70%);
+      border-left: 1px solid #555;
+      border-right: 1px solid #555;
+      min-width: 140px;
+      height: 100%;
+    }
+  }
 }
 .track * {
   display: inline-block;
