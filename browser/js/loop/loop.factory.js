@@ -85,20 +85,17 @@ function animColor (wallTime) {
     var startTime = getBeatStr(objX);
 
     var eventId = Tone.Transport.schedule(function(){
+      // make sound
       selectedInstr.triggerAttackRelease(pitch, duration);
-      // E: animate notes here!
-      // lastNoteArr = notes[objX];
+      // change note color
       notes[objX].forEach(function (note) {
         animationList.push({note: note, oldColor: note.get('fill'), startTime: window.performance.now(), duration: 100 });
       });
-      // in tick callback: use info to set color, other stuff
-      // push an animation (what note, pulse color, start time (using window.performance.now)) into a stack...
-      // animationList.push({noteObj: lastNotePlayed.rect, oldColor: lastNotePlayed.rect.get('fill'), startTime: window.performance.now() })
     }, startTime, objectId);
+
+    //save music data
     loopMusicData[objectId] = {pitch: pitch, duration: duration, startTime: startTime};
     
-    // console.log("lastNoteArr: ", lastNoteArr);
-    // console.log("lastAnimatedArr: ", lastAnimatedArr);
     return eventId;
   }
 
@@ -202,7 +199,7 @@ function animColor (wallTime) {
     Tone.Transport.cancel();
     loopMusicData = {};
     console.log("initializing canvas, clearing transport, clearing loopData");
-    // initialize canvas for a 8 * 8 grid
+    // initialize canvas for an 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
         selection: false,
         defaultCursor: 'pointer',
@@ -268,7 +265,6 @@ function animColor (wallTime) {
 
       canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
 
-      console.log("new coords: ", xVal, yVal);
       if (!notes[xVal]) notes[xVal] = [];
       notes[xVal].push(canvas.getActiveObject());
       scheduleTone(xVal, yVal, newWidth, idC);
