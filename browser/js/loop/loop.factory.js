@@ -204,7 +204,12 @@ function animColor (wallTime) {
     console.log("initializing canvas, clearing transport, clearing loopData");
     // initialize canvas for a 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
-        selection: false
+        selection: false,
+        defaultCursor: 'pointer',
+        freeDrawingCursor: 'pointer',
+        hoverCursor: 'grab',
+        moveCursor: 'grabbing',
+        rotationCursor: 'pointer'
       });
     canvas.setHeight(320);
     canvas.setWidth(320);
