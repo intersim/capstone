@@ -20,9 +20,9 @@ app.directive('loopItem', function() {
       $scope.uniqueId = guidGenerator();
 
       // initialize canvas with small cellSize, and minify=true
-      LoopFactory.initialize($scope.uniqueId, 12, true);
+      // LoopFactory.initialize($scope.uniqueId, 12, true);
       // draw the loop onto the canvas
-      LoopFactory.drawLoop($scope.loop);
+      // LoopFactory.drawLoop($scope.loop);
 
       UserFactory.inBucket($scope.loop)
       .then(function(value){

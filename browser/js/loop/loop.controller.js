@@ -16,11 +16,13 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   })
 
   $scope.open = function () {
+    LoopFactory.initialize('loopSnapshot', 12, true);
+    LoopFactory.drawLoop(loop);
     var detailsModal = $uibModal.open({
-    animation: true,
-    templateUrl: "/js/loop/loop.modal.html",
-    scope: $scope,
-    size: "lg"
+      animation: true,
+      templateUrl: "/js/loop/loop.modal.html",
+      scope: $scope,
+      size: "lg"
     })
   }
 

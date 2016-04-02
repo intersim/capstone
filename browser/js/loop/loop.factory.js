@@ -213,21 +213,20 @@ function animColor (wallTime) {
         canvas.add(new fabric.Line([ i * grid, 0, i * grid, cellSize * 8], { stroke: '#686868', selectable: false }));
         canvas.add(new fabric.Line([ 0, i * grid, cellSize * 8, i * grid], { stroke: '#686868', selectable: false }))
       }
+
+      // create a new rectangle obj on mousedown in canvas area
+      // change this to a double-click event ?
+      canvas.on('mouse:down', LoopFactory.addNote)
+
+      // snap to grid when moving or elongating obj
+      canvas.on('object:modified', LoopFactory.snapToGrid)
+
     }
-
-    // create a new rectangle obj on mousedown in canvas area
-    // change this to a double-click event ?
-    canvas.on('mouse:down', LoopFactory.addNote)
-
-    // snap to grid when moving or elongating obj
-    canvas.on('object:modified', LoopFactory.snapToGrid)
-
   }
 
   LoopFactory.snapToGrid = function(options) {
       
       var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
-
 
       if (options.target.getWidth() !== newWidth) {
           options.target.set({ width: newWidth, scaleX: 1});
