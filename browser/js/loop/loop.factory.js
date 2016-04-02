@@ -132,59 +132,50 @@ function animColor (wallTime) {
     if (width === grid * 8) return "1n";
   }
 
+
   function getYvals(note) {
-    var edges = noteYMap.filter(function(obj) {
-      return obj.note === note.pitch;
-    })[0];
+    var noteYMap = {
+      c5: {top: 0, bottom: 39},
+      b4: {top: 40, bottom: 79},
+      a4: {top: 80, bottom: 119},
+      g4: {top: 120, bottom: 159},
+      f4: {top: 160, bottom: 199},
+      e4: {top: 200, bottom: 239},
+      d4: {top: 240, bottom: 279},
+      c4: {top: 280, bottom: 319}
+    }
+    var edges = noteYMap[note.pitch];
     return {top: edges.top, bottom: edges.bottom};
   }
 
   function getXvals(note) {
-    var edges = noteXMap.filter(function(obj) {
-      return obj.time === note.startTime;
-    })[0];
+    var noteXMap = {
+      "0:0:0": {left: 0, right: 39},
+      "0:0:2": {left: 40, right: 79},
+      "0:1:0": {left: 80, right: 119},
+      "0:1:2": {left: 120, right: 159},
+      "0:2:0": {left: 160, right: 199},
+      "0:2:2": {left: 200, right: 239},
+      "0:3:0": {left: 240, right: 279},
+      "0:3:2": {left: 280, right: 320}
+    }
+    var edges = noteXMap[note.startTime]
     return {left: edges.left, right: edges.right};
   }
 
-    function getWidth(note) {
-    var width = widthMap.filter(function(obj) {
-      return obj.duration === note.duration;
-    })[0].width;
-    return width;
+  function getWidth(note) {
+    var widthMap = {
+      "8n": grid,
+      "4n": grid * 2,
+      "4n+8n": grid * 3,
+      "2n": grid * 4,
+      "2n+8n": grid * 5,
+      "2n+4n": grid * 6,
+      "2n+4n+8n": grid * 7,
+      "1n": grid * 8
+    }
+    return widthMap[note.duration]
   }
-
-  var noteYMap = [
-    {note: "c5", top: 0, bottom: 39},
-    {note: "b4", top: 40, bottom: 79},
-    {note: "a4", top: 80, bottom: 119},
-    {note: "g4", top: 120, bottom: 159},
-    {note: "f4", top: 160, bottom: 199},
-    {note: "e4", top: 200, bottom: 239},
-    {note: "d4", top: 240, bottom: 279},
-    {note: "c4", top: 280, bottom: 319}
-  ]
-
-  var noteXMap = [
-    {time: "0:0:0", left: 0, right: 39},
-    {time: "0:0:2", left: 40, right: 79},
-    {time: "0:1:0", left: 80, right: 119},
-    {time: "0:1:2", left: 120, right: 159},
-    {time: "0:2:0", left: 160, right: 199},
-    {time: "0:2:2", left: 200, right: 239},
-    {time: "0:3:0", left: 240, right: 279},
-    {time: "0:3:2", left: 280, right: 320}
-  ];
-
-  var widthMap = [
-    {duration: "8n", width: 40},
-    {duration: "4n", width: 80},
-    {duration: "4n+8n", width: 120},
-    {duration: "2n", width: 160},
-    {duration: "2n+8n", width: 200},
-    {duration: "2n+4n", width: 240},
-    {duration: "2n+4n+8n", width: 280},
-    {duration: "1n", width: 320}
-  ];
   
   LoopFactory.drawLoop = function(loop) {
     loop.notes.forEach(function(note) {
