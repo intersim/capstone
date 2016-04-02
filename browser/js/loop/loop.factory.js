@@ -185,13 +185,16 @@ function animColor (wallTime) {
       LoopFactory.addNote(null, x.left, x.right, y.top, width);
     })
   }
-
-  LoopFactory.initialize = function(cellSize, minify) {
+  // canvasId - element to contain canvas,
+  // cellSize - size of notes in grid
+  // minify - if not supplied, grid and colors applied
+  //    if truthy, only representation of canvas is created
+  LoopFactory.initialize = function(canvasId, cellSize, minify) {
     Tone.Transport.cancel();
     loopMusicData = {};
     console.log("initializing canvas, clearing transport, clearing loopData");
     // initialize canvas for an 8 * 8 grid
-    canvas = new fabric.Canvas('c', { 
+    canvas = new fabric.Canvas(canvasId, { 
         selection: false,
         defaultCursor: 'pointer',
         freeDrawingCursor: 'pointer',
