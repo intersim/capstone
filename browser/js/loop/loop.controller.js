@@ -16,8 +16,11 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   })
 
   $scope.open = function () {
-    LoopFactory.initialize('loopSnapshot', 12, true);
-    LoopFactory.drawLoop(loop);
+    var canvas = LoopFactory.initialize('loopSnapshot', 12, true);
+    var notes = LoopFactory.getLoopData();
+    var loop = {};
+    loop.notes = notes;
+    LoopFactory.drawLoop(loop, canvas);
     var detailsModal = $uibModal.open({
       animation: true,
       templateUrl: "/js/loop/loop.modal.html",

@@ -55,7 +55,8 @@ var LoopSchema = new mongoose.Schema({
     dateCreated: {
         type: Date,
         default: Date.now
-    }
+    },
+    dataUri: String
 });
 
 

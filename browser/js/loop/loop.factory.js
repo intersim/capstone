@@ -334,13 +334,17 @@ function animColor (wallTime) {
     delete loopMusicData[idC];
   }
 
-  LoopFactory.save = function(copy, meta) {
-
+  LoopFactory.getLoopData = function() {
     var dataToSave = [];
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
     }
-    if(meta) meta.notes=dataToSave;
+    return dataToSave;
+  }
+
+  LoopFactory.save = function(copy, meta) {
+    var dataToSave = LoopFactory.getLoopData();
+    if(meta) meta.notes = dataToSave;
     var id = $stateParams.loopId;
 
     if (id === "new" || copy) {
