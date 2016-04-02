@@ -14,19 +14,19 @@
       </form> -->
     <!-- </div> -->
 
-    <div class="browse col-md-6">
+    <div class="browse">
       <div class="filters">
         <h1>Browse Loops</h1>
         <form>
           <div class="form-group">
             <div class="form-btn">
-              <button class="btn btn-primary" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
+              <button class="btn btn-default" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
             </div>
           </div>
         </form>
       </div>
 
-      <div class="loop-container well">
+      <div class="loop-container well col-md-8">
           <loop-item loop="loop" ng-repeat="loop in loops | orderBy : selectedSortMethod.value : selectedSortMethod.reverse" ng-click="select(loop)">
             </loop-item>
       </div>
@@ -36,14 +36,17 @@
       <div class="panel panel-default">
         <div class="panel-body">
         <h3>{{selected.name}}</h3>
-          <button ui-sref="loop({loopId: selected._id})" type="button" class="btn btn-sm btn-primary pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button ui-sref="loop({loopId: selected._id})" type="button" class="btn btn-sm btn-primary pull-right">
+          <i class="fa fa-pencil"></i></button>
           <p><strong>Created By:</strong> <a href="" ui-sref="user({ userId: selected.creator._id })">{{selected.creator.username}}</a></p>
           <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}</p>
           <p ng-show="selected.tags.length"><strong>Tags:</strong> <span class="label label-primary" ng-repeat="tag in selected.tags">{{tag}}</span></p>
           <div ng-hide="!selected.mixes.length">
             <h4>This Loop Was Used In...</h4>
             <div class="mix-container well">
-              <div ng-repeat="mix in selected.mixes">{{mix.title}}</div>
+              <div ng-repeat="mix in selected.mixes">
+                <a ui-sref="mix({mixId: mix._id})"><h5>{{mix.title}}</h5></a>
+              </div>
             </div>
         </div>
         </div>

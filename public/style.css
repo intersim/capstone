@@ -322,9 +322,6 @@ tutorial-section-menu {
     max-width: 300px;
     flex-wrap: wrap; }
 
-.loops .details {
-  margin-top: 30px; }
-
 .loops .filters {
   margin-top: 30px;
   display: inline-flex; }
@@ -354,9 +351,9 @@ tutorial-section-menu {
 .loop-item {
   padding-left: 5px;
   padding-top: 5px;
-  margin: 6px;
+  margin: 15px;
   width: 130px;
-  background-color: #9600BF;
+  background-color: #55aaaa;
   height: 100px;
   border-radius: 4px;
   color: white; }
@@ -364,7 +361,7 @@ tutorial-section-menu {
     cursor: pointer; }
   .loop-item h4 {
     color: white;
-    vertical-align: center; }
+    padding-top: 22px; }
   .loop-item .btn {
     margin-right: 6px; }
   .loop-item .btn-accent {

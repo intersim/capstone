@@ -1,7 +1,4 @@
 .loops {
-  .details {
-    margin-top: 30px;
-  }
   .filters {
     margin-top: 30px;
     display: inline-flex;
@@ -37,9 +34,9 @@
 .loop-item {
   padding-left: 5px;
   padding-top: 5px;
-  margin: 6px;
+  margin: 15px;
   width: 130px;
-  background-color: #9600BF;
+  background-color: #55aaaa;
   height: 100px;
   border-radius: 4px;
   color: white;
@@ -48,7 +45,7 @@
   }
   h4 {
     color: white;
-    vertical-align: center;
+    padding-top: 22px;
   }
   .btn {
     margin-right: 6px;
