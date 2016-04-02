@@ -1,3 +1,3 @@
-# Symphio
+# Symph
 
 Music composition platform

@@ -1,8 +1,5 @@
 <div class="loop-item">
-    <button ng-click="toggle()" type="button" class="btn btn-sm btn-info pull-right">
-    <span class="glyphicon glyphicon-{{added ? 'remove':'plus'}}-sign"></span></button>
-    <button ui-sref="loop({loopId: loop._id})" type="button" class="btn btn-sm btn-info pull-right"><span class="glyphicon glyphicon-pencil"></span></button>
+    <button ng-click="toggle()" type="button" class="btn btn-sm btn-primary pull-right">
+    <i class="fa fa-{{added ? 'plus-square':'minus'}}"></i></button>
     <h4>{{loop.name}}</h4>
-    <small>by {{loop.creator.username}}</small>
-    <p><span class="label label-success" ng-repeat="tag in loop.tags">{{tag}}</span></p>
 </div>
