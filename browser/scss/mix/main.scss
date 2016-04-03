@@ -72,13 +72,18 @@ $loopPulseColor: lighten(#005BDB, 30%);
   vertical-align: text-bottom;
   display: inline-block;
   box-sizing: border-box;
-  cursor: alias;
+  cursor: grab;
   h4 {
     color: white;
     display: block;
     margin: 0;
   }
 }
+
+.drag {
+  cursor: grabbing;
+}
+
 .loopBucket {
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1); 
   background-color: lighten(#272b30, 7%);
@@ -94,6 +99,7 @@ $loopPulseColor: lighten(#005BDB, 30%);
   .item {
     height: 100px;
     margin: 8px 10px;
+    cursor: alias;
   }
 }
 
@@ -147,16 +153,22 @@ $loopPulseColor: lighten(#005BDB, 30%);
 
 .trash {
   display: none;
-  padding: 10px 20px;
-  width: 120px;
-  height: 120px;
+  position: fixed;
+  width: 200px;
+  height: 200px;
   border-radius: 10px;
-  background-color: lighten(#272b30, 20%);
-  margin-right: 20px;
+  background-color: #555d68;
+  opacity: 0.8;
+  padding: 40px 60px;
+  right: 10px;
+  bottom: 10px;
   i {
     color: lighten(#272b30, 40%);
     font-size: 100px;
   }
+}
+.over.trash {
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAkklEQVQ4je2UMQ6AIAxFPQJHYaCdodw/GrhK9zqoGBOVgm7atS8vP81Ph+Ef8daIt+YVTrw1HGHkCOMdrOUWkHDiiHIF7zIUJpx0KS+kzbI7abfsVEouMbnULTtIA+RFBMIBcrdsT+kSE8qW9Fm67WYBcklaq0pVtt5MUym17LBrkWqq0SQtcKUaWq7Arz2Hb8wMzC7agKFjYcMAAAAASUVORK5CYII="), not-allowed !important;
 }
 
 .openLoopBucket {
