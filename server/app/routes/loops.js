@@ -9,7 +9,10 @@ router.get('/', function(req, res, next){
   Loop.find()
   .populate('creator')
   .then(function(loops) {
-    res.json(loops);
+    res.json(loops.map(function(loop) {
+      loop.creator = loop.creator.sanitize();
+      return loop;
+    }) );
   })
   .then(null, next);
 });
@@ -37,6 +40,7 @@ router.param('loopId', function(req, res, next) {
   .populate('creator')
   .exec()
   .then(function(loop) {
+    loop.creator = loop.creator.sanitize();
   //   if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {
   //     req.loop = loop;
   //     next()

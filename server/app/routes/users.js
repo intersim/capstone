@@ -8,7 +8,7 @@ var Loop = mongoose.model('Loop');
 router.get('/', function(req, res, next) {
   User.find()
   .then(function(users) {
-    res.json(users);
+    res.json(users.map(user => user.sanitize()) );
   })
   .then(null, next);
 })
@@ -17,7 +17,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   User.create(req.body)
   .then(function(user) {
-    res.status(201).json(user);
+    res.status(201).json(user.sanitize());
   })
   .then(null, next)
 })
@@ -28,7 +28,7 @@ router.param('userId', function(req, res, next) {
   .populate('bucket favorites')
   .then(function(user) {
     if (user) {
-      req.foundUser = user;
+      req.foundUser = user.sanitize();
       next()
     } else {
       next(new Error('couldn\'t find user'));
@@ -46,7 +46,7 @@ router.put('/:userId', function(req, res, next) {
   req.foundUser.set(req.body);
   req.foundUser.save()
   .then(function(user) {
-    res.status(201).json(user)
+    res.status(201).json(user.sanitize())
   })
   .then(null, next);
 });
@@ -68,7 +68,7 @@ router.delete('/:userId', function(req, res, next) {
 router.get('/:userId/followers', function(req, res, next){
   User.find({following: {$in: [req.foundUser._id]}})
   .then(function(followers){
-    res.json(followers)
+    res.json(followers.map(user => user.sanitize() ) )
   })
   .then(null, next)
 })
@@ -92,6 +92,7 @@ router.get('/:userId/loops', function(req, res, next){
 })
 
 router.get('/:userId/loopBucket', function(req, res, next){
+  // do we need to re-find the already found user? -AP
   User.findById(req.foundUser)
   .populate('bucket')
   .then(function(populatedUser){

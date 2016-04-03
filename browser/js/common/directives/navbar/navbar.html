@@ -1,10 +1,21 @@
+<style type="text/css">
+    .navbar-brand {
+        font-family: 'Play';
+        font-size: 200%;
+        text-transform: uppercase;
+    }
+
+    body {
+        font-family: 'Pontano Sans';
+    }
+</style>
 <nav class="navbar navbar-default navbar-static-top">
     <div class="container">
         <a href="" ui-sref="home">
         <div class="navbar-header navbar-brand">
             <i class="fa fa-clone"></i><i class="fa fa-music"></i>
         </div>
-        <div class="navbar-brand text-center"><p>SYMPH</p></div>
+        <div class="navbar-brand text-center"><p>Symph</p></div>
         </a>
         <ul class="nav navbar-nav">
             <!-- <li ng-repeat="item in items" ng-if="!item.auth || isLoggedIn()"> -->
@@ -12,8 +23,10 @@
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <button ng-show="!user" ui-sref="signup" class="btn login-button">Sign Up</button>
+        <button ng-show="!user" ui-sref="login" class="btn btn-primary pull-right">Login</button>
+        <div ng-controller="HomeCtrl">
+        <button ng-show="!user" ng-click="open()"class="btn btn-primary pull-right">Sign Up</button>
+        </div>
         <div ng-show="user" class="welcome pull-right">
             <a href="" ui-sref="profile({userId: user._id})">Welcome, {{ user.username }}!</a>
             <a ng-click="logout()">Logout</a>

@@ -10,18 +10,18 @@ a:hover {
 }
 
 /* Custom default button */
-.btn-default,
+/*.btn-default,
 .btn-default:hover,
 .btn-default:focus {
   color: #333;
-  text-shadow: none; /* Prevent inheritence from `body` */
+  text-shadow: none;  /* Prevent inheritence from `body`
   background-color: #fff;
   border: 1px solid #fff;
 }
-
-.nav-brand a {
+*/
+/*.nav-brand a {
   color: #eb6864 !important;
-}
+}*/
 
 
 /*
@@ -124,7 +124,6 @@ body {
 }
 .cover .btn-lg {
   padding: 10px 20px;
-  font-weight: bold;
 }
 
 

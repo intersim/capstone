@@ -3,6 +3,7 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   LoopFactory.initialize('c', 40);
   // SamplerFactory.test();
   $scope.loop = loop;
+  console.log("$scope.loop: ", $scope.loop);
 
   if (loop) LoopFactory.drawLoop(loop);
 
@@ -17,7 +18,7 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
 
   $scope.open = function () {
     LoopFactory.initialize('loopSnapshot', 12, true);
-    LoopFactory.drawLoop(loop);
+    // LoopFactory.drawLoop($scope.loop);
     var detailsModal = $uibModal.open({
       animation: true,
       templateUrl: "/js/loop/loop.modal.html",

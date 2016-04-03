@@ -1,35 +1,36 @@
 
 <div class="mixEditor">
 
-  <h1>Mix Editor<span ng-show="mix.title !== 'Untitled'">: {{ mix.title }}</span> <button class="btn btn-success playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="glyphicon glyphicon-play"></span> Play</button>
+  <h1>Mix Editor
 
-  <button class="btn btn-warning playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="glyphicon glyphicon-stop"></span> Stop</button>
+  <div class="mixControls">
+    <button class="btn btn-primary playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="fa fa-play"></span></button>
 
-  <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+    <button class="btn btn-primary playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="fa fa-stop"></span></button>
 
-  </h1>  
+    <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="fa fa-floppy-o"></span></button>
+  </div>
 
+  </h1>
+  <button class="openLoopBucket btn btn-lg btn-primary pull-right" ng-click="showLoopBucket()"><i class="fa fa-shopping-basket"></i> <span ng-show="loopBucketOpen">Close</span><span ng-show="!loopBucketOpen">Open</span> Loop Bucket</button>
+  
+  <div class="pull-right">
+    <div class="trash" disabled droppable type="delete"><i class="fa fa-trash"></i></div>
+  </div>
 
+  <div class="loopBucket" ng-show="loopBucketOpen">
+    <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy">
+      <h4 class="text-center">{{loop.name}}</h4>
+    </div>
+  </div>
 
+  <h3 ng-show="mix.title !== 'Untitled'">{{ mix.title }} <small> by <a href="" ui-sref="profile({userId: mix.creator._id})">{{mix.creator.username}}</a></small></h3>
 
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
       <form>
         <h4>Track {{$index + 1}}</h4>
-        <div class="volumeButtons">
-          <button class="btn btn-xs btn-primary" title="mute"><i class="fa fa-microphone-slash"></i></button>
-          <button class="btn btn-xs btn-primary" title="solo"><i class="fa fa-microphone"></i></button>
-        </div>
-        <div class="volumeControl">
-          <label><i class="fa fa-volume-up"></i></label>
-          <select>
-            <option>100%</option>
-            <option>75%</option>
-            <option>50%</option>
-            <option>25%</option>
-          </select>
-        </div>
-        <div class="instrSelect">
+        <div class="instrSelect styled-select">
           <select ng-model="track.instrumentModel" ng-change="changeInstr(track.instrumentModel.name, {{$track}})" ng-options="instrument as instrument.name for instrument in instruments">
           </select>
         </div>
@@ -42,14 +43,6 @@
     </track>
     </div>
     <button class="btn btn-primary btn-lg addTrack" title="add track" ng-click="addTrack()"><span class="glyphicon glyphicon-plus"></span> New Track</button>
-  </div>
-
-  <h3>My Loop Bucket</h3>
-  <div class="trash" droppable type="delete"><i class="fa fa-trash"></i></div>
-  <div class="loopBucket">
-    <div ng-repeat="loop in loopBucket" class="item" data-loop="{{loop._id}}" id="loop-{{$index}}" draggable type="copy" title="{{loop._id}}">
-      <h4 class="text-center">{{loop.name}}</h4>
-    </div>
   </div>
 
 </div>
