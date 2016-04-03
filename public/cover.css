@@ -119,6 +119,11 @@ body {
  * Cover
  */
 
+h1 {
+  font-family: 'Play', sans-serif;
+  font-size: 70px;
+}
+
 .cover {
   padding: 0 20px;
 }
