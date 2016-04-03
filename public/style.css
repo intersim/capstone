@@ -119,6 +119,10 @@ tutorial-section-menu {
   width: 60%;
   margin: 0 auto; }
 
+#login {
+  position: fixed;
+  margin: auto 15% auto 5%; }
+
 h1 {
   padding-top: 30px;
   padding-bottom: 10px;
@@ -455,3 +459,10 @@ h1 {
     margin-right: 6px; }
   .loop-item .btn-accent {
     margin-right: 6px; }
+
+#signup {
+  position: fixed;
+  margin: auto 20% auto 5%; }
+
+.btn-default {
+  margin: 5px 0px 0px 5px; }
