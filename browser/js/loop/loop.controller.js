@@ -24,6 +24,19 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
     })
   }
 
+  var helpModal;
+  $scope.showHelp = function() {
+    helpModal = $uibModal.open({
+      animation: true,
+      templateUrl: '/js/loop/loop.help.html',
+      scope: $scope,
+      size: "lg"
+    })
+  }
+  $scope.closeHelp = function() {
+    helpModal.close();
+  }
+
   $scope.copyLoop = function(meta) {
     if(!meta) LoopFactory.save(true)
     var arr=[];
