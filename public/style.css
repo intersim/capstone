@@ -192,7 +192,7 @@ h1 {
   .mixform .saveButton {
     margin-top: 4px; }
 
-.playPause, .saveButton {
+.playPause, .saveButton, .helpButton {
   vertical-align: top; }
 
 .addTrack {
