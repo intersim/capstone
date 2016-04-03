@@ -4,11 +4,13 @@
   <h1>Mix Editor
 
   <div class="mixControls">
-    <button class="btn btn-primary playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><span class="fa fa-play"></span></button>
+    <button class="btn btn-primary playPause" title="play" ng-click="togglePlay()" ng-show="!playing"><i class="fa fa-play"></i></button>
 
-    <button class="btn btn-primary playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><span class="fa fa-stop"></span></button>
+    <button class="btn btn-primary playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><i class="fa fa-stop"></i></button>
 
-    <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="fa fa-floppy-o"></span></button>
+    <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="fa fa-floppy-o"></i></button>
+
+    <button ng-click="showHelp()" class="btn btn-primary" title="help"><i class="fa fa-question-round"></i></button>
   </div>
 
   </h1>

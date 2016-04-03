@@ -60,13 +60,27 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   // E: this modal is half-implemented
   $scope.open = function () {
     var detailsModal = $uibModal.open({
-    animation: true,
-    size: "lg",
-    scope: $scope,
-    templateUrl: '/js/mixes/mix.modal.html'
-  });
-
+      animation: true,
+      size: "lg",
+      scope: $scope,
+      templateUrl: '/js/mixes/mix.modal.html'
+    });
   }
+
+  var helpModal;
+  $scope.showHelp = function() {
+    helpModal = $uibModal.open({
+      animation: true,
+      size: "md",
+      scope: $scope,
+      templateUrl: '/js/mixes/mix.help.html'
+    });
+  }
+
+  $scope.closeHelp = function() {
+    helpModal.close();
+  }
+
   $scope.showLoopBucket = function() {
     $scope.loopBucketOpen = !$scope.loopBucketOpen;
   }
