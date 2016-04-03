@@ -71,7 +71,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   $scope.showHelp = function() {
     helpModal = $uibModal.open({
       animation: true,
-      size: "md",
+      size: "lg",
       scope: $scope,
       templateUrl: '/js/mixes/mix.help.html'
     });
