@@ -37,25 +37,25 @@
 }
 
 .loop-item {
-  padding-left: 5px;
-  padding-top: 5px;
   margin: 15px;
   width: 130px;
   background-color: #55aaaa;
   height: 100px;
   border-radius: 4px;
   color: white;
+  text-align: center;
   :hover {
     cursor: pointer;
   }
   h4 {
+    width: 100%;
     color: white;
-    padding-top: 22px;
+    display: inline-block;
+    vertical-align: center;
+    line-height: normal;    
   }
   .btn {
-    margin-right: 6px;
-  }
-  .btn-accent {
+    margin-top: 6px;
     margin-right: 6px;
   }
 }

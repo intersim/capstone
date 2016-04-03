@@ -439,20 +439,21 @@ h1 {
     margin-right: 10px; }
 
 .loop-item {
-  padding-left: 5px;
-  padding-top: 5px;
   margin: 15px;
   width: 130px;
   background-color: #55aaaa;
   height: 100px;
   border-radius: 4px;
-  color: white; }
+  color: white;
+  text-align: center; }
   .loop-item :hover {
     cursor: pointer; }
   .loop-item h4 {
+    width: 100%;
     color: white;
-    padding-top: 22px; }
+    display: inline-block;
+    vertical-align: center;
+    line-height: normal; }
   .loop-item .btn {
-    margin-right: 6px; }
-  .loop-item .btn-accent {
+    margin-top: 6px;
     margin-right: 6px; }
