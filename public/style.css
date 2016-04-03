@@ -286,14 +286,16 @@ h1 {
 .trash {
   display: none;
   position: fixed;
-  width: 200px;
-  height: 200px;
-  border-radius: 10px;
+  width: 98.5%;
+  height: 140px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   background-color: #555d68;
-  opacity: 0.8;
-  padding: 40px 60px;
+  opacity: 0.7;
+  padding: 26px 60px;
   right: 10px;
-  bottom: 10px; }
+  text-align: center;
+  bottom: 0; }
   .trash i {
     color: #86909d;
     font-size: 100px; }
