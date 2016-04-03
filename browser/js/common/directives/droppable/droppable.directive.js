@@ -11,7 +11,8 @@ app.directive('droppable', function($compile, MixFactory){
       elem.addEventListener(
         'dragover',
         function(e) {
-          e.dataTransfer.dropEffect = 'copyMove';
+          if (scope.type === "delete") e.dataTransfer.dropEffect = '';
+          else e.dataTransfer.dropEffect = 'copyMove';
           if (e.preventDefault) e.preventDefault();
           this.classList.add('over');
           return false;
