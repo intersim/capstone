@@ -17,13 +17,9 @@
     <div class="browse">
       <div class="filters">
         <h1>Browse Loops</h1>
-        <form>
-          <div class="form-group">
-            <div class="form-btn">
-              <button class="btn btn-default btn-sm" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
-            </div>
+          <div class="form-btn">
+            <button class="btn btn-default btn-sm" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
           </div>
-        </form>
       </div>
 
       <div class="loop-container well col-md-8">

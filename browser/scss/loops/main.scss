@@ -1,3 +1,9 @@
+.browse {
+  h1 {
+    display: inline;
+  }
+}
+
 .loops {
   .filters {
     margin-top: 30px;
@@ -17,18 +23,14 @@
  }
 }
 
-/* for selects: use class "style-select" */
-
-.form-group {
-  margin-left: 25px;
-}
-
-.padd {
-  padding: 0px 0px 10px;
-}
+/* if you want to add selects: use class "style-select" to match instrument select in mix edit page */
 
 .form-btn {
-  margin-top: 30px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  margin-left: 15px;
   button {
     margin-right: 10px;
   }
