@@ -1,6 +1,8 @@
 <div class="loop-editor-container">
 
-  <h1>Loop Editor<span ng-show="loop.name">: {{loop.name}}</span><small ng-show="!loopBelongsToUser">by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h1>
+  <h1>Loop Editor</h1>
+
+  <h3 ng-show="loop.name">{{loop.name}}<small ng-show="!loopBelongsToUser"> by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h3>
 
 <!--   <div>
     <span class="axis-label">C</span><br>
@@ -22,11 +24,9 @@
     <button class="btn btn-primary" id="stop" ng-show="playing" ng-click="toggle()">
       <i class="fa fa-stop" alt="stop"></i></button>
     <button ng-click="open()" type="submit" class="btn btn-primary" title="save" >
-      <i class="fa fa-floppy-o"></i>
-</button>
+      <i class="fa fa-floppy-o"></i></button>
+    <button class="btn btn-primary" ng-click="showHelp()"><i class="fa fa-question-circle"></i></button> 
 
-  <!--   <button ng-show="loopBelongsToUser" class="btn btn-info" id="save" ng-click="saveLoop()">Save Loop</button>
-    <button ng-show="!loopBelongsToUser" class="btn btn-info" id="copy" ng-click="copyLoop()">Copy Loop</button> -->
   </div>
 
 </div>
