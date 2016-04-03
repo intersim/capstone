@@ -129,6 +129,9 @@ h1 {
   height: 40px;
   width: 40px;
 } */
+.loopHelp {
+  padding: 20px; }
+
 .loop-editor-container {
   display: flex;
   flex-direction: column;

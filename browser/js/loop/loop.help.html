@@ -1,39 +1,56 @@
-<div class="well">
+<div class="loopHelp">
   <button class="btn btn-xs btn-default pull-right" ng-click="closeHelp()"><i class="fa fa-times"></i></button>
 
   <h3>How to Create a Loop</h3>
  
   <p>Welcome to the Symph Loop Editor!</p>
 
-  <h4>What's a Loop?</h4>
+  <h5>What's a Loop?</h5>
   <p>A Loop is a sequence of musical notes that can be added to and repeated in Mixes.</p>
 
-  <h4>About the Loop Grid</h4>
-  <p>Notes are played from left to right (each cell correlates to one beat).</p>
+  <h5>About the Loop Grid</h5>
+    <p>Notes are played from left to right (each cell correlates to one beat).</p>
 
-  <p>The pitches ascend from the bottom to top of the grid - the higher the cell, the higher the pitch.</p>
+    <p>The pitches ascend from the bottom to top of the grid - the higher the cell, the higher the pitch.</p>
 
-  <h4>Create Notes</h4>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Create Notes</h4>
+    </div>
+    <div class="panel-body">
+      <ul>
+        <li><strong>Create a Note:</strong> Click a cell on the grid.</li>
+          
+        <li><strong>Move a Note:</strong> Drag and drop to change pitch or the start time of the note</li>
 
-  <ul>
-    <li><strong>Create a Note:</strong> Click a cell on the grid.</li>
-      
-    <li><strong>Move a Note:</strong> Drag and drop to change pitch or the start time of the note</li>
+        <li><strong>Change Duration of a Note:</strong> Click a note to select, then drag its left or right edge to make it sound for longer.</li>
 
-    <li><strong>Change Duration of a Note:</strong> Click a note to select, then drag its left or right edge to make it sound for longer.</li>
+        <li><strong>Delete a Note:</strong> Click a note to select, then click the Delete <button class="btn btn-primary btn-xs"><i class="fa fa-trash-o"></i></button> button</li>
+      </ul>
+    </div>
+  </div>
 
-    <li><strong>Delete a Note:</strong> Click a note to select, then click the Delete <button class="btn btn-primary btn-xs"><i class="fa fa-trash-o"></i></button> button</li>
-  </ul>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Control Playback</h4>
+    </div>
+    <div class="panel-body">
+      <ul>
+        <li><strong>Play the Loop:</strong> Click the Play <button class="btn btn-primary btn-xs"><i class="fa fa-play"></i></button> button</li>
 
-  <h4>Control Playback</h4>
-  <ul>
-    <li><strong>Play the Loop:</strong> Click the Play <button class="btn btn-primary btn-xs"><i class="fa fa-play"></i></button> button</li>
+        <li><strong>Stop Playing:</strong> Click the Stop <button class="btn btn-primary btn-xs"><i class="fa fa-stop"></i></button> button</li>
 
-    <li><strong>Stop Playing:</strong> Click the Stop <button class="btn btn-primary btn-xs"><i class="fa fa-stop"></i></button> button</li>
+      </ul>
+    </div>
+  </div>
 
-  </ul>
-
-  <h4>Save a Loop</h4>
-  <p>Click the Save <button class="btn btn-primary btn-xs"><i class="fa fa-floppy-o"></i></button> button.</li>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">Save a Loop</h4>
+    </div>
+    <div class="panel-body">
+      <p>Click the Save <button class="btn btn-primary btn-xs"><i class="fa fa-floppy-o"></i></button> button.</p>
+    </div>
+  </div>
 
 </div>

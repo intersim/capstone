@@ -30,7 +30,7 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
       animation: true,
       templateUrl: '/js/loop/loop.help.html',
       scope: $scope,
-      size: "md"
+      size: "lg"
     })
   }
   $scope.closeHelp = function() {
