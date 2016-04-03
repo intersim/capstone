@@ -403,6 +403,13 @@ h1 {
   to {
     background-color: #bbdddd; } }
 
+.mixes .browse {
+  margin-top: 30px; }
+  .mixes .browse h1 {
+    margin: 20px 0 0 10px;
+    padding-top: 30px;
+    padding-bottom: 10px; }
+
 .mixes .details {
   margin-top: 10px; }
   .mixes .details .loop-container {
