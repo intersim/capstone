@@ -63,7 +63,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     animation: true,
     size: "lg",
     scope: $scope,
-    templateUrl: '/js/mixes/mix.module.html'
+    templateUrl: '/js/mixes/mix.modal.html'
   });
 
   }
