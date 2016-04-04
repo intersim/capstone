@@ -71,7 +71,7 @@ MixSchema.plugin(deepPopulate);
 
 MixSchema.statics.findByLoop = function(loopId) {
   return this.find({'tracks.measures.loop': loopId})
-  .then(function(mix) {
+  .then(function(mix) {  // AW: unnecessary .then here!
     return mix;
   })
 }
@@ -81,6 +81,14 @@ MixSchema.methods.publish = function() {
   return this.save();
 }
 
+/*
+
+  AW: 
+  `addTag`, `addTags`, `removeTag`, `removeTags` methods are on the loop schema as well. 
+  I suggest creating a mongoose plugin (http://mongoosejs.com/docs/plugins.html)
+  for these methods to DRY out your code 
+
+*/
 MixSchema.methods.addTag = function(tag) {
   this.tags.push(tag);
   return this.save();
@@ -116,9 +124,11 @@ MixSchema.methods.changeTempo = function(change) {
   return this.save();
 }
 
+// AW: you don't need `done` here since you don't have any other post save hooks!
 MixSchema.post('save', function(mix, done) {
   var loops = [];
 
+  // AW: not sure why the `execPopulate` is necessary... 
   mix.populate('tracks.measures.loop').execPopulate()
   .then(function(mix) {
     mix.tracks.forEach(function(track) {

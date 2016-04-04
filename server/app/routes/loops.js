@@ -32,6 +32,25 @@ router.post('/', function(req, res, next) {
     res.json(savedLoop);
   })
   .then(null, next);
+
+  /*
+    AW: better way to do this: 
+  
+    Promise.resolve(Loop.create(req.body)).bind({})
+    .then(function(loop) {
+      this.loop = loop;
+      req.user.bucket.push(loop._id);
+      return req.user.save();
+    })
+    .then(function(user) {
+      if (!user) throw new Error('issue saving loop onto user');
+      res.json(this.loop);
+    })
+    .then(null, next);
+
+
+
+  */
 });
 
 //loop id param
@@ -59,6 +78,8 @@ router.get('/:loopId', function(req, res, next) {
 //edit loop (creator and admin)
 router.put('/:loopId', function(req, res, next){
   // if ( (!req.loop.isPublic && req.user._id === req.loop.creator) || req.user.isAdmin ){
+
+    // AW: if we use mongoose equals here, we don't need to coerce the objectIds to strings!
   if ( (req.user._id.toString() === req.loop.creator._id.toString()) || req.user.isAdmin ){
     req.loop.set(req.body);
     req.loop.save()
@@ -73,6 +94,7 @@ router.put('/:loopId', function(req, res, next){
 
 //delete loop (creator and admin)
 router.delete('/:loopId', function(req, res, next) {
+  // AW: same! `equals`!
   if ( (!req.loop.isPublic && req.user._id.toString() === req.loop.creator.toString()) || req.user.isAdmin ) {
     req.loop.remove()
     .then(function(){

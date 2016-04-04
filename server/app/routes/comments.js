@@ -36,6 +36,8 @@ router.param('commentId', function(req, res, next) {
 
 // update a comment on a mix (author or admin)
 router.put('/:commentId', function(req, res, next) {
+//AW: I'm pretty sure you can't use === here; 
+// use mongoose `equals` -- > req.comment.author.equals(req.user._id) 
   if (req.user.isAdmin || req.comment.author === req.user._id) {
     req.comment.set(req.body);
     req.comment.save()
@@ -47,6 +49,7 @@ router.put('/:commentId', function(req, res, next) {
 
 // delete a comment on a mix (author, mix's creator, admin)
 router.delete('/:commentId', function(req, res, next) {
+  // AW: same here
   if (req.user.isAdmin || req.comment.author === req.user._id || req.mix.creator === req.user._id) {
     req.comment.delete()
     .then(function() {

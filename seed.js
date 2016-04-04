@@ -21,6 +21,7 @@ var mongoose = require('mongoose');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
+// AW: why promisify when mongoose 4.X already returns promises ??
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Loop = Promise.promisifyAll(mongoose.model('Loop'));
 var Mix = Promise.promisifyAll(mongoose.model('Mix'));

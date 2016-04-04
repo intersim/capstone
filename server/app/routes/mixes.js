@@ -7,10 +7,13 @@ var Promise = require('bluebird');
 //gets all public mixes with tracks and routes
 router.get('/', function(req, res, next) {
   Mix.find()
+  // AW: can you just do .deepPopulate('creator tracks.measures.loop') ?
   .deepPopulate('tracks.measures.loop')
   .populate('creator')
   .exec()
   .then(function(mixes){
+    // AW: if nothing is found, it'll return an empty array, which passes existence check 
+    // so: if (mixes.length)
     if (mixes) res.json(mixes.map(function(mix) {
       mix.creator = mix.creator.sanitize();
       return mix;
