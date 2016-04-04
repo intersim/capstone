@@ -11,8 +11,14 @@ app.controller('HomeCtrl', function($scope, $uibModal){
   var smodal; 
   var lmodal;
 
-  $scope.open = function () {
+  $scope.sopen = function () {
+  	if(lmodal) lmodal.close();
     smodal = $uibModal.open(signup)
+  }
+
+  $scope.lopen = function () {
+  	if(smodal) smodal.close();
+    lmodal = $uibModal.open(login)
   }
 
 
