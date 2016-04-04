@@ -240,7 +240,7 @@ h1 {
   .loopBucket .item {
     height: 100px;
     margin: 8px 10px;
-    cursor: alias; }
+    cursor: grab; }
 
 .track-container {
   box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -277,9 +277,6 @@ h1 {
       border-right: 2px solid #2e3338;
       min-width: 143px;
       height: 100%; }
-
-.track * {
-  display: inline-block; }
 
 .over {
   background-color: #333; }

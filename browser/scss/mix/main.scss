@@ -100,7 +100,7 @@ $loopPulseColor: lighten(#55aaaa, 30%);
   .item {
     height: 100px;
     margin: 8px 10px;
-    cursor: alias;
+    cursor: grab;
   }
 }
 
@@ -145,9 +145,7 @@ $loopPulseColor: lighten(#55aaaa, 30%);
     }
   }
 }
-.track * {
-  display: inline-block;
-}
+
 .over {
   background-color: #333;
 }
