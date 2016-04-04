@@ -29,19 +29,19 @@ var seedUsers = function () {
 
     var users = [
         {
-            username: 'Test',
-            email: 'testing@fsa.com',
+            username: 'Alex',
+            email: 'alex@alex.com',
             password: 'password'
         },
         {
-            username: 'Obama',
-            email: 'obama@gmail.com',
-            password: 'potus'
+            username: 'Mariya',
+            email: 'mariya@mariya.com',
+            password: 'password'
         },
         {
-            username: 'baby_mozart',
-            email: 'mozart@baby.com',
-            password: '123'
+            username: 'Emily',
+            email: 'emily@emily.com',
+            password: 'password'
         }
     ];
 
