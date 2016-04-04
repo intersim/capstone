@@ -9,6 +9,7 @@ app.config(function ($stateProvider) {
 app.controller('HomeCtrl', function($scope, $uibModal){
 
   var smodal; 
+  var lmodal;
 
   $scope.open = function () {
     smodal = $uibModal.open(signup)
@@ -35,7 +36,7 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 
 		    $scope.login = function(){
 		  	smodal.close()
-			$uibModal.open(login)
+			lmodal = $uibModal.open(login)
 		  }
 
 		}
@@ -45,7 +46,7 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 		animation: true,
 	    size: "lg",
 	    templateUrl: 'js/login/login.html',
-	    controller: function($scope, $uibModalInstance, AuthService){
+	    controller: function($scope, $uibModalInstance, AuthService, $state){
 
 	    $scope.login = {};
 
@@ -54,7 +55,9 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 	        $scope.error = null;
 
 	        AuthService.login(loginInfo).then(function () {
-	            $state.go('home');
+	            $state.go('home')
+	            lmodal.close()
+
 	        }).catch(function () {
 	            $scope.error = 'Invalid login credentials.';
 	        })
