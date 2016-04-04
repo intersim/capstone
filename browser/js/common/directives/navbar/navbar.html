@@ -23,9 +23,9 @@
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
-        <button ng-show="!user" ui-sref="login" class="btn btn-primary pull-right">Login</button>
         <div ng-controller="HomeCtrl">
-        <button ng-show="!user" ng-click="open()"class="btn btn-primary pull-right">Sign Up</button>
+            <button ng-show="!user" ng-click = "lopen()"class="btn btn-primary pull-right">Login</button>
+            <button ng-show="!user" ng-click="sopen()"class="btn btn-primary pull-right">Sign Up</button>
         </div>
         <div ng-show="user" class="welcome pull-right">
             <a href="" ui-sref="profile({userId: user._id})">Welcome, {{ user.username }}!</a>
