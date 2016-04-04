@@ -7,7 +7,8 @@ app.directive('mixItem', function() {
     scope: {
     	mix: '='
     },
-    controller: function($scope, UserFactory, $state){
+    controller: function($scope, UserFactory, $state, MixFactory){
+        $scope.playing = false;
 
         UserFactory.favorited($scope.mix._id)
         .then(function(value){
@@ -28,13 +29,15 @@ app.directive('mixItem', function() {
     		$scope.favorited=!$scope.favorited;
     	}
 
-	    function favorite(mixId) {
-            UserFactory.favorite(mixId)
-		}
 
-		function unfavorite(mixId) {
+        function favorite(mixId) {
+            UserFactory.favorite(mixId)
+        }
+
+        function unfavorite(mixId) {
             UserFactory.unfavorite(mixId)
-		}
+        }
+
     }
   }
 })

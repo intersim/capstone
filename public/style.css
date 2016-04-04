@@ -414,6 +414,24 @@ h1 {
     max-width: 300px;
     flex-wrap: wrap; }
 
+.mix-item {
+  margin: 15px;
+  margin-bottom: 20px;
+  width: 96%;
+  background-color: #55aaaa;
+  height: 40px;
+  border-radius: 4px;
+  color: white;
+  padding-left: 10px;
+  cursor: pointer; }
+  .mix-item h4 {
+    width: 100%;
+    display: inline;
+    line-height: normal; }
+  .mix-item .btn {
+    margin-right: 4px;
+    margin-top: 5px; }
+
 .browse h1 {
   display: inline; }
 

@@ -16,3 +16,24 @@
     }
   }
 }
+
+.mix-item {
+  margin: 15px;
+  margin-bottom:20px;
+  width: 96%;
+  background-color: #55aaaa;
+  height: 40px;
+  border-radius: 4px;
+  color: white;
+  padding-left: 10px;
+  cursor: pointer;
+  h4 {
+    width: 100%;
+    display: inline;
+    line-height: normal;
+  }
+  .btn {
+    margin-right: 4px;
+    margin-top: 5px;
+  }
+}
