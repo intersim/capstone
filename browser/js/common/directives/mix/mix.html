@@ -1,7 +1,7 @@
 <div class="mix-item btn-default">
 
   <h4>{{mix.title}} <small>by <a href="" ui-sref="profile({userId: mix.creator._id})">{{mix.creator.username}}</a></small></h4>
-  <button ng-click="toggle(mix._id)" type="button" class="btn btn-sm btn-info pull-right"><span class="glyphicon glyphicon-{{favorited ? 'star':'star-empty'}}"></span></button>
+  <button ng-click="toggle(mix._id)" type="button" class="btn btn-sm btn-primary pull-right"><span class="glyphicon glyphicon-{{favorited ? 'star':'star-empty'}}"></span></button>
 
 <!--   <button ng-click="edit(mix)" type="button" class="btn btn-sm btn-info pull-right"><i class="fa fa-pencil"></i></button>
  -->
