@@ -3,9 +3,7 @@
   <div class="browse col-md-8">
     <h1>Browse Mixes</h1>
     <div class="mix-container well">
-      <div ng-repeat="mix in mixes" ng-click="select(mix)">
-        {{mix.title}}
-      </div>
+      <mix-item ng-repeat="mix in mixes" mix="mix" ng-click="select(mix)"></mix-item>
     </div>
   </div>
 

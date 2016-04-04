@@ -1,6 +1,6 @@
 <div class="loop-item">
 
-  <h4>{{mix.title}}</h4>
+  <h4>{{mix.title}}</h4><small>by <a href="" ui-sref="profile({userId: mix.creator._id})">{{mix.creator.username}}</a></small>
 
   <p><span class="label label-success" ng-repeat="tag in mix.tags">{{tag}}</span></p>
 
