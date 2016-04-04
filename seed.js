@@ -126,7 +126,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-1",
+            name: "frere-jacques-1",
             notes:[
                 {pitch:"c4",duration:"4n",startTime:"0:0:0"},
                 {pitch:"b4",duration:"4n",startTime:"0:1:0"},
@@ -137,7 +137,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-2",
+            name: "frere-jacques-2",
             notes:[
                 {pitch:"e4",duration:"4n",startTime:"0:0:0"},
                 {pitch:"f4",duration:"4n",startTime:"0:1:0"},
@@ -147,7 +147,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-3",
+            name: "frere-jacques-3",
             notes:[
                 {pitch:"g4",duration:"8n",startTime:"0:0:0"},
                 {pitch:"a4",duration:"8n",startTime:"0:0:2"},
@@ -160,7 +160,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-4",
+            name: "frere-jacques-4",
             notes:[
                 {pitch:"c4",duration:"4n",startTime:"0:0:0"},
                 {pitch:"g4",duration:"4n",startTime:"0:1:0"},
