@@ -28,7 +28,7 @@ router.param('userId', function(req, res, next) {
   .populate('bucket favorites')
   .then(function(user) {
     if (user) {
-      req.foundUser = user.sanitize();
+      req.foundUser = user; 
       next()
     } else {
       next(new Error('couldn\'t find user'));
@@ -38,7 +38,7 @@ router.param('userId', function(req, res, next) {
 
 //retrieve user with user id (all guests and users)
 router.get('/:userId', function(req, res, next) {
-  res.json(req.foundUser);
+  res.json(req.foundUser.sanitize());
 })
 
 //update existing user (current user and admin)
@@ -46,7 +46,7 @@ router.put('/:userId', function(req, res, next) {
   req.foundUser.set(req.body);
   req.foundUser.save()
   .then(function(user) {
-    res.status(201).json(user.sanitize())
+  res.status(201).json(user.sanitize())
   })
   .then(null, next);
 });
