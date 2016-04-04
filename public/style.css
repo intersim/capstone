@@ -208,17 +208,18 @@ h1 {
 .item {
   min-width: 140px;
   width: 140px;
-  background-color: #005BDB;
-  height: 100%;
+  background-color: #55aaaa;
+  /* height: 100%; */
+  height: 100px;
   border-radius: 4px;
   color: white;
-  vertical-align: text-bottom;
-  display: inline-block;
   box-sizing: border-box;
-  cursor: grab; }
+  cursor: grab;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center; }
   .item h4 {
     color: white;
-    display: block;
     margin: 0; }
 
 .drag {
@@ -322,7 +323,7 @@ h1 {
     -o-transform: scale(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
-    border: 4px solid #0f73ff; }
+    border: 4px solid #77bbbb; }
   50% {
     -webkit-transform: scale(1.05);
     -moz-transform: scale(1.05);
@@ -340,7 +341,7 @@ h1 {
   0% {
     -moz-transform: scale(1.1);
     transform: scale(1.1);
-    border: 4px solid #0f73ff; }
+    border: 4px solid #77bbbb; }
   50% {
     -moz-transform: scale(1.05);
     transform: scale(1.05); }
@@ -352,7 +353,7 @@ h1 {
   0% {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
-    border: 4px solid #0f73ff; }
+    border: 4px solid #77bbbb; }
   50% {
     -webkit-transform: scale(1.05);
     transform: scale(1.05); }
@@ -364,7 +365,7 @@ h1 {
   0% {
     -ms-transform: scale(1.1);
     transform: scale(1.1);
-    border: 4px solid #0f73ff; }
+    border: 4px solid #77bbbb; }
   50% {
     -ms-transform: scale(1.05);
     transform: scale(1.05); }
@@ -374,33 +375,40 @@ h1 {
 
 @-webkit-keyframes color_change {
   from {
-    background-color: #005BDB; }
+    background-color: #55aaaa; }
   to {
-    background-color: #75aeff; } }
+    background-color: #bbdddd; } }
 
 @-moz-keyframes color_change {
   from {
-    background-color: #005BDB; }
+    background-color: #55aaaa; }
   to {
-    background-color: #75aeff; } }
+    background-color: #bbdddd; } }
 
 @-ms-keyframes color_change {
   from {
-    background-color: #005BDB; }
+    background-color: #55aaaa; }
   to {
-    background-color: #75aeff; } }
+    background-color: #bbdddd; } }
 
 @-o-keyframes color_change {
   from {
-    background-color: #005BDB; }
+    background-color: #55aaaa; }
   to {
-    background-color: #75aeff; } }
+    background-color: #bbdddd; } }
 
 @keyframes color_change {
   from {
-    background-color: #005BDB; }
+    background-color: #55aaaa; }
   to {
-    background-color: #75aeff; } }
+    background-color: #bbdddd; } }
+
+.mixes .browse {
+  margin-top: 30px; }
+  .mixes .browse h1 {
+    margin: 20px 0 0 10px;
+    padding-top: 30px;
+    padding-bottom: 10px; }
 
 .mixes .details {
   margin-top: 10px; }
@@ -408,6 +416,9 @@ h1 {
     display: flex;
     max-width: 300px;
     flex-wrap: wrap; }
+
+.browse h1 {
+  display: inline; }
 
 .loops .filters {
   margin-top: 30px;
@@ -425,33 +436,32 @@ h1 {
     padding: 10px;
     box-shadow: 2px 2px 4px hsla(0,0,0,0.5);*/ }
 
-/* for selects: use class "style-select" */
-.form-group {
-  margin-left: 25px; }
-
-.padd {
-  padding: 0px 0px 10px; }
-
+/* if you want to add selects: use class "style-select" to match instrument select in mix edit page */
 .form-btn {
-  margin-top: 30px; }
+  padding-top: 30px;
+  padding-bottom: 10px;
+  margin-top: 25px;
+  margin-bottom: 10px;
+  margin-left: 15px; }
   .form-btn button {
     margin-right: 10px; }
 
 .loop-item {
-  padding-left: 5px;
-  padding-top: 5px;
   margin: 15px;
   width: 130px;
   background-color: #55aaaa;
   height: 100px;
   border-radius: 4px;
-  color: white; }
+  color: white;
+  text-align: center; }
   .loop-item :hover {
     cursor: pointer; }
   .loop-item h4 {
+    width: 100%;
     color: white;
-    padding-top: 22px; }
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal; }
   .loop-item .btn {
-    margin-right: 6px; }
-  .loop-item .btn-accent {
+    margin-top: 6px;
     margin-right: 6px; }
