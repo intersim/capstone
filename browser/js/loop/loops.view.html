@@ -1,19 +1,6 @@
 <div class="loops container">
   <div class="row">
 
-    <!-- <div class="filters col-md-3"> -->
-
-<!--       <form>
-        <div class="form-group">
-          <h4>Sort By...</h4>
-          <div>
-            <button class="btn" ng-repeat="sortMethod in sortMethods" ng-click="sortLoops(sortMethod)">{{sortMethod.name}}</button><br>
-          </div>
-        </div>
-
-      </form> -->
-    <!-- </div> -->
-
     <div class="browse">
       <div class="filters">
         <h1>Browse Loops</h1>
@@ -46,7 +33,7 @@
             <h4>This Loop Was Used In:</h4>
             <div class="mix-container well">
               <div ng-repeat="mix in selected.mixes">
-                <a ui-sref="editMix({mixId: mix._id})"><h5>{{mix.title}}</h5></a>
+                <a ui-sref="editMix({mixId: mix._id})"><mix-item mix="mix"></mix-item></a>
               </div>
             </div>
         </div>
