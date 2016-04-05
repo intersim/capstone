@@ -1,0 +1,1690 @@
+{
+  _id: "5702e50590f71e0300035913",
+  username: "dorothym",
+  email: "dorothy.v.moore@gmail.com",
+  joinDate: "2016-04-04T22:04:53.128Z",
+  favorites: [ ],
+  isAdmin: false,
+  bucket: [
+  "5702e55190f71e0300035914",
+  "5702e58490f71e030003591c",
+  "5702e5fa90f71e0300035948",
+  "5702e61d90f71e0300035950",
+  "5702e66290f71e0300035959",
+  "5702e6ac90f71e0300035961",
+  "5702e6c590f71e0300035969",
+  "5702e7a690f71e0300035994",
+  "5702f8c2cb1c1d0300503e28",
+  "5702f8ffcb1c1d0300503e30",
+  "5702f92acb1c1d0300503e38",
+  "5702f94ecb1c1d0300503e41",
+  "5702f989cb1c1d0300503e52",
+  "5702f9a4cb1c1d0300503e5b",
+  "5702fa14cb1c1d0300503e75",
+  "5702fa32cb1c1d0300503e7e",
+  "5702fa4ccb1c1d0300503e87",
+  "5702fa78cb1c1d0300503e8f",
+  "5702fa8fcb1c1d0300503e98"
+  ],
+  following: [ ]
+},
+
+{
+_id: "5702e55190f71e0300035914",
+name: "cripple_creek",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:06:09.001Z",
+notes: [
+{
+pitch: "c5",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e55190f71e030003591b"
+},
+{
+pitch: "c5",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e55190f71e030003591a"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e55190f71e0300035919"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e55190f71e0300035918"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e55190f71e0300035917"
+},
+{
+pitch: "a4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e55190f71e0300035916"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e55190f71e0300035915"
+}
+],
+numUses: 3,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e58490f71e030003591c",
+name: "cripple_creek_bass_line",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:07:00.572Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e58490f71e0300035924"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e58490f71e0300035923"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e58490f71e0300035922"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e58490f71e0300035921"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e58490f71e0300035920"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e58490f71e030003591f"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e58490f71e030003591e"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702e58490f71e030003591d"
+}
+],
+numUses: 3,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e5fa90f71e0300035948",
+name: "cripple_creek_a_2",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:08:58.124Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e5fa90f71e030003594f"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e5fa90f71e030003594e"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e5fa90f71e030003594d"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e5fa90f71e030003594c"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e5fa90f71e030003594b"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e5fa90f71e030003594a"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e5fa90f71e0300035949"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e61d90f71e0300035950",
+name: "cripple_creek_b_1",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:09:33.859Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e61d90f71e0300035958"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e61d90f71e0300035957"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e61d90f71e0300035956"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e61d90f71e0300035955"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e61d90f71e0300035954"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e61d90f71e0300035953"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e61d90f71e0300035952"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702e61d90f71e0300035951"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e66290f71e0300035959",
+name: "cripple_creek_b_2",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:10:42.701Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e66290f71e0300035960"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e66290f71e030003595f"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e66290f71e030003595e"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e66290f71e030003595d"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e66290f71e030003595c"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e66290f71e030003595b"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e66290f71e030003595a"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e6ac90f71e0300035961",
+name: "cripple_creek_bass_a_2",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:11:56.229Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e6ac90f71e0300035968"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e6ac90f71e0300035967"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e6ac90f71e0300035966"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e6ac90f71e0300035965"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e6ac90f71e0300035964"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e6ac90f71e0300035963"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e6ac90f71e0300035962"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e6c590f71e0300035969",
+name: "cripple_creek_bass_a-1",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:12:21.962Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e6c590f71e0300035970"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e6c590f71e030003596f"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e6c590f71e030003596e"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e6c590f71e030003596d"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e6c590f71e030003596c"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e6c590f71e030003596b"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e6c590f71e030003596a"
+}
+],
+numUses: 1,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702e7a690f71e0300035994",
+name: "cripple creek drums",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T22:16:06.848Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702e7a690f71e030003599c"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702e7a690f71e030003599b"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702e7a690f71e030003599a"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702e7a690f71e0300035999"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702e7a690f71e0300035998"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702e7a690f71e0300035997"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702e7a690f71e0300035996"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702e7a690f71e0300035995"
+}
+],
+numUses: 1,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702f8c2cb1c1d0300503e28",
+name: "Soldier's Joy A1",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:29:06.470Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702f8c2cb1c1d0300503e2f"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702f8c2cb1c1d0300503e2e"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702f8c2cb1c1d0300503e2d"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702f8c2cb1c1d0300503e2c"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702f8c2cb1c1d0300503e2b"
+},
+{
+pitch: "c5",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702f8c2cb1c1d0300503e2a"
+},
+{
+pitch: "c5",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702f8c2cb1c1d0300503e29"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time",
+"Tommy Jarrell"
+]
+},
+{
+_id: "5702f8ffcb1c1d0300503e30",
+name: "Soldier's Joy A2",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:30:07.045Z",
+notes: [
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702f8ffcb1c1d0300503e37"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702f8ffcb1c1d0300503e36"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702f8ffcb1c1d0300503e35"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702f8ffcb1c1d0300503e34"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702f8ffcb1c1d0300503e33"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702f8ffcb1c1d0300503e32"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702f8ffcb1c1d0300503e31"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time",
+"Tommy Jarrell"
+]
+},
+{
+_id: "5702f92acb1c1d0300503e38",
+name: "Soldier's Joy A4",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:30:50.977Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702f92acb1c1d0300503e40"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702f92acb1c1d0300503e3f"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702f92acb1c1d0300503e3e"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702f92acb1c1d0300503e3d"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702f92acb1c1d0300503e3c"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702f92acb1c1d0300503e3b"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702f92acb1c1d0300503e3a"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702f92acb1c1d0300503e39"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702f94ecb1c1d0300503e41",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 2,
+name: "Soldier's Joy B1",
+dateCreated: "2016-04-04T23:31:26.080Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702f975cb1c1d0300503e51"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702f975cb1c1d0300503e50"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702f975cb1c1d0300503e4f"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702f975cb1c1d0300503e4e"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702f975cb1c1d0300503e4d"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702f975cb1c1d0300503e4c"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702f975cb1c1d0300503e4b"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702f975cb1c1d0300503e4a"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702f989cb1c1d0300503e52",
+name: "Soldier's Joy B2",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:32:25.382Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702f989cb1c1d0300503e5a"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702f989cb1c1d0300503e59"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702f989cb1c1d0300503e58"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702f989cb1c1d0300503e57"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702f989cb1c1d0300503e56"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702f989cb1c1d0300503e55"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702f989cb1c1d0300503e54"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702f989cb1c1d0300503e53"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [ ]
+},
+{
+_id: "5702f9a4cb1c1d0300503e5b",
+name: "Soldier's Joy B4",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:32:52.953Z",
+notes: [
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702f9a4cb1c1d0300503e62"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702f9a4cb1c1d0300503e61"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702f9a4cb1c1d0300503e60"
+},
+{
+pitch: "f4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702f9a4cb1c1d0300503e5f"
+},
+{
+pitch: "e4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702f9a4cb1c1d0300503e5e"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702f9a4cb1c1d0300503e5d"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702f9a4cb1c1d0300503e5c"
+}
+],
+numUses: 2,
+isPublic: true,
+tags: [
+"old-time"
+]
+},
+{
+_id: "5702fa14cb1c1d0300503e75",
+name: "Soldier's Joy Bass A1",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:34:44.565Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702fa14cb1c1d0300503e7d"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702fa14cb1c1d0300503e7c"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702fa14cb1c1d0300503e7b"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702fa14cb1c1d0300503e7a"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702fa14cb1c1d0300503e79"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702fa14cb1c1d0300503e78"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702fa14cb1c1d0300503e77"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702fa14cb1c1d0300503e76"
+}
+],
+numUses: 1,
+isPublic: true,
+tags: [ ]
+},
+{
+_id: "5702fa32cb1c1d0300503e7e",
+name: "Soldier's Joy Bass A2",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:35:14.223Z",
+notes: [
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702fa32cb1c1d0300503e86"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702fa32cb1c1d0300503e85"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702fa32cb1c1d0300503e84"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702fa32cb1c1d0300503e83"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702fa32cb1c1d0300503e82"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702fa32cb1c1d0300503e81"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702fa32cb1c1d0300503e80"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702fa32cb1c1d0300503e7f"
+}
+],
+numUses: 1,
+isPublic: true,
+tags: [ ]
+},
+{
+_id: "5702fa4ccb1c1d0300503e87",
+name: "Soldier's Joy Bass A4",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:35:40.563Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702fa4ccb1c1d0300503e8e"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702fa4ccb1c1d0300503e8d"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702fa4ccb1c1d0300503e8c"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702fa4ccb1c1d0300503e8b"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702fa4ccb1c1d0300503e8a"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702fa4ccb1c1d0300503e89"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702fa4ccb1c1d0300503e88"
+}
+],
+numUses: 0,
+isPublic: true,
+tags: [ ]
+},
+{
+_id: "5702fa78cb1c1d0300503e8f",
+name: "Soldier's Joy Bass A4 alt",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:36:24.058Z",
+notes: [
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702fa78cb1c1d0300503e97"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702fa78cb1c1d0300503e96"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702fa78cb1c1d0300503e95"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702fa78cb1c1d0300503e94"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702fa78cb1c1d0300503e93"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702fa78cb1c1d0300503e92"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702fa78cb1c1d0300503e91"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:3:2",
+_id: "5702fa78cb1c1d0300503e90"
+}
+],
+numUses: 1,
+isPublic: true,
+tags: [ ]
+},
+{
+_id: "5702fa8fcb1c1d0300503e98",
+name: "Soldier's Joy Bass End",
+creator: {
+_id: "5702e50590f71e0300035913",
+username: "dorothym",
+email: "dorothy.v.moore@gmail.com",
+joinDate: "2016-04-04T22:04:53.128Z",
+favorites: [ ],
+isAdmin: false,
+bucket: [
+"5702e55190f71e0300035914",
+"5702e58490f71e030003591c",
+"5702e5fa90f71e0300035948",
+"5702e61d90f71e0300035950",
+"5702e66290f71e0300035959",
+"5702e6ac90f71e0300035961",
+"5702e6c590f71e0300035969",
+"5702e7a690f71e0300035994",
+"5702f8c2cb1c1d0300503e28",
+"5702f8ffcb1c1d0300503e30",
+"5702f92acb1c1d0300503e38",
+"5702f94ecb1c1d0300503e41",
+"5702f989cb1c1d0300503e52",
+"5702f9a4cb1c1d0300503e5b",
+"5702fa14cb1c1d0300503e75",
+"5702fa32cb1c1d0300503e7e",
+"5702fa4ccb1c1d0300503e87",
+"5702fa78cb1c1d0300503e8f",
+"5702fa8fcb1c1d0300503e98"
+],
+following: [ ]
+},
+__v: 0,
+dateCreated: "2016-04-04T23:36:47.766Z",
+notes: [
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:0:0",
+_id: "5702fa8fcb1c1d0300503e9f"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:0:2",
+_id: "5702fa8fcb1c1d0300503e9e"
+},
+{
+pitch: "d4",
+duration: "8n",
+startTime: "0:1:0",
+_id: "5702fa8fcb1c1d0300503e9d"
+},
+{
+pitch: "g4",
+duration: "8n",
+startTime: "0:1:2",
+_id: "5702fa8fcb1c1d0300503e9c"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:0",
+_id: "5702fa8fcb1c1d0300503e9b"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:2:2",
+_id: "5702fa8fcb1c1d0300503e9a"
+},
+{
+pitch: "c4",
+duration: "8n",
+startTime: "0:3:0",
+_id: "5702fa8fcb1c1d0300503e99"
+}
+],
+numUses: 1,
+isPublic: true,
+tags: [ ]
+}
