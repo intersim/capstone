@@ -161,6 +161,7 @@ h1 {
   padding: 20px; }
 
 .styled-select {
+  margin-left: 10px;
   background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% -6px;
   overflow: hidden;
   width: 120px;
