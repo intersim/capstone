@@ -9,8 +9,6 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
 
   $scope.loopBucketOpen = false;
 
-  console.log('mix: ', mix);
-
   // $scope.isMaxTracks = false;
 
   $scope.addTrack = function() {
@@ -35,7 +33,6 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
       return instr.name == track.instrument; 
     })[0];
   });
-
 
   $scope.loopBucket = loopBucket;
 
