@@ -36,7 +36,7 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   ];
 
   $scope.changeTempo = function(selectedTempo) {
-    // find tempo with same name that's passed in and get the tempo num
+    // also need to link w/ angular, and load in w/ saved mix; also, sync with CSS
     console.log("what's passed to changeTempo: ", selectedTempo);
     MixFactory.changeTempo(selectedTempo);
   }
