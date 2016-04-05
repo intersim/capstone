@@ -97,3 +97,20 @@
 a {
   color: #c8c8c8;
 }
+
+.loop-container {
+  mix-item {
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+}
+
+.mix-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}
+.mix-container.well {
+  padding: 0px;
+}
