@@ -1,3 +1,4 @@
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 <div class="mixEditor">
 
@@ -8,10 +9,14 @@
 
     <button class="btn btn-primary playPause" title="stop" ng-click="togglePlay()" ng-show="playing"><i class="fa fa-stop"></i></button>
 
-    <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><span class="fa fa-floppy-o"></i></button>
+    <button ng-click="open()" type="submit" class="btn btn-primary saveButton" title="save"><i class="fa fa-floppy-o"></i></button>
+
+<!--     <button ng-click="toggleExport()" class="btn btn-primary export" title="export - click once to save, then click again when mix is finished playing to download"><i class="fa fa-download"></i></button>
+ -->
 
     <button ng-click="showHelp()" class="btn btn-primary helpButton" title="help"><i class="fa fa-question-circle"></i></button>
-  </div>
+
+    <a href="https://twitter.com/share?text=Check out this mix on Symph! " class="twitter-share-button" data-text="Check out this mix on Symph!" target="_blank"><button class="btn btn-primary tweet" title="tweet" ng-if="mix._id"><i class="fa fa-twitter"></i></button></a>
 
   </h1>
   <button class="openLoopBucket btn btn-lg btn-primary pull-right" ng-click="showLoopBucket()"><i class="fa fa-shopping-basket"></i> <span ng-show="loopBucketOpen">Close</span><span ng-show="!loopBucketOpen">Open</span> Loop Bucket</button>

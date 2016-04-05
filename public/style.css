@@ -203,7 +203,7 @@ h1 {
   .mixform .saveButton {
     margin-top: 4px; }
 
-.playPause, .saveButton, .helpButton {
+.playPause, .saveButton, .helpButton, .export, .tweet {
   vertical-align: top; }
 
 .addTrack {

@@ -5,6 +5,8 @@
 app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket, $uibModal){
   var trackCount = mix.tracks.length;
 
+  $scope.url = document.URL;
+
   $scope.loopBucketOpen = false;
 
   // $scope.isMaxTracks = false;
@@ -31,7 +33,6 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
       return instr.name == track.instrument; 
     })[0];
   });
-
 
   $scope.loopBucket = loopBucket;
 
