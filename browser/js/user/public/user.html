@@ -8,11 +8,11 @@
   <div class="row col-lg-7">
 
     <div class="col-lg-9">
-      <ul class="summary">
-        <li>Bio: {{user.bio}}</li>
-        <li ui-sref="followers">Followers: {{followers.length}}</li>
-        <li ui-sref="following">Following: {{user.following.length}}</li>
-      </ul>
+      <!-- <ul class="user-summary"> -->
+        <!-- <li>Bio: {{user.bio}}</li> -->
+        <p ui-sref="followers">Followers: {{followers.length}}</p>
+        <p ui-sref="following">Following: {{user.following.length}}</p>
+      <!-- </ul> -->
     </div>
   </div>
 
