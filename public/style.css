@@ -453,6 +453,9 @@ h1 {
 .browse h1 {
   display: inline; }
 
+.browse-mixes {
+  margin-top: 40px; }
+
 .loops .filters {
   margin-top: 30px;
   display: inline-flex; }
@@ -476,8 +479,8 @@ h1 {
 
 /* if you want to add selects: use class "style-select" to match instrument select in mix edit page */
 .form-btn {
-  padding-top: 30px;
-  padding-bottom: 10px;
+  padding-top: 25px;
+  padding-bottom: 15px;
   margin-top: 25px;
   margin-bottom: 10px;
   margin-left: 15px; }
@@ -497,7 +500,7 @@ h1 {
   .loop-item h4 {
     font-family: 'Pontano Sans';
     width: 100%;
-    color: white;
+    /* color: white; */
     display: inline-block;
     vertical-align: middle;
     line-height: normal; }

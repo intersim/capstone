@@ -1,7 +1,7 @@
 <div class="mixes container">
   <div class="row">
 
-  <div>
+  <div class="browse-mixes">
     <div class="filters">
       <h1>Browse Mixes</h1>
     </div>
@@ -13,7 +13,7 @@
     <div class="panel panel-default">
         <div class="panel-body">
 
-    <a href="" ui-sref="editMix({mixId: selected._id})"><h4>{{selected.title}}</h4></a>
+    <a href="" ui-sref="editMix({mixId: selected._id})"><h3>{{selected.title}}</h3></a>
 
     <p>{{selected.description}}</p>
 
@@ -23,7 +23,7 @@
 
     <p><strong>Tags:</strong><span class="label label-success" ng-repeat="tag in mix.tags">{{tag}}</span></p>
     
-    <h5>Loops Used:</h5>
+    <h4>Loops Used:</h4>
     <div class="mix-container well">
       <loop-item loop="loop" ng-repeat="loop in selected.loops"></loop-item>
     </div>
