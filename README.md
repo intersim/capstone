@@ -9,7 +9,7 @@ This app was built by [Emily Intersimone](http://www.github.com/intersim), [Mari
 
 We used ToneJS to synthesize sound directly in the browser, in order to reduce latency that comes with downloading & uploading .mp3 and .wav files before you can playback for users. Symph turns your browser into an instrument!
 
-The loop grid was rendered with HTML5 canvas, and the notes were drawn and made dynamic with FabricJS. The Loops were made draggable in the MixEditor using custom drag-and-drop Angular directives.
+The loop grid was rendered with HTML5 canvas, and the notes were drawn and made dynamic with FabricJS. The loops were made draggable in the MixEditor using custom drag-and-drop Angular directives.
 
 Some of the technologies we used:
   * ToneJS
@@ -37,7 +37,6 @@ Sharing & Collaboration:
 
 * Browse, Copy & Save Loops by other users
 * Browse & Favorite Mixes by other users
-* Share the Mix Page
 
 ## Installation
 
@@ -79,7 +78,7 @@ You can start the app by running:
   npm start
   ```
 
-Open http://127.0.0.1/:1337 in your web browser.
+Open http://127.0.0.1:1337 in your web browser.
 
 ## Contribute
 
