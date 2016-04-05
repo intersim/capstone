@@ -527,6 +527,9 @@ h1 {
     margin-right: 4px;
     margin-top: 5px; }
 
+a {
+  color: #c8c8c8; }
+
 #signup {
   position: fixed;
   margin: auto 20% auto 5%; }
