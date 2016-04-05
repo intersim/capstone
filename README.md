@@ -1,41 +1,97 @@
 # Symph - Draw Your Music
-============
 
-Symph is a music creation platform for music enthusiasts of all experience backgrounds. Symph can be used as a tool to learn basic composition skills and to draft composition mock-ups. You can view the deployed version at getsymph.io
+Symph is a music creation platform for music enthusiasts of all experience backgrounds. Symph can be used as a tool to learn basic composition skills and to draft composition mock-ups. 
 
-Dependencies: ToneJS, FabricJS, and native HTML5 Drag and Drop (DnD) API and Canvas.
- 
-We used ToneJS to synthesize sound within the browser, reducing latency that comes with downloading mp3 and .wav files before being able to play them. Symph allows you to turn your browser into an instrument!
+The app is deployed at [getsymph.io](http://www.getsymph.io).
 
-The loop grid was rendered with HTML5 canvas and the notes were drawn and made dynamic with FabricJS. Loops were made draggable within the MixEditor via HTML5's DnD. 
+This app was built by [Emily Intersimone](http://www.github.com/intersim), [Mariya Bogorodova](http://www.github.com/mbogor) and [Alex Polubiec](http://www.github.com/paloobi).
 
 
-Features
-============
-- Loop Creator/Editor - create a sequence of notes taking up 8 beats in a musical timeline. 
+We used ToneJS to synthesize sound directly in the browser, in order to reduce latency that comes with downloading & uploading .mp3 and .wav files before you can playback for users. Symph turns your browser into an instrument!
 
-- Mix Creator/Editor - arrange loops across as many as 4 tracks to create a composition.
+The loop grid was rendered with HTML5 canvas, and the notes were drawn and made dynamic with FabricJS. The Loops were made draggable in the MixEditor using custom drag-and-drop Angular directives.
 
-- Sharing and Collaboration - browse loops and mixes pages feature the work of other users that you can edit and use in your own creations. 
+Some of the technologies we used:
+  * ToneJS
+  * FabricJS
+  * HTML5 Drag and Drop (DnD) API
+  * HTML5 Canvas API
 
+## Features
 
-Installation
-============
-- install node.js, npm, and gulp
-- npm install the dependencies
-- run gulp build
-- npm start
-- open on localhost/:1337
+Loops:
 
-Contribute
-============
-Source Code: github.com/intersim/symph
+* Create/edit a sequence of notes:
+  - Drag and drop
+  - Snap to grid
+* Save loops to Loop Bucket for later use
+* Copy, modify, and save your own version of someone else's Loop
 
-Support
-============
-If you're having any issues, please let us know.
-We can be contacted at info@getsymph.io.
+Mixes:
 
-License
-============
-This project is licensed under The MIT License. 
+* Create/edit Mix with up to 4 tracks
+* Drag and drop Loops between measures in a Track
+* Drag and drop Loops between Tracks
+
+Sharing & Collaboration:
+
+* Browse, Copy & Save Loops by other users
+* Browse & Favorite Mixes by other users
+* Share the Mix Page
+
+## Installation
+
+To get started installing the app, clone the repo to your local machine.
+
+### Dependencies
+
+In order to run this app, you must have the following dependencies globally installed:
+
+  * Node.js
+  * npm
+  * gulp
+
+To install the rest of the dependencies, and run:
+
+  ```
+  npm install
+  ```
+
+Seed the database with some basic data using the following command:
+  
+  ```
+  node seed.js
+  ```
+
+### Run the Build
+
+To build the front-end of the application, run the following command:
+
+  ```
+  gulp build
+  ```
+
+### Start the App
+
+You can start the app by running:
+
+  ```
+  npm start
+  ```
+
+Open http://127.0.0.1/:1337 in your web browser.
+
+## Contribute
+
+Source Code: [https://github.com/intersim/symph](https://github.com/intersim/symph)
+Issues: [https://github.com/intersim/symph/issues](https://github.com/intersim/symph/issues)
+
+## Support
+
+If you have any questions, issues or comments, please let us know! We're always looking to improve the app.
+
+Send us an email at [info@getsymph.io](mailto:info@getsymph.io).
+
+## License
+
+This project is licensed under the MIT License. 
