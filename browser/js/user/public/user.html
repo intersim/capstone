@@ -1,45 +1,25 @@
 <div class="container">
-  <h1>{{user.username}}</h1>
+  <div class="row">
+  <h1 class="user-h1">{{user.username}}</h1>
 
-  <button ng-click='change(user._id)'>{{status}}</button>
+  <button class="btn btn-primary btn-sm follow-btn" ng-click='change(user._id)'>{{status}}</button>
+  </div>
 
   <div class="row col-lg-7">
 
     <div class="col-lg-9">
-      <ul class="summary">
-        <li>Bio: {{user.bio}}</li>
-        <li ui-sref="followers">Followers: {{followers.length}}</li>
-        <li ui-sref="following">Following: {{user.following.length}}</li>
-      </ul>
+      <!-- <ul class="user-summary"> -->
+        <!-- <li>Bio: {{user.bio}}</li> -->
+        <p ui-sref="followers">Followers: {{followers.length}}</p>
+        <p ui-sref="following">Following: {{user.following.length}}</p>
+      <!-- </ul> -->
     </div>
-  </div>
-
-  <div class="col-lg-12">
-    <h3>My Mixes</h3>
-      <a ng-hide='!mixes.length' ui-sref='mixes({id: user._id})'>See All</a>
-      <div> 
-        <mix-item mix="mix" ng-repeat="mix in mixes">
-        </mix-item>
-      </div>
-      <span ng-show="mixes.length === 0">{{user.username}} has no mixes yet!</span>
-  </div>
-
-
-  <div class="col-lg-12">
-    <h3>My Loops</h3>
-      <a ng-hide="!loops.length" ui-sref='loops'>See All</a>
-    <div> 
-      <loop-item loop="loop" ng-repeat="loop in loops | filter: loopFilter">
-      {{loop.creator}}
-      </loop-item>
-    </div>
-    <span ng-show="loops.length === 0">{{user.username}} has no loops yet!</span>
   </div>
 
     <div class="col-lg-12">
     <h3>My Loop Bucket</h3>
-      <a ng-hide="!loops.length" ui-sref='loops'>See All</a>
-    <div> 
+      <!-- <a ng-hide="!loops.length" ui-sref='loops'>See All</a> -->
+    <div class="well my-loop-well"> 
       <loop-item loop="loop" ng-repeat="loop in loops">
       </loop-item>
     </div>
@@ -47,10 +27,32 @@
   </div>
 
   <div class="col-lg-12">
-    <h3>Mix Favorites</h3>
-      <div> 
+    <h3>Loops By Me</h3>
+      <!-- <a ng-hide="!loops.length" ui-sref='loops'>See All</a> -->
+    <div class="well my-loop-well"> 
+      <loop-item loop="loop" ng-repeat="loop in loops | filter: loopFilter">
+      {{loop.creator}}
+      </loop-item>
+    </div>
+    <span ng-if="loops.length===0">{{user.username}} has no loops yet!</span>
+  </div>
+
+  <div class="col-lg-12">
+    <h3>Mixes By Me</h3>
+      <!-- <a ng-hide='!mixes.length' ui-sref='mixes({id: user._id})'>See All</a> -->
+      <div class="well">
+        <mix-item mix="mix" ng-repeat="mix in mixes">
+        </mix-item>
+      </div>
+      <span ng-show="mixes.length === 0">{{user.username}} has no mixes yet!</span>
+  </div>
+
+  <div class="col-lg-12">
+    <h3>Favorite Mixes</h3>
+      <div class="well"> 
         <mix-item mix="mix" ng-repeat="mix in user.favorites">
         </mix-item>
+        <span ng-if="user.favorites.length===0">{{user.username}} hasn't favorited any mixes yet!</span>
       </div>
   </div>
 
