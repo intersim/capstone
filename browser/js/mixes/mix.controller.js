@@ -5,6 +5,8 @@
 app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket, $uibModal){
   var trackCount = mix.tracks.length;
 
+  $scope.url = document.URL;
+
   $scope.loopBucketOpen = false;
 
   // $scope.isMaxTracks = false;
@@ -89,6 +91,28 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   $scope.showLoopBucket = function() {
     $scope.loopBucketOpen = !$scope.loopBucketOpen;
   }
+
+  var gainNode = Tone.Master.input;
+  var rec = new Recorder(gainNode);
+
+  $scope.isExporting = false;
+
+  $scope.toggleExport = function () {
+    if (!$scope.isExporting) {
+      $scope.isExporting = true;
+      rec.clear();
+      Tone.Transport.start();
+      rec.record();
+    } else {
+      $scope.isExporting = false;
+      rec.stop();
+      rec.exportWAV(function (blob) {
+        Recorder.forceDownload(blob);
+        console.log('blob: ', blob);
+      });
+    }
+  }
+
 
 });
 
