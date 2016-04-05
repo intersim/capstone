@@ -97,6 +97,11 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     }
   }
 
+  MixFactory.changeTempo = function (tempoObj) {
+    console.log("MixFactory.changeTempo obj tempo: ", tempoObj.tempo);
+    Tone.Transport.bpm.rampTo(tempoObj.tempo);
+  }
+
   MixFactory.getAll = function() {
     return $http.get('/api/mixes/')
     .then(function(res) {

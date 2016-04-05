@@ -28,6 +28,11 @@
 
   <h3 ng-show="mix.title !== 'Untitled'">{{ mix.title }} <small> by <a href="" ui-sref="profile({userId: mix.creator._id})">{{mix.creator.username}}</a></small></h3>
 
+  <div class="tempoSelect styled-select">
+    <select ng-model="track.tempoModel" ng-change="changeTempo(track.tempoModel)" ng-options="tempo as tempo.name for tempo in tempos">
+    </select>
+  </div>
+
   <div class="track-container">
     <div ng-repeat="track in mix.tracks" ng-init="$track = $index">
       <form>

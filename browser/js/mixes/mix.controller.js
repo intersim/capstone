@@ -26,6 +26,21 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     { name: "drumSynth" }
   ];
 
+  $scope.tempos = [
+    { name: "fast", tempo: 160 },
+    { name: "pretty fast", tempo: 140 },
+    { name: "medium fast", tempo: 120 },
+    { name: "medium", tempo: 100 },
+    { name: "medium slow", tempo: 80 },
+    { name: "slow", tempo: 80 },
+  ];
+
+  $scope.changeTempo = function(selectedTempo) {
+    // find tempo with same name that's passed in and get the tempo num
+    console.log("what's passed to changeTempo: ", selectedTempo);
+    MixFactory.changeTempo(selectedTempo);
+  }
+
   mix.tracks.forEach(function (track) {
     track.instrumentModel = $scope.instruments.filter(function(instr){
       return instr.name == track.instrument; 
