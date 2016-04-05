@@ -112,6 +112,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   MixFactory.new = function() {
     mix = {
       title: "Untitled",
+      tempo: 120,
       tracks: [
         {
           measures: [],
@@ -121,6 +122,7 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     }
 
     MixFactory.changeInstr("synth1", 0);
+    // MixFactory.changeTempo(120);
     while (mix.tracks[0].measures.length < 16) mix.tracks[0].measures.push({rest:true});
 
     AuthService.getLoggedInUser()

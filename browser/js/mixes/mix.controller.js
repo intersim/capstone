@@ -37,8 +37,8 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
 
   $scope.changeTempo = function(selectedTempo) {
     // also need to link w/ angular, and load in w/ saved mix; also, sync with CSS
-    console.log("what's passed to changeTempo: ", selectedTempo);
-    MixFactory.changeTempo(selectedTempo);
+    console.log("what's passed to changeTempo: ", selectedTempo.tempo);
+    MixFactory.changeTempo(selectedTempo.tempo);
   }
 
   mix.tracks.forEach(function (track) {
@@ -46,7 +46,6 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
       return instr.name == track.instrument; 
     })[0];
   });
-
 
   $scope.loopBucket = loopBucket;
 
