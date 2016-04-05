@@ -169,11 +169,11 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
   MixFactory.addLoop = function(loopId, track, measure) {
     var measures = mix.tracks[track].measures;
     while (measures.length <= measure) measures.push({rest: true});
-    measures[measure] = { rest: false, loop: {_id: loopId} };
     $http.get('/api/loops/' + loopId)
       .then(function(res) {
         var loop = res.data;
-        scheduleLoop(loop.notes, track, measure);  
+        measures[measure] = { rest: false, loop: loop };
+        scheduleLoop(loop.notes, track, measure);
       });
   }
 

@@ -3,9 +3,7 @@
   <div class="browse col-md-8">
     <h1>Browse Mixes</h1>
     <div class="mix-container well">
-      <div ng-repeat="mix in mixes" ng-click="select(mix)">
-        {{mix.title}}
-      </div>
+      <mix-item ng-repeat="mix in mixes" mix="mix" ng-click="select(mix)"></mix-item>
     </div>
   </div>
 
@@ -14,12 +12,13 @@
     <p>{{selected.description}}</p>
     <p><strong>Created By:</strong> <a href="" ui-sref="profile({userId: selected.creator._id})">{{selected.creator.username}}</a></p>
     <p><strong>Created On:</strong> {{selected.dateCreated | date : format : short}}
-    
+    <p><strong>Tags:</strong><span class="label label-success" ng-repeat="tag in mix.tags">{{tag}}</span></p>
+
     
     <h5>Loops Used:</h5>
     <div class="loop-container well">
       <loop-item loop="loop" ng-repeat="loop in selected.loops"></loop-item>
-    </div>    
+    </div>
 
   </div>
 

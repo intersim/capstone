@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('MixesCtrl', function($scope, mixes, MixFactory){
+app.controller('MixesCtrl', function($scope, mixes, MixFactory, AuthService){
 
   $scope.selected = null;
 
@@ -10,5 +10,11 @@ app.controller('MixesCtrl', function($scope, mixes, MixFactory){
     mix.loops = MixFactory.getLoops(mix);
     $scope.selected = mix;
   }
+
+  AuthService.getLoggedInUser()
+  .then(function(user) {
+    $scope.currentUser = user;
+  })
+
 
 })
