@@ -97,9 +97,10 @@ app.factory('MixFactory', function($http, $state, $stateParams, AuthService) {
     }
   }
 
-  MixFactory.changeTempo = function (tempoObj) {
-    console.log("MixFactory.changeTempo obj tempo: ", tempoObj.tempo);
-    Tone.Transport.bpm.rampTo(tempoObj.tempo);
+  MixFactory.changeTempo = function (tempo) {
+    console.log("MixFactory.changeTempo arg: ", tempo);
+    Tone.Transport.bpm.rampTo(tempo);
+    mix.tempo = tempo;
   }
 
   MixFactory.getAll = function() {

@@ -20,8 +20,8 @@
       <div> 
         <mix-item mix="mix" ng-repeat="mix in mixes">
         </mix-item>
+        <span ng-show="mixes.length === 0">{{user.username}} has no mixes yet!</span>
       </div>
-      <span ng-show="mixes.length === 0">{{user.username}} has no mixes yet!</span>
   </div>
 
 

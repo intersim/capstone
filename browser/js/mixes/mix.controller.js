@@ -35,12 +35,6 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
     { name: "slow", tempo: 80 },
   ];
 
-  $scope.changeTempo = function(selectedTempo) {
-    // also need to link w/ angular, and load in w/ saved mix; also, sync with CSS
-    console.log("what's passed to changeTempo: ", selectedTempo.tempo);
-    MixFactory.changeTempo(selectedTempo.tempo);
-  }
-
   mix.tracks.forEach(function (track) {
     track.instrumentModel = $scope.instruments.filter(function(instr){
       return instr.name == track.instrument; 
@@ -73,7 +67,17 @@ app.controller('MixEditor', function($scope, mix, MixFactory, $http, loopBucket,
   }
 
   $scope.changeInstr = function(selectedInstr, trackNum) {
+    console.log('trackNum: ', trackNum);
     MixFactory.changeInstr(selectedInstr, trackNum);
+    // mix[trackNum].instrument = selectedInstr;
+    console.log('mix with new instr: ', mix);
+  }
+
+  $scope.changeTempo = function(selectedTempo) {
+    // also need to link w/ angular, and load in w/ saved mix; also, sync with CSS
+    console.log("what's passed to changeTempo: ", selectedTempo.tempo);
+    MixFactory.changeTempo(selectedTempo.tempo);
+    $scope.mix.tempo = selectedTempo.tempo;
   }
 
   // E: this modal is half-implemented
