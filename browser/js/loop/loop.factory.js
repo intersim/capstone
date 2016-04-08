@@ -242,7 +242,9 @@ function animColor (wallTime) {
         top: Math.round(options.target.top / grid) * grid
       });
 
-      var idC = canvas.getActiveObject().Myid;
+      var noteObj = canvas.getActiveObject();
+
+      var idC = noteObj.Myid;
 
       // delete note from array of music data
       var noteToDelete = loopMusicData[idC]
@@ -255,18 +257,23 @@ function animColor (wallTime) {
       Tone.Transport.clear(idC);
 
       //make new tone
-      var top = canvas.getActiveObject().get('top');
-      var left = canvas.getActiveObject().get('left');
+      var top = noteObj.get('top');
+      var left = noteObj.get('left');
 
       var xVal = left
       if(xVal < 0) xVal = 0;
       var yVal = top
       if(yVal < 0) yVal = 0;
 
-      canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+      noteObj.set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+
+      if (noteObj.width < 40) {
+        console.log('whoops, must be at least 40!');
+        noteObj.set('width', 40);
+      }
 
       if (!notes[xVal]) notes[xVal] = [];
-      notes[xVal].push(canvas.getActiveObject());
+      notes[xVal].push(noteObj);
       scheduleTone(xVal, yVal, newWidth, idC);
 
   }
