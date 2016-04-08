@@ -12,7 +12,26 @@ app.factory('LoopFactory', function($http, $stateParams, $state){
             "volume" : -12
         }).toMaster();
   
-  var selectedInstr = synth;
+  function pianoNotes () {
+    var notes = arguments;
+    var notesObj = {};
+    for (var i = 0; i < notes.length; i++) {
+      notesObj[notes[i].toLowerCase()] = "./piano/piano." + notes[i].toUpperCase() + ".ogg";
+    }
+    console.log("piano notes: ", notesObj);
+    return notesObj;
+  }
+
+  var env = new Tone.AmplitudeEnvelope({
+    "attack" : 1,
+    "decay" : 0.5,
+    "sustain" : 0.09,
+    "release" : 0.2
+  }).toMaster();
+    
+  var piano = new Tone.PolySynth(8, Tone.Sampler, pianoNotes("C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5")).connect(env);
+
+  var selectedInstr = piano;
 
   // initialize looping
   Tone.Transport.loop = true;
@@ -86,7 +105,9 @@ function animColor (wallTime) {
 
     var eventId = Tone.Transport.schedule(function(){
       // make sound
-      selectedInstr.triggerAttackRelease(pitch, duration);
+      // selectedInstr.triggerAttackRelease(pitch, duration);
+      selectedInstr.triggerAttack(pitch);
+      env.triggerAttack();
       // change note color
       notes[objX].forEach(function (note) {
         animationList.push({note: note, oldColor: note.get('fill'), startTime: window.performance.now(), duration: 100 });
@@ -279,14 +300,18 @@ function animColor (wallTime) {
     var noteWidth = width || 40;
 
     if (options && options.target) {
-      selectedInstr.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
+      // selectedInstr.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");
+      selectedInstr.triggerAttack(getPitchStr(options.e.offsetY));  
+      env.triggerAttack();
       return;
     }
 
     if (options) {
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
-      selectedInstr.triggerAttackRelease(getPitchStr(offsetY), "8n");
+      // selectedInstr.triggerAttackRelease(getPitchStr(offsetY), "8n");
+      selectedInstr.triggerAttack(getPitchStr(offsetY));
+      env.triggerAttack()
     }
 
     var newObjectId = ++lastObjId;

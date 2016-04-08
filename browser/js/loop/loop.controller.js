@@ -103,6 +103,11 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
 
   // Tone.Transport.bpm.rampTo(90);
 
+  // Tone.Buffer.on('load', function () {
+  //     console.log('audio buffers have loaded!');
+  //     piano.triggerAttack(['C.4', 'E.4', 'G.4']);
+  // });
+
   // Tone.Transport.schedule(function(){
   //   piano.triggerAttack('C.4');
   // }, '0:0:0');
@@ -122,10 +127,5 @@ app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFac
   // Tone.Transport.schedule(function(){
   //   piano.triggerAttack('G.4');
   // }, '0:2:0');
-
-  // Tone.Buffer.on('load', function () {
-  //     console.log('audio buffers have loaded!');
-  //     piano.triggerAttack(['C.4', 'E.4', 'G.4']);
-  // });
 
 });
