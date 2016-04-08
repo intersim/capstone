@@ -42,7 +42,6 @@ function animColor (wallTime) {
     // during that time, then the color is f(walltime - startime), where f is some crazy function (sine? start with a constant...)
     window.requestAnimationFrame(tick);
     if (!canvas) return;
-    // E: set old color back to last animated note
 
     animationList.forEach(function (animation) {
       animation.note.set('fill', '#ffffff');
@@ -54,25 +53,9 @@ function animColor (wallTime) {
 
     animationList = animationList.filter(anim => !anim.dead);
 
-    // lastNoteArr.forEach(function (note) {
-    //   note.set('fill', '#ff00ff');
-    // })
-    // // E: set new exciting color on note now playing
-    // lastAnimatedArr.forEach(function (note) {
-    //   note.set('fill', '#fff');
-    // })
     canvas.renderAll();
 
     lastAnimatedArr = lastNoteArr;
-
-    // lastAnimatedNoteRect && lastAnimatedNoteRect.set('fill', '#fff');
-
-    
-    // lastNotePlayed.rect && lastNotePlayed.rect.set('fill', '#FF00FF');
-    // canvas.renderAll();
-
-    // lastAnimatedNoteRect = lastNotePlayed.rect;
-
   }
 
   tick();
@@ -225,13 +208,11 @@ function animColor (wallTime) {
 
     // snap to grid when moving or elongating obj
     canvas.on('object:modified', LoopFactory.snapToGrid)
-
   }
 
   LoopFactory.snapToGrid = function(options) {
       
       var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
-
 
       if (options.target.getWidth() !== newWidth) {
           options.target.set({ width: newWidth, scaleX: 1});
@@ -257,12 +238,10 @@ function animColor (wallTime) {
       Tone.Transport.clear(idC);
 
       //make new tone
-      var top = noteObj.get('top');
-      var left = noteObj.get('left');
+      var xVal = noteObj.get('top');
+      var yVal = noteObj.get('left');
 
-      var xVal = left
       if(xVal < 0) xVal = 0;
-      var yVal = top
       if(yVal < 0) yVal = 0;
 
       noteObj.set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
@@ -270,6 +249,9 @@ function animColor (wallTime) {
       if (noteObj.width < 40) {
         console.log('whoops, must be at least 40!');
         noteObj.set('width', 40);
+        console.log('noteObj: ', noteObj);
+        canvas.setActiveObject(noteObj);
+        // E: instead of setting width on obj, we might just have to delete old obj and make a new one
       }
 
       if (!notes[xVal]) notes[xVal] = [];
@@ -284,6 +266,9 @@ function animColor (wallTime) {
     var offsetX = left;
     var offsetY = top;
     var noteWidth = width || 40;
+
+    //E: target is undefined after trying to make it smaller than min width, causing bug...
+    console.log('options: ', options);
 
     if (options && options.target) {
       selectedInstr.triggerAttackRelease(getPitchStr(options.e.offsetY), "8n");  
