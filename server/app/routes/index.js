@@ -2,6 +2,14 @@
 var router = require('express').Router();
 module.exports = router;
 
+router.use('/', function(req, res, next){
+  if(!req.headers.referer) {
+    var err = new Error('Action not permitted');
+    err.status = 403;
+    next(err);
+  }
+});
+
 router.use('/comments', require('./comments'));
 router.use('/mixes', require('./mixes'));
 router.use('/loops', require('./loops'));
