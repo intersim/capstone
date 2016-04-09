@@ -229,7 +229,7 @@ function animColor (wallTime) {
   }
 
   LoopFactory.snapToGrid = function(options) {
-      
+
       var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
 
 
@@ -248,21 +248,28 @@ function animColor (wallTime) {
       var noteToDelete = loopMusicData[idC]
       delete loopMusicData[idC];
       
-      // delete old object from notes data structure (used to animate notes)
-      // add updated object to new place in notes obj
+      // delete old object from notes data structure (used to animate notes)?
+      // add updated object to new place in notes obj?
 
       //delete old event
       Tone.Transport.clear(idC);
+
+      // literal edge cases
+      if (options.target.left < 0 || options.target.left > 280) {
+        return LoopFactory.deleteNote();
+      }
+
+      if (options.target.top < 0 || options.target.top > 280) {
+        return LoopFactory.deleteNote();
+      }
 
       //make new tone
       var top = canvas.getActiveObject().get('top');
       var left = canvas.getActiveObject().get('left');
 
       var xVal = left
-      if(xVal < 0) xVal = 0;
       var yVal = top
-      if(yVal < 0) yVal = 0;
-
+      
       canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
 
       if (!notes[xVal]) notes[xVal] = [];
