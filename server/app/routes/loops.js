@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
   })
   .then(function(user) {
     if (!user) throw new Error('issue saving loop onto user');
-    res.json(savedLoop);
+    res.status(201).json(savedLoop);
   })
   .then(null, next);
 });
