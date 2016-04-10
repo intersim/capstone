@@ -19,6 +19,7 @@ router.get('/', function(req, res, next){
 
 //create new loop (all users)
 router.post('/', function(req, res, next) {
+  if (!req.user) res.status(401).send();
   req.body.creator = req.user
   var savedLoop;
   Loop.create(req.body)

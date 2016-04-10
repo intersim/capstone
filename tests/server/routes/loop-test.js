@@ -110,7 +110,7 @@ describe('/api/loops', function () {
       });
     });
 
-    it('doesn\'t work if not logged in', function(done) {
+    it('sends 401 - not authenticated for guests', function(done) {
       guestAgent
       .post('/api/loops')
       .set(headers)
@@ -121,7 +121,7 @@ describe('/api/loops', function () {
         category: 'melody',
         notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
       })
-      .expect(403)
+      .expect(401)
       .end(function (err, res) {
         if (err) return done(err);
         done();
