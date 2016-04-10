@@ -16,6 +16,10 @@ var headers = {'Referer': 'test'};
 var dbURI = 'mongodb://localhost:27017/testMusicDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
+var loop, createdLoop;
+var user, userInfo, loggedInAgent;
+var otherUser, otherUserInfo, otherLoggedInAgent;
+var guestAgent;
 
 describe('/api/loops', function () {
 
@@ -23,15 +27,6 @@ describe('/api/loops', function () {
     if (mongoose.connection.db) return done();
     mongoose.connect(dbURI, done);
   });
-
-  afterEach('Clear test database', function (done) {
-    clearDB(done);
-  });
-
-  var loop, createdLoop;
-  var user, userInfo, loggedInAgent;
-  var otherUser, otherUserInfo, otherLoggedInAgent;
-  var guestAgent;
 
   beforeEach('Create user', function (done) {
 
@@ -75,6 +70,30 @@ describe('/api/loops', function () {
 
   });
 
+  beforeEach('Create second user for access tests', function(done) {
+    otherUserInfo = {
+      username: 'ABC',
+      email: 'abc@gmail.com',
+      password: 'blah'
+    }
+    
+    User.create(otherUserInfo)
+    .then(function(u) {
+      otherUser = u;
+      done();
+    });
+
+  });
+
+  beforeEach('Create other logged in agent and authenticate', function(done) {
+    otherLoggedInAgent = supertest.agent(app);
+    otherLoggedInAgent.post('/login').set(headers).send(otherUserInfo).end(done);
+  });
+
+  afterEach('Clear test database', function (done) {
+    clearDB(done);
+  });
+
   it('GET / retrieves all loops', function (done) {
     guestAgent
     .get('/api/loops')
@@ -88,272 +107,228 @@ describe('/api/loops', function () {
     });
   });
 
-  describe('POST /', function() {
-
-    it('creates a new loop for logged in user', function (done) {
-      loggedInAgent
-      .post('/api/loops')
-      .set(headers)
-      .send({
-        creator: user._id,
-        tags: ['cool'],
-        name: 'Brand New Loop',
-        category: 'melody',
-        notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
-      })
-      .expect(201)
-      .end(function (err, res) {
-        if (err) return done(err);
-        expect(res.body.name).to.equal('Brand New Loop');
-        createdLoop = res.body;
-        done();
-      });
+  it('POST creates a new loop for logged in user', function (done) {
+    loggedInAgent
+    .post('/api/loops')
+    .set(headers)
+    .send({
+      creator: user._id,
+      tags: ['cool'],
+      name: 'Brand New Loop',
+      category: 'melody',
+      notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
+    })
+    .expect(201)
+    .end(function (err, res) {
+      if (err) return done(err);
+      expect(res.body.name).to.equal('Brand New Loop');
+      createdLoop = res.body;
+      done();
     });
+  });
 
-    it('sends 401 - not authenticated for guests', function(done) {
-      guestAgent
-      .post('/api/loops')
-      .set(headers)
-      .send({
-        creator: user._id,
-        tags: ['cool'],
-        name: 'Brand New Loop',
-        category: 'melody',
-        notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
-      })
-      .expect(401)
-      .end(function (err, res) {
-        if (err) return done(err);
-        done();
-      });
+  it('POST sends 401 - not authenticated for guests', function(done) {
+    guestAgent
+    .post('/api/loops')
+    .set(headers)
+    .send({
+      creator: user._id,
+      tags: ['cool'],
+      name: 'Brand New Loop',
+      category: 'melody',
+      notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
+    })
+    .expect(401)
+    .end(function (err, res) {
+      if (err) return done(err);
+      done();
     });
-
   });
 
   describe('/:loopId', function() {
 
-    beforeEach('Create second user for access tests', function(done) {
-      otherUserInfo = {
-        username: 'ABC',
-        email: 'abc@gmail.com',
-        password: 'blah'
-      }
-      
-      User.create(otherUserInfo)
-      .then(function(u) {
-        otherUser = u;
+    it('GET retrieves a single loop for guest', function (done) {
+      guestAgent      
+      .get('/api/loops/' + loop._id)
+      .set(headers)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        expect(res.body.name).to.equal('Cool Loop');
         done();
       });
-
     });
 
-    beforeEach('Create other logged in agent and authenticate', function(done) {
-      otherLoggedInAgent = supertest.agent(app);
-      otherLoggedInAgent.post('/login').set(headers).send(otherUserInfo).end(done);
-    });
-
-    describe('GET retrieves a single loop', function (done) {
-      
-      xit('works for guest', function() {guestAgent
-        .get('/api/loops/' + loop._id)
-        .set(headers)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body.name).to.equal('Cool Loop');
-          done();
-        });
+    it('GET retrieves a single loop for logged in user', function(done) {
+      loggedInAgent
+      .get('/api/loops/' + loop._id)
+      .set(headers)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        expect(res.body.name).to.equal('Cool Loop');
+        done();
       });
+    })
 
-      it('works for logged in user', function() {
-        loggedInAgent
-        .get('/api/loops/' + loop._id)
-        .set(headers)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body.name).to.equal('Cool Loop');
-          done();
-        });
+    it('GET one that doesn\'t exist returns status code 404', function (done) {
+      guestAgent
+      .get('/api/loops/notvalidid')
+      .set(headers)
+      .expect(404)
+      .end(done);
+    });
+
+    it('PUT allows logged in user to update their loop', function (done) {
+      loggedInAgent
+      .put('/api/loops/' + loop._id)
+      .set(headers)
+      .send({
+        notes: [
+          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
+          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        ]
       })
-
-      it('GET one that doesn\'t exist returns status code 404', function (done) {
-        guestAgent
-        .get('/api/loops/notvalidid')
-        .set(headers)
-        .expect(404)
-        .end(done);
+      .expect(201)
+      .end(function (err, res) {
+        if (err) return done(err);
+        expect(res.body.notes.length).to.equal(2);
+        done();
       });
-
     });
 
-    xdescribe('PUT',function() {
-
-      it('allows logged in user to update their loop', function (done) {
-        loggedInAgent
-        .put('/api/loops/' + loop._id)
-        .set(headers)
-        .send({
-          notes: [
-            {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-            {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
-          ]
-        })
-        .expect(201)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body.notes.length).to.equal(2);
-          done();
-        });
+    it('PUT is not allowed for guest', function(done) {
+      guestAgent
+      .put('/api/loops/' + loop._id)
+      .set(headers)
+      .send({
+        notes: [
+          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
+          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        ]
+      })
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
       });
-
-      it('is not allowed for guest', function(done) {
-        guestAgent
-        .put('/api/loops/' + loop._id)
-        .set(headers)
-        .send({
-          notes: [
-            {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-            {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
-          ]
-        })
-        .expect(403)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body.notes.length).to.equal(1);
-          done();
-        });
-      });
-
-      it('is not allowed for user other than loop creator', function(done) {
-        otherLoggedInAgent
-        .put('/api/loops/' + loop._id)
-        .set(headers)
-        .send({
-          notes: [
-            {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-            {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
-          ]
-        })
-        .expect(403)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body.notes.length).to.equal(1);
-          done();
-        });
-      });
-
-      it('PUT one that doesn\'t exist returns 404 status code', function (done) {
-        loggedInAgent
-        .put('/api/books/notvalidid')
-        .set(headers)
-        .send({
-          notes: [
-            {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-            {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
-          ]
-        })
-        .expect(404)
-        .end(done);
-      });
-
     });
 
+    it('PUT is not allowed for user other than loop creator', function(done) {
+      otherLoggedInAgent
+      .put('/api/loops/' + loop._id)
+      .set(headers)
+      .send({
+        notes: [
+          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
+          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        ]
+      })
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
+      });
+    });
 
-    xdescribe('DELETE', function() {
+    it('PUT one that doesn\'t exist returns 404 status code', function (done) {
+      loggedInAgent
+      .put('/api/books/notvalidid')
+      .set(headers)
+      .send({
+        notes: [
+          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
+          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        ]
+      })
+      .expect(404)
+      .end(done);
+    });
 
-      it('allows creator to remove loop', function (done) {
-        loggedInAgent
-        .delete('/api/loops/' + loop._id)
-        .set(headers)
-        .expect(204)
-        .end(function (err, res) {
+    it('DELETE allows creator to remove loop', function (done) {
+      loggedInAgent
+      .delete('/api/loops/' + loop._id)
+      .set(headers)
+      .expect(204)
+      .end(function (err, res) {
+        if (err) return done(err);
+        Loop.findById(loop._id, function (err, loop) {
           if (err) return done(err);
-          Loop.findById(loop._id, function (err, loop) {
-            if (err) return done(err);
-            expect(loop).to.be.null;
-            done();
-          });
+          expect(loop).to.be.null;
+          done();
         });
       });
+    });
 
-      xit('returns status code 405 for published loops - method not allowed', function (done) {
-        loop.isPublic = true;
-        loop.save()
-        .then(function(loop) {
-          return loggedInAgent.delete('/api/loops/' + loop._id)
-        })
-        .expect(405)
-        .end(function (err, res) {
-          if (err) return done(err);
-          Loop.findById(loop._id, function (err, loop) {
-            if (err) return done(err);
-            expect(loop).to.exist;
-          });
-        });
-      });
+    it('DELETE returns 404 status code if loop doesn\'t exist', function (done) {
+      loggedInAgent
+      .delete('/api/loops/notvalidid')
+      .set(headers)
+      .expect(404)
+      .end(done);
+    });
 
-      it('if loop doesn\'t exist returns 404 status code', function (done) {
-        loggedInAgent
-        .delete('/api/loops/notvalidid')
-        .set(headers)
-        .expect(404)
-        .end(done);
+    it('DELETE sends 403, forbidden, for user other than loop creator', function(done) {
+      otherLoggedInAgent
+      .delete('/api/loops/' + loop._id)
+      .set(headers)
+      .send()
+      .expect(403)
+      .end(function (err, res) {
+        if (err) return done(err);
+        done();
       });
     });
 
   });
 
-  xdescribe('/mixes', function(done) {
+  describe('/mixes', function(done) {
 
     var mix;
 
-    beforeEach(function (done) {
+    beforeEach('create a mix containing the loop', function (done) {
       Mix.create({
         creator: user._id,
         title: "Mix1",
         description: "Just something for fun",
-        tags: ['rad'],
-        tracks: [{
-          measures: [{}, {loop: loop._id}, {}],
-          numVoices: 1,
-          instrument: 'flute'
-        }]
+        tracks: [
+          {
+            measures: [{}, {loop: loop._id}, {}]
+          }
+        ]
       })
       .then(function(m){
+        console.log('created mix');
         mix = m;
         done();
-      })
+      });
+
     });
 
-    xdescribe('GET', function() {
-
-      it('retrieves all mixes containing the loop', function (done) {
-        loggedInAgent
-        .get('/api/loops/' + loop._id + '/mixes')
-        .set(headers)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body).to.be.instanceof(Array);
-          expect(res.body).to.have.length(1);
-          done();
-        });
+    it('GET retrieves all mixes containing the loop', function (done) {
+      loggedInAgent
+      .get('/api/loops/' + loop._id + '/mixes')
+      .set(headers)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        expect(res.body).to.be.instanceof(Array);
+        expect(res.body).to.have.length(1);
+        done();
       });
+    });
 
-      it('works for guests', function(done) {
-        guestAgent
-        .get('/api/loops/' + loop._id + '/mixes')
-        .set(headers)
-        .expect(200)
-        .end(function (err, res) {
-          if (err) return done(err);
-          expect(res.body).to.be.instanceof(Array);
-          expect(res.body).to.have.length(1);
-          done();
-        });
+    it('GET works for guests', function(done) {
+      guestAgent
+      .get('/api/loops/' + loop._id + '/mixes')
+      .set(headers)
+      .expect(200)
+      .end(function (err, res) {
+        if (err) return done(err);
+        expect(res.body).to.be.instanceof(Array);
+        expect(res.body).to.have.length(1);
+        done();
       });
-
     });
 
   });

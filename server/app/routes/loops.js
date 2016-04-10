@@ -44,13 +44,15 @@ router.param('loopId', function(req, res, next) {
   .populate('creator')
   .exec()
   .then(function(loop) {
-    loop.creator = loop.creator.sanitize();
-  //   if (loop && (loop.isPublic===true || loop.creator===req.user._id) ) {
-  //     req.loop = loop;
-  //     next()
-  //   } else next(new Error('no published loop found'));
-    req.loop = loop;
-    next();
+    if (loop) {
+      loop.creator = loop.creator.sanitize();
+      req.loop = loop;
+      next();
+    } else {
+      var err = new Error('No loop found');
+      err.status = 404;
+      throw err;
+    }
   })
   .then(null, next);
 })
@@ -63,7 +65,7 @@ router.get('/:loopId', function(req, res, next) {
 //edit loop (creator and admin)
 router.put('/:loopId', function(req, res, next){
   // if ( (!req.loop.isPublic && req.user._id === req.loop.creator) || req.user.isAdmin ){
-  if ( (req.user._id.toString() === req.loop.creator._id.toString()) || req.user.isAdmin ){
+  if ( req.user && ( req.user.equals(req.loop.creator) || req.user.isAdmin ) ) {
     req.loop.set(req.body);
     req.loop.save()
     .then(function(loop) {
@@ -77,7 +79,7 @@ router.put('/:loopId', function(req, res, next){
 
 //delete loop (creator and admin)
 router.delete('/:loopId', function(req, res, next) {
-  if ( (!req.loop.isPublic && req.user._id.toString() === req.loop.creator.toString()) || req.user.isAdmin ) {
+  if ( req.user && ( req.user.equals(req.loop.creator) || req.user.isAdmin ) ) {
     req.loop.remove()
     .then(function(){
       res.status(204).send();
