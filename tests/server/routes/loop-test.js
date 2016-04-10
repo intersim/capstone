@@ -45,7 +45,6 @@ describe('/api/loops', function () {
 
     User.create(userInfo)
     .then(function(u) {
-      console.log('running test')
       user = u;
       done();
     })
