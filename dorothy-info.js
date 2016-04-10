@@ -1,11 +1,12 @@
 module.exports = {
-  dorothy: {
+  user: {
     username: "dorothym",
     email: "dorothy.v.moore@gmail.com",
+    password: "oldtimemusic",
     isAdmin: false
   },
 
-  dorothyLoops: [{
+  loops: [{
       name: "cripple_creek",
       notes: [{
         pitch: "c5",

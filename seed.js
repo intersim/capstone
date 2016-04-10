@@ -475,6 +475,18 @@ function seedDemo(users, loops) {
 
 }
 
+function seedDorothyData() {
+    var dorothyData = require('./dorothy-info');
+    User.createAsync(dorothyData.user)
+    .then(function(dorothy) {
+        dorothyData.loops.forEach(function(loop) {
+            loop.creator = dorothy._id;
+        });
+        return Loop.createAsync(dorothyData.loops);
+    })
+    .then(null, console.error);
+}
+
 var dbUsers;
 var dbLoops;
 var dbTracks;
@@ -505,6 +517,7 @@ connectToDb.then(function() {
     }
     return Loop.findAsync({});
 }).then(function(loops) {
+    console.log(loops);
     if (loops && loops.length) {
         console.log(chalk.magenta('Seems to already be loop data'));
         return loops;
@@ -546,9 +559,16 @@ connectToDb.then(function() {
 })
 .then(function(mix) {
     if (mix) {
+        console.log(chalk.green('Seeded demo'));
+        return seedDorothyData();
+    } else console.log(chalk.magenta('Failed to seed demo'));
+})
+.then(function(loops) {
+    if (loops && loops.length) {
+        console.log(chalk.green('Seeded loops by Dorothy'));
         console.log(chalk.green('SEED SUCCESSFUL!'));
         process.exit(0);
-    } else console.log(chalk.magenta('Failed to seed demo'))
+    } else console.log(chalk.magenta('Failed to seed dorothy\'s loops'));
 })
 .catch(function (err) {
     console.error(err);
