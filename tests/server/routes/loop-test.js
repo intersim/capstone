@@ -130,7 +130,7 @@ describe('/api/loops', function () {
 
   });
 
-  xdescribe('/:loopId', function() {
+  describe('/:loopId', function() {
 
     beforeEach('Create second user for access tests', function(done) {
       otherUserInfo = {
@@ -143,17 +143,18 @@ describe('/api/loops', function () {
       .then(function(u) {
         otherUser = u;
         done();
-      })
+      });
+
     });
 
     beforeEach('Create other logged in agent and authenticate', function(done) {
       otherLoggedInAgent = supertest.agent(app);
       otherLoggedInAgent.post('/login').set(headers).send(otherUserInfo).end(done);
-    })
+    });
 
-    xdescribe('GET retrieves a single loop', function (done) {
+    describe('GET retrieves a single loop', function (done) {
       
-      it('works for guest', function() {guestAgent
+      xit('works for guest', function() {guestAgent
         .get('/api/loops/' + loop._id)
         .set(headers)
         .expect(200)
@@ -259,43 +260,46 @@ describe('/api/loops', function () {
     });
 
 
-    it('DELETE allows creator to remove loop', function (done) {
-      loggedInAgent
-      .delete('/api/loops/' + loop._id)
-      .set(headers)
-      .expect(204)
-      .end(function (err, res) {
-        if (err) return done(err);
-        Loop.findById(loop._id, function (err, loop) {
+    xdescribe('DELETE', function() {
+
+      it('allows creator to remove loop', function (done) {
+        loggedInAgent
+        .delete('/api/loops/' + loop._id)
+        .set(headers)
+        .expect(204)
+        .end(function (err, res) {
           if (err) return done(err);
-          expect(loop).to.be.null;
-          done();
+          Loop.findById(loop._id, function (err, loop) {
+            if (err) return done(err);
+            expect(loop).to.be.null;
+            done();
+          });
         });
       });
-    });
 
-    xit('DELETE a published loop returns status code 405 - method not allowed', function (done) {
-      loop.isPublic = true;
-      loop.save()
-      .then(function(loop) {
-        return loggedInAgent.delete('/api/loops/' + loop._id)
-      })
-      .expect(405)
-      .end(function (err, res) {
-        if (err) return done(err);
-        Loop.findById(loop._id, function (err, loop) {
+      xit('returns status code 405 for published loops - method not allowed', function (done) {
+        loop.isPublic = true;
+        loop.save()
+        .then(function(loop) {
+          return loggedInAgent.delete('/api/loops/' + loop._id)
+        })
+        .expect(405)
+        .end(function (err, res) {
           if (err) return done(err);
-          expect(loop).to.exist;
+          Loop.findById(loop._id, function (err, loop) {
+            if (err) return done(err);
+            expect(loop).to.exist;
+          });
         });
       });
-    });
 
-    it('DELETE one that doesn\'t exist returns 404 status code', function (done) {
-      loggedInAgent
-      .delete('/api/loops/notvalidid')
-      .set(headers)
-      .expect(404)
-      .end(done);
+      it('if loop doesn\'t exist returns 404 status code', function (done) {
+        loggedInAgent
+        .delete('/api/loops/notvalidid')
+        .set(headers)
+        .expect(404)
+        .end(done);
+      });
     });
 
   });

@@ -19,20 +19,23 @@ router.get('/', function(req, res, next){
 
 //create new loop (all users)
 router.post('/', function(req, res, next) {
-  if (!req.user) res.status(401).send();
-  req.body.creator = req.user
-  var savedLoop;
-  Loop.create(req.body)
-  .then(function(loop) {
-    savedLoop = loop;
-    req.user.bucket.push(loop._id);
-    return req.user.save();
-  })
-  .then(function(user) {
-    if (!user) throw new Error('issue saving loop onto user');
-    res.status(201).json(savedLoop);
-  })
-  .then(null, next);
+  if (!req.user) {
+    res.status(401).send();
+  } else {
+    req.body.creator = req.user
+    var savedLoop;
+    Loop.create(req.body)
+    .then(function(loop) {
+      savedLoop = loop;
+      req.user.bucket.push(loop._id);
+      return req.user.save();
+    })
+    .then(function(user) {
+      if (!user) throw new Error('issue saving loop onto user');
+      res.status(201).json(savedLoop);
+    })
+    .then(null, next);
+  }
 });
 
 //loop id param
