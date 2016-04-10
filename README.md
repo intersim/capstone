@@ -12,10 +12,12 @@ We used ToneJS to synthesize sound directly in the browser, in order to reduce l
 The loop grid was rendered with HTML5 canvas, and the notes were drawn and made dynamic with FabricJS. The loops were made draggable in the MixEditor using custom drag-and-drop Angular directives.
 
 Some of the technologies we used:
-  * ToneJS
-  * FabricJS
+  * ToneJS/Web Audio API
+  * FabricJS/HTML5 Canvas API
   * HTML5 Drag and Drop (DnD) API
-  * HTML5 Canvas API
+  * Mongoose/MongoDB
+  * Express/Node
+  * Angular
 
 ## Features
 
