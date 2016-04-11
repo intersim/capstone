@@ -207,7 +207,7 @@ describe('/api/loops', function () {
           {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
         ]
       })
-      .expect(403)
+      .expect(401)
       .end(function (err, res) {
         if (err) return done(err);
         done();

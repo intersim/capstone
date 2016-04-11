@@ -35,8 +35,8 @@ app.get('/*', function (req, res) {
 
 // Error catching endware.
 app.use(function (err, req, res, next) {
-    console.error(err)
-    console.error(err.stack);
+    // console.error(err)
+    // console.error(err.stack);
     if (err.type="CastError") {
       err.status = '404';
       err.message = 'Not found';

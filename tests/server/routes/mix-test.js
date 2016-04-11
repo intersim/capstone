@@ -53,21 +53,18 @@ describe('/api/mixes', function () {
 
   beforeEach('Create mix', function(done) {
 
-    beforeEach('create a mix containing the loop', function (done) {
-      Mix.create({
-        creator: user._id,
-        title: "Mix1",
-        tracks: [
-          { measures: [{rest:true},{rest:true}] }
-        ]
-      })
-      .then(function(m){
-        console.log('created mix');
-        mix = m;
-        done();
-      });
-
+    Mix.create({
+      creator: user._id,
+      title: "Mix1",
+      tracks: [
+        { measures: [{rest:true},{rest:true}] }
+      ]
+    })
+    .then(function(m){
+      mix = m;
+      done();
     });
+
 
   });
 
@@ -153,7 +150,7 @@ describe('/api/mixes', function () {
       .expect(200)
       .end(function (err, res) {
         if (err) return done(err);
-        expect(res.body.name).to.equal('Mix1');
+        expect(res.body.title).to.equal('Mix1');
         done();
       });
     });
@@ -165,7 +162,7 @@ describe('/api/mixes', function () {
       .expect(200)
       .end(function (err, res) {
         if (err) return done(err);
-        expect(res.body.name).to.equal('Mix1');
+        expect(res.body.title).to.equal('Mix1');
         done();
       });
     })
@@ -199,7 +196,7 @@ describe('/api/mixes', function () {
 
     it('PUT is not allowed for guest', function(done) {
       guestAgent
-      .put('/api/mixes/' + loop._id)
+      .put('/api/mixes/' + mix._id)
       .set(headers)
       .send({
         tracks: [
@@ -208,7 +205,7 @@ describe('/api/mixes', function () {
           {measures: [{rest:true}]}
         ]
       })
-      .expect(403)
+      .expect(401)
       .end(function (err, res) {
         if (err) return done(err);
         done();
