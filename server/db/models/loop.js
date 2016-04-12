@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var Mix = require('./mix')
+require('./user');
 var Promise = require('bluebird');
 
 var NoteSchema = new mongoose.Schema({
@@ -99,6 +99,22 @@ LoopSchema.methods.removeTags = function(tagsToRemove) {
     })
     return this.save();
 }
+
+LoopSchema.post('save', function(loop, done) {
+    mongoose.model('User')
+    .findById(loop.creator)
+    .then(function(user) {
+        if ( user.bucket.indexOf(loop._id) === -1 ) {
+            user.bucket.push(loop._id)
+            return user.save();
+        }
+    })
+    .then(function(user){
+        if (user) done();
+        else done( new Error('no user found') );
+    })
+    .then(null, done)
+})
 
 mongoose.model('Loop', LoopSchema);
 

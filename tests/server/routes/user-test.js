@@ -84,7 +84,6 @@ describe('/api/users', function () {
       ]
     })
     .then(function(m){
-      console.log('created mix');
       mix = m;
       done();
     });

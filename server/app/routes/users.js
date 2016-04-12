@@ -15,11 +15,15 @@ router.get('/', function(req, res, next) {
 
 //create a new user (all guests and admin)
 router.post('/', function(req, res, next) {
-  User.create(req.body)
-  .then(function(user) {
-    res.status(201).json(user.sanitize());
-  })
-  .then(null, next)
+  if (req.user) {
+    res.status(403).send();
+  } else {
+    User.create(req.body)
+    .then(function(user) {
+      res.status(201).json(user.sanitize());
+    })
+    .then(null, next)
+  }
 })
 
 //userid param
