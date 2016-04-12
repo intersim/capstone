@@ -18,6 +18,7 @@ name in the environment files.
 */
 
 var mongoose = require('mongoose');
+var _ = require('lodash');
 var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
@@ -65,7 +66,7 @@ var seedLoops = function(users) {
             tags:['cool']
         },
         {   
-            creator: users[0],
+            creator: users[1],
             name: "loop2",
             notes:[
                 {pitch:"b4",duration:"8n",startTime:"0:1:0"},
@@ -90,7 +91,7 @@ var seedLoops = function(users) {
             tags:['cool']
         },
         {
-            creator: users[0],
+            creator: users[1],
             name: "loop3",
             notes:[
                 {pitch:"c5",duration:"8n",startTime:"0:0:0"},
@@ -114,7 +115,7 @@ var seedLoops = function(users) {
             tags:['rad, awesome']
         },
         {
-            creator: users[0],
+            creator: users[1],
             name: "loop5",
             notes:[
                 {pitch:"c5",duration:"8n",startTime:"0:0:0"},
@@ -126,7 +127,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-1",
+            name: "frere-jacques-1",
             notes:[
                 {pitch:"c4",duration:"4n",startTime:"0:0:0"},
                 {pitch:"b4",duration:"4n",startTime:"0:1:0"},
@@ -137,7 +138,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-2",
+            name: "frere-jacques-2",
             notes:[
                 {pitch:"e4",duration:"4n",startTime:"0:0:0"},
                 {pitch:"f4",duration:"4n",startTime:"0:1:0"},
@@ -147,7 +148,7 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-3",
+            name: "frere-jacques-3",
             notes:[
                 {pitch:"g4",duration:"8n",startTime:"0:0:0"},
                 {pitch:"a4",duration:"8n",startTime:"0:0:2"},
@@ -160,14 +161,175 @@ var seedLoops = function(users) {
         },
         {
             creator: users[2],
-            name: "fj-4",
+            name: "frere-jacques-4",
             notes:[
                 {pitch:"c4",duration:"4n",startTime:"0:0:0"},
                 {pitch:"g4",duration:"4n",startTime:"0:1:0"},
-                {pitch:"c4",duration:"2n",startTime:"0:2:0"},
+                {pitch:"c4",duration:"2n",startTime:"0:2:0"}
             ],
             tags:['demo']
+        },
+        {
+            creator: users[0],
+            name: "melody-1",
+            notes: [
+                {pitch: "b4", duration: "8n", startTime: "0:1:0"},
+                {pitch: "a4", duration: "8n", startTime: "0:1:2"},
+                {pitch: "b4", duration: "4n", startTime: "0:2:0"},
+                {pitch: "e4", duration: "4n", startTime: "0:3:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "melody-2",
+            notes: [
+                {pitch: "c5", duration: "8n", startTime: "0:1:0"},
+                {pitch: "b4", duration: "8n", startTime: "0:1:2"},
+                {pitch: "c5", duration: "8n", startTime: "0:2:0"},
+                {pitch: "b4", duration: "8n", startTime: "0:2:2"},
+                {pitch: "a4", duration: "4n", startTime: "0:3:0"}
+
+            ]
+        },
+        {
+            creator: users[0],
+            name: "melody-3",
+            notes: [
+                {pitch: "c5",duration: "8n",startTime: "0:1:0"},
+                {pitch: "b4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "c5",duration: "4n",startTime: "0:2:0"},
+                {pitch: "e4",duration: "4n",startTime: "0:3:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "melody-4",
+            notes: [
+                {pitch: "a4",duration: "8n",startTime: "0:2:0"},
+                {pitch: "g4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "a4",duration: "8n",startTime: "0:1:0"},
+                {pitch: "g4",duration: "8n",startTime: "0:2:2"},
+                {pitch: "a4",duration: "4n",startTime: "0:3:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "melody-5",
+            notes: [
+                {pitch: "g4",duration: "4n",startTime: "0:0:0"},
+                {pitch: "f4",duration: "8n",startTime: "0:1:0"},
+                {pitch: "g4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "a4",duration: "4n",startTime: "0:2:0"},
+                {pitch: "g4",duration: "8n",startTime: "0:3:0"},
+                {pitch: "a4",duration: "8n",startTime: "0:3:2"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "melody-6",
+            notes: [
+                {pitch: "b4",duration: "8n",startTime: "0:0:0"},
+                {pitch: "a4",duration: "8n",startTime: "0:0:2"},
+                {pitch: "g4",duration: "8n",startTime: "0:1:0"},
+                {pitch: "f4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "e4",duration: "4n",startTime: "0:2:0"},
+                {pitch: "c5",duration: "4n",startTime: "0:3:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "melody-end",
+            notes: [
+                {pitch: "b4",duration: "1n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-1",
+            notes: [
+                {pitch: "g4",duration: "2n+4n",startTime: "0:0:0"},
+                {pitch: "f4",duration: "4n",startTime: "0:3:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-2",
+            notes: [
+                {pitch: "e4",duration: "1n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-3",
+            notes: [
+                {pitch: "c4",duration: "1n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-4",
+            notes: [
+                {pitch: "g4",duration: "2n",startTime: "0:2:0"},
+                {pitch: "f4",duration: "2n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-5",
+            notes: [
+                {pitch: "d4",duration: "2n",startTime: "0:2:0"},
+                {pitch: "e4",duration: "2n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-6",
+            notes: [
+                {pitch: "d4",duration: "2n",startTime: "0:0:0"},
+                {pitch: "a4",duration: "2n",startTime: "0:0:0"},
+                {pitch: "b4",duration: "2n",startTime: "0:2:0"},
+                {pitch: "c4",duration: "2n",startTime: "0:2:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "harmony-end",
+            notes: [
+                {pitch: "e4",duration: "1n",startTime: "0:0:0"},
+                {pitch: "b4",duration: "1n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "drumbeat-1",
+            notes: [
+                {pitch: "e4",duration: "8n",startTime: "0:1:0"},
+                {pitch: "e4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "e4",duration: "4n",startTime: "0:2:2"},
+                {pitch: "e4",duration: "4n",startTime: "0:0:0"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "drumbeat-2",
+            notes: [
+                {pitch: "c4",duration: "4n",startTime: "0:0:0"},
+                {pitch: "c4",duration: "8n",startTime: "0:1:0"},
+                {pitch: "c4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "c4",duration: "4n",startTime: "0:2:2"}
+            ]
+        },
+        {
+            creator: users[0],
+            name: "drumbeat-3",
+            notes: [
+                {pitch: "d4",duration: "4n",startTime: "0:0:0"},
+                {pitch: "d4",duration: "8n",startTime: "0:1:0"},
+                {pitch: "d4",duration: "8n",startTime: "0:1:2"},
+                {pitch: "d4",duration: "4n",startTime: "0:2:2"}
+            ]
         }
+
     ]
 
     return Loop.createAsync(loops);
@@ -220,7 +382,7 @@ function seedMixes(users, loops) {
 
     var tracks = [];
     for (var i = 0; i < 3; i++) {
-        tracks.push( {
+        tracks.push({
             measures: (new Array(12) ).fill({rest: true}),
             numVoices: 1,
             instrument: 'synth1'
@@ -238,6 +400,91 @@ function seedMixes(users, loops) {
 
     return Mix.createAsync(mixes);
 
+}
+
+function seedDemo(users, loops) {
+    var mix = new Mix( {
+        creator: users[0]._id,
+        title: "Final Countdown",
+        description: "Something we threw together",
+        tags: ['dramatic'],
+        tracks: []
+    })
+
+    if (!mix.tracks[0]) mix.tracks[0] = {
+        measures: ( new Array(12) ).fill({rest: true}),
+        numVoices: 1,
+        instrument: 'synth2'
+    }
+
+    if (!mix.tracks[1]) mix.tracks[1] = {
+        measures: ( new Array(12) ).fill({rest: true}),
+        numVoices: 1,
+        instrument: 'synth1'
+    }
+
+    if (!mix.tracks[2]) mix.tracks[2] = {
+        measures: ( new Array(12) ).fill({rest: true}),
+        numVoices: 1,
+        instrument: 'drumSynth'
+    }
+
+    for (var i = 0; i < 6; i++) {
+
+        mix.tracks[0].measures[i] = {rest: false, loop: _.find(loops, function(obj) {
+            return obj.name === "melody-" + (i+1).toString();
+        })._id}
+
+        mix.tracks[1].measures[i] = {rest: false, loop: _.find(loops, function(obj) {
+            return obj.name === "harmony-" + (i+1).toString();
+        })._id}
+    }
+
+
+    var lastMelodyLoop = {rest: false, loop: _.find(loops, function(obj) {
+            return obj.name === "melody-end";
+        })._id
+    }
+    mix.tracks[0].measures[6] = lastMelodyLoop;
+    mix.tracks[0].measures[7] = lastMelodyLoop;
+
+    var lastHarmonyLoop = {rest: false, loop: _.find(loops, function(obj) {
+            return obj.name === "harmony-end";
+        })._id
+    }
+    mix.tracks[1].measures[6] = lastHarmonyLoop;
+    mix.tracks[1].measures[7] = lastHarmonyLoop;
+    
+    var drumbeat1 = _.find(loops, function(obj) { return obj.name === "drumbeat-1"; })._id
+    var drumbeat2 = _.find(loops, function(obj) { return obj.name === "drumbeat-2"; })._id
+    var drumbeat3 = _.find(loops, function(obj) { return obj.name === "drumbeat-3"; })._id
+    mix.tracks[2].measures[0] = {rest: false, loop: drumbeat1};
+    mix.tracks[2].measures[1] = {rest: false, loop: drumbeat2};
+    mix.tracks[2].measures[2] = {rest: false, loop: drumbeat3};
+    mix.tracks[2].measures[3] = {rest: false, loop: drumbeat2};
+    mix.tracks[2].measures[4] = {rest: false, loop: drumbeat3};
+    mix.tracks[2].measures[5] = {rest: false, loop: drumbeat1};
+    mix.tracks[2].measures[6] = {rest: false, loop: drumbeat1};
+    mix.tracks[2].measures[7] = {rest: false, loop: drumbeat1};
+
+    console.log(mix.tracks.map(function(track) {
+        return track.measures;
+    }))
+
+    return Mix.createAsync(mix);
+
+}
+
+function seedDorothyData() {
+    var dorothyData = require('./dorothy-info');
+    User.createAsync(dorothyData.user)
+    .then(function(dorothy) {
+        dorothyData.loops.forEach(function(loop) {
+            loop.creator = dorothy._id;
+        });
+        return Loop.createAsync(dorothyData.loops);
+    })
+    .then(null, console.error);
 }
 
 var dbUsers;
@@ -270,6 +517,7 @@ connectToDb.then(function() {
     }
     return Loop.findAsync({});
 }).then(function(loops) {
+    console.log(loops);
     if (loops && loops.length) {
         console.log(chalk.magenta('Seems to already be loop data'));
         return loops;
@@ -305,9 +553,22 @@ connectToDb.then(function() {
     if (mixes.length) {
         console.log( chalk.green('Saved mixes') );
         dbMixes = mixes;
-        console.log(chalk.green('SEED SUCCESSFUL!'));
-        process.kill(0);
     } else console.log( chalk.magenta('Failed to seed mixes') );
+    console.log('Creating Demo Mix')
+    return seedDemo(dbUsers, dbLoops)
+})
+.then(function(mix) {
+    if (mix) {
+        console.log(chalk.green('Seeded demo'));
+        return seedDorothyData();
+    } else console.log(chalk.magenta('Failed to seed demo'));
+})
+.then(function(loops) {
+    if (loops && loops.length) {
+        console.log(chalk.green('Seeded loops by Dorothy'));
+        console.log(chalk.green('SEED SUCCESSFUL!'));
+        process.exit(0);
+    } else console.log(chalk.magenta('Failed to seed dorothy\'s loops'));
 })
 .catch(function (err) {
     console.error(err);
