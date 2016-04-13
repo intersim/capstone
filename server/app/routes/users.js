@@ -31,9 +31,10 @@ router.param('userId', function(req, res, next) {
       req.foundUser = user; 
       next()
     } else {
-      next(new Error('couldn\'t find user'));
+      res.status(404).json();
     }
   })
+  .then(null, next);
 })
 
 //retrieve user with user id (all guests and users)

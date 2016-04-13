@@ -1,7 +1,6 @@
 // Instantiate all models
 var mongoose = require('mongoose');
 require('../../../server/db/models');
-var Loop = mongoose.model('Loop');
 var User = mongoose.model('User');
 var Mix = mongoose.model('Mix');
 
@@ -16,12 +15,12 @@ var headers = {'Referer': 'test'};
 var dbURI = 'mongodb://localhost:27017/testMusicDB';
 var clearDB = require('mocha-mongoose')(dbURI);
 
-var loop, createdLoop;
+var mix, createdMix;
 var user, userInfo, loggedInAgent;
 var otherUser, otherUserInfo, otherLoggedInAgent;
 var guestAgent;
 
-describe('/api/loops', function () {
+describe('/api/mixes', function () {
 
   beforeEach('Establish DB connection', function (done) {
     if (mongoose.connection.db) return done();
@@ -52,21 +51,20 @@ describe('/api/loops', function () {
     loggedInAgent.post('/login').set(headers).send(userInfo).end(done);
   });
 
-  beforeEach('Create loop', function(done) {
+  beforeEach('Create mix', function(done) {
 
-    loop = new Loop({
+    Mix.create({
       creator: user._id,
-      tags: ['cool'],
-      name: 'Cool Loop',
-      category: 'melody',
-      notes: [ { duration: '2n', pitch: 'c5', startTime: '0:1:0'} ]
-    });
-
-    loop.save()
-    .then(function(l) {
-      loop = l;
+      title: "Mix1",
+      tracks: [
+        { measures: [{rest:true},{rest:true}] }
+      ]
+    })
+    .then(function(m){
+      mix = m;
       done();
     });
+
 
   });
 
@@ -94,9 +92,9 @@ describe('/api/loops', function () {
     clearDB(done);
   });
 
-  it('GET / retrieves all loops', function (done) {
+  it('GET / retrieves all mixes', function (done) {
     guestAgent
-    .get('/api/loops')
+    .get('/api/mixes')
     .set(headers)
     .expect(200)
     .end(function (err, res) {
@@ -107,36 +105,34 @@ describe('/api/loops', function () {
     });
   });
 
-  it('POST creates a new loop for logged in user', function (done) {
+  it('POST creates a new mix for logged in user', function (done) {
     loggedInAgent
-    .post('/api/loops')
+    .post('/api/mixes')
     .set(headers)
     .send({
       creator: user._id,
-      tags: ['cool'],
-      name: 'Brand New Loop',
-      category: 'melody',
-      notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
+      title: 'New Mix',
+      tracks: [
+        {measures: [{rest:true}]},
+        {measures: [{rest:true}]}
+      ]
     })
     .expect(201)
     .end(function (err, res) {
       if (err) return done(err);
-      expect(res.body.name).to.equal('Brand New Loop');
-      createdLoop = res.body;
+      expect(res.body.title).to.equal('New Mix');
+      createdMix = res.body;
       done();
     });
   });
 
-  it('POST sends 401 - not authenticated for guests', function(done) {
+  it('POST sends 401 - not authenticated for guest', function(done) {
     guestAgent
-    .post('/api/loops')
+    .post('/api/mixes')
     .set(headers)
     .send({
       creator: user._id,
-      tags: ['cool'],
-      name: 'Brand New Loop',
-      category: 'melody',
-      notes: [ { duration: '1n', pitch: 'c5', startTime: '0:1:0'} ]
+      name: 'Another Mix'
     })
     .expect(401)
     .end(function (err, res) {
@@ -145,66 +141,68 @@ describe('/api/loops', function () {
     });
   });
 
-  describe('/:loopId', function() {
+  describe('/:mixId', function() {
 
-    it('GET retrieves a single loop for guest', function (done) {
+    it('GET retrieves a single mix for guest', function (done) {
       guestAgent      
-      .get('/api/loops/' + loop._id)
+      .get('/api/mixes/' + mix._id)
       .set(headers)
       .expect(200)
       .end(function (err, res) {
         if (err) return done(err);
-        expect(res.body.name).to.equal('Cool Loop');
+        expect(res.body.title).to.equal('Mix1');
         done();
       });
     });
 
-    it('GET retrieves a single loop for logged in user', function(done) {
+    it('GET retrieves a single mix for logged in user', function(done) {
       loggedInAgent
-      .get('/api/loops/' + loop._id)
+      .get('/api/mixes/' + mix._id)
       .set(headers)
       .expect(200)
       .end(function (err, res) {
         if (err) return done(err);
-        expect(res.body.name).to.equal('Cool Loop');
+        expect(res.body.title).to.equal('Mix1');
         done();
       });
     })
 
     it('GET one that doesn\'t exist returns status code 404', function (done) {
       guestAgent
-      .get('/api/loops/notvalidid')
+      .get('/api/mixes/notvalidid')
       .set(headers)
       .expect(404)
       .end(done);
     });
 
-    it('PUT allows logged in user to update their loop', function (done) {
+    it('PUT allows logged in user to update their mix', function (done) {
       loggedInAgent
-      .put('/api/loops/' + loop._id)
+      .put('/api/mixes/' + mix._id)
       .set(headers)
       .send({
-        notes: [
-          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        tracks: [
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]}
         ]
       })
       .expect(201)
       .end(function (err, res) {
         if (err) return done(err);
-        expect(res.body.notes.length).to.equal(2);
+        expect(res.body.tracks.length).to.equal(3);
         done();
       });
     });
 
     it('PUT is not allowed for guest', function(done) {
       guestAgent
-      .put('/api/loops/' + loop._id)
+      .put('/api/mixes/' + mix._id)
       .set(headers)
       .send({
-        notes: [
-          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        tracks: [
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]}
         ]
       })
       .expect(401)
@@ -214,14 +212,15 @@ describe('/api/loops', function () {
       });
     });
 
-    it('PUT is not allowed for user other than loop creator', function(done) {
+    it('PUT is not allowed for user other than mix creator', function(done) {
       otherLoggedInAgent
-      .put('/api/loops/' + loop._id)
+      .put('/api/mixes/' + mix._id)
       .set(headers)
       .send({
-        notes: [
-          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        tracks: [
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]}
         ]
       })
       .expect(403)
@@ -233,100 +232,50 @@ describe('/api/loops', function () {
 
     it('PUT one that doesn\'t exist returns 404 status code', function (done) {
       loggedInAgent
-      .put('/api/loops/notvalidid')
+      .put('/api/mixes/notvalidid')
       .set(headers)
       .send({
-        notes: [
-          {duration: '2n', pitch: 'c5', startTime: '0:1:0'},
-          {duration: '1n', pitch: 'd5', startTime: '0:2:0'}
+        tracks: [
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]},
+          {measures: [{rest:true}]}
         ]
       })
       .expect(404)
       .end(done);
     });
 
-    it('DELETE allows creator to remove loop', function (done) {
+    it('DELETE allows creator to remove mix', function (done) {
       loggedInAgent
-      .delete('/api/loops/' + loop._id)
+      .delete('/api/mixes/' + mix._id)
       .set(headers)
       .expect(204)
       .end(function (err, res) {
         if (err) return done(err);
-        Loop.findById(loop._id, function (err, loop) {
+        Mix.findById(mix._id, function (err, mix) {
           if (err) return done(err);
-          expect(loop).to.be.null;
+          expect(mix).to.be.null;
           done();
         });
       });
     });
 
-    it('DELETE returns 404 status code if loop doesn\'t exist', function (done) {
+    it('DELETE returns 404 status code if mix doesn\'t exist', function (done) {
       loggedInAgent
-      .delete('/api/loops/notvalidid')
+      .delete('/api/mixes/notvalidid')
       .set(headers)
       .expect(404)
       .end(done);
     });
 
-    it('DELETE sends 403, forbidden, for user other than loop creator', function(done) {
+    it('DELETE sends 403, forbidden, for user other than mix creator', function(done) {
       otherLoggedInAgent
-      .delete('/api/loops/' + loop._id)
+      .delete('/api/mixes/' + mix._id)
       .set(headers)
       .send()
       .expect(403)
       .end(function (err, res) {
         if (err) return done(err);
-        done();
-      });
-    });
-
-  });
-
-  describe('/mixes', function(done) {
-
-    var mix;
-
-    beforeEach('create a mix containing the loop', function (done) {
-      Mix.create({
-        creator: user._id,
-        title: "Mix1",
-        description: "Just something for fun",
-        tracks: [
-          {
-            measures: [{}, {loop: loop._id}, {}]
-          }
-        ]
-      })
-      .then(function(m){
-        console.log('created mix');
-        mix = m;
-        done();
-      });
-
-    });
-
-    it('GET retrieves all mixes containing the loop', function (done) {
-      loggedInAgent
-      .get('/api/loops/' + loop._id + '/mixes')
-      .set(headers)
-      .expect(200)
-      .end(function (err, res) {
-        if (err) return done(err);
-        expect(res.body).to.be.instanceof(Array);
-        expect(res.body).to.have.length(1);
-        done();
-      });
-    });
-
-    it('GET works for guests', function(done) {
-      guestAgent
-      .get('/api/loops/' + loop._id + '/mixes')
-      .set(headers)
-      .expect(200)
-      .end(function (err, res) {
-        if (err) return done(err);
-        expect(res.body).to.be.instanceof(Array);
-        expect(res.body).to.have.length(1);
         done();
       });
     });

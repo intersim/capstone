@@ -22,13 +22,17 @@ router.get('/', function(req, res, next) {
 
 // create a new mix (current user, admin)
 router.post('/', function(req, res, next) {
-  var mix = req.body;
-  mix.creator = req.user._id;
-  Mix.create(mix)
-  .then(function(mix) {
-    res.status(201).json(mix);
-  })
-  .then(null, next)
+  if (!req.user) {
+    res.status(401).send();
+  } else {
+    var mix = req.body;
+    mix.creator = req.user._id;
+    Mix.create(mix)
+    .then(function(mix) {
+      res.status(201).json(mix);
+    })
+    .then(null, next)
+  }
 });
 
 // mix param - loop up the mix in the db
@@ -56,7 +60,8 @@ router.get('/:mixId', function(req, res, next) {
 
 // update a mix (creator of the mix & admin)
 router.put('/:mixId', function(req, res, next) {
-  if (req.user.isAdmin || req.mix.creator._id.equals(req.user._id) ){
+  if (!req.user) res.status(401).send();
+  else if (req.user.isAdmin || req.mix.creator._id.equals(req.user._id) ){
     req.mix.set(req.body);
     req.mix.save()
     .then(function(mix){
@@ -69,7 +74,7 @@ router.put('/:mixId', function(req, res, next) {
 
 // delete a mix (creator of mix & admin)
 router.delete('/:mixId', function(req, res, next) {
-  if (req.user.isAdmin || req.mix.creator.equals(req.user._id)) {
+  if ( req.user.isAdmin || req.mix.creator.equals(req.user)) {
     req.mix.remove()
     .then(function(){
       res.status(204).send();
