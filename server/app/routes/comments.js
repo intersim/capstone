@@ -36,7 +36,7 @@ router.param('commentId', function(req, res, next) {
 
 // update a comment on a mix (author or admin)
 router.put('/:commentId', function(req, res, next) {
-  if (req.user.isAdmin || req.comment.author === req.user._id) {
+  if (req.user.isAdmin || req.comment.author.equals(req.user._id) ) {
     req.comment.set(req.body);
     req.comment.save()
     .then(function(comment){
@@ -47,7 +47,7 @@ router.put('/:commentId', function(req, res, next) {
 
 // delete a comment on a mix (author, mix's creator, admin)
 router.delete('/:commentId', function(req, res, next) {
-  if (req.user.isAdmin || req.comment.author === req.user._id || req.mix.creator === req.user._id) {
+  if (req.user.isAdmin || req.comment.author.equals(req.user._id) || req.mix.creator.equals(req.user._id) ) {
     req.comment.delete()
     .then(function() {
       res.status(204).send();
