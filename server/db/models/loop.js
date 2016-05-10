@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Mix = require('./mix')
 var Promise = require('bluebird');
 
+// notes must follow Tone.js naming conventions
 var NoteSchema = new mongoose.Schema({
     duration: {
         type: String,

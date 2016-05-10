@@ -47,7 +47,7 @@ router.put('/:userId', function(req, res, next) {
   req.foundUser.set(req.body);
   req.foundUser.save()
   .then(function(user) {
-  res.status(201).json(user.sanitize())
+    res.status(201).json(user.sanitize())
   })
   .then(null, next);
 });
