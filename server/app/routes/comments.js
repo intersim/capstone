@@ -4,7 +4,7 @@ var Comment = mongoose.model('Comment');
 
 // get all comments on a mix (all guests & users)
 router.get('/', function() {
-  Comment.find({target: req.mix._id})
+  req.mix.findUserComments
   .then(function(comments) {
     res.json(comments);
   })
