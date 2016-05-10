@@ -48,7 +48,7 @@ router.put('/:commentId', function(req, res, next) {
 // delete a comment on a mix (author, mix's creator, admin)
 router.delete('/:commentId', function(req, res, next) {
   if (req.user.isAdmin || req.comment.author.equals(req.user._id) || req.mix.creator.equals(req.user._id) ) {
-    req.comment.delete()
+    req.comment.remove()
     .then(function() {
       res.status(204).send();
     })
