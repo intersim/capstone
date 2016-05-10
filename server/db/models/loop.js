@@ -60,7 +60,7 @@ var LoopSchema = new mongoose.Schema({
 
 
 LoopSchema.statics.findByCreator = function(userId) {
-    return this.find({creator: creator});
+    return this.find({creator: userId});
 };
 
 LoopSchema.statics.findByCategory = function(category) {
