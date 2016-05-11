@@ -188,8 +188,8 @@ app.factory('LoopUtils', function() {
 
   LoopUtils.scheduleTone = function (objX, objY, width, objectId) {
     var pitch = LoopUtils.getPitchStr(objY);
-    var duration = getDurationStr(width);
-    var startTime = getBeatStr(objX);
+    var duration = LoopUtils.getDurationStr(width);
+    var startTime = LoopUtils.getBeatStr(objX);
 
     var eventId = Tone.Transport.schedule(function(){
       // make sound
@@ -208,16 +208,8 @@ app.factory('LoopUtils', function() {
 
   LoopUtils.getPitchStr = function (yVal) {
     if (yVal >= 0 && yVal < 40) return "c5";
-    if (yVal >= 40 && yVal < 80) return "b4";
-    if (yVal >= 80 && yVal < 120) return "a4";
-    if (yVal >= 120 && yVal < 160) return "g4";
-    if (yVal >= 160 && yVal < 200) return "f4";
-    if (yVal >= 200 && yVal < 240) return "e4";
-    if (yVal >= 240 && yVal < 280) return "d4";
-    if (yVal >= 280 && yVal < 320) return "c4";
-  }
 
-  getBeatStr = function (xVal) {
+  LoopUtils.getBeatStr = function (xVal) {
     if (xVal >= 0 && xVal < 40) return "0:0:0";
     if (xVal >= 40 && xVal < 80) return "0:0:2";
     if (xVal >= 80 && xVal < 120) return "0:1:0";
@@ -228,7 +220,7 @@ app.factory('LoopUtils', function() {
     if (xVal >= 280 && xVal < 320) return "0:3:2";
   };
   
-  getDurationStr = function (width) {
+  LoopUtils.getDurationStr = function (width) {
     if (width === 40) return "8n";
     if (width === 80) return "4n";
     if (width === 120) return "4n+8n";
@@ -237,6 +229,14 @@ app.factory('LoopUtils', function() {
     if (width === 240) return "2n+4n";
     if (width === 280) return "2n+4n+8n";
     if (width === 320) return "1n";
+  }
+    if (yVal >= 40 && yVal < 80) return "b4";
+    if (yVal >= 80 && yVal < 120) return "a4";
+    if (yVal >= 120 && yVal < 160) return "g4";
+    if (yVal >= 160 && yVal < 200) return "f4";
+    if (yVal >= 200 && yVal < 240) return "e4";
+    if (yVal >= 240 && yVal < 280) return "d4";
+    if (yVal >= 280 && yVal < 320) return "c4";
   }
 
   LoopUtils.getYvals = function (note) {
