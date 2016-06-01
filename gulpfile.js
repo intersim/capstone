@@ -112,7 +112,7 @@ gulp.task('buildJSProduction', function () {
         .pipe(concat('main.js'))
         .pipe(babel())
         .pipe(ngAnnotate())
-        .pipe(uglify({ output : { beautify : true }}))
+        .pipe(uglify())
         .pipe(gulp.dest('./public'));
 });
 
