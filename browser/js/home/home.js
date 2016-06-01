@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 })
 
-app.controller('HomeCtrl', ['$scope, $uibModal', function($scope, $uibModal){
+app.controller('HomeCtrl', function($scope, $uibModal){
 
   var smodal; 
   var lmodal;
@@ -72,4 +72,4 @@ app.controller('HomeCtrl', ['$scope, $uibModal', function($scope, $uibModal){
 
 		}]
  	}
-}])
+})
