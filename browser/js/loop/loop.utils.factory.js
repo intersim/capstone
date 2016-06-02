@@ -1,5 +1,14 @@
 app.factory('LoopUtils', function() {
 
+  var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
+            "oscillator" : {
+                "partials" : [0, 2, 3, 4],
+            },
+            "volume" : -12
+        }).toMaster();
+  
+  var selectedInstr = synth;
+
   var LoopUtils = {};
   // for saving in our BE
   var loopMusicData = {};
@@ -41,6 +50,10 @@ app.factory('LoopUtils', function() {
     {duration: "2n+4n+8n", width: 280},
     {duration: "1n", width: 320}
   ];
+
+  LoopUtils.triggerAttackRelease = function (yVal) {
+    selectedInstr.triggerAttackRelease(LoopUtils.getPitchStr(yVal), "8n");  
+  };
 
   LoopUtils.scheduleTone = function (objX, objY, width, objectId) {
     var pitch = LoopUtils.getPitchStr(objY);

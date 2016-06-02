@@ -1,18 +1,11 @@
 'use strict';
 
+var notes = {};
+
 app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
   var LoopFactory = {};
 
   var loopMusicData = LoopUtils.loopMusicData;
-
-  var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
-            "oscillator" : {
-                "partials" : [0, 2, 3, 4],
-            },
-            "volume" : -12
-        }).toMaster();
-  
-  var selectedInstr = synth;
 
   // initialize looping
   Tone.Transport.loop = true;
@@ -28,15 +21,13 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
     Tone.Transport.cancel();
   }
 
-  // var notes = {};
-
   LoopFactory.addNote = function(options, left, right, top, width) {
     var offsetX = left;
     var offsetY = top;
     var noteWidth = width || 40;
 
     if (options && options.target) {
-      selectedInstr.triggerAttackRelease(LoopUtils.getPitchStr(options.e.offsetY), "8n");  
+      LoopUtils.triggerAttackRelease(options.e.offsetY);  
       return;
     }
 
@@ -44,7 +35,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
       console.log("OPTIONS");
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
-      selectedInstr.triggerAttackRelease(LoopUtils.getPitchStr(offsetY), "8n");
+      LoopUtils.triggerAttackRelease(offsetY);
     }
 
     var newObjectId = ++lastObjId;
@@ -68,9 +59,10 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
       hasRotatingPoint: false
     });
 
-    console.log("newRect: ", newRect);
-
     canvas.add(newRect);
+
+    if (!notes[roundedX]) notes[roundedX] = [];
+    notes[roundedX].push(newRect);
 
     // sound tone when clicking, and schedule
     LoopUtils.scheduleTone(roundedX, roundedY, noteWidth, newObjectId);
