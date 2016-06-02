@@ -28,7 +28,11 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
 
   var notes = {};
 
-  LoopFactory.addNote = function(options, left, right, top, width){
+  LoopFactory.addNote = function(options, left, right, top, width) {
+  
+    var canvas = document.getElementById('c');
+    console.log("canvas: ", canvas);
+
     var offsetX = left;
     var offsetY = top;
     var noteWidth = width || 40;
@@ -46,6 +50,25 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
 
     var newObjectId = ++lastObjId;
 
+    var newRect = new fabric.Rect({
+    Myid: newObjectId,
+    left: roundedX,
+    right: roundedX,
+    top: roundedY,
+    width: noteWidth, 
+    height: 40, 
+    fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
+    originX: 'left', 
+    originY: 'top',
+    centeredRotation: true,
+    minScaleLimit: 0,
+    lockScalingY: true,
+    lockScalingFlip: true,
+    hasRotatingPoint: false
+  });
+
+    canvas.add(newRect);
+
     var roundedX = Math.floor(offsetX / 40) * 40;
     var roundedY = Math.floor(offsetY / 40) * 40;
     
@@ -57,7 +80,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
 
   }
 
-  LoopFactory.deleteNote = function(){
+  LoopFactory.deleteNote = function(canvas){
     var idC = canvas.getActiveObject().Myid;
     canvas.getActiveObject().remove();
     lastObjId--;

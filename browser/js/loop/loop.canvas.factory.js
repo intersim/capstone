@@ -4,33 +4,12 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
   var grid;
 
   var LoopCanvas = {};
- 
-  LoopCanvas.addNote = function (newObjId, roundedX, roundedY, noteWidth) {
-    var newRect = new fabric.Rect({
-        Myid: newObjectId,
-        left: roundedX,
-        right: roundedX,
-        top: roundedY,
-        width: noteWidth, 
-        height: 40, 
-        fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
-        originX: 'left', 
-        originY: 'top',
-        centeredRotation: true,
-        minScaleLimit: 0,
-        lockScalingY: true,
-        lockScalingFlip: true,
-        hasRotatingPoint: false
-      });
-
-    canvas.add(newRect);
-  }
 
   LoopCanvas.draw = function(note) {
     var x = LoopUtils.getXvals(note);
     var y = LoopUtils.getYvals(note);
     var width = LoopUtils.getWidth(note);
-    LoopFactory.addNote(null, x.left, x.right, y.top, width);
+    LoopFactory.addNote(null, x.left, x.right, y.top, width, canvas);
   }
 
   LoopCanvas.snapToGrid = function(options) {
@@ -61,11 +40,11 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
     // literal edge cases
     if (options.target.left < 0 || options.target.left > 280) {
-      return LoopFactory.deleteNote();
+      return LoopFactory.deleteNote(canvas);
     }
 
     if (options.target.top < 0 || options.target.top > 280) {
-      return LoopFactory.deleteNote();
+      return LoopFactory.deleteNote(canvas);
     }
 
     //make new tone
@@ -83,6 +62,7 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
   }
 
   LoopCanvas.init = function() {
+    console.log("loop canvas initing")
         // initialize canvas for an 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
         selection: false,
@@ -92,6 +72,9 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
         moveCursor: 'grabbing',
         rotationCursor: 'pointer'
       });
+
+    console.log("canvas: ", canvas);
+
     canvas.setHeight(320);
     canvas.setWidth(320);
     canvas.renderAll();
