@@ -2,6 +2,8 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
   var canvas;
   var grid;
+
+  var LoopCanvas = {};
  
   LoopCanvas.draw = function(note) {
     var x = LoopUtils.getXvals(note);
@@ -10,53 +12,53 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
     LoopFactory.addNote(null, x.left, x.right, y.top, width);
   }
 
-LoopCanvas.snapToGrid = function(options) {
+  LoopCanvas.snapToGrid = function(options) {
 
-      var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
+    var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
 
 
-      if (options.target.getWidth() !== newWidth) {
-          options.target.set({ width: newWidth, scaleX: 1});
-        }
-
-      options.target.set({
-        left: Math.round(options.target.left / grid) * grid,
-        top: Math.round(options.target.top / grid) * grid
-      });
-
-      var idC = canvas.getActiveObject().Myid;
-
-      // delete note from array of music data
-      var noteToDelete = loopMusicData[idC]
-      delete loopMusicData[idC];
-      
-      // delete old object from notes data structure (used to animate notes)?
-      // add updated object to new place in notes obj?
-
-      //delete old event
-      Tone.Transport.clear(idC);
-
-      // literal edge cases
-      if (options.target.left < 0 || options.target.left > 280) {
-        return LoopFactory.deleteNote();
+    if (options.target.getWidth() !== newWidth) {
+        options.target.set({ width: newWidth, scaleX: 1});
       }
 
-      if (options.target.top < 0 || options.target.top > 280) {
-        return LoopFactory.deleteNote();
-      }
+    options.target.set({
+      left: Math.round(options.target.left / grid) * grid,
+      top: Math.round(options.target.top / grid) * grid
+    });
 
-      //make new tone
-      var top = canvas.getActiveObject().get('top');
-      var left = canvas.getActiveObject().get('left');
+    var idC = canvas.getActiveObject().Myid;
 
-      var xVal = left
-      var yVal = top
-      
-      canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+    // delete note from array of music data
+    var noteToDelete = loopMusicData[idC]
+    delete loopMusicData[idC];
+    
+    // delete old object from notes data structure (used to animate notes)?
+    // add updated object to new place in notes obj?
 
-      if (!notes[xVal]) notes[xVal] = [];
-      notes[xVal].push(canvas.getActiveObject());
-      LoopUtils.scheduleTone(xVal, yVal, newWidth, idC);
+    //delete old event
+    Tone.Transport.clear(idC);
+
+    // literal edge cases
+    if (options.target.left < 0 || options.target.left > 280) {
+      return LoopFactory.deleteNote();
+    }
+
+    if (options.target.top < 0 || options.target.top > 280) {
+      return LoopFactory.deleteNote();
+    }
+
+    //make new tone
+    var top = canvas.getActiveObject().get('top');
+    var left = canvas.getActiveObject().get('left');
+
+    var xVal = left
+    var yVal = top
+    
+    canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+
+    if (!notes[xVal]) notes[xVal] = [];
+    notes[xVal].push(canvas.getActiveObject());
+    LoopUtils.scheduleTone(xVal, yVal, newWidth, idC);
   }
 
   LoopCanvas.init = function() {
@@ -87,5 +89,44 @@ LoopCanvas.snapToGrid = function(options) {
     // snap to grid when moving or elongating obj
     canvas.on('object:modified', LoopCanvas.snapToGrid)
   }
+
+  LoopCanvas.initAnimation = function() {
+    var lastAnimatedNoteRect = null;
+    var lastAnimatedArr = [];
+
+    var animationList = [];
+
+    function animColor (wallTime) {
+      return Math.sin(wallTime/1000);
+    }
+
+    function tick (wallTime) {
+      // wall time - start time (what has been pushed into the animation list) is the amount of time since the note was struck
+      // after animation period, remove that animation from list
+      // during that time, then the color is f(walltime - startime), where f is some crazy function (sine? start with a constant...)
+      window.requestAnimationFrame(tick);
+      if (!canvas) return;
+      // E: set old color back to last animated note
+
+      animationList.forEach(function (animation) {
+        animation.note.set('fill', '#ffffff');
+        if (wallTime > animation.startTime + animation.duration) {
+          animation.note.set('fill', animation.oldColor);
+          animation.dead = true;
+        }
+      });
+
+      animationList = animationList.filter(anim => !anim.dead);
+      canvas.renderAll();
+
+      lastAnimatedArr = lastNoteArr;
+    }
+
+    tick();
+
+    var animationList = [];
+  }
+
+  return LoopCanvas;
 
 })

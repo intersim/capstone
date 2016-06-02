@@ -1,10 +1,15 @@
-app.controller('LoopController', function ($scope, LoopFactory, loop, SamplerFactory, AuthService, $uibModal) {
+app.controller('LoopController', function ($scope, LoopFactory, LoopCanvas, loop, SamplerFactory, AuthService, $uibModal) {
 
   LoopFactory.initialize();
+  LoopCanvas.init();
+  LoopCanvas.initAnimation();
+
   // SamplerFactory.test();
   $scope.loop = loop;
 
-  if (loop) LoopFactory.drawLoop(loop);
+  if (loop) {
+    loop.notes.forEach(LoopCanvas.draw)
+  }
 
   AuthService.getLoggedInUser()
   .then(function(user) {

@@ -1,9 +1,7 @@
 'use strict';
 
-app.factory('LoopFactory', function($http, $stateParams, $state, LoopAnimation, LoopCanvas, LoopUtils){
+app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
   var LoopFactory = {};
-
-  LoopAnimation.init();
 
   var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
             "oscillator" : {
@@ -28,14 +26,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopAnimation, 
   var lastNotePlayed = {};
   var lastNoteArr = [];
 
-  LoopFactory.drawLoop = function(loop) {
-    loop.notes.forEach(LoopCanvas.draw)
-  }
-
   LoopFactory.initialize = function() {
     Tone.Transport.cancel();
-    loopMusicData = {};
-    LoopCanvas.init();
   }
 
   var notes = {};
@@ -100,7 +92,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopAnimation, 
   }
 
   LoopFactory.save = function(copy, meta) {
-
     var dataToSave = [];
     for (var i in loopMusicData) {
       dataToSave.push(loopMusicData[i]);
