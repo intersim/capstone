@@ -1,0 +1,91 @@
+app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
+
+  var canvas;
+  var grid;
+ 
+  LoopCanvas.draw = function(note) {
+    var x = LoopUtils.getXvals(note);
+    var y = LoopUtils.getYvals(note);
+    var width = LoopUtils.getWidth(note);
+    LoopFactory.addNote(null, x.left, x.right, y.top, width);
+  }
+
+LoopCanvas.snapToGrid = function(options) {
+
+      var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
+
+
+      if (options.target.getWidth() !== newWidth) {
+          options.target.set({ width: newWidth, scaleX: 1});
+        }
+
+      options.target.set({
+        left: Math.round(options.target.left / grid) * grid,
+        top: Math.round(options.target.top / grid) * grid
+      });
+
+      var idC = canvas.getActiveObject().Myid;
+
+      // delete note from array of music data
+      var noteToDelete = loopMusicData[idC]
+      delete loopMusicData[idC];
+      
+      // delete old object from notes data structure (used to animate notes)?
+      // add updated object to new place in notes obj?
+
+      //delete old event
+      Tone.Transport.clear(idC);
+
+      // literal edge cases
+      if (options.target.left < 0 || options.target.left > 280) {
+        return LoopFactory.deleteNote();
+      }
+
+      if (options.target.top < 0 || options.target.top > 280) {
+        return LoopFactory.deleteNote();
+      }
+
+      //make new tone
+      var top = canvas.getActiveObject().get('top');
+      var left = canvas.getActiveObject().get('left');
+
+      var xVal = left
+      var yVal = top
+      
+      canvas.getActiveObject().set('fill', 'hsla(' + yVal + ', 85%, 70%, 1)');
+
+      if (!notes[xVal]) notes[xVal] = [];
+      notes[xVal].push(canvas.getActiveObject());
+      LoopUtils.scheduleTone(xVal, yVal, newWidth, idC);
+  }
+
+  LoopCanvas.init = function() {
+        // initialize canvas for an 8 * 8 grid
+    canvas = new fabric.Canvas('c', { 
+        selection: false,
+        defaultCursor: 'pointer',
+        freeDrawingCursor: 'pointer',
+        hoverCursor: 'grab',
+        moveCursor: 'grabbing',
+        rotationCursor: 'pointer'
+      });
+    canvas.setHeight(320);
+    canvas.setWidth(320);
+    canvas.renderAll();
+    grid = 40;
+
+    // draw lines on grid
+    for (var i = 0; i < (320 / grid); i++) {
+      canvas.add(new fabric.Line([ i * grid, 0, i * grid, 320], { stroke: '#686868', selectable: false }));
+      canvas.add(new fabric.Line([ 0, i * grid, 320, i * grid], { stroke: '#686868', selectable: false }))
+    }
+
+    // create a new rectangle obj on mousedown in canvas area
+    // change this to a double-click event ?
+    canvas.on('mouse:down', LoopFactory.addNote)
+
+    // snap to grid when moving or elongating obj
+    canvas.on('object:modified', LoopCanvas.snapToGrid)
+  }
+
+})
