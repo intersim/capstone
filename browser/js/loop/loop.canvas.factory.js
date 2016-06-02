@@ -5,6 +5,27 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
   var LoopCanvas = {};
  
+  LoopCanvas.addNote = function (newObjId, roundedX, roundedY, noteWidth) {
+    var newRect = new fabric.Rect({
+        Myid: newObjectId,
+        left: roundedX,
+        right: roundedX,
+        top: roundedY,
+        width: noteWidth, 
+        height: 40, 
+        fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
+        originX: 'left', 
+        originY: 'top',
+        centeredRotation: true,
+        minScaleLimit: 0,
+        lockScalingY: true,
+        lockScalingFlip: true,
+        hasRotatingPoint: false
+      });
+
+    canvas.add(newRect);
+  }
+
   LoopCanvas.draw = function(note) {
     var x = LoopUtils.getXvals(note);
     var y = LoopUtils.getYvals(note);
