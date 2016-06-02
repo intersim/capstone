@@ -1,6 +1,6 @@
-app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
+var canvas;
 
-  var canvas;
+app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
   var grid;
 
   var LoopCanvas = {};
