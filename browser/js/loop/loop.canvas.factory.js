@@ -92,9 +92,7 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
   LoopCanvas.initAnimation = function() {
     var lastAnimatedNoteRect = null;
-    var lastAnimatedArr = [];
-
-    var animationList = [];
+    var animationList = LoopUtils.animationList;
 
     function animColor (wallTime) {
       return Math.sin(wallTime/1000);
@@ -119,12 +117,9 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
       animationList = animationList.filter(anim => !anim.dead);
       canvas.renderAll();
 
-      lastAnimatedArr = lastNoteArr;
     }
 
     tick();
-
-    var animationList = [];
   }
 
   return LoopCanvas;

@@ -22,10 +22,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
 
   LoopUtils.scheduleTone();
 
-  // for animations
-  var lastNotePlayed = {};
-  var lastNoteArr = [];
-
   LoopFactory.initialize = function() {
     Tone.Transport.cancel();
   }

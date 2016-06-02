@@ -4,6 +4,8 @@ app.factory('LoopUtils', function() {
   // for saving in our BE
   var loopMusicData = {};
 
+  var animationList = [];
+
   // mapping for notes to canvas sizes
   var noteYMap = [
     {note: "c5", top: 0, bottom: 39},
@@ -113,6 +115,8 @@ app.factory('LoopUtils', function() {
     })[0].width;
     return width;
   }
+
+  LoopUtils.animationList = animationList;
 
   return LoopUtils;
 
