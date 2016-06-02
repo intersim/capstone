@@ -31,7 +31,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
   // var notes = {};
 
   LoopFactory.addNote = function(options, left, right, top, width) {
-
     var offsetX = left;
     var offsetY = top;
     var noteWidth = width || 40;
@@ -42,37 +41,36 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
     }
 
     if (options) {
+      console.log("OPTIONS");
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
       selectedInstr.triggerAttackRelease(LoopUtils.getPitchStr(offsetY), "8n");
     }
 
     var newObjectId = ++lastObjId;
-
-    var newRect = new fabric.Rect({
-    Myid: newObjectId,
-    left: roundedX,
-    right: roundedX,
-    top: roundedY,
-    width: noteWidth, 
-    height: 40, 
-    fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
-    originX: 'left', 
-    originY: 'top',
-    centeredRotation: true,
-    minScaleLimit: 0,
-    lockScalingY: true,
-    lockScalingFlip: true,
-    hasRotatingPoint: false
-  });
-
-    canvas.add(newRect);
-
     var roundedX = Math.floor(offsetX / 40) * 40;
     var roundedY = Math.floor(offsetY / 40) * 40;
-    
-    // if (!notes[roundedX]) notes[roundedX] = [];
-    // notes[roundedX].push(newRect);
+
+    var newRect = new fabric.Rect({
+      Myid: newObjectId,
+      left: roundedX,
+      right: roundedX,
+      top: roundedY,
+      width: noteWidth, 
+      height: 40, 
+      fill: 'hsla(' + roundedY + ', 85%, 70%, 1)',
+      originX: 'left', 
+      originY: 'top',
+      centeredRotation: true,
+      minScaleLimit: 0,
+      lockScalingY: true,
+      lockScalingFlip: true,
+      hasRotatingPoint: false
+    });
+
+    console.log("newRect: ", newRect);
+
+    canvas.add(newRect);
 
     // sound tone when clicking, and schedule
     LoopUtils.scheduleTone(roundedX, roundedY, noteWidth, newObjectId);

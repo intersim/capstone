@@ -5,10 +5,6 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
   var LoopCanvas = {};
 
-  LoopCanvas.addNote = function (options, left, right, top, width) {
-    var newObjectId = LoopFactory.addNote(options);
-  }
-
   LoopCanvas.draw = function(note) {
     var x = LoopUtils.getXvals(note);
     var y = LoopUtils.getYvals(note);
