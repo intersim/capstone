@@ -1,8 +1,8 @@
-app.controller('LoopController', function ($scope, LoopFactory, LoopCanvas, loop, SamplerFactory, AuthService, $uibModal) {
+app.controller('LoopController', function ($scope, LoopFactory, LoopCanvas, LoopAnimation, loop, SamplerFactory, AuthService, $uibModal) {
 
   LoopFactory.init();
   LoopCanvas.init();
-  LoopCanvas.initAnimation();
+  LoopAnimation.init();
 
   // SamplerFactory.test();
   $scope.loop = loop;
