@@ -29,9 +29,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
   var notes = {};
 
   LoopFactory.addNote = function(options, left, right, top, width) {
-  
-    var canvas = document.getElementById('c');
-    console.log("canvas: ", canvas);
 
     var offsetX = left;
     var offsetY = top;
