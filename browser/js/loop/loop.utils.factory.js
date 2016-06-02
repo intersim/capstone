@@ -116,6 +116,8 @@ app.factory('LoopUtils', function() {
     return width;
   }
 
+  LoopUtils.loopMusicData = loopMusicData;
+
   LoopUtils.animationList = animationList;
 
   return LoopUtils;

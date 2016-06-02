@@ -3,6 +3,8 @@
 app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
   var LoopFactory = {};
 
+  var loopMusicData = LoopUtils.loopMusicData;
+
   var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
             "oscillator" : {
                 "partials" : [0, 2, 3, 4],
@@ -26,7 +28,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
     Tone.Transport.cancel();
   }
 
-  var notes = {};
+  // var notes = {};
 
   LoopFactory.addNote = function(options, left, right, top, width) {
 
@@ -69,8 +71,8 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
     var roundedX = Math.floor(offsetX / 40) * 40;
     var roundedY = Math.floor(offsetY / 40) * 40;
     
-    if (!notes[roundedX]) notes[roundedX] = [];
-    notes[roundedX].push(newRect);
+    // if (!notes[roundedX]) notes[roundedX] = [];
+    // notes[roundedX].push(newRect);
 
     // sound tone when clicking, and schedule
     LoopUtils.scheduleTone(roundedX, roundedY, noteWidth, newObjectId);

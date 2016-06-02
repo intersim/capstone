@@ -5,17 +5,20 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
   var LoopCanvas = {};
 
+  LoopCanvas.addNote = function (options, left, right, top, width) {
+    var newObjectId = LoopFactory.addNote(options);
+  }
+
   LoopCanvas.draw = function(note) {
     var x = LoopUtils.getXvals(note);
     var y = LoopUtils.getYvals(note);
     var width = LoopUtils.getWidth(note);
-    LoopFactory.addNote(null, x.left, x.right, y.top, width, canvas);
+    LoopFactory.addNote(null, x.left, x.right, y.top, width);
   }
 
   LoopCanvas.snapToGrid = function(options) {
 
     var newWidth = (Math.round(options.target.getWidth() / grid)) * grid;
-
 
     if (options.target.getWidth() !== newWidth) {
         options.target.set({ width: newWidth, scaleX: 1});
@@ -40,11 +43,11 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
 
     // literal edge cases
     if (options.target.left < 0 || options.target.left > 280) {
-      return LoopFactory.deleteNote(canvas);
+      return LoopFactory.deleteNote();
     }
 
     if (options.target.top < 0 || options.target.top > 280) {
-      return LoopFactory.deleteNote(canvas);
+      return LoopFactory.deleteNote();
     }
 
     //make new tone
