@@ -1,3 +1,6 @@
+// for saving in our BE
+var loopMusicData = {};
+
 app.factory('LoopUtils', function() {
 
   var synth = new Tone.PolySynth(16, Tone.SimpleSynth, {
@@ -10,9 +13,7 @@ app.factory('LoopUtils', function() {
   var selectedInstr = synth;
 
   var LoopUtils = {};
-  // for saving in our BE
-  var loopMusicData = {};
-
+  
   var animationList = [];
 
   // mapping for notes to canvas sizes
@@ -128,8 +129,6 @@ app.factory('LoopUtils', function() {
     })[0].width;
     return width;
   }
-
-  LoopUtils.loopMusicData = loopMusicData;
 
   LoopUtils.animationList = animationList;
 

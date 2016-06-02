@@ -5,8 +5,6 @@ var notes = {};
 app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
   var LoopFactory = {};
 
-  var loopMusicData = LoopUtils.loopMusicData;
-
   // initialize looping
   Tone.Transport.loop = true;
   Tone.Transport.loopStart = "0:0:0";
@@ -32,7 +30,6 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
     }
 
     if (options) {
-      console.log("OPTIONS");
       offsetX = Math.floor(options.e.offsetX);
       offsetY = Math.floor(options.e.offsetY);
       LoopUtils.triggerAttackRelease(offsetY);

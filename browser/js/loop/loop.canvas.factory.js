@@ -61,8 +61,7 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
   }
 
   LoopCanvas.init = function() {
-    console.log("loop canvas initing")
-        // initialize canvas for an 8 * 8 grid
+    // initialize canvas for an 8 * 8 grid
     canvas = new fabric.Canvas('c', { 
         selection: false,
         defaultCursor: 'pointer',
@@ -71,8 +70,6 @@ app.factory('LoopCanvas', function(LoopUtils, LoopFactory) {
         moveCursor: 'grabbing',
         rotationCursor: 'pointer'
       });
-
-    console.log("canvas: ", canvas);
 
     canvas.setHeight(320);
     canvas.setWidth(320);
