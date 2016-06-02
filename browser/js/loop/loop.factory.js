@@ -17,7 +17,7 @@ app.factory('LoopFactory', function($http, $stateParams, $state, LoopUtils){
 
   LoopUtils.scheduleTone();
 
-  LoopFactory.initialize = function() {
+  LoopFactory.init = function() {
     Tone.Transport.cancel();
   }
 
