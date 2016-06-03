@@ -27,7 +27,7 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 		animation: true,
 		size: "lg",
 		templateUrl: 'js/signup/signup.html',
-		controller: function($scope, $uibModalInstance, UserFactory, AuthService){
+		controller: ['$scope', '$uibModalInstance', 'UserFactory', 'AuthService', function($scope, $uibModalInstance, UserFactory, AuthService){
 
 		    $scope.sendSignup = function(signup){
 		    var newLogin = {username: signup.username, email: signup.email, password: signup.password};
@@ -45,14 +45,14 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 			lmodal = $uibModal.open(login)
 		  }
 
-		}
+		}]
 	}
 
 	var login = {
 		animation: true,
 	    size: "lg",
 	    templateUrl: 'js/login/login.html',
-	    controller: function($scope, $uibModalInstance, AuthService, $state){
+	    controller: ['$scope', '$uibModalInstance', 'AuthService', '$state', function($scope, $uibModalInstance, AuthService, $state){
 
 	    $scope.login = {};
 
@@ -70,6 +70,6 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 
 		}
 
-		}
+		}]
  	}
 })
