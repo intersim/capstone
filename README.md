@@ -4,7 +4,9 @@ Symph is a music creation platform for music enthusiasts of all experience backg
 
 The app is deployed at [getsymph.io](http://www.getsymph.io).
 
-Check out [our demo](https://youtu.be/KlYp3kd5-GY).
+**Demo**:
+
+[![demo video HERE](https://img.youtube.com/vi/KlYp3kd5-GY/0.jpg)](https://www.youtube.com/watch?v=KlYp3kd5-GY)
 
 This app was built by [Emily Intersimone](http://www.github.com/intersim), [Mariya Bogorodova](http://www.github.com/mbogor) and [Alex Polubiec](http://www.github.com/paloobi).
 
