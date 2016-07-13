@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
         controller: 'HomeCtrl',
         templateUrl: 'js/home/home.html'
     });
-})
+});
 
 app.controller('HomeCtrl', function($scope, $uibModal){
 
@@ -13,13 +13,13 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 
   $scope.sopen = function () {
   	if(lmodal) lmodal.close();
-    smodal = $uibModal.open(signup)
-  }
+    smodal = $uibModal.open(signup);
+  };
 
   $scope.lopen = function () {
   	if(smodal) smodal.close();
-    lmodal = $uibModal.open(login)
-  }
+    lmodal = $uibModal.open(login);
+  };
 
 
 
@@ -36,17 +36,17 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 		      return AuthService.login(newLogin);
 		    })
 		    .then(function(){
-		      $uibModalInstance.close()
-		    })
-		  }
+		      $uibModalInstance.close();
+		    });
+		  };
 
-		    $scope.login = function(){
-		  	smodal.close()
-			lmodal = $uibModal.open(login)
-		  }
+	    $scope.login = function(){
+	  	smodal.close();
+			lmodal = $uibModal.open(login);
+		  };
 
 		}]
-	}
+	};
 
 	var login = {
 		animation: true,
@@ -61,15 +61,15 @@ app.controller('HomeCtrl', function($scope, $uibModal){
 	        $scope.error = null;
 
 	        AuthService.login(loginInfo).then(function () {
-	            $state.go('home')
-	            lmodal.close()
+	            $state.go('home');
+	            lmodal.close();
 
 	        }).catch(function () {
 	            $scope.error = 'Invalid login credentials.';
-	        })
+	        });
 
-		}
+		};
 
 		}]
- 	}
-})
+ 	};
+});
