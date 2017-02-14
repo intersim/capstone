@@ -56,7 +56,7 @@ In order to run this app, you must have the following dependencies globally inst
   * npm
   * gulp
 
-To install the rest of the dependencies, and run:
+To install the rest of the dependencies, run:
 
   ```
   npm install
