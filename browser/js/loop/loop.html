@@ -4,16 +4,6 @@
 
   <h3 ng-show="loop.name">{{loop.name}}<small ng-show="!loopBelongsToUser"> by <a href="" ui-sref="profile({userId: loop.creator._id})">{{loop.creator.username}}</a></small></h3>
 
-<!--   <div>
-    <span class="axis-label">C</span><br>
-    <span class="axis-label">B</span><br>
-    <span class="axis-label">A</span><br>
-    <span class="axis-label">G</span><br>
-    <span class="axis-label">F</span><br>
-    <span class="axis-label">E</span><br>
-    <span class="axis-label">D</span><br>
-    <span class="axis-label">C</span><br>
-  </div> -->
   <canvas id="c" width="600" height="600"></canvas>
 
   <div class="loop-controls">
