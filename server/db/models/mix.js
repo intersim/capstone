@@ -76,44 +76,8 @@ MixSchema.statics.findByLoop = function(loopId) {
   })
 }
 
-MixSchema.methods.publish = function() {
-  this.isPublic = true;
-  return this.save();
-}
-
-MixSchema.methods.addTag = function(tag) {
-  this.tags.push(tag);
-  return this.save();
-}
-
-MixSchema.methods.addTags = function(arr) {
-  this.tags = this.tags.concat(arr);
-  return this.save();
-}
-
-MixSchema.methods.removeTag = function(tagToRemove) {
-  this.tags = this.tags.filter(function(tag) {
-    return tag !== tagToRemove;
-  })
-  return this.save();
-}
-
-MixSchema.methods.removeTags = function(tagsToRemove) {
-  this.tags = this.tags.filter(function(tag) {
-    return tagsToRemove.indexOf(tag) === -1;
-  })
-  return this.save();
-}
-
 MixSchema.methods.getUserComments = function() {
   return mongoose.model('Comment').find({target: this._id});
-}
-
-// CHANGE MIX MUSIC FEATURES
-
-MixSchema.methods.changeTempo = function(change) {
-  this.tempo += change;
-  return this.save();
 }
 
 MixSchema.post('save', function(mix, done) {

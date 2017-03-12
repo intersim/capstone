@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Mix = require('./mix')
 var Promise = require('bluebird');
 
+// notes must follow Tone.js naming conventions
 var NoteSchema = new mongoose.Schema({
     duration: {
         type: String,
@@ -60,7 +61,7 @@ var LoopSchema = new mongoose.Schema({
 
 
 LoopSchema.statics.findByCreator = function(userId) {
-    return this.find({creator: creator});
+    return this.find({creator: userId});
 };
 
 LoopSchema.statics.findByCategory = function(category) {
@@ -69,35 +70,6 @@ LoopSchema.statics.findByCategory = function(category) {
 
 LoopSchema.methods.findSimilar = function() {
     return mongoose.model('Loop').findByTags(this.tags);
-}
-
-LoopSchema.methods.publish = function() {
-    this.isPublic = true;
-    return this.save();
-}
-
-LoopSchema.methods.addTag = function(tag) {
-    this.tags.push(tag);
-    return this.save();
-}
-
-LoopSchema.methods.addTags = function(arr) {
-    this.tags = this.tags.concat(arr);
-    return this.save();
-}
-
-LoopSchema.methods.removeTag = function(tagToRemove) {
-    this.tags = this.tags.filter(function(tag) {
-        return tag !== tagToRemove;
-    })
-    return this.save();
-}
-
-LoopSchema.methods.removeTags = function(tagsToRemove) {
-    this.tags = this.filter(function(tag) {
-        return tagsToRemove.indexOf(tag) === -1;
-    })
-    return this.save();
 }
 
 mongoose.model('Loop', LoopSchema);
