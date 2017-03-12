@@ -92,15 +92,5 @@ router.get('/:userId/loops', function(req, res, next){
   .then(null, next)
 })
 
-router.get('/:userId/loopBucket', function(req, res, next){
-  // do we need to re-find the already found user? -AP
-  User.findById(req.foundUser)
-  .populate('bucket')
-  .then(function(populatedUser){
-    res.json(populatedUser.bucket)
-  })
-  .then(null, next)
-})
-
 
 module.exports = router;

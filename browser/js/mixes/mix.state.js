@@ -10,8 +10,11 @@ app.config( function ($stateProvider) {
         return MixFactory.getById($stateParams.mixId, true);
       },
       loopBucket: function (UserFactory, AuthService, LoopFactory) {
+        return AuthService.getLoggedInUser().then(function(user) {
+          return user.bucket;
+        })
           // return AuthService.isAuthenticated() ? UserFactory.getLoopBucket() : LoopFactory.getAll();
-        return UserFactory.getLoopBucket();
+        // return UserFactory.getLoopBucket();
       }
     }
   })
